@@ -58,11 +58,18 @@ void		print_line(t_cmd *cmd)
 
 void		key_handler(t_cmd *cmd, t_hist **history, char ***env)
 {
-	char			buf[6];
+	char			buf[4];
 
 	init_screen(cmd);
-	bzero(buf, 6);
-	read(0, buf, 5);
+	ft_bzero(buf, 4);
+	read(0, buf, 4);
+/*	
+**	if (is_sigint(0))
+**	{
+**		// need reset cmd sans tout faire bugger
+**		ft_bzero(cmd->str, ft_strlen(cmd->str));
+**	}
+*/
 	if (buf[0] == 27)
 		arrow_handler(buf, cmd, history);
 	else if (buf[0] == 127 && cmd->col > cmd->prlen + 1)
@@ -70,6 +77,11 @@ void		key_handler(t_cmd *cmd, t_hist **history, char ***env)
 		cmd->str = ft_strdelone(cmd->str, (cmd->col - 1) - cmd->prlen);
 		print_line(cmd);
 		go_left(cmd);
+	}
+	else if (buf[0] == 4 && !buf[1] && (!cmd->str || !cmd->str[0]))
+	{
+		reset_term();
+		exit(EXIT_SUCCESS);
 	}
 	else if (buf[0] == 10)
 		enter_hub(cmd, history, env);

@@ -57,11 +57,15 @@ int			open_file(t_node *tree)
 		file = ft_strsub(tree->token, i + 3, ft_strlen(tree->token) - (i + 3));
 		fd = open(file, O_RDWR | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR | S_IRGRP |S_IROTH);
 	}
-	else if ((tree->token)[i] == '>' || ((tree->token)[i] == '<' 
-			&& (tree->token)[i + 1] != '<'))
+	else if ((tree->token)[i] == '>')
 	{
 		file = ft_strsub(tree->token, i + 2, ft_strlen(tree->token) - (i + 2));
 		fd = open(file, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP |S_IROTH);
+	}
+	else if ((tree->token)[i] == '<' && (tree->token)[i + 1] != '<')
+	{
+		file = ft_strsub(tree->token, i + 2, ft_strlen(tree->token) - (i + 2));
+		fd = open(file, O_RDWR , S_IRUSR | S_IWUSR | S_IRGRP |S_IROTH);
 	}
 	ft_strdel(&file);
 	return (fd);

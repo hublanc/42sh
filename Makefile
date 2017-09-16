@@ -42,6 +42,7 @@ SRC		=	main.c\
 			redirection/heredoc.c\
 			redirection/aggre.c\
 			tools/error.c\
+			tools/signals.c\
 			tools/tools.c\
 			tools/tools_keys.c\
 			tools/tools_quote.c\

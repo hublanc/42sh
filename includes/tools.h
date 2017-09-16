@@ -20,7 +20,12 @@ void		print_error(int err, char *cmd);
 void		print_usage(char c);
 int			check_access(char *path, char **env);
 int			pwdnotset(char ***env);
+
+/*
+** signals.c
+*/
 void		get_signal(int n);
+int			is_sigint(int sigint);
 
 /*
 **	Tools.c

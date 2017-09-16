@@ -67,20 +67,3 @@ int			pwdnotset(char ***env)
 	pos = in_env("PWD", *env);
 	return (pos);
 }
-
-void		get_signal(int n)
-{
-	if (g_is_child)
-		return ;
-	if (n == SIGINT)
-	{
-		ft_putchar('\n');
-		print_prompt();
-	}
-	else if (n == SIGSEGV)
-		ft_putstr_fd(" Segmentation fault: 11\n", 2);
-	else if (n == SIGABRT)
-		ft_putstr_fd(" Abort trap: 6\n", 2);
-	else if (n == SIGBUS)
-		ft_putstr_fd(" Bus error: 10\n", 2);
-}
