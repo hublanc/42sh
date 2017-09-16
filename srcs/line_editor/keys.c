@@ -78,6 +78,11 @@ void		key_handler(t_cmd *cmd, t_hist **history, char ***env)
 		print_line(cmd);
 		go_left(cmd);
 	}
+	else if (buf[0] == 12 && !buf[1])
+	{
+		tputs(tgetstr("cl", NULL), 1, tputchar);
+		print_line(cmd);
+	}
 	else if (buf[0] == 4 && !buf[1] && (!cmd->str || !cmd->str[0]))
 	{
 		reset_term();

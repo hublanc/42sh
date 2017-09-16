@@ -20,7 +20,8 @@ t_hist			*load_history()
 
 	history = NULL;
 	str = NULL;
-	fd = open(".history", O_RDWR | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+	fd = open("/tmp/.shell_history",
+			O_RDWR | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	while (get_next_line(fd, &str))
 	{
 		if (str)
@@ -38,7 +39,8 @@ void			save_history(t_hist **history, char *str)
 	int		fd;
 	t_hist	*tmp;
 
-	fd = open(".history", O_RDWR | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+	fd = open("/tmp/.shell_history",
+			O_RDWR | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	ft_putendl_fd(str, fd);
 	add_begin(history, new_history(str));
 	tmp = *history;

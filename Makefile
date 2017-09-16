@@ -88,7 +88,7 @@ clean:
 	@make -C $(LIBSRC) clean
 
 fclean: clean
-	@echo "${RED}Cleaning ${NC}./${RED}ft_ls${NC}"
+	@echo "${RED}Cleaning ${NC}./${RED}$(NAME)${NC}"
 	@rm -Rf $(NAME)
 	@echo "${RED}Cleaning ${NC}./libft/${RED}libft.h${NC}\n"
 	@make -C $(LIBSRC) fclean
