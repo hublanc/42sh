@@ -1,5 +1,13 @@
 #include "shell.h"
 
+void	reset_cmdsiginted(t_cmd *cmd)
+{
+	clear_cmd(cmd);
+	*cmd = init_cmd(return_prompt());
+	init_screen(cmd);
+	cmd->end_bs = 1;
+}
+
 int			is_sigint(int sigint)
 {
 	static int	s_sigint;

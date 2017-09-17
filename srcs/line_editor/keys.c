@@ -33,7 +33,7 @@ void		print_line(t_cmd *cmd)
 	int		len;
 
 	len = cmd->prlen + (int)ft_strlen(cmd->str);
-	len += len % cmd->sc_col == 0 ? 0 : 1; 
+	len += len % cmd->sc_col == 0 ? 0 : 1;
 	go_begin(cmd->col, cmd->sc_col);
 	tputs(tgetstr("cd", NULL), 1, tputchar);
 	choose_prompt(cmd);
@@ -56,6 +56,29 @@ void		print_line(t_cmd *cmd)
 	}
 }
 
+void		add_line(t_cmd *cmd, char *buf)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	while (++i < 4 && (ft_isprint(buf[i]) || buf[i] == 9))
+	{
+		j = 2;
+		if (buf[i] == 9)
+			j = -1;
+		if (buf[i] == 9)
+			buf[i] = ' ';
+		while (++j < 4)
+		{
+			cmd->str = ft_strappone(cmd->str, buf[i],
+					(cmd->col - 1) - cmd->prlen);
+			print_line(cmd);
+			go_right(cmd);
+		}
+	}
+}
+
 void		key_handler(t_cmd *cmd, t_hist **history, char ***env)
 {
 	char			buf[4];
@@ -63,13 +86,8 @@ void		key_handler(t_cmd *cmd, t_hist **history, char ***env)
 	init_screen(cmd);
 	ft_bzero(buf, 4);
 	read(0, buf, 4);
-/*	
-**	if (is_sigint(0))
-**	{
-**		// need reset cmd sans tout faire bugger
-**		ft_bzero(cmd->str, ft_strlen(cmd->str));
-**	}
-*/
+	if (is_sigint(0) && !cmd->str_quote)
+		reset_cmdsiginted(cmd);
 	if (buf[0] == 27)
 		arrow_handler(buf, cmd, history);
 	else if (buf[0] == 127 && cmd->col > cmd->prlen + 1)
@@ -92,10 +110,6 @@ void		key_handler(t_cmd *cmd, t_hist **history, char ***env)
 		enter_hub(cmd, history, env);
 	else if (buf[0] == -30 || buf[0] == -61)
 		copy_cut_paste_handler(cmd, buf);
-	else if (ft_isprint(buf[0]))
-	{
-		cmd->str = ft_strappone(cmd->str, buf[0], (cmd->col - 1) - cmd->prlen);
-		print_line(cmd);
-		go_right(cmd);
-	}
+	else
+		add_line(cmd, buf);
 }

@@ -24,8 +24,9 @@ int			pwdnotset(char ***env);
 /*
 ** signals.c
 */
-void		get_signal(int n);
+void		reset_cmdsiginted(t_cmd *cmd);
 int			is_sigint(int sigint);
+void		get_signal(int n);
 
 /*
 **	Tools.c
