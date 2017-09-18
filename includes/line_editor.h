@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 16:36:09 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/14 14:13:51 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/09/18 13:56:45 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct		s_cmd
 	int				col;
 	int				sc_col;
 	int				sc_row;
+	int				stop;
 }					t_cmd;
 
 typedef struct		s_hist

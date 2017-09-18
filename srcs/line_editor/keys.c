@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 11:41:39 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/14 13:22:06 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/09/18 14:08:03 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,15 +79,46 @@ void		add_line(t_cmd *cmd, char *buf)
 	}
 }
 
+static char *save_buf(char *buf)
+{
+	static char *s_buf = NULL;
+
+	if (buf)
+		s_buf = ft_strdup(buf);
+	return (s_buf);
+}
+
 void		key_handler(t_cmd *cmd, t_hist **history, char ***env)
 {
-	char			buf[4];
+	char			*buf;
 
 	init_screen(cmd);
-	ft_bzero(buf, 4);
-	read(0, buf, 4);
-	if (is_sigint(0) && !cmd->str_quote)
+	if (is_sigint(0))
+	{
+		if (ft_strcmp(cmd->prompt, return_prompt()))
+		{
+			reset_cmdsiginted(cmd);
+			return ;
+		}
+		else
+		{
+			reset_cmdsiginted(cmd);
+			cmd->stop = 0;
+			is_sigint(0);
+		}
+		buf = save_buf(NULL);
+	}
+	else
+	{
+		buf = (char *)ft_memalloc(5);
+		read(0, buf, 4);
+	}
+	if (is_sigint(0))
+	{
 		reset_cmdsiginted(cmd);
+		save_buf(buf);
+		return ;
+	}
 	if (buf[0] == 27)
 		arrow_handler(buf, cmd, history);
 	else if (buf[0] == 127 && cmd->col > cmd->prlen + 1)
@@ -112,4 +143,5 @@ void		key_handler(t_cmd *cmd, t_hist **history, char ***env)
 		copy_cut_paste_handler(cmd, buf);
 	else
 		add_line(cmd, buf);
+	free(buf);
 }

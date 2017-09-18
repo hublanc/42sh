@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/07 16:07:25 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/14 13:20:53 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/09/18 13:57:08 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ t_cmd		init_cmd(char *prompt)
 	new.col = new.prlen + 1;
 	new.sc_col = 0;
 	new.sc_row = 0;
+	new.stop = 0;
 	return (new);
 }
 
