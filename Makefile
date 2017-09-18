@@ -29,6 +29,7 @@ SRC		=	main.c\
 			line_editor/load_history.c\
 			line_editor/enter_handler.c\
 			line_editor/cut_copy_paste.c\
+			line_editor/history_search.c\
 			exec/exec.c\
 			exec/ft_cmdsplit.c\
 			exec/routine.c\
