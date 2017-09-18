@@ -98,6 +98,8 @@ void		get_cmd(t_node *tree, char ***env, int *status, t_hist **his)
 		ft_env(*env, tab);
 	else if (ft_strcmp(tab[0], "cd") == 0)
 		ft_cd(tab, env);
+	else if (ft_strcmp(tab[0], "history") == 0)
+		ft_history(tab, env, his);
 	else
 	{
 		g_is_child = 1;

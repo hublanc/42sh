@@ -13,6 +13,21 @@
 #ifndef TOOLS_H
 # define TOOLS_H
 
+typedef struct			s_control
+{
+	int					length;
+	struct s_lst		*begin;
+	struct s_lst		*end;
+}						t_control;
+
+typedef struct			s_lst
+{
+	char				*name;
+	int					type;
+	struct s_lst		*next;
+	struct s_lst		*prev;
+}						t_lst;
+
 /*
 **	Error.c
 */
@@ -71,5 +86,13 @@ int			check_number(t_token **list, char *cmd);
 int			*add_fd(int *fds, t_node *tree);
 int			*add_io(int *fds, t_node *tree, int io);
 char		**add_w(char **tab, t_node *tree, int cut);
+
+/*
+**	Tools history
+*/
+
+int			dll_is_empty(t_control *control);
+t_control	*dll_add_new_elem_frnt(t_control *control, char *value);
+t_control	*dll_clear_list(t_control *control);
 
 #endif
