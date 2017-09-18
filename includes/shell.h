@@ -35,6 +35,18 @@
 # define CYN	"\x1B[36m"
 # define RESET	"\x1B[0m"
 
+typedef struct		s_hist_flags
+{
+	int				c;
+	int				d;
+	int				a;
+	int				n;
+	int				r;
+	int				w;
+	int				p;
+	int				s;
+}					t_hist_flags;
+
 /*
 **	g_is_child help to know if a child processus is in or not
 */
@@ -51,6 +63,7 @@ void		ft_setenv(char **tab, char ***env);
 void		ft_unsetenv(char **tab, char ***env);
 void		ft_env(char **env, char **tab);
 void		ft_cd(char **tab, char ***env);
+void		ft_history(char **tab, char ***env, t_hist **history);
 
 char		**delonenv(char *name, char **env);
 char		**prep_setenv(char *name, char *value);
@@ -62,5 +75,15 @@ void		set_terminal(void);
 void		reset_term(void);
 void		reset_disp(void);
 int			tputchar(int c);
+
+/*
+**	History_builtin
+*/
+
+void		init_cd_flags(t_hist_flags *flags);
+void		get_cd_flags(t_hist_flags *flags, char **tab);
+void		set_usage(char c);
+void		print_history(t_hist **history);
+
 
 #endif

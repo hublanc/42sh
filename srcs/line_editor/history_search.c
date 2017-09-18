@@ -80,3 +80,47 @@ void			print_hist_research(t_cmd *cmd, t_cmd *search)
 	ft_putchar(' ');
 	tputs(tgetstr("ue", NULL), 1, tputchar);
 }
+
+char			*new_strstr(const char *big, const char *little)
+{
+	size_t  i;
+	size_t  j;
+	size_t	k;
+
+	i = 0;
+	j = 0;
+	if (!(*little))
+		return ((char *)big);
+	while (big[i] != '\0')
+	{
+		while (big[i + j] == little[j])
+		{
+			j++;
+			if (j == ft_strlen(little))
+			{
+				k = 0;
+				while (big[k] && k < i)
+				{
+					ft_putchar(big[k]);
+					k++;
+				}
+				tputs(tgetstr("us", NULL), 1, tputchar);
+				while (big[k] && k < ft_strlen(little))
+				{
+					ft_putchar(big[k]);
+					k++;
+				}
+				tputs(tgetstr("ue", NULL), 1, tputchar);
+				while (big[k])
+				{
+					ft_putchar(big[k]);
+					k++;
+				}
+				return ((char *)&big[i]);
+			}
+		}
+		i++;
+		j = 0;
+	}
+	return (NULL);
+}

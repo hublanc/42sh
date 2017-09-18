@@ -50,11 +50,13 @@ SRC		=	main.c\
 			tools/tools_lexer.c\
 			tools/tools_redir.c\
 			tools/tools_history.c\
+			tools/tools_dll.c\
 			built-in/echo.c\
 			built-in/env.c\
 			built-in/ft_cd.c\
 			built-in/set_env.c\
-			built-in/unsetenv.c
+			built-in/unsetenv.c\
+			built-in/history.c
 # colors
 GRN     =   \033[0;32m
 RED     =   \033[0;31m
