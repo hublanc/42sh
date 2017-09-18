@@ -102,5 +102,6 @@ void		enter_hub(t_cmd *cmd, t_hist **history, char ***env);
 void		history_search(t_hist **history, t_cmd *cmd, char ***env);
 void		history_search_core(t_cmd *cmd, t_cmd *search, t_hist **history, char ***env);
 void		print_hist_research(t_cmd *cmd, t_cmd *search);
+char		*new_strstr(const char *big, const char *little);
 
 #endif
