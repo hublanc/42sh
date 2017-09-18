@@ -82,8 +82,13 @@ int			tputchar(int c);
 
 void		init_cd_flags(t_hist_flags *flags);
 void		get_cd_flags(t_hist_flags *flags, char **tab);
-void		set_usage(char c);
+void		set_usage(char c, int type);
 void		print_history(t_hist **history);
-
+int			get_num(int size);
+void		delete_elem_hist(int index, t_hist **history);
+int			str_isdigit(char *str);
+int			get_hist_size(t_hist **history);
+t_hist		**clear_history(t_hist **history);
+void		print_pflag(char **tab);
 
 #endif

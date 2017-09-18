@@ -17,8 +17,7 @@ void		enter_handler(t_cmd *cmd, t_hist **history, char ***env)
 	char	c;
 
 	ft_putchar('\n');
-	if (!cmd->str)
-		return (choose_prompt(cmd));
+	if (!cmd->str)		return (choose_prompt(cmd));
 	c = check_quote(cmd->str);
 	if (c == '\'' || c == '"')
 		prompt_quote(cmd, history, c, 0);
