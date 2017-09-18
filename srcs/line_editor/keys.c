@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 11:41:39 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/18 14:08:03 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/09/18 16:53:16 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,12 @@ void		add_line(t_cmd *cmd, char *buf)
 {
 	int	i;
 	int	j;
+	int	k;
 
+	signal(SIGINT, &signal_do_nothing);
 	i = -1;
-	while (++i < 4 && (ft_isprint(buf[i]) || buf[i] == 9))
+	k = 0;
+	while (buf && ++i < 999 && buf[i] && (ft_isprint(buf[i]) || buf[i] == 9))
 	{
 		j = 2;
 		if (buf[i] == 9)
@@ -72,11 +75,14 @@ void		add_line(t_cmd *cmd, char *buf)
 		while (++j < 4)
 		{
 			cmd->str = ft_strappone(cmd->str, buf[i],
-					(cmd->col - 1) - cmd->prlen);
-			print_line(cmd);
-			go_right(cmd);
+					(cmd->col + k - 1) - cmd->prlen);
+			k++;
 		}
 	}
+	print_line(cmd);
+	while (k--)
+		go_right(cmd);
+	signal(SIGINT, &get_signal);
 }
 
 static char *save_buf(char *buf)
@@ -93,11 +99,12 @@ void		key_handler(t_cmd *cmd, t_hist **history, char ***env)
 	char			*buf;
 
 	init_screen(cmd);
-	if (is_sigint(0))
+	if (can_sigint(0) && is_sigint(0))
 	{
 		if (ft_strcmp(cmd->prompt, return_prompt()))
 		{
 			reset_cmdsiginted(cmd);
+			can_sigint(1);
 			return ;
 		}
 		else
@@ -110,13 +117,14 @@ void		key_handler(t_cmd *cmd, t_hist **history, char ***env)
 	}
 	else
 	{
-		buf = (char *)ft_memalloc(5);
-		read(0, buf, 4);
+		buf = (char *)ft_memalloc(1000);
+		read(0, buf, 999);
 	}
 	if (is_sigint(0))
 	{
 		reset_cmdsiginted(cmd);
 		save_buf(buf);
+		can_sigint(1);
 		return ;
 	}
 	if (buf[0] == 27)
@@ -143,5 +151,6 @@ void		key_handler(t_cmd *cmd, t_hist **history, char ***env)
 		copy_cut_paste_handler(cmd, buf);
 	else
 		add_line(cmd, buf);
-	free(buf);
+	if (buf)
+		free(buf);
 }
