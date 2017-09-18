@@ -21,6 +21,113 @@ void		ft_history(char **tab, char ***env, t_hist **history)
 	get_cd_flags(&flags, tab);
 	if (!tab[1])
 		print_history(history);
+	else if (flags.s == 1 && history)
+	{
+		if (tab[2])
+			save_history(history, tab[2]);
+	}
+	else if (flags.d == 1)
+	{
+		if (tab[2] && str_isdigit(tab[2]) && history)
+			delete_elem_hist(ft_atoi(tab[2]), history);
+		else
+			set_usage('d', 1);
+	}
+	else if (flags.c == 1)
+		history = clear_history(history);
+	else if (flags.p == 1 && tab[2])
+		print_pflag(tab);
+}
+
+void		print_pflag(char **tab)
+{
+	int		a;
+
+	a = 2;
+	while (tab[a])
+	{
+		ft_putendl(tab[a]);
+		a++;
+	}
+}
+
+t_hist		**clear_history(t_hist **history)
+{
+	t_hist		*tmp;
+	t_hist		*tmp2;
+
+	tmp = *history;
+	while (tmp != NULL)
+	{
+		tmp2 = tmp;
+		tmp = tmp->next;
+		free(tmp->cmd);
+		tmp->cmd = NULL;
+		free(tmp);
+		tmp = NULL;
+	}
+//	free(history);
+	history = NULL;
+	return (history);
+}
+
+int			get_hist_size(t_hist **history)
+{
+	int		size;
+	t_hist	*tmp;
+
+	size = 0;
+	tmp = *history;
+	while (tmp != NULL)
+	{
+		size++;
+		tmp = tmp->next;
+	}
+	return (size);
+}
+
+int			str_isdigit(char *str)
+{
+	int		i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (!ft_isdigit(str[i]))
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+void		delete_elem_hist(int index, t_hist **history)
+{
+	int		a;
+	int		size;
+	t_hist	*tmp;
+	t_hist	*prev;
+
+	a = 0;
+	size = get_hist_size(history);
+	tmp = *history;
+	ft_putstr("tmp value = ");
+	ft_putendl(tmp->cmd);
+	while (tmp != NULL && a < size - index)
+	{
+		prev = tmp;
+		tmp = tmp->next;
+		a++;
+	}
+	prev->next = tmp->next;
+	ft_putstr("Deleting ");
+	ft_putendl(tmp->cmd);
+	ft_putstr(" index = ");
+	ft_putnbr(a);
+	ft_putchar('\n');
+	free(tmp->cmd);
+	tmp->cmd = NULL;
+	free(tmp);
+	tmp = NULL;
 }
 
 void		print_history(t_hist **history)
@@ -28,6 +135,9 @@ void		print_history(t_hist **history)
 	t_control	*rev_hist;
 	t_hist		*tmp;
 	t_lst		*tmp2;
+	int			u;
+	int			i;
+	int			sp;
 
 	rev_hist = NULL;
 	tmp = *history;
@@ -37,8 +147,37 @@ void		print_history(t_hist **history)
 		tmp = tmp->next;
 	}
 	tmp2 = rev_hist->begin;
-
+	u = get_num(rev_hist->length);
+	i = 1;
+	while (tmp2 != NULL)
+	{
+		ft_putstr("   ");
+		sp = get_num(i);
+		while (sp < u)
+		{
+			ft_putchar(' ');
+			sp++;
+		}
+		ft_putnbr(i);
+		ft_putstr("  ");
+		ft_putendl(tmp2->name);
+		i++;
+		tmp2 = tmp2->next;
+	}
 	rev_hist = dll_clear_list(rev_hist);
+}
+
+int			get_num(int size)
+{
+	int		num;
+
+	num = 1;
+	while (size >= 10)
+	{
+		size /= 10;
+		num++;
+	}
+	return (num);
 }
 
 void		get_cd_flags(t_hist_flags *flags, char **tab)
@@ -72,7 +211,7 @@ void		get_cd_flags(t_hist_flags *flags, char **tab)
 				else if (tab[i][j] && tab[i][j] == 's')
 					flags->s = 1;
 				else if (tab[i][j])
-					set_usage(tab[i][j]);
+					set_usage(tab[i][j], 0);
 				j++;
 			}
 		}
@@ -80,11 +219,14 @@ void		get_cd_flags(t_hist_flags *flags, char **tab)
 	}
 }
 
-void		set_usage(char c)
+void		set_usage(char c, int type)
 {
 	ft_putstr("shell: history: -");
 	ft_putchar(c);
-	ft_putstr(" invalid option\n");
+	if (type == 0)
+		ft_putstr(": invalid option\n");
+	else if (type == 1)
+		ft_putstr(": option requires an argument\n");
 	ft_putstr("history: usage: history [-c] [-d offset] [n] or history");
 	ft_putendl(" -awrn [filename] or history -ps arg [arg...]");
 }
