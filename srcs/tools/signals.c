@@ -9,9 +9,9 @@ void	reset_cmdsiginted(t_cmd *cmd)
 	is_sigint(1);
 }
 
-int			is_sigint(int sigint)
+int			can_sigint(int sigint)
 {
-	static int	s_sigint;
+	static int	s_sigint = 0;
 	int			i;
 
 	if (sigint > 0)
@@ -23,6 +23,27 @@ int			is_sigint(int sigint)
 		return (i);
 	}
 	return (s_sigint);
+}
+
+int			is_sigint(int sigint)
+{
+	static int	s_sigint = 0;
+	int			i;
+
+	if (sigint > 0)
+		s_sigint = sigint;
+	else
+	{
+		i = s_sigint;
+		s_sigint = sigint;
+		return (i);
+	}
+	return (s_sigint);
+}
+
+void		signal_do_nothing(int n)
+{
+	n = 0;
 }
 
 void		get_signal(int n)

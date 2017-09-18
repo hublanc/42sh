@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 18:24:56 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/13 19:39:52 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/09/18 16:42:58 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@ int			pwdnotset(char ***env);
 */
 void		reset_cmdsiginted(t_cmd *cmd);
 int			is_sigint(int sigint);
+int			can_sigint(int sigint);
 void		get_signal(int n);
+void		signal_do_nothing(int n);
 
 /*
 **	Tools.c
