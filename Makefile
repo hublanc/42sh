@@ -6,7 +6,7 @@
 #    By: hublanc <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/07/24 15:04:09 by hublanc           #+#    #+#              #
-#    Updated: 2017/09/13 20:14:48 by hublanc          ###   ########.fr        #
+#    Updated: 2017/09/19 12:19:17 by amazurie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,10 @@ SRC		=	main.c\
 			built-in/env.c\
 			built-in/ft_cd.c\
 			built-in/set_env.c\
-			built-in/unsetenv.c
+			built-in/unsetenv.c\
+			completion/completion.c\
+			completion/list_args.c\
+			completion/get_binaries.c
 # colors
 GRN     =   \033[0;32m
 RED     =   \033[0;31m

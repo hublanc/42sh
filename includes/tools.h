@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 18:24:56 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/18 16:42:58 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/09/19 13:48:27 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 */
 void		print_error(int err, char *cmd);
 void		print_usage(char c);
-int			check_access(char *path, char **env);
+int			check_access(char *path);
 int			pwdnotset(char ***env);
 
 /*
