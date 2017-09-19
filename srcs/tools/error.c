@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/01 11:03:53 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/13 19:44:44 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/09/19 13:48:09 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,10 @@ void		print_usage(char c)
 	ft_putstr_fd(" [utility[argument ...]]\n", 2);
 }
 
-int			check_access(char *path, char **env)
+int			check_access(char *path)
 {
 	int		res;
 
-	(void)env;
 	res = 1;
 	if (access(path, F_OK) == -1)
 		res = -1;
