@@ -6,7 +6,7 @@
 #    By: hublanc <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/07/24 15:04:09 by hublanc           #+#    #+#              #
-#    Updated: 2017/09/19 12:19:17 by amazurie         ###   ########.fr        #
+#    Updated: 2017/09/19 15:25:37 by amazurie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,7 +57,8 @@ SRC		=	main.c\
 			built-in/unsetenv.c\
 			completion/completion.c\
 			completion/list_args.c\
-			completion/get_binaries.c
+			completion/get_binaries.c\
+			completion/print_args.c
 # colors
 GRN     =   \033[0;32m
 RED     =   \033[0;31m

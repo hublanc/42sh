@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 16:36:09 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/18 13:56:45 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/09/19 14:59:20 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct		s_hist
 void		key_handler(t_cmd *cmd, t_hist **history, char ***env);
 void		print_line(t_cmd *cmd);
 void		choose_prompt(t_cmd *cmd);
+void		add_line(t_cmd *cmd, char *buf);
 
 /*
 **	Arrow.c
