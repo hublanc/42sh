@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/30 06:05:18 by mameyer           #+#    #+#             */
-/*   Updated: 2017/08/30 07:16:24 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/09/19 17:44:50 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 # define LIBDLL_H
 
-# include "../libft/libft.h"
+# include "libft.h"
 
 # define UNSET 0
 # define COMMAND 1
@@ -32,7 +32,8 @@ typedef struct			s_control
 typedef struct			s_lst
 {
 	char				*name;
-	int					type;
+	int					selected;
+	int					current;
 	struct s_lst		*next;
 	struct s_lst		*prev;
 }						t_lst;
