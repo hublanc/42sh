@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 10:48:34 by amazurie          #+#    #+#             */
-/*   Updated: 2017/09/19 12:54:14 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/09/19 16:38:46 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,17 @@ static char	*get_path(char ***env)
 	return (NULL);
 }
 
-void		list_compl(t_compl *compl, char *arg, char ***env)
+void		list_compl(t_compl *compl, char ***env)
 {
 	char	*path;
 	char	**paths;
 
 	paths = NULL;
-	compl->next = NULL;
+	compl->args.next = NULL;
+	compl->maxlen = 0;
+	compl->nbrargs = 0;
 	if ((path = get_path(env)))
 		paths = ft_strsplit(path + 5, ':');
 	if (paths && paths[0])
-		get_args(compl, paths, arg);
+		get_args(compl, paths);
 }

@@ -6,47 +6,64 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 12:18:48 by amazurie          #+#    #+#             */
-/*   Updated: 2017/09/19 12:57:38 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/09/19 16:38:23 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-static void	get_files(t_compl *compl, DIR *dirp, char *arg)
+static int	get_files(t_compl *compl, DIR *dirp, t_coargs **args, int idcount)
 {
 	struct dirent	*dirc;
+	t_coargs		*tmp;
 
 	if (!(dirc = readdir(dirp)))
-		return ;
-	if (arg && ft_strncmp(dirc->d_name, arg, ft_strlen(arg)))
+		return (0);
+	tmp = *args;
+	if (compl->arg && ft_strncmp(dirc->d_name, compl->arg, ft_strlen(compl->arg)))
 	{
-		get_files(compl, dirp, arg);
-		return ;
+		if (get_files(compl, dirp, args, ++idcount) == 0)
+		{
+			free(tmp->next);
+			tmp->next = NULL;
+		}
+		return (1);
 	}
-	compl->arg = ft_strdup(dirc->d_name);
-	if (!(compl->next = (t_compl *)ft_memalloc(sizeof(t_compl))))
+	(*args)->id = idcount;
+	(*args)->arg = ft_strdup(dirc->d_name);
+	compl->nbrargs++;
+	if (ft_strlen((*args)->arg) + 1 > compl->maxlen)
+		compl->maxlen = ft_strlen((*args)->arg) + 1;
+	if (!((*args)->next = (t_coargs *)ft_memalloc(sizeof(t_coargs))))
 	{
-		compl->next = NULL;
-		return ;
+		(*args)->next = NULL;
+		return (-1);
 	}
-	compl = compl->next;
-	get_files(compl, dirp, arg);
+	(*args) = (*args)->next;
+	if (get_files(compl, dirp, args, ++idcount) == 0)
+	{
+		free(tmp->next);
+		tmp->next = NULL;
+	}
+	return (1);
 }
 
-void	get_args(t_compl *compl, char **paths, char *arg)
+void	get_args(t_compl *compl, char **paths)
 {
-	t_compl *compltmp;
+	t_coargs *complarg;
 	DIR		*dirp;
 	int		i;
 
-	if (compl || paths || arg)
+	if (compl || paths)
 		;
-	compltmp = compl;
+	complarg = &compl->args;
 	i = -1;
 	while (paths[++i])
 	{
-//		if (check_access())
-		if ((dirp = opendir(paths[i])))
-			get_files(compltmp, dirp, arg);
+		if (check_access(paths[i]) && (dirp = opendir(paths[i])))
+		{
+			get_files(compl, dirp, &complarg, 0);
+			closedir(dirp);
+		}
 	}
 }
