@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 09:50:30 by amazurie          #+#    #+#             */
-/*   Updated: 2017/09/20 11:37:07 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/09/20 13:10:21 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ typedef struct		s_compl
 /*
 ** completion.c
 */
-int					completion(t_cmd *cmd,char ***env);
+int					completion(t_cmd *cmd,char ***env, char **buf);
 
 /*
 ** list_args.c
@@ -52,5 +52,10 @@ void				get_args(t_compl *compl, char **paths);
 ** print_args.c
 */
 void		display_args(t_compl *compl, t_cmd *cmd);
+
+/*
+** compl_keys.c
+*/
+int			compl_keys(t_compl *compl, t_cmd *com, char **buf);
 
 #endif

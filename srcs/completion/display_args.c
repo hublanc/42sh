@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 15:35:33 by amazurie          #+#    #+#             */
-/*   Updated: 2017/09/20 12:13:33 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/09/20 13:33:00 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	maxrow_line(int lenline, int w)
 	return (i);
 }
 
-void		print_args(t_compl *compl, struct winsize w, int maxrowline)
+static void	print_args(t_compl *compl, struct winsize w, int maxrowline)
 {
 	t_coargs	*args;
 	int			nbrperline;
@@ -55,17 +55,21 @@ void		print_args(t_compl *compl, struct winsize w, int maxrowline)
 	maxprintable = nbrperline * nbr_percol(compl->nbrargs, nbrperline,
 			w.ws_row, maxrowline);
 	args = &compl->args;
-	while (args)
+	while (args && args->arg)
 	{
 		if (nbrperline == 0)
 		{
 			ft_putchar('\n');
 			nbrperline = nbr_perline(compl->maxlen, w.ws_col);
 		}
+		if (compl->curr == args->id)
+			tputs(tgetstr("mr", NULL), 1, tputchar);
 		ft_putstr(args->arg);
 		i = compl->maxlen - ft_strlen(args->arg);
-		while (i--)
+		while (--i)
 			ft_putchar(' ');
+		tputs(tgetstr("me", NULL), 1, tputchar);
+		ft_putchar(' ');
 		args = args->next;
 		nbrperline--;
 		maxprintable--;
@@ -88,8 +92,6 @@ void		display_args(t_compl *compl, t_cmd *cmd)
 	i = maxrow_line(ft_strlen(cmd->str) + ft_strlen(cmd->prompt)
 			+ compl->maxlen, w.ws_col);
 	print_args(compl, w, i);
-	// temporaire, a venir : revenir a la position sur la ligne en cours
-	// d'edition selon la position apres l'affichage des arguments
 	i = i + nbr_percol(compl->nbrargs,
 			nbr_perline(compl->maxlen, w.ws_col), w.ws_row, i) - 1;
 	while (i--)
