@@ -25,7 +25,10 @@ void		enter_handler(t_cmd *cmd, t_control **history, char ***env)
 	else if (c == '\\')
 		prompt_backslash(cmd, history, 0);
 	if (cmd->str)
-		save_history(history, cmd->str);
+		(*history) = dll_add_new_elem_frnt(*history, cmd->str);
+	/*
+	**	The line above stock the command in the dll history, but does NOT stock it in .history
+g	*/
 	routine(cmd->str, env, history);
 	clear_cmd(cmd);
 	*cmd = init_cmd(return_prompt());
