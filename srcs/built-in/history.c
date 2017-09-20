@@ -118,9 +118,15 @@ void		delete_elem_hist(int index, t_control **history)
 		tmp->next->prev = tmp->prev;
 	}
 	else if (tmp && !tmp->prev && tmp->next)
+	{
+		(*history)->begin = tmp->next;
 		tmp->next->prev = NULL;
+	}
 	else if (tmp && !tmp->next && tmp->prev)
+	{
+		(*history)->end = tmp->prev;
 		tmp->prev->next = NULL;
+	}
 	if (tmp && tmp->name)
 		free(tmp->name);
 	if (tmp)
