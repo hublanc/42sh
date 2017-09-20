@@ -23,20 +23,23 @@ t_control		*load_history()
 	fd = open(".history", O_RDWR | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	if (fd == -1)
 		return (NULL);
+	ft_putchar('a');
 	while (get_next_line(fd, &str))
 	{
+		ft_putchar('b');
 		if (str)
+		{
+			ft_putchar('c');
 			history = dll_add_new_elem_frnt(history, str);
+			ft_putchar('d');
+		}
+		ft_putchar('e');
 		ft_strdel(&str);
 	}
 	if (str)
 		ft_strdel(&str);
 	close(fd);
-	ft_putstr("History->length = ");
-	ft_putnbr(history->length);
 	history->original_length = history->length;
-	ft_putstr("History->original_length = ");
-	ft_putnbr(history->original_length);
 	return (history);
 }
 
