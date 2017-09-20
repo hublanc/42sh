@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/20 13:00:36 by amazurie          #+#    #+#             */
-/*   Updated: 2017/09/20 13:51:59 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/09/20 14:40:46 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int		compl_keys(t_compl *compl, t_cmd *cmd, char **buf)
 		return (-1);
 	else if ((*buf)[0] == 9 && !(*buf)[1])
 	{
-		compl->curr = (compl->curr < compl->nbrargs) ? compl->curr + 1 : 0;
+		compl->curr = (compl->curr < compl->nbrargs - 1) ? compl->curr + 1 : 0;
 		display_args(compl, cmd);
 	}
 	else if ((*buf)[0] == 10 && !(*buf)[1])

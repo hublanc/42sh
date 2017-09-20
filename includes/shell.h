@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 11:50:54 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/19 09:51:22 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/09/20 14:31:43 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@
 
 # include "exec.h"
 # include "lexer.h"
-# include "line_editor.h"
 # include "redirection.h"
+# include "line_editor.h"
 # include "tools.h"
 # include "completion.h"
 
