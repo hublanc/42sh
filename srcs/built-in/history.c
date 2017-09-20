@@ -26,6 +26,8 @@ void		ft_history(char **tab, char ***env, t_control **history)
 		if (tab[2])
 			save_history(history, tab[2]);
 	}
+	else if (flags.a == 1 && (*history))
+		save_history_in_file(history);
 	else if (flags.d == 1)
 	{
 		if (tab[2] && str_isdigit(tab[2]) && (*history))

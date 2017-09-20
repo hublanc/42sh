@@ -33,6 +33,50 @@ t_control		*load_history()
 	return (history);
 }
 
+int				get_history_file_size(void)
+{
+	int		fd;
+	char	*str;
+	int		size;
+
+	size = 0;
+	fd = open(".history", O_RDWR);
+	while (get_next_line(fd, &str))
+	{
+		size++;
+		ft_strdel(&str);
+	}
+	close(fd);
+	return (size);
+}
+
+void			save_history_in_file(t_control **history)
+{
+	int		file_size;
+	t_lst	*tmp;
+	int		fd;
+
+	file_size = get_history_file_size();
+	ft_putstr("file size == ");
+	ft_putnbr(file_size);
+	ft_putchar('\n');
+	if ((*history)->length == file_size)
+		return;
+	tmp = (*history)->end;
+	while (file_size >= 0 && tmp != NULL)
+	{
+		file_size--;
+		tmp = tmp->prev;
+	}
+	fd = open(".history", O_RDWR | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+	while (tmp != NULL)
+	{
+		ft_putendl_fd(tmp->name, fd);
+	tmp = tmp->next;
+	}
+	close(fd);
+}
+
 void			save_history(t_control **history, char *str)
 {
 	int		fd;
@@ -59,3 +103,4 @@ void			save_history(t_control **history, char *str)
 **	- Lors de la fermeture de sh, (ou lorsque la commande history -a est lancee), le
 **		nouveau contenu de l'historique est rajoute au fichier .sh_history
 */
+ 
