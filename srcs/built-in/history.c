@@ -28,6 +28,8 @@ void		ft_history(char **tab, char ***env, t_control **history)
 	}
 	else if (flags.a == 1 && (*history))
 		save_history_in_file(history);
+	else if (flags.w == 1 && (*history))		// -w : Need check
+		rewrite_hist_file(history);
 	else if (flags.d == 1)
 	{
 		if (tab[2] && str_isdigit(tab[2]) && (*history))
@@ -35,10 +37,41 @@ void		ft_history(char **tab, char ***env, t_control **history)
 		else
 			set_usage('d', 1);
 	}
+	else if (flags.r == 1)
+		append_hist_file(history);
 	else if (flags.c == 1)
 		(*history) = dll_clear_list(*history);
 	else if (flags.p == 1 && tab[2])
 		print_pflag(tab);
+}
+
+void		rewrite_hist_file(t_control **history)
+{
+	int		fd;
+	t_lst	*tmp;
+
+	fd = open(".history", O_RDWR | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IROTH);
+	tmp = (*history)->end;
+	while (tmp != NULL)
+	{
+		ft_putendl_fd(tmp->name, fd);
+		tmp = tmp->prev;
+	}
+	close(fd);
+}
+
+void		append_hist_file(t_control **history)
+{
+	 int	fd;
+	 char	*str;
+
+	 fd = open(".history", O_RDWR);
+	 while (get_next_line(fd, &str))
+	 {
+	 	*history = dll_add_new_elem_frnt(*history, str);
+	 	ft_strdel(&str);
+	 }
+	 close (fd);
 }
 
 void		print_pflag(char **tab)
