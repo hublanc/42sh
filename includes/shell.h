@@ -88,5 +88,7 @@ int			get_num(int size);
 void		delete_elem_hist(int index, t_control **history);
 int			str_isdigit(char *str);
 void		print_pflag(char **tab);
+void		append_hist_file(t_control **history);
+void		rewrite_hist_file(t_control **history);
 
 #endif
