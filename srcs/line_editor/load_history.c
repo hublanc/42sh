@@ -21,6 +21,8 @@ t_control		*load_history()
 	history = NULL;
 	str = NULL;
 	fd = open(".history", O_RDWR | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+	if (fd == -1)
+		return (NULL);
 	while (get_next_line(fd, &str))
 	{
 		if (str)
@@ -46,6 +48,8 @@ int				get_history_file_size(void)
 
 	size = 0;
 	fd = open(".history", O_RDWR);
+	if (fd == -1)
+		return (size);
 	while (get_next_line(fd, &str))
 	{
 		size++;
@@ -71,6 +75,8 @@ void			save_history_in_file(t_control **history)
 		tmp = tmp->prev;
 	}
 	fd = open(".history", O_RDWR | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+	if (fd == -1)
+		return ;
 	while (tmp != NULL)
 	{
 		ft_putendl_fd(tmp->name, fd);
@@ -85,6 +91,8 @@ void			save_history(t_control **history, char *str)
 	t_lst	*tmp;
 
 	fd = open(".history", O_RDWR | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+	if (fd == -1)
+		return ;
 	ft_putendl_fd(str, fd);
 	*history = dll_add_new_elem_frnt(*history, str);
 	tmp = (*history)->begin;

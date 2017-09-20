@@ -26,7 +26,7 @@ void		ft_history(char **tab, char ***env, t_control **history)
 		if (tab[2])
 			save_history(history, tab[2]);
 	}
-	else if (flags.n == 1 && (*history))
+	else if (flags.n == 1 && (*history))	// Need to be reviewed
 		nflag(history);
 	else if (flags.a == 1 && (*history))
 		save_history_in_file(history);
@@ -57,6 +57,8 @@ void		nflag(t_control **history)
 		return ;
 	a = 0;
 	fd = open(".history", O_RDWR, S_IRUSR | S_IWUSR | S_IROTH);
+	if (fd == -1)
+		return ;
 	while (get_next_line(fd, &str) && a < (*history)->original_length)
 	{
 		ft_strdel(&str);
@@ -76,6 +78,8 @@ void		rewrite_hist_file(t_control **history)
 	t_lst	*tmp;
 
 	fd = open(".history", O_RDWR | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IROTH);
+	if (fd == -1)
+		return ;
 	tmp = (*history)->end;
 	while (tmp != NULL)
 	{
@@ -91,6 +95,8 @@ void		append_hist_file(t_control **history)
 	 char	*str;
 
 	 fd = open(".history", O_RDWR);
+	 if (fd == -1)
+	 	return ;
 	 while (get_next_line(fd, &str))
 	 {
 	 	*history = dll_add_new_elem_frnt(*history, str);
