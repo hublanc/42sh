@@ -30,6 +30,11 @@ t_control		*load_history()
 	if (str)
 		ft_strdel(&str);
 	close(fd);
+	ft_putstr("History->length = ");
+	ft_putnbr(history->length);
+	history->original_length = history->length;
+	ft_putstr("History->original_length = ");
+	ft_putnbr(history->original_length);
 	return (history);
 }
 
