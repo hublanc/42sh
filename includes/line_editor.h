@@ -41,14 +41,14 @@ typedef struct		s_hist
 /*
 **	Keys.c
 */
-void		key_handler(t_cmd *cmd, t_hist **history, char ***env);
+void		key_handler(t_cmd *cmd, t_control **history, char ***env);
 void		print_line(t_cmd *cmd);
 void		choose_prompt(t_cmd *cmd);
 
 /*
 **	Arrow.c
 */
-void		arrow_handler(char *str, t_cmd *cmd, t_hist **hist);
+void		arrow_handler(char *str, t_cmd *cmd, t_control **hist);
 
 /*
 **	Cmd.c
@@ -70,8 +70,8 @@ void		del_current(t_hist **list);
 **	Quote.c
 */
 char		check_quote(char *str);
-void		prompt_quote(t_cmd *cmd, t_hist **history, char c, int mod);
-void		prompt_backslash(t_cmd *cmd, t_hist **history, int mod);
+void		prompt_quote(t_cmd *cmd, t_control **history, char c, int mod);
+void		prompt_backslash(t_cmd *cmd, t_control **history, int mod);
 
 /*
 **	Prompt.c
@@ -87,20 +87,20 @@ void		copy_cut_paste_handler(t_cmd *cmd, char *macro);
 /*
 **	Load_history.c
 */
-t_hist		*load_history();
-void		save_history(t_hist **history, char *str);
+t_control	*load_history();
+void		save_history(t_control **history, char *str);
 
 /*
 **	Enter_handler.c
 */
-void		enter_hub(t_cmd *cmd, t_hist **history, char ***env);
+void		enter_hub(t_cmd *cmd, t_control **history, char ***env);
 
 /*
 **	History search
 */
 
-void		history_search(t_hist **history, t_cmd *cmd, char ***env);
-void		history_search_core(t_cmd *cmd, t_cmd *search, t_hist **history, char ***env);
+void		history_search(t_control **history, t_cmd *cmd, char ***env);
+void		history_search_core(t_cmd *cmd, t_cmd *search, t_control **history, char ***env);
 void		print_hist_research(t_cmd *cmd, t_cmd *search);
 char		*new_strstr(const char *big, const char *little);
 

@@ -12,7 +12,7 @@
 
 #include "shell.h"
 
-void		ft_history(char **tab, char ***env, t_hist **history)
+void		ft_history(char **tab, char ***env, t_control **history)
 {
 	t_hist_flags		flags;
 
@@ -21,20 +21,20 @@ void		ft_history(char **tab, char ***env, t_hist **history)
 	get_cd_flags(&flags, tab);
 	if (!tab[1])
 		print_history(history);
-	else if (flags.s == 1 && history)
+	else if (flags.s == 1 && (*history))
 	{
 		if (tab[2])
 			save_history(history, tab[2]);
 	}
 	else if (flags.d == 1)
 	{
-		if (tab[2] && str_isdigit(tab[2]) && history)
+		if (tab[2] && str_isdigit(tab[2]) && (*history))
 			delete_elem_hist(ft_atoi(tab[2]), history);
 		else
 			set_usage('d', 1);
 	}
 	else if (flags.c == 1)
-		history = clear_history(history);
+		(*history) = dll_clear_list(*history);
 	else if (flags.p == 1 && tab[2])
 		print_pflag(tab);
 }
@@ -51,41 +51,6 @@ void		print_pflag(char **tab)
 	}
 }
 
-t_hist		**clear_history(t_hist **history)
-{
-	t_hist		*tmp;
-	t_hist		*tmp2;
-
-	tmp = *history;
-	while (tmp != NULL)
-	{
-		tmp2 = tmp;
-		tmp = tmp->next;
-		free(tmp->cmd);
-		tmp->cmd = NULL;
-		free(tmp);
-		tmp = NULL;
-	}
-//	free(history);
-	history = NULL;
-	return (history);
-}
-
-int			get_hist_size(t_hist **history)
-{
-	int		size;
-	t_hist	*tmp;
-
-	size = 0;
-	tmp = *history;
-	while (tmp != NULL)
-	{
-		size++;
-		tmp = tmp->next;
-	}
-	return (size);
-}
-
 int			str_isdigit(char *str)
 {
 	int		i;
@@ -100,56 +65,44 @@ int			str_isdigit(char *str)
 	return (1);
 }
 
-void		delete_elem_hist(int index, t_hist **history)
+void		delete_elem_hist(int index, t_control **history)
 {
-	int		a;
-	int		size;
-	t_hist	*tmp;
-	t_hist	*prev;
+	t_lst		*tmp;
+	int			a;
 
+	tmp = (*history)->end;
 	a = 0;
-	size = get_hist_size(history);
-	tmp = *history;
-	ft_putstr("tmp value = ");
-	ft_putendl(tmp->cmd);
-	while (tmp != NULL && a < size - index)
+	while (a != index && tmp != NULL)
+		tmp = tmp->prev;
+	if (tmp->prev && tmp->next)
 	{
-		prev = tmp;
-		tmp = tmp->next;
-		a++;
+		tmp->prev->next = tmp->next;
+		tmp->next->prev = tmp->prev;
 	}
-	prev->next = tmp->next;
-	ft_putstr("Deleting ");
-	ft_putendl(tmp->cmd);
-	ft_putstr(" index = ");
-	ft_putnbr(a);
-	ft_putchar('\n');
-	free(tmp->cmd);
-	tmp->cmd = NULL;
+	else if (!tmp->prev && tmp->next)
+		tmp->next->prev = NULL;
+	else if (!tmp->next && tmp->prev)
+		tmp->prev->next = NULL;
+	free(tmp->name);
 	free(tmp);
-	tmp = NULL;
 }
 
-void		print_history(t_hist **history)
+void		print_history(t_control **history)
 {
-	t_control	*rev_hist;
-	t_hist		*tmp;
-	t_lst		*tmp2;
+	t_lst		*tmp;
 	int			u;
 	int			i;
 	int			sp;
 
-	rev_hist = NULL;
-	tmp = *history;
-	while (tmp != NULL)
+	if (history == NULL)
 	{
-		rev_hist = dll_add_new_elem_frnt(rev_hist, tmp->cmd);
-		tmp = tmp->next;
+		ft_putchar('\n');
+		return ;
 	}
-	tmp2 = rev_hist->begin;
-	u = get_num(rev_hist->length);
+	tmp = (*history)->end;
+	u = get_num((*history)->length);
 	i = 1;
-	while (tmp2 != NULL)
+	while (tmp != NULL)
 	{
 		ft_putstr("   ");
 		sp = get_num(i);
@@ -160,11 +113,10 @@ void		print_history(t_hist **history)
 		}
 		ft_putnbr(i);
 		ft_putstr("  ");
-		ft_putendl(tmp2->name);
+		ft_putendl(tmp->name);
 		i++;
-		tmp2 = tmp2->next;
+		tmp = tmp->prev;
 	}
-	rev_hist = dll_clear_list(rev_hist);
 }
 
 int			get_num(int size)

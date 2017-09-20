@@ -56,7 +56,7 @@ void		print_line(t_cmd *cmd)
 	}
 }
 
-void		key_handler(t_cmd *cmd, t_hist **history, char ***env)
+void		key_handler(t_cmd *cmd, t_control **history, char ***env)
 {
 	char			buf[6];
 
@@ -82,7 +82,5 @@ void		key_handler(t_cmd *cmd, t_hist **history, char ***env)
 		go_right(cmd);
 	}
 	else if (buf[0] == 18)	// CTRL + R
-	{
 		history_search(history, cmd, env);
-	}
 }

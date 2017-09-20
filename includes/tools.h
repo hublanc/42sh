@@ -13,21 +13,6 @@
 #ifndef TOOLS_H
 # define TOOLS_H
 
-typedef struct			s_control
-{
-	int					length;
-	struct s_lst		*begin;
-	struct s_lst		*end;
-}						t_control;
-
-typedef struct			s_lst
-{
-	char				*name;
-	int					type;
-	struct s_lst		*next;
-	struct s_lst		*prev;
-}						t_lst;
-
 /*
 **	Error.c
 */
@@ -43,7 +28,7 @@ void		get_signal(int n);
 void		del_tabstr(char ***str);
 void		disp_tab(char **str);
 int			len_array(char **str);
-void		stop_shell(char ***env, char **tab, t_hist **history);
+void		stop_shell(char ***env, char **tab, t_control **history);
 char		**get_env(char **env, int add);
 
 /*
@@ -57,10 +42,10 @@ t_token		*abort_sort(t_token *list, char *error);
 **	Tools_history.c
 */
 void		change_cmd(char *new, t_cmd *cmd);
-t_hist		*seek_next_select(t_hist *list);
-void		seek_next(t_hist **list, t_cmd *cmd);
-t_hist		*seek_prev_select(t_hist *list);
-void		seek_prev(t_hist **list, t_cmd *cmd);
+t_lst		*seek_next_select(t_control **list);
+void		seek_next(t_control **list, t_cmd *cmd);
+t_lst		*seek_prev_select(t_control **list);
+void		seek_prev(t_control **list, t_cmd *cmd);
 
 /*
 **	Tools_keys.c
@@ -86,13 +71,5 @@ int			check_number(t_token **list, char *cmd);
 int			*add_fd(int *fds, t_node *tree);
 int			*add_io(int *fds, t_node *tree, int io);
 char		**add_w(char **tab, t_node *tree, int cut);
-
-/*
-**	Tools history
-*/
-
-int			dll_is_empty(t_control *control);
-t_control	*dll_add_new_elem_frnt(t_control *control, char *value);
-t_control	*dll_clear_list(t_control *control);
 
 #endif

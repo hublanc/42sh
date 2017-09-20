@@ -63,7 +63,7 @@ void		ft_setenv(char **tab, char ***env);
 void		ft_unsetenv(char **tab, char ***env);
 void		ft_env(char **env, char **tab);
 void		ft_cd(char **tab, char ***env);
-void		ft_history(char **tab, char ***env, t_hist **history);
+void		ft_history(char **tab, char ***env, t_control **history);
 
 char		**delonenv(char *name, char **env);
 char		**prep_setenv(char *name, char *value);
@@ -83,12 +83,10 @@ int			tputchar(int c);
 void		init_cd_flags(t_hist_flags *flags);
 void		get_cd_flags(t_hist_flags *flags, char **tab);
 void		set_usage(char c, int type);
-void		print_history(t_hist **history);
+void		print_history(t_control **history);
 int			get_num(int size);
-void		delete_elem_hist(int index, t_hist **history);
+void		delete_elem_hist(int index, t_control **history);
 int			str_isdigit(char *str);
-int			get_hist_size(t_hist **history);
-t_hist		**clear_history(t_hist **history);
 void		print_pflag(char **tab);
 
 #endif
