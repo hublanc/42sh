@@ -56,10 +56,7 @@ void			save_history_in_file(t_control **history)
 	t_lst	*tmp;
 	int		fd;
 
-	file_size = get_history_file_size();
-	ft_putstr("file size == ");
-	ft_putnbr(file_size);
-	ft_putchar('\n');
+	file_size = get_history_file_size() - 1;
 	if ((*history)->length == file_size)
 		return;
 	tmp = (*history)->end;
@@ -72,7 +69,7 @@ void			save_history_in_file(t_control **history)
 	while (tmp != NULL)
 	{
 		ft_putendl_fd(tmp->name, fd);
-	tmp = tmp->next;
+		tmp = tmp->prev;
 	}
 	close(fd);
 }

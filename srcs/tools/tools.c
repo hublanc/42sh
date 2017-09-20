@@ -54,9 +54,6 @@ void		stop_shell(char ***env, char **tab, t_control **history)
 		del_tabstr(&tab);
 	del_tabstr(env);
 	save_history_in_file(history);
-	/*
-	**	Here, need to stock the new content of **history in the .history file
-	*/
 	if (*history)
 		*history = dll_clear_list(*history);
 	reset_term();
