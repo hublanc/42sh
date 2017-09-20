@@ -12,7 +12,7 @@
 
 #include "shell.h"
 
-void			history_search(t_hist **history, t_cmd *cmd, char ***env)
+void			history_search(t_control **history, t_cmd *cmd, char ***env)
 {
 	t_cmd		research;
 
@@ -20,13 +20,12 @@ void			history_search(t_hist **history, t_cmd *cmd, char ***env)
 	history_search_core(cmd, &research, history, env);
 }
 
-void			history_search_core(t_cmd *cmd, t_cmd *search, t_hist **history, char ***env)
+void			history_search_core(t_cmd *cmd, t_cmd *search, t_control **history, char ***env)
 {
 	char		buf[3];
-	t_hist		*tmp;
+	t_lst		*tmp;
 
 	(void)env;
-	(void)history;
 	(void)cmd;
 	bzero(buf, 3);
 	ft_putchar('\n');
@@ -45,13 +44,13 @@ void			history_search_core(t_cmd *cmd, t_cmd *search, t_hist **history, char ***
 		{
 			search->str = ft_strappone(search->str, buf[0], (search->col - 1) - search->prlen);
 			search->sc_col++;
-			tmp = *history;
+			tmp = (*history)->begin;
 			while (tmp != NULL)
 			{
-				if (tmp->cmd && search->str && ft_strstr(tmp->cmd, search->str) != NULL)
+				if (tmp->name && search->str && ft_strstr(tmp->name, search->str) != NULL)
 				{
 					ft_strclr(cmd->str);
-					cmd->str = ft_strdup(tmp->cmd);
+					cmd->str = ft_strdup(tmp->name);
 				}
 				tmp = tmp->next;
 			}

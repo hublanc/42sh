@@ -61,13 +61,13 @@ typedef struct		s_node
 /*
 **	Routine.c
 */
-void		routine(char *cmd, char ***env, t_hist **history);
+void		routine(char *cmd, char ***env, t_control **history);
 
 /*
 **	Exec.c
 */
 int			check_cmd(char **tab, char **env, t_node *tree);
-void		get_cmd(t_node *tree, char ***env, int *status, t_hist **history);
+void		get_cmd(t_node *tree, char ***env, int *status, t_control **hist);
 
 /*
 **	Ft_cmdsplit.c

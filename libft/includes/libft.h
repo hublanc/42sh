@@ -13,6 +13,7 @@
 #ifndef LIBFT_H
 # define LIBFT_H
 
+# include "libdll.h"
 # include <string.h>
 # include <stdint.h>
 # include <fcntl.h>

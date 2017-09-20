@@ -12,7 +12,7 @@
 
 #include "shell.h"
 
-void		exec_cmd(t_node *tree, char ***env, t_hist **hist)
+void		exec_cmd(t_node *tree, char ***env, t_control **hist)
 {
 	static int		input = 0;
 	static int		fd[2] = {0, 1};
@@ -92,7 +92,7 @@ void		pipe_flag(t_node *tree)
 	}
 }
 
-void		hub(t_node *tree, char ***env, t_hist **hist)
+void		hub(t_node *tree, char ***env, t_control **hist)
 {
 	static int		pid_w = 0;
 
@@ -115,7 +115,7 @@ void		hub(t_node *tree, char ***env, t_hist **hist)
 	tree->value == 3 ? manage_fd(tree) : 0;
 }
 
-void		exec_tree(t_node *tree, char ***env, t_hist **hist)
+void		exec_tree(t_node *tree, char ***env, t_control **hist)
 {
 	if (!tree)
 		return ;
@@ -125,7 +125,7 @@ void		exec_tree(t_node *tree, char ***env, t_hist **hist)
 	exec_tree(tree->right, env, hist);
 }
 
-void		routine(char *cmd, char ***env, t_hist **history)
+void		routine(char *cmd, char ***env, t_control **history)
 {
 	t_token		*list;
 	t_node		*tree;

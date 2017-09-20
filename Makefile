@@ -50,7 +50,6 @@ SRC		=	main.c\
 			tools/tools_lexer.c\
 			tools/tools_redir.c\
 			tools/tools_history.c\
-			tools/tools_dll.c\
 			built-in/echo.c\
 			built-in/env.c\
 			built-in/ft_cd.c\
