@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 15:35:33 by amazurie          #+#    #+#             */
-/*   Updated: 2017/09/20 15:32:52 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/09/20 15:56:25 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ static int	nbr_percol(int nbrargs, int nbrperline, int h, int rowline)
 {
 	int	i;
 
-	if (nbrargs / (nbrperline + 1) > h - rowline)
-		return (h - rowline);
 	i = 1;
 	while (i * nbrperline < nbrargs)
 		i++;
+	if (i > h - rowline)
+		return (h - rowline);
 	return (i);
 }
 
@@ -77,26 +77,26 @@ void		print_args(t_compl *compl, t_cmd *cmd, struct winsize w)
 {
 	t_coargs	*args;
 	int			nbrperline;
+	int			nbrpercol;
 	int			i;
 	int			j;
 
 	args = &compl->args;
 	nbrperline = nbr_perline(compl->maxlen, w.ws_col);
-	j = -1;
-	while (++j < nbrperline)
-	{
-		i = maxrow_line(ft_strlen(cmd->str) + ft_strlen(cmd->prompt)
-				+ compl->maxlen, w.ws_col);
-		i = print_col(compl, &args, nbr_percol(compl->nbrargs,
-					nbrperline, w.ws_row, i), compl->maxlen * j);
-		while (i--)
-			tputs(tgetstr("up", NULL), 1, tputchar);
-	}
 	i = maxrow_line(ft_strlen(cmd->str) + ft_strlen(cmd->prompt)
 			+ compl->maxlen, w.ws_col);
-	while (i--)
-		tputs(tgetstr("up", NULL), 1, tputchar);
-	i = (j - 1) * compl->maxlen;
+	nbrpercol = nbr_percol(compl->nbrargs, nbrperline, w.ws_row, i);
+	j = -1;
+	while (++j < nbrperline && args)
+	{
+		i = print_col(compl, &args, nbrpercol, compl->maxlen * j);
+		while (i--)
+			tputs(tgetstr("up", NULL), 1, tputchar);
+		i = 0;
+		while (args && ++i * nbrperline < compl->nbrargs - nbrpercol * nbrperline)
+			args = args->next;
+	}
+	i = j * compl->maxlen;
 	while (i--)
 		tputs(tgetstr("le", NULL), 1, tputchar);
 }
@@ -113,6 +113,10 @@ void		display_args(t_compl *compl, t_cmd *cmd)
 	while (i--)
 		tputs(tgetstr("do", NULL), 1, tputchar);
 	print_args(compl, cmd, w);
+	i = maxrow_line(ft_strlen(cmd->str) + ft_strlen(cmd->prompt)
+			+ compl->maxlen, w.ws_col);
+	while (i--)
+		tputs(tgetstr("up", NULL), 1, tputchar);
 	choose_prompt(cmd);
 	ft_putstr(cmd->str);
 }

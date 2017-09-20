@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 09:50:30 by amazurie          #+#    #+#             */
-/*   Updated: 2017/09/20 13:56:28 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/09/20 15:43:01 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ typedef struct		s_compl
 {
 	size_t			maxlen;
 	int				curr;
-//	int				lencurr;
 	int				nbrargs;
 	char			*arg;
 	struct s_coargs	args;
