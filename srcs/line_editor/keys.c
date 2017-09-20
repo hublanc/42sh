@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 11:41:39 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/19 13:56:54 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/09/20 13:07:04 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,10 +127,10 @@ void		key_handler(t_cmd *cmd, t_hist **history, char ***env)
 		can_sigint(1);
 		return ;
 	}
+	if (buf[0] == 9 && !buf[1])
+		completion(cmd, env, &buf);
 	if (buf[0] == 27)
 		arrow_handler(buf, cmd, history);
-	else if (buf[0] == 9 && !buf[1])
-		completion(cmd, env);
 	else if (buf[0] == 127 && cmd->col > cmd->prlen + 1)
 	{
 		cmd->str = ft_strdelone(cmd->str, (cmd->col - 1) - cmd->prlen);
