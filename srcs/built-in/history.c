@@ -106,20 +106,25 @@ void		delete_elem_hist(int index, t_control **history)
 	int			a;
 
 	tmp = (*history)->end;
-	a = 0;
-	while (a != index && tmp != NULL)
+	a = 1;
+	while (a < index && tmp != NULL)
+	{
 		tmp = tmp->prev;
-	if (tmp->prev && tmp->next)
+		a++;
+	}
+	if (tmp && tmp->prev && tmp->next)
 	{
 		tmp->prev->next = tmp->next;
 		tmp->next->prev = tmp->prev;
 	}
-	else if (!tmp->prev && tmp->next)
+	else if (tmp && !tmp->prev && tmp->next)
 		tmp->next->prev = NULL;
-	else if (!tmp->next && tmp->prev)
+	else if (tmp && !tmp->next && tmp->prev)
 		tmp->prev->next = NULL;
-	free(tmp->name);
-	free(tmp);
+	if (tmp && tmp->name)
+		free(tmp->name);
+	if (tmp)
+		free(tmp);
 }
 
 void		print_history(t_control **history)
