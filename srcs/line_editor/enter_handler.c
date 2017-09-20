@@ -12,12 +12,13 @@
 
 #include "shell.h"
 
-void		enter_handler(t_cmd *cmd, t_hist **history, char ***env)
+void		enter_handler(t_cmd *cmd, t_control **history, char ***env)
 {
 	char	c;
 
 	ft_putchar('\n');
-	if (!cmd->str)		return (choose_prompt(cmd));
+	if (!cmd->str)
+		return (choose_prompt(cmd));
 	c = check_quote(cmd->str);
 	if (c == '\'' || c == '"')
 		prompt_quote(cmd, history, c, 0);
@@ -30,7 +31,7 @@ void		enter_handler(t_cmd *cmd, t_hist **history, char ***env)
 	*cmd = init_cmd(return_prompt());
 }
 
-void		enter_handler_quote(t_cmd *cmd, t_hist **history)
+void		enter_handler_quote(t_cmd *cmd, t_control **history)
 {
 	char		c;
 
@@ -54,7 +55,7 @@ void		enter_handler_quote(t_cmd *cmd, t_hist **history)
 		prompt_backslash(cmd, history, 1);
 }
 
-void		enter_handler_backslash(t_cmd *cmd, t_hist **history)
+void		enter_handler_backslash(t_cmd *cmd, t_control **history)
 {
 	char		c;
 
@@ -94,7 +95,7 @@ void		enter_handler_heredoc(t_cmd *cmd)
 	ft_strdel(&(cmd->str));
 }
 
-void		enter_hub(t_cmd *cmd, t_hist **history, char ***env)
+void		enter_hub(t_cmd *cmd, t_control **history, char ***env)
 {
 	if (!ft_strcmp(cmd->prompt, "dquote> ")
 	|| !ft_strcmp(cmd->prompt, "quote> "))

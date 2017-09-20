@@ -22,7 +22,7 @@ void	heredoc_input(t_node *tree)
 	close(fd[1]);
 }	
 
-void	prompt_heredoc(char *eof, t_token *redir, t_hist **history)
+void	prompt_heredoc(char *eof, t_token *redir, t_control **history)
 {
 	t_cmd		cmd_hd;
 

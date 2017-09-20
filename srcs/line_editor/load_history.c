@@ -12,11 +12,11 @@
 
 #include "shell.h"
 
-t_hist			*load_history()
+t_control		*load_history()
 {
-	int		fd;
-	char	*str;
-	t_hist	*history;
+	int			fd;
+	char		*str;
+	t_control	*history;
 
 	history = NULL;
 	str = NULL;
@@ -24,7 +24,7 @@ t_hist			*load_history()
 	while (get_next_line(fd, &str))
 	{
 		if (str)
-			add_begin(&history, new_history(str));
+			history = dll_add_new_elem_frnt(history, str);
 		ft_strdel(&str);
 	}
 	if (str)
@@ -33,15 +33,15 @@ t_hist			*load_history()
 	return (history);
 }
 
-void			save_history(t_hist **history, char *str)
+void			save_history(t_control **history, char *str)
 {
 	int		fd;
-	t_hist	*tmp;
+	t_lst	*tmp;
 
 	fd = open(".history", O_RDWR | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	ft_putendl_fd(str, fd);
-	add_begin(history, new_history(str));
-	tmp = *history;
+	*history = dll_add_new_elem_frnt(*history, str);
+	tmp = (*history)->begin;
 	while (tmp)
 	{
 		if (tmp->selected == 1)
@@ -50,3 +50,12 @@ void			save_history(t_hist **history, char *str)
 	}
 	close(fd);
 }
+
+/*
+**	Comportement du built-in HISTORY de sh :
+**	- Lors du lancement, l'historique contient tout le contenu du fichier .sh_history
+**	- Lors du lancement d'une commande, cette commande est rajoutee a l'historique,
+**		mais pas au fichier .sh_history
+**	- Lors de la fermeture de sh, (ou lorsque la commande history -a est lancee), le
+**		nouveau contenu de l'historique est rajoute au fichier .sh_history
+*/

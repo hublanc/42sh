@@ -77,7 +77,7 @@ int			check_cmd(char **tab, char **env, t_node *tree)
 	return (status);
 }
 
-void		get_cmd(t_node *tree, char ***env, int *status, t_hist **his)
+void		get_cmd(t_node *tree, char ***env, int *status, t_control **his)
 {
 	int		i;
 	char	**tab;

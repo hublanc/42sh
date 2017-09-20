@@ -16,12 +16,6 @@
 
 # include "libft.h"
 
-# define UNSET 0
-# define COMMAND 1
-# define AND 2
-# define PIPE 3
-# define REDIRECTION 4
-
 typedef struct			s_control
 {
 	int					length;
