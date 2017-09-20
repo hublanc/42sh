@@ -26,9 +26,11 @@ void		ft_history(char **tab, char ***env, t_control **history)
 		if (tab[2])
 			save_history(history, tab[2]);
 	}
+	else if (flags.n == 1 && (*history))
+		nflag(history);
 	else if (flags.a == 1 && (*history))
 		save_history_in_file(history);
-	else if (flags.w == 1 && (*history))		// -w : Need check
+	else if (flags.w == 1 && (*history))
 		rewrite_hist_file(history);
 	else if (flags.d == 1)
 	{
@@ -43,6 +45,29 @@ void		ft_history(char **tab, char ***env, t_control **history)
 		(*history) = dll_clear_list(*history);
 	else if (flags.p == 1 && tab[2])
 		print_pflag(tab);
+}
+
+void		nflag(t_control **history)
+{
+	int		a;
+	int		fd;
+	char	*str;
+
+	if (get_history_file_size() <= (*history)->length)
+		return ;
+	a = 0;
+	fd = open(".history", O_RDWR, S_IRUSR | S_IWUSR | S_IROTH);
+	while (get_next_line(fd, &str) && a < (*history)->original_length)
+	{
+		ft_strdel(&str);
+		a++;
+	}
+	while (get_next_line(fd, &str))
+	{
+		(*history) = dll_add_new_elem_frnt(*history, str);
+		ft_strdel(&str);
+	}
+	close(fd);
 }
 
 void		rewrite_hist_file(t_control **history)
