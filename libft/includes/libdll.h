@@ -19,6 +19,7 @@
 typedef struct			s_control
 {
 	int					length;
+	int					original_length;
 	struct s_lst		*begin;
 	struct s_lst		*end;
 }						t_control;

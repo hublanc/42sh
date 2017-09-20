@@ -90,5 +90,6 @@ int			str_isdigit(char *str);
 void		print_pflag(char **tab);
 void		append_hist_file(t_control **history);
 void		rewrite_hist_file(t_control **history);
+void		nflag(t_control **history);
 
 #endif
