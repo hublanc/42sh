@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 09:50:30 by amazurie          #+#    #+#             */
-/*   Updated: 2017/09/20 15:43:01 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/09/20 16:42:18 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct		s_coargs
 typedef struct		s_compl
 {
 	size_t			maxlen;
+	int				toskip;
 	int				curr;
 	int				nbrargs;
 	char			*arg;
@@ -48,9 +49,12 @@ void				list_compl(t_compl *compl, char ***env);
 void				get_args(t_compl *compl, char **paths);
 
 /*
-** print_args.c
+** display_args.c
 */
 void		display_args(t_compl *compl, t_cmd *cmd);
+int			maxrow_line(int lenline, int w);
+int			nbr_percol(int nbrargs, int nbrperline, int h, int rowline);
+int			nbr_perline(int maxlen, int w);
 
 /*
 ** compl_keys.c

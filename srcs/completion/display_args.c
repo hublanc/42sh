@@ -6,13 +6,13 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 15:35:33 by amazurie          #+#    #+#             */
-/*   Updated: 2017/09/20 15:56:25 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/09/20 17:55:42 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-static int	nbr_perline(int maxlen, int w)
+int			nbr_perline(int maxlen, int w)
 {
 	int	i;
 
@@ -22,7 +22,7 @@ static int	nbr_perline(int maxlen, int w)
 	return ((--i > 0) ? i : 1);
 }
 
-static int	nbr_percol(int nbrargs, int nbrperline, int h, int rowline)
+int			nbr_percol(int nbrargs, int nbrperline, int h, int rowline)
 {
 	int	i;
 
@@ -34,7 +34,7 @@ static int	nbr_percol(int nbrargs, int nbrperline, int h, int rowline)
 	return (i);
 }
 
-static int	maxrow_line(int lenline, int w)
+int			maxrow_line(int lenline, int w)
 {
 	int	i;
 
@@ -86,9 +86,15 @@ void		print_args(t_compl *compl, t_cmd *cmd, struct winsize w)
 	i = maxrow_line(ft_strlen(cmd->str) + ft_strlen(cmd->prompt)
 			+ compl->maxlen, w.ws_col);
 	nbrpercol = nbr_percol(compl->nbrargs, nbrperline, w.ws_row, i);
+	i = compl->toskip;
+	while (args && i--)
+		args = args->next;
 	j = -1;
 	while (++j < nbrperline && args)
 	{
+		i = 0;
+		while (args && i++ < compl->toskip)
+			args = args->next;
 		i = print_col(compl, &args, nbrpercol, compl->maxlen * j);
 		while (i--)
 			tputs(tgetstr("up", NULL), 1, tputchar);
