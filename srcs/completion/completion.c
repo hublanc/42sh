@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 09:54:57 by amazurie          #+#    #+#             */
-/*   Updated: 2017/09/20 13:51:51 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/09/20 16:24:40 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int			completion(t_cmd *cmd, char ***env, char **buf)
 	list_compl(&compl, env);
 	i = 1;
 	compl.curr = 0;
+	compl.toskip = 0;
 	if (!compl.args.next)
 		add_line(cmd, compl.args.arg + ft_strlen(compl.arg));
 	else
