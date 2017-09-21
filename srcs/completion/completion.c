@@ -79,17 +79,15 @@ static char	*get_path(t_cmd *cmd, char ***env)
 int			completion(t_cmd *cmd, char ***env, char **buf)
 {
 	t_compl	compl;
-	char	*path;
 	int		i;
 
-	path = get_path(cmd, env);
-	// futur arg = get_arg(path);
-	compl.arg = path;
+	compl.path = get_path(cmd, env);
+	compl.arg = ft_strdup(compl.path);
 	list_compl(&compl, env);
 	i = 1;
 	compl.curr = 0;
 	compl.toskip = 0;
-	if (!compl.args.next)
+	if (!compl.args.next && compl.args.arg)
 		add_line(cmd, compl.args.arg + ft_strlen(compl.arg));
 	else
 	{
@@ -98,7 +96,5 @@ int			completion(t_cmd *cmd, char ***env, char **buf)
 			if ((i = compl_keys(&compl, cmd, buf)) == -1)
 				ft_bzero(*buf, ft_strlen(*buf));
 	}
-	if (path)
-		free(path);
 	return (0);
 }
