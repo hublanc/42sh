@@ -64,8 +64,10 @@ void		ft_unsetenv(char **tab, char ***env);
 void		ft_env(char **env, char **tab);
 void		ft_cd(char **tab, char ***env);
 void		ft_history(char **tab, char ***env, t_control **history);
-void		ft_history_2(char **tab, t_control **history, char *file, t_hist_flags flags);
-void		ft_history_3(char **tab, t_control **history, char *file, t_hist_flags flags);
+void		ft_history_2(char **tab, t_control **history, char *file,
+			t_hist_flags flags);
+void		ft_history_3(char **tab, t_control **history, char *file,
+			t_hist_flags flags);
 
 char		**delonenv(char *name, char **env);
 char		**prep_setenv(char *name, char *value);
