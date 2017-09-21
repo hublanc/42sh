@@ -89,8 +89,8 @@ void		copy_cut_paste_handler(t_cmd *cmd, char *macro);
 */
 t_control	*load_history();
 void		save_history(t_control **history, char *str);
-int			get_history_file_size(void);
-void		save_history_in_file(t_control **history);
+int			get_history_file_size(char *file_name);
+void		save_history_in_file(t_control **history, char *file_name);
 
 /*
 **	Enter_handler.c
