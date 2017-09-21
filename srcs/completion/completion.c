@@ -12,27 +12,68 @@
 
 #include "shell.h"
 
-static char	*get_path(t_cmd *cmd)
+static void	check_home(char **word, char ***env)
 {
-	char	*arg;
+	char	*tmp;
+	char	*tmp2;
 	int		i;
-	int		j;
+
+	i = 0;
+	while (env && *env && (*env)[i] && ft_strncmp("HOME=", (*env)[i], 5))
+		i++;
+	if (!env | !*env || !***env)
+		i = -1;
+	if (ft_strcmp(*word, "~") == 0)
+	{
+		free(*word);
+		*word = NULL;
+		if (i == -1)
+			return ;
+		*word = ft_strdup((*env)[i] + 5);
+	}
+	else if ((*word)[0] == '~' && (*word)[1] == '/')
+	{
+		tmp = ft_strdup(*word + 1);
+		free(*word);
+		*word = NULL;
+		if (i == -1)
+			return ;
+		tmp2 = ft_strdup((*env)[i] + 5);
+		if (!tmp2)
+			tmp = "~";
+		*word = ft_strjoin(tmp2, tmp);
+		free(tmp2);
+		free(tmp);
+	}
+}
+
+static char	*get_path(t_cmd *cmd, char ***env)
+{
+	char	*word;
+	int		i;
 
 	if (!cmd->str)
 		return (NULL);
-	j = cmd->col - cmd->prlen - 1;
-	while ((ft_isalnum(cmd->str[j]) || cmd->str[j] == '/') && cmd->str[j] != ' ')
-		j++;
-	i = cmd->col - cmd->prlen - 2;
-	(i < 0) ? i = 0 : 0;
-	while (i > 0 && (ft_isalnum(cmd->str[i]) || cmd->str[i] == '/') && cmd->str[i] != ' ')
-		i--;
-	(cmd->str[i] == ' ') ? i++ : 0;
-	arg = ft_strndup(cmd->str + i, j - i);
-	i = cmd->col - cmd->prlen;
-	while (j-- - i + 1 > 0)
+	i = cmd->col - 1 - cmd->prlen;
+	while (cmd->str[i] && cmd->str[i] != '"' && cmd->str[i] != '\''
+			&& cmd->str[i] != '\'' && cmd->str[i] != ' ')
+	{
 		go_right(cmd);
-	return (arg);
+		i = cmd->col - 1 - cmd->prlen;
+	}
+	i = cmd->col - 1 - cmd->prlen;
+	while (i > 0 && cmd->str[i] != '"' && cmd->str[i] != '\''
+			&& cmd->str[i] != ' ')
+		i--;
+	if (cmd->str[i] == '"' || cmd->str[i] == '\'' || cmd->str[i] == ' ')
+		i++;
+	while (cmd->str[i] == ' ')
+		i++;
+	if (i > cmd->col - 1 - cmd->prlen)
+		return (NULL);
+	word = ft_strndup(cmd->str + i, cmd->col - 1 - cmd->prlen - i);
+	check_home(&word, env);
+	return (word);
 }
 
 int			completion(t_cmd *cmd, char ***env, char **buf)
@@ -41,7 +82,7 @@ int			completion(t_cmd *cmd, char ***env, char **buf)
 	char	*path;
 	int		i;
 
-	path = get_path(cmd);
+	path = get_path(cmd, env);
 	// futur arg = get_arg(path);
 	compl.arg = path;
 	list_compl(&compl, env);
