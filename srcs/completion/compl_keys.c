@@ -80,6 +80,8 @@ int		compl_keys(t_compl *compl, t_cmd *cmd, char **buf)
 	read(0, *buf, 999);
 	if ((*buf)[0] == 27 && !(*buf)[1])
 		return (-1);
+	else if ((*buf)[0] == 27 && compl_arrow(compl, cmd, *buf))
+		display_args(compl, cmd);
 	else if ((*buf)[0] == 9 && !(*buf)[1])
 	{
 		compl->curr = (compl->curr < compl->nbrargs - 1) ? compl->curr + 1 : 0;
@@ -91,5 +93,7 @@ int		compl_keys(t_compl *compl, t_cmd *cmd, char **buf)
 		add_argtoline(compl, cmd);
 		return (-1);
 	}
+	else
+		return (0);
 	return (1);
 }
