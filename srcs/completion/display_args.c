@@ -86,15 +86,12 @@ void		print_args(t_compl *compl, t_cmd *cmd, struct winsize w)
 	i = maxrow_line(ft_strlen(cmd->str) + ft_strlen(cmd->prompt)
 			+ compl->maxlen, w.ws_col);
 	nbrpercol = nbr_percol(compl->nbrargs, nbrperline, w.ws_row, i);
-	i = compl->toskip;
-	while (args && i--)
+	i = 0;
+	while (args && i++ < compl->toskip)
 		args = args->next;
 	j = -1;
 	while (++j < nbrperline && args)
 	{
-		i = 0;
-		while (args && i++ < compl->toskip)
-			args = args->next;
 		i = print_col(compl, &args, nbrpercol, compl->maxlen * j);
 		while (i--)
 			tputs(tgetstr("up", NULL), 1, tputchar);

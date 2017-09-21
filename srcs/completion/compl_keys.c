@@ -28,7 +28,7 @@ static int	is_onscreen(t_compl *compl, t_cmd *cmd, struct winsize w, int hided)
 	while (++i < nbrpercol)
 	{
 		if (compl->curr >= compl->toskip + i * (hided + nbrpercol)
-			&& compl->curr <= compl->toskip + i * (hided + nbrpercol) + nbrpercol)
+		&& compl->curr < compl->toskip + i * (hided + nbrpercol) + nbrpercol - i)
 			return (1);
 	}
 	return (0);
@@ -47,6 +47,8 @@ static void	get_onscreen(t_compl *compl, t_cmd *cmd)
 			+ compl->maxlen, w.ws_col);
 	nbrperline = nbr_perline(compl->maxlen, w.ws_col);
 	nbrpercol = nbr_percol(compl->nbrargs, nbrperline, w.ws_row, i);
+	if (nbrpercol * nbrperline >= compl->nbrargs)
+		return ;
 	i = 1;
 	while (i * nbrperline < compl->nbrargs - nbrpercol * nbrperline)
 		i++;
@@ -55,7 +57,7 @@ static void	get_onscreen(t_compl *compl, t_cmd *cmd)
 		compl->toskip++;
 	if (j > i)
 	{
-		compl->toskip = j;
+		compl->toskip = j - 1;
 		while (compl->toskip > 0 && !is_onscreen(compl, cmd, w, i))
 			compl->toskip--;
 	}
