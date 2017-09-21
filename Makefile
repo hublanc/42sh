@@ -55,7 +55,10 @@ SRC		=	main.c\
 			built-in/ft_cd.c\
 			built-in/set_env.c\
 			built-in/unsetenv.c\
-			built-in/history.c
+			built-in/history.c\
+			built-in/history_2.c\
+			built-in/history_3.c\
+			built-in/history_4.c
 # colors
 GRN     =   \033[0;32m
 RED     =   \033[0;31m
