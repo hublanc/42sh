@@ -29,6 +29,10 @@ typedef struct		s_compl
 	int				toskip;
 	int				curr;
 	int				nbrargs;
+	int				isstar;
+	int				isdot;
+	int				isslash;
+	char			*path;
 	char			*arg;
 	struct s_coargs	args;
 }					t_compl;
