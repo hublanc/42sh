@@ -1,0 +1,33 @@
+history
+exit
+cat .history
+history
+history -a
+cat .history
+cat test
+history -a test
+cat test
+exit
+cat test
+history
+history -w test
+5
+5
+5
+5
+5
+5
+5
+5
+5
+5
+5
+5
+54
+4
+77
+4
+4
+4
+867786
+676

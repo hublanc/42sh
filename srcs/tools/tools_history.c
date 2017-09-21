@@ -16,8 +16,10 @@ void		change_cmd(char *new, t_cmd *cmd)
 {
 	go_begin(cmd->col, cmd->sc_col);
 	tputs(tgetstr("cd", NULL), 1, tputchar);
-	if (!ft_strcmp(cmd->prompt, "dquote> ") || !ft_strcmp(cmd->prompt, "quote> ")
-	|| !ft_strcmp(cmd->prompt, "heredoc> ") || !ft_strcmp(cmd->prompt, "pipe> "))
+	if (!ft_strcmp(cmd->prompt, "dquote> ")
+		|| !ft_strcmp(cmd->prompt, "quote> ")
+		|| !ft_strcmp(cmd->prompt, "heredoc> ")
+		|| !ft_strcmp(cmd->prompt, "pipe> "))
 		ft_putstr(cmd->prompt);
 	else
 		print_prompt();
