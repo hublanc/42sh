@@ -61,4 +61,10 @@ int			nbr_perline(int maxlen, int w);
 */
 int			compl_keys(t_compl *compl, t_cmd *com, char **buf);
 
+/*
+** compl_arrow.c
+*/
+
+int			compl_arrow(t_compl *compl, t_cmd *cmd, char *buf);
+
 #endif
