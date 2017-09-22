@@ -104,8 +104,9 @@ void		list_content(t_compl *compl)
 
 void		list_compl(t_compl *compl, char ***env)
 {
-	char	*path;
-	char	**paths;
+	t_coargs	*ar;
+	char		*path;
+	char		**paths;
 
 	paths = NULL;
 	compl->args.next = NULL;
@@ -120,7 +121,11 @@ void		list_compl(t_compl *compl, char ***env)
 		compl->arg[ft_strlen(compl->arg) - 1] = 0;
 	list_content(compl);
 	if (!compl->path && (path = get_path(env)))
-		paths = ft_strsplit(path + 5, ':');
-	if (!compl->path && paths && paths[0])
-		get_args(compl, paths);
+		if ((paths = ft_strsplit(path + 5, ':')) && paths[0])
+			get_args(compl, paths);
+	ar = &compl->args;
+	while (ar && ar->next && ar->next->arg)
+		ar = ar->next;
+	(ar && ar->next && !ar->next->arg) ? free(ar->next) : 0;
+	ar->next = NULL;
 }

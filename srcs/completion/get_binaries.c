@@ -37,7 +37,6 @@ int		get_files(t_compl *compl, DIR *dirp, t_coargs **args, int *idcount)
 	(*args) = (*args)->next;
 	(*args)->arg = NULL;
 	return (get_files(compl, dirp, args, idcount) == 0);
-	return (1);
 }
 
 void	get_args(t_compl *compl, char **paths)

@@ -58,7 +58,7 @@ int					get_files(t_compl *compl, DIR *dirp, t_coargs **ar, int *fd);
 */
 void		display_args(t_compl *compl, t_cmd *cmd);
 int			maxrow_line(int lenline, int w);
-int			nbr_percol(int nbrargs, int nbrperline, int h, int rowline);
+int			nbr_percol(int nbrargs, int nbrperline);
 int			nbr_perline(int maxlen, int w);
 
 /*

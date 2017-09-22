@@ -22,15 +22,13 @@ int			nbr_perline(int maxlen, int w)
 	return ((--i > 0) ? i : 1);
 }
 
-int			nbr_percol(int nbrargs, int nbrperline, int h, int rowline)
+int			nbr_percol(int nbrargs, int nbrperline)
 {
 	int	i;
 
 	i = 1;
 	while (i * nbrperline < nbrargs)
 		i++;
-	if (i > h - rowline)
-		return (h - rowline);
 	return (i);
 }
 
@@ -39,87 +37,88 @@ int			maxrow_line(int lenline, int w)
 	int	i;
 
 	i = 1;
-	while (i * w <  lenline)
+	while (i * w < lenline)
 		i++;
 	return (i);
 }
 
-static int	print_col(t_compl *compl, t_coargs **args, int nbrpercol, int nbrright)
+int			*get_size(t_compl *compl, t_cmd *cmd)
 {
-	int			count;
-	int			i;
+	struct winsize	w;
+	int				*size;
 
-	count = 0;
-	while (*args && (*args)->arg)
-	{
-		tputs(tgetstr("me", NULL), 1, tputchar);
-		if (compl->curr == (*args)->id)
-			tputs(tgetstr("mr", NULL), 1, tputchar);
-		ft_putstr((*args)->arg);
-		i = compl->maxlen - ft_strlen((*args)->arg);
-		while (--i)
-			ft_putchar(' ');
-		tputs(tgetstr("me", NULL), 1, tputchar);
-		ft_putchar(' ');
-		(*args) = (*args)->next;
-		if (--nbrpercol == 0)
-			return (count);
-		tputs(tgetstr("do", NULL), 1, tputchar);
-		i = nbrright;
-		while (i--)
-			tputs(tgetstr("nd", NULL), 1, tputchar);
-		count++;
-	}
-	return (count);
+	if (!(size = (int*)ft_memalloc(sizeof(int) * 7)))
+		return (NULL);
+	ioctl(0, TIOCGWINSZ, &w);
+	size[0] = w.ws_col;
+	size[2] = maxrow_line(ft_strlen(cmd->str) + ft_strlen(cmd->prompt)
+			+ compl->maxlen, w.ws_col);
+	size[1] = w.ws_row - size[2];
+	size[3] = nbr_perline(compl->maxlen, w.ws_col);
+	size[4] = nbr_percol(compl->nbrargs, size[3]);
+	size[5] = 0;
+	size[6] = 0;
+	return (size);
 }
 
-void		print_args(t_compl *compl, t_cmd *cmd, struct winsize w)
+static void	print_args(t_compl *compl, int *size)
 {
-	t_coargs	*args;
-	int			nbrperline;
-	int			nbrpercol;
+	t_coargs	*ar;
 	int			i;
-	int			j;
 
-	args = &compl->args;
-	nbrperline = nbr_perline(compl->maxlen, w.ws_col);
-	i = maxrow_line(ft_strlen(cmd->str) + ft_strlen(cmd->prompt)
-			+ compl->maxlen, w.ws_col);
-	nbrpercol = nbr_percol(compl->nbrargs, nbrperline, w.ws_row, i);
-	i = 0;
-	while (args && i++ < compl->toskip)
-		args = args->next;
-	j = -1;
-	while (++j < nbrperline && args)
+	ar = &compl->args;
+	i = compl->toskip;
+	while (ar && --i > 0)
+		ar = ar->next;
+	while (ar)
 	{
-		i = print_col(compl, &args, nbrpercol, compl->maxlen * j);
+		ft_putstr(tgetstr("do", NULL));
+		i = compl->maxlen * size[6];
 		while (i--)
-			tputs(tgetstr("up", NULL), 1, tputchar);
+			ft_putstr(tgetstr("nd", NULL));
+		if (ar->id == compl->curr)
+			ft_putstr(tgetstr("mr", NULL));
+		ft_putstr(ar->arg);
 		i = 0;
-		while (args && ++i * nbrperline < compl->nbrargs - nbrpercol * nbrperline)
-			args = args->next;
+		while ((size_t)++i < compl->maxlen - ft_strlen(ar->arg))
+			ft_putchar(' ');
+		ft_putstr(tgetstr("me", NULL));
+		ft_putchar(' ');
+		ar = ar->next;
+		if (++size[5] == size[4] || size[5] == size[1])
+		{
+			size[6]++;
+			while (size[5]-- > 0)
+				tputs(tgetstr("up", NULL), 1, tputchar);
+			i = compl->toskip + (size[4] - (compl->toskip + size[1]));
+			while (ar && i-- > 0)
+				ar = ar->next;
+			size[5] = 0;
+		}
 	}
-	i = j * compl->maxlen;
-	while (i--)
-		tputs(tgetstr("le", NULL), 1, tputchar);
 }
 
 void		display_args(t_compl *compl, t_cmd *cmd)
 {
-	struct winsize	w;
-	int				i;
+	int				*size;
 
+//	ft_putstr_fd(tgetstr("vi", NULL), 0);
 	go_begin(cmd->col, cmd->sc_col);
-	ioctl(0, TIOCGWINSZ, &w);
-	i = maxrow_line(ft_strlen(cmd->str) + ft_strlen(cmd->prompt)
-			+ compl->maxlen, w.ws_col);
-	while (i--)
+	tputs(tgetstr("cd", NULL), 1, tputchar);
+	if (!(size = get_size(compl, cmd)))
+		return ;
+	size[6] = size[2];
+	while (--size[6])
 		tputs(tgetstr("do", NULL), 1, tputchar);
-	print_args(compl, cmd, w);
-	i = maxrow_line(ft_strlen(cmd->str) + ft_strlen(cmd->prompt)
-			+ compl->maxlen, w.ws_col);
-	while (i--)
+	size[6] = 0;
+	print_args(compl, size);
+	size[5] += size[2];
+	while (--size[5])
 		tputs(tgetstr("up", NULL), 1, tputchar);
+	size[6] = compl->maxlen * size[6];
+	while (size[6]--)
+		ft_putstr(tgetstr("le", NULL));
 	choose_prompt(cmd);
 	ft_putstr(cmd->str);
+//	ft_putstr_fd(tgetstr("ve", NULL), 0);
 }
