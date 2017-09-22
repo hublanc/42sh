@@ -51,6 +51,7 @@ void				list_compl(t_compl *compl, char ***env);
 ** get_binaries.c
 */
 void				get_args(t_compl *compl, char **paths);
+int					get_files(t_compl *compl, DIR *dirp, t_coargs **ar, int *fd);
 
 /*
 ** display_args.c

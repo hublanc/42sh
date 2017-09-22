@@ -12,7 +12,7 @@
 
 #include "shell.h"
 
-static int	get_files(t_compl *compl, DIR *dirp, t_coargs **args, int *idcount)
+int		get_files(t_compl *compl, DIR *dirp, t_coargs **args, int *idcount)
 {
 	struct dirent	*dirc;
 	t_coargs		*tmp;
@@ -20,7 +20,9 @@ static int	get_files(t_compl *compl, DIR *dirp, t_coargs **args, int *idcount)
 	if (!(dirc = readdir(dirp)))
 		return (1);
 	tmp = *args;
-	if (compl->arg && ft_strncmp(dirc->d_name, compl->arg, ft_strlen(compl->arg)))
+	if ((compl->arg && ft_strncmp(dirc->d_name, compl->arg, ft_strlen(compl->arg)))
+		|| (dirc->d_name[0] == '.' && (!compl->isdot || (dirc->d_name[1]
+				&& dirc->d_name[1] == '.'))))
 		return (get_files(compl, dirp, args, idcount));
 	(*args)->id = (*idcount)++;
 	(*args)->arg = ft_strdup(dirc->d_name);
@@ -40,21 +42,32 @@ static int	get_files(t_compl *compl, DIR *dirp, t_coargs **args, int *idcount)
 
 void	get_args(t_compl *compl, char **paths)
 {
-	t_coargs *complarg;
+	t_coargs *args;
 	DIR		*dirp;
 	int		id;
 	int		i;
 
-	if (compl || paths)
-		;
-	complarg = &compl->args;
+	args = &compl->args;
 	id = 0;
 	i = -1;
+	if (args && args->arg)
+	{
+		while (args->next)
+			args = args->next;
+		if (!(args->next = (t_coargs *)ft_memalloc(sizeof(t_coargs))))
+		{
+			args->next = NULL;
+			return ;
+		}
+		id = args->id + 1;
+		args = args->next;
+		args->arg = NULL;
+	}
 	while (paths[++i])
 	{
 		if (check_access(paths[i]) && (dirp = opendir(paths[i])))
 		{
-			get_files(compl, dirp, &complarg, &id);
+			get_files(compl, dirp, &args, &id);
 			closedir(dirp);
 		}
 	}

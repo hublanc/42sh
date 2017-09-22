@@ -80,12 +80,26 @@ static void	compl_cmp(t_compl *compl, char **word)
 void		list_content(t_compl *compl)
 {
 	DIR			*dirp;
-//	t_coargs	*args;
+	t_coargs	*args;
+	int			id;
 
+	compl->maxlen = 0;
+	compl->nbrargs = 0;
+	compl->isstar = 0;
+	compl->isdot = 0;
+	compl->isslash = 0;
 	if (!(dirp = check_open(&compl->path)))
+	{
+		compl->path = NULL;
 		return ;
+	}
 	compl_cmp(compl, &compl->arg);
-//	if (compl_cmp(c, compl->path, &compl->arg) || ft_strcmp(compl->path, ".") == 0)
+	if (compl->arg && compl->arg[0] == '.')
+		compl->isdot = 1;
+	args = &compl->args;
+	id = 0;
+	get_files(compl, dirp, &args, &id);
+	closedir(dirp);
 }
 
 void		list_compl(t_compl *compl, char ***env)
@@ -96,11 +110,6 @@ void		list_compl(t_compl *compl, char ***env)
 	paths = NULL;
 	compl->args.next = NULL;
 	compl->args.arg = NULL;
-	compl->maxlen = 0;
-	compl->nbrargs = 0;
-	compl->isstar = 0;
-	compl->isdot = 0;
-	compl->isslash = 0;
 	if (compl->arg && compl->arg[0] && ft_strcmp(compl->arg, "*") == 0)
 		compl->isstar = 1;
 	if (compl->arg && compl->arg[0] && ft_strcmp(compl->arg, "*") == 0)
@@ -110,8 +119,8 @@ void		list_compl(t_compl *compl, char ***env)
 	if (compl->isstar == 3)
 		compl->arg[ft_strlen(compl->arg) - 1] = 0;
 	list_content(compl);
-	if ((path = get_path(env)))
+	if (!compl->path && (path = get_path(env)))
 		paths = ft_strsplit(path + 5, ':');
-	if (paths && paths[0])
+	if (!compl->path && paths && paths[0])
 		get_args(compl, paths);
 }
