@@ -23,6 +23,41 @@ static void	add_argtoline(t_compl *compl, t_cmd *cmd)
 		add_line(cmd, args->arg + ft_strlen(compl->arg));
 }
 
+static int	check_onscreen(t_compl *compl, int *size, int toskip)
+{
+	int	i;
+
+	i = -1;
+	while (++i < size[3])
+	{
+		if (compl->curr >= toskip + size[4] * i
+				&& compl->curr < toskip + size[4] * i + size[1])
+			return (1);
+	}
+	return (0);
+}
+
+static void	get_onscreen(t_compl *compl, t_cmd *cmd)
+{
+	int	*size;
+	int	toskip;
+	int	i;
+
+	size = get_size(compl, cmd);
+	toskip = compl->toskip;
+	while (toskip < size[4] - size[1]
+			&& (i = check_onscreen(compl, size, toskip) == 0))
+		toskip++;
+	if (i > 0)
+	{
+		compl->toskip = toskip;
+		return ;
+	}
+	while (toskip > 0 && !check_onscreen(compl, size, toskip))
+		toskip--;
+	compl->toskip = toskip;
+}
+
 int		compl_keys(t_compl *compl, t_cmd *cmd, char **buf)
 {
 	ft_bzero(*buf, ft_strlen(*buf));
@@ -31,13 +66,13 @@ int		compl_keys(t_compl *compl, t_cmd *cmd, char **buf)
 		return (-1);
 	else if ((*buf)[0] == 27 && compl_arrow(compl, cmd, *buf))
 	{
-//		get_onscreen(compl, cmd);
+		get_onscreen(compl, cmd);
 		display_args(compl, cmd);
 	}
 	else if ((*buf)[0] == 9 && !(*buf)[1])
 	{
 		compl->curr = (compl->curr < compl->nbrargs - 1) ? compl->curr + 1 : 0;
-//		get_onscreen(compl, cmd);
+		get_onscreen(compl, cmd);
 		display_args(compl, cmd);
 	}
 	else if ((*buf)[0] == 10 && !(*buf)[1])
