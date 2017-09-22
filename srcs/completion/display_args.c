@@ -12,7 +12,7 @@
 
 #include "shell.h"
 
-int			nbr_perline(int maxlen, int w)
+static int	nbr_perline(int maxlen, int w)
 {
 	int	i;
 
@@ -22,7 +22,7 @@ int			nbr_perline(int maxlen, int w)
 	return ((--i > 0) ? i : 1);
 }
 
-int			nbr_percol(int nbrargs, int nbrperline)
+static int	nbr_percol(int nbrargs, int nbrperline)
 {
 	int	i;
 
@@ -32,7 +32,7 @@ int			nbr_percol(int nbrargs, int nbrperline)
 	return (i);
 }
 
-int			maxrow_line(int lenline, int w)
+static int	maxrow_line(int lenline, int w)
 {
 	int	i;
 
@@ -68,7 +68,7 @@ static void	print_args(t_compl *compl, int *size)
 
 	ar = &compl->args;
 	i = compl->toskip;
-	while (ar && --i > 0)
+	while (ar && i-- > 0)
 		ar = ar->next;
 	while (ar)
 	{
