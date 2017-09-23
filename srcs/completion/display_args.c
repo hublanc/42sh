@@ -98,11 +98,33 @@ static void	print_args(t_compl *compl, int *size)
 	}
 }
 
+static void	print_complline(t_compl *compl, t_cmd *cmd)
+{
+	t_coargs		*ar;
+	char			*tmp;
+
+	ar = &compl->args;
+	choose_prompt(cmd);
+	if ((tmp = ft_strndup(cmd->str, cmd->col - 1 - cmd->prlen)))
+	{
+		ft_putstr(tmp);
+		free(tmp);
+	}
+	while (ar && ar->id != compl->curr)
+		ar = ar->next;
+	if (ar && ar->arg && (tmp = ft_strdup(ar->arg + ft_strlen(compl->arg))))
+	{
+		ft_putstr(tmp);
+		free(tmp);
+	}
+	ft_putstr(cmd->str + cmd->col - 1 - cmd->prlen);
+}
+
 void		display_args(t_compl *compl, t_cmd *cmd)
 {
 	int				*size;
 
-//	ft_putstr_fd(tgetstr("vi", NULL), 0);
+	ft_putstr_fd(tgetstr("vi", NULL), 0);
 	go_begin(cmd->col, cmd->sc_col);
 	tputs(tgetstr("cd", NULL), 1, tputchar);
 	if (!(size = get_size(compl, cmd)))
@@ -115,10 +137,9 @@ void		display_args(t_compl *compl, t_cmd *cmd)
 	size[5] += size[2];
 	while (--size[5])
 		tputs(tgetstr("up", NULL), 1, tputchar);
-	size[6] = compl->maxlen * size[6];
+	size[6] = compl->maxlen * size[6] + compl->maxlen;
 	while (size[6]--)
 		ft_putstr(tgetstr("le", NULL));
-	choose_prompt(cmd);
-	ft_putstr(cmd->str);
-//	ft_putstr_fd(tgetstr("ve", NULL), 0);
+	print_complline(compl, cmd);
+	ft_putstr_fd(tgetstr("ve", NULL), 0);
 }
