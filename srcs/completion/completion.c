@@ -87,6 +87,8 @@ int			completion(t_cmd *cmd, char ***env, char **buf)
 	i = 1;
 	compl.curr = 0;
 	compl.toskip = 0;
+	if (!compl.isslash && compl.path && compl.path[0])
+		add_line(cmd, "/");
 	if (!compl.args.next && compl.args.arg)
 		add_line(cmd, compl.args.arg + ft_strlen(compl.arg));
 	else
