@@ -45,7 +45,7 @@ void				completion(t_cmd *cmd, char ***env, char **buf);
 /*
 ** list_args.c
 */
-void				list_compl(t_compl *compl, char ***env);
+void				list_compl(t_compl *compl, t_cmd *cmd, char ***env);
 
 /*
 ** get_binaries.c

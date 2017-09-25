@@ -30,8 +30,6 @@ DIR			*check_open(t_compl *compl)
 	DIR		*dirp;
 	int		i;
 
-	if (!compl->path || !compl->path[0])
-		return (NULL);
 	if (!(dirp = opendir(compl->path)))
 	{
 		i = ft_strlen(compl->path) - 1;
@@ -51,12 +49,6 @@ DIR			*check_open(t_compl *compl)
 			}
 			return (NULL);
 		}
-	}
-	if (compl->arg && !ft_strcmp(compl->path, compl->arg)
-			&& compl->arg[ft_strlen(compl->arg) - 1] != '/')
-	{
-		free(compl->arg);
-		compl->arg = NULL;
 	}
 	return (dirp);
 }
@@ -118,7 +110,29 @@ void		list_content(t_compl *compl)
 	closedir(dirp);
 }
 
-void		list_compl(t_compl *compl, char ***env)
+static int	check_command(t_cmd *cmd)
+{
+	int		i;
+
+	if (!cmd->str || !cmd->str[0])
+		return (0);
+	i = cmd->col - 2 - cmd->prlen;
+	if (i <= 0)
+		return (0);
+	while (cmd->str[i] && cmd->str[i] != 32 && cmd->str[i] != 34
+				&& cmd->str[i] != 96)
+		i--;
+	if (i <= 0)
+		return (0);
+	while (cmd->str[i] && (cmd->str[i] == 32 || cmd->str[i] == 34
+				|| cmd->str[i] == 96))
+		i--;
+	if (cmd->str[i] == 32)
+		return (0);
+	return (1);
+}
+
+void		list_compl(t_compl *compl, t_cmd *cmd, char ***env)
 {
 	t_coargs	*ar;
 	char		*path;
@@ -140,7 +154,7 @@ void		list_compl(t_compl *compl, char ***env)
 	if (compl->isstar == 3)
 		compl->arg[ft_strlen(compl->arg) - 1] = 0;
 	list_content(compl);
-	if (!compl->path && !compl->isstar && (path = get_path(env)))
+	if (!check_command(cmd) && !compl->isstar && (path = get_path(env)))
 		if ((paths = ft_strsplit(path + 5, ':')) && paths[0])
 			get_args(compl, paths);
 	ar = &compl->args;

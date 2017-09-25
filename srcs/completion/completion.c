@@ -12,42 +12,7 @@
 
 #include "shell.h"
 
-static void	check_home(char **word, char ***env)
-{
-	char	*tmp;
-	char	*tmp2;
-	int		i;
-
-	i = 0;
-	while (env && *env && (*env)[i] && ft_strncmp("HOME=", (*env)[i], 5))
-		i++;
-	if (!env | !*env || !***env)
-		i = -1;
-	if (ft_strcmp(*word, "~") == 0)
-	{
-		free(*word);
-		*word = NULL;
-		if (i == -1)
-			return ;
-		*word = ft_strdup((*env)[i] + 5);
-	}
-	else if (*word && (*word)[0] == '~' && (*word)[1] == '/')
-	{
-		tmp = ft_strdup(*word + 1);
-		free(*word);
-		*word = NULL;
-		if (i == -1)
-			return ;
-		tmp2 = ft_strdup((*env)[i] + 5);
-		if (!tmp2)
-			tmp = "~";
-		*word = ft_strjoin(tmp2, tmp);
-		free(tmp2);
-		free(tmp);
-	}
-}
-
-static char	*get_path(t_cmd *cmd, char ***env)
+static char	*get_path(t_cmd *cmd)
 {
 	char	*word;
 	int		i;
@@ -72,7 +37,6 @@ static char	*get_path(t_cmd *cmd, char ***env)
 	if (i > cmd->col - 1 - cmd->prlen)
 		return (NULL);
 	word = ft_strndup(cmd->str + i, cmd->col - 1 - cmd->prlen - i);
-	check_home(&word, env);
 	return (word);
 }
 
@@ -81,9 +45,9 @@ void		completion(t_cmd *cmd, char ***env, char **buf)
 	t_compl	compl;
 	int		i;
 
-	compl.path = get_path(cmd, env);
+	compl.path = get_path(cmd);
 	compl.arg = ft_strdup(compl.path);
-	list_compl(&compl, env);
+	list_compl(&compl, cmd, env);
 	i = 1;
 	compl.curr = 0;
 	compl.toskip = 0;
