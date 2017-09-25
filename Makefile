@@ -61,7 +61,8 @@ SRC		=	main.c\
 			completion/get_binaries.c\
 			completion/display_args.c\
 			completion/compl_keys.c\
-			completion/compl_arrow.c
+			completion/compl_arrow.c\
+			completion/compl_star.c
 
 # colors
 GRN     =   \033[0;32m

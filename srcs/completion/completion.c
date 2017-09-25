@@ -31,7 +31,7 @@ static void	check_home(char **word, char ***env)
 			return ;
 		*word = ft_strdup((*env)[i] + 5);
 	}
-	else if ((*word)[0] == '~' && (*word)[1] == '/')
+	else if (*word && (*word)[0] == '~' && (*word)[1] == '/')
 	{
 		tmp = ft_strdup(*word + 1);
 		free(*word);
@@ -76,7 +76,7 @@ static char	*get_path(t_cmd *cmd, char ***env)
 	return (word);
 }
 
-int			completion(t_cmd *cmd, char ***env, char **buf)
+void		completion(t_cmd *cmd, char ***env, char **buf)
 {
 	t_compl	compl;
 	int		i;
@@ -87,6 +87,11 @@ int			completion(t_cmd *cmd, char ***env, char **buf)
 	i = 1;
 	compl.curr = 0;
 	compl.toskip = 0;
+	if (!compl.args.arg || compl_star(&compl, cmd))
+	{
+		ft_bzero(*buf, ft_strlen(*buf));
+		return ;
+	}
 	if (!compl.isslash && compl.path && compl.path[0])
 		add_line(cmd, "/");
 	if (!compl.args.next && compl.args.arg)
@@ -98,5 +103,4 @@ int			completion(t_cmd *cmd, char ***env, char **buf)
 			if ((i = compl_keys(&compl, cmd, buf)) == -1)
 				ft_bzero(*buf, ft_strlen(*buf));
 	}
-	return (0);
 }
