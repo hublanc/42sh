@@ -82,6 +82,9 @@ int		compl_keys(t_compl *compl, t_cmd *cmd, char **buf)
 		return (-1);
 	}
 	else
+	{
+		add_argtoline(compl, cmd);
 		return (0);
+	}
 	return (1);
 }

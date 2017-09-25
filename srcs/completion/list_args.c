@@ -52,6 +52,12 @@ DIR			*check_open(t_compl *compl)
 			return (NULL);
 		}
 	}
+	if (compl->arg && !ft_strcmp(compl->path, compl->arg)
+			&& compl->arg[ft_strlen(compl->arg) - 1] != '/')
+	{
+		free(compl->arg);
+		compl->arg = NULL;
+	}
 	return (dirp);
 }
 
