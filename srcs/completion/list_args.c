@@ -37,6 +37,7 @@ DIR			*check_open(t_compl *compl)
 		i = ft_strlen(compl->path) - 1;
 		while (i > 0 && compl->path[i] && compl->path[i] != '/')
 			i--;
+		i++;
 		ft_bzero(compl->path + i, ft_strlen(compl->path + i));
 		if (!compl->path || !(dirp = opendir(compl->path)))
 		{
@@ -58,8 +59,9 @@ static void	compl_cmp(t_compl *compl, char **word)
 {
 	int	i;
 
-	if (!word || !*word ||  !(*word)[0] || !compl->path
-			|| ft_strcmp(compl->path, *word))
+	if (!word || !*word || !(*word)[0] || !compl->path
+			|| ft_strncmp(compl->path, *word, ft_strlen(compl->path))
+			|| (*word)[0] != compl->path[0])
 		return ;
 	if ((*word)[0] == '.' && (!(*word)[1] || ((*word)[1] != '.'
 					&& (*word)[1] != '/' && !(*word)[2])))

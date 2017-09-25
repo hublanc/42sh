@@ -38,9 +38,7 @@ static int	compl_star2(t_compl *compl, t_cmd *cmd)
 
 	prep_complstar2(compl, cmd);
 	ar = &compl->args;
-	tmp2 = ft_strjoin("/", ar->arg);
-	tmp = ft_strjoin(tmp2, " ");
-	(tmp2) ? free(tmp2) : 0;
+	tmp = ft_strjoin(ar->arg, " ");
 	while (ar && (ar = ar->next))
 	{
 		tmp2 = ft_strjoin(tmp, compl->path);

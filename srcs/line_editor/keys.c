@@ -65,7 +65,8 @@ void		add_line(t_cmd *cmd, char *buf)
 	signal(SIGINT, &signal_do_nothing);
 	i = -1;
 	k = 0;
-	while (buf && ++i < 999 && buf[i] && (ft_isprint(buf[i]) || buf[i] == 9))
+	while (buf && (size_t)++i < ft_strlen(buf) && buf[i] && (ft_isprint(buf[i])
+				|| buf[i] == 9))
 	{
 		j = 2;
 		if (buf[i] == 9)

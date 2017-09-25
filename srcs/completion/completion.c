@@ -95,7 +95,12 @@ void		completion(t_cmd *cmd, char ***env, char **buf)
 	if (!compl.isslash && compl.path && compl.path[0])
 		add_line(cmd, "/");
 	if (!compl.args.next && compl.args.arg)
+	{
 		add_line(cmd, compl.args.arg + ft_strlen(compl.arg));
+		ft_bzero(*buf, ft_strlen(*buf));
+		(*buf)[0] = ' ';
+		return ;
+	}
 	else
 	{
 		display_args(&compl, cmd);
