@@ -36,6 +36,7 @@ int		get_files(t_compl *compl, DIR *dirp, t_coargs **args, int *idcount)
 	}
 	(*args) = (*args)->next;
 	(*args)->arg = NULL;
+	(*args)->next = NULL;
 	return (get_files(compl, dirp, args, idcount) == 0);
 }
 
@@ -51,8 +52,10 @@ void	get_args(t_compl *compl, char **paths)
 	i = -1;
 	if (args && args->arg)
 	{
-		while (args->next)
+		while (args->next && args->next->arg)
 			args = args->next;
+		if (args->next)
+			free(args->next);
 		if (!(args->next = (t_coargs *)ft_memalloc(sizeof(t_coargs))))
 		{
 			args->next = NULL;
@@ -61,6 +64,7 @@ void	get_args(t_compl *compl, char **paths)
 		id = args->id + 1;
 		args = args->next;
 		args->arg = NULL;
+		args->next = NULL;
 	}
 	while (paths[++i])
 	{

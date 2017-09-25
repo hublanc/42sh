@@ -25,23 +25,29 @@ static char	*get_path(char ***env)
 	return (NULL);
 }
 
-DIR			*check_open(char **path)
+DIR			*check_open(t_compl *compl)
 {
 	DIR		*dirp;
 	int		i;
 
-	if (!path || !path[0])
+	if (!compl->path || !compl->path[0])
 		return (NULL);
-	if (!(dirp = opendir(*path)))
+	if (!(dirp = opendir(compl->path)))
 	{
-		i = ft_strlen(*path) - 1;
-		while (i > 0 && (*path)[i] && (*path)[i] != '/')
+		i = ft_strlen(compl->path) - 1;
+		while (i > 0 && compl->path[i] && compl->path[i] != '/')
 			i--;
-		ft_bzero((*path + i), ft_strlen(*path + i));
-		if (!*path || !(dirp = opendir(*path)))
+		ft_bzero(compl->path + i, ft_strlen(compl->path + i));
+		if (!compl->path || !(dirp = opendir(compl->path)))
 		{
-			if (*path)
-				free(*path);
+			if (compl->path)
+				free(compl->path);
+			compl->path = NULL;
+			if ((dirp = opendir(".")))
+			{
+				compl->isslash = 1;
+				return (dirp);
+			}
 			return (NULL);
 		}
 	}
@@ -52,7 +58,8 @@ static void	compl_cmp(t_compl *compl, char **word)
 {
 	int	i;
 
-	if (!word || !word[0])
+	if (!word || !*word ||  !(*word)[0] || !compl->path
+			|| ft_strcmp(compl->path, *word))
 		return ;
 	if ((*word)[0] == '.' && (!(*word)[1] || ((*word)[1] != '.'
 					&& (*word)[1] != '/' && !(*word)[2])))
@@ -85,17 +92,18 @@ void		list_content(t_compl *compl)
 
 	compl->maxlen = 0;
 	compl->nbrargs = 0;
-	compl->isstar = 0;
 	compl->isdot = 0;
 	compl->isslash = 0;
-	if (!(dirp = check_open(&compl->path)))
-	{
-		compl->path = NULL;
+	if (!(dirp = check_open(compl)))
 		return ;
-	}
 	compl_cmp(compl, &compl->arg);
 	if (compl->arg && compl->arg[0] == '.')
 		compl->isdot = 1;
+	if (compl->arg && !ft_strcmp(compl->arg, "*"))
+	{
+		free(compl->arg);
+		compl->arg = NULL;
+	}
 	args = &compl->args;
 	id = 0;
 	get_files(compl, dirp, &args, &id);
@@ -111,16 +119,20 @@ void		list_compl(t_compl *compl, char ***env)
 	paths = NULL;
 	compl->args.next = NULL;
 	compl->args.arg = NULL;
-	if (compl->arg && compl->arg[0] && ft_strcmp(compl->arg, "*") == 0)
+	compl->isstar = 0;
+	if (compl->arg && compl->arg[0] && !ft_strcmp(compl->arg, "*"))
 		compl->isstar = 1;
-	if (compl->arg && compl->arg[0] && ft_strcmp(compl->arg, "*") == 0)
-		ft_bzero(compl->arg, ft_strlen(compl->arg));
+	if (compl->arg && compl->arg[0] && !ft_strcmp(compl->arg, "*"))
+	{
+		free(compl->path);
+		compl->path = ft_strdup(".");
+	}
 	else if (compl->arg && compl->arg[0] && compl->arg[ft_strlen(compl->arg) - 1] == '*')
 		compl->isstar = 3;
 	if (compl->isstar == 3)
 		compl->arg[ft_strlen(compl->arg) - 1] = 0;
 	list_content(compl);
-	if (!compl->path && (path = get_path(env)))
+	if (!compl->path && !compl->isstar && (path = get_path(env)))
 		if ((paths = ft_strsplit(path + 5, ':')) && paths[0])
 			get_args(compl, paths);
 	ar = &compl->args;
