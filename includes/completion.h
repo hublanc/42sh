@@ -25,7 +25,9 @@ typedef struct		s_coargs
 
 typedef struct		s_compl
 {
+	struct s_coargs	*ar;
 	size_t			maxlen;
+	int				bi;
 	int				toskip;
 	int				curr;
 	int				nbrargs;

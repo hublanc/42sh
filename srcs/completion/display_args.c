@@ -98,37 +98,75 @@ static void	print_args(t_compl *compl, int *size)
 	}
 }
 
-static void	print_complline(t_compl *compl, t_cmd *cmd)
+static void	print_complline(t_compl *compl, t_cmd *cmd, int *size)
 {
-	t_coargs		*ar;
-	char			*tmp;
+	char	*tmp;
+	int		len;
 
-	ar = &compl->args;
 	choose_prompt(cmd);
+	len = 0;
 	if ((tmp = ft_strndup(cmd->str, cmd->col - 1 - cmd->prlen)))
 	{
 		ft_putstr(tmp);
+		len = cmd->prlen + ft_strlen(tmp);
+		len += len % size[0] == 0 ? 0 : 1;
+		if (len % size[0] == 0)
+			tputs(tgetstr("cr", NULL), 1, tputchar);
+		if (len % size[0] == 0)
+			tputs(tgetstr("do", NULL), 1, tputchar);
+		len = cmd->prlen + ft_strlen(tmp);
 		free(tmp);
 	}
-	while (ar && ar->id != compl->curr)
-		ar = ar->next;
-	if (ar && ar->arg && (tmp = ft_strdup(ar->arg + ft_strlen(compl->arg))))
+	if (compl->ar && compl->ar->arg
+			&& (tmp = ft_strdup(compl->ar->arg + ft_strlen(compl->arg))))
 	{
 		ft_putstr(tmp);
+		len += ft_strlen(tmp);
+		len += len % size[0] == 0 ? 0 : 1;
+		if (len % size[0] == 0)
+			tputs(tgetstr("cr", NULL), 1, tputchar);
+		if (len % size[0] == 0)
+			tputs(tgetstr("do", NULL), 1, tputchar);
 		free(tmp);
 	}
+	tputs(tgetstr("sc", NULL), 1, tputchar);
 	ft_putstr(cmd->str + cmd->col - 1 - cmd->prlen);
+	tputs(tgetstr("rc", NULL), 1, tputchar);
+}
+
+void		get_curr(t_compl *compl)
+{
+	t_coargs *ar;
+
+	if (compl->curr < 0)
+		return ;
+	ar = &compl->args;
+	while (ar)
+	{
+		if (compl->curr == ar->id)
+		{
+			compl->ar = ar;
+			return ;
+		}
+		ar = ar->next;
+	}
 }
 
 void		display_args(t_compl *compl, t_cmd *cmd)
 {
 	int				*size;
 
-	ft_putstr_fd(tgetstr("vi", NULL), 0);
-	go_begin(cmd->col, cmd->sc_col);
-	tputs(tgetstr("cd", NULL), 1, tputchar);
 	if (!(size = get_size(compl, cmd)))
 		return ;
+	size[6] = (compl->ar) ? ft_strlen(compl->ar->arg) + ft_strlen(compl->arg) : 0;
+	go_begin(cmd->col + size[6], cmd->sc_col);
+	get_curr(compl);
+	tputs(tgetstr("cd", NULL), 1, tputchar);
+	if ((size_t)size[0] < compl->maxlen)
+		print_complline(compl, cmd, size);
+	if ((size_t)size[0] < compl->maxlen)
+		return ;
+//	ft_putstr_fd(tgetstr("vi", NULL), 0);
 	size[6] = size[2];
 	while (--size[6])
 		tputs(tgetstr("do", NULL), 1, tputchar);
@@ -137,9 +175,9 @@ void		display_args(t_compl *compl, t_cmd *cmd)
 	size[5] += size[2];
 	while (--size[5])
 		tputs(tgetstr("up", NULL), 1, tputchar);
-	size[6] = compl->maxlen * size[6] + compl->maxlen;
+	size[6] = compl->maxlen * size[3];
 	while (size[6]--)
 		ft_putstr(tgetstr("le", NULL));
-	print_complline(compl, cmd);
+	print_complline(compl, cmd, size);
 	ft_putstr_fd(tgetstr("ve", NULL), 0);
 }

@@ -24,9 +24,11 @@ static char	*get_path(t_cmd *cmd)
 			&& cmd->str[i] != '\'' && cmd->str[i] != ' ')
 	{
 		go_right(cmd);
-		i = cmd->col - 1 - cmd->prlen;
+		i++;
 	}
 	i = cmd->col - 1 - cmd->prlen;
+	if (i > 0 && (cmd->str[i] == '"' || cmd->str[i] == '\'' || cmd->str[i] == ' '))
+		i--;
 	while (i > 0 && cmd->str[i] != '"' && cmd->str[i] != '\''
 			&& cmd->str[i] != ' ')
 		i--;
@@ -49,7 +51,8 @@ void		completion(t_cmd *cmd, char ***env, char **buf)
 	compl.arg = ft_strdup(compl.path);
 	list_compl(&compl, cmd, env);
 	i = 1;
-	compl.curr = 0;
+	compl.ar = NULL;
+	compl.curr = -1;
 	compl.toskip = 0;
 	if (!compl.args.arg || compl_star(&compl, cmd))
 	{
