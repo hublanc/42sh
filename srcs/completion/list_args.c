@@ -44,6 +44,7 @@ DIR			*check_open(t_compl *compl)
 			compl->path = NULL;
 			if ((dirp = opendir(".")))
 			{
+				compl->bi = 0;
 				compl->isslash = 1;
 				return (dirp);
 			}
@@ -142,6 +143,7 @@ void		list_compl(t_compl *compl, t_cmd *cmd, char ***env)
 	compl->args.next = NULL;
 	compl->args.arg = NULL;
 	compl->isstar = 0;
+	compl->bi = 1;
 	if (compl->arg && compl->arg[0] && !ft_strcmp(compl->arg, "*"))
 		compl->isstar = 1;
 	if (compl->arg && compl->arg[0] && !ft_strcmp(compl->arg, "*"))
@@ -154,7 +156,8 @@ void		list_compl(t_compl *compl, t_cmd *cmd, char ***env)
 	if (compl->isstar == 3)
 		compl->arg[ft_strlen(compl->arg) - 1] = 0;
 	list_content(compl);
-	if (!check_command(cmd) && !compl->isstar && (path = get_path(env)))
+	if (!check_command(cmd) && !compl->isstar && !compl->bi
+			&& (path = get_path(env)))
 		if ((paths = ft_strsplit(path + 5, ':')) && paths[0])
 			get_args(compl, paths);
 	ar = &compl->args;
