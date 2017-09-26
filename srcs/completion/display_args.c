@@ -108,7 +108,7 @@ static void	print_complline(t_compl *compl, t_cmd *cmd, int *size)
 	if ((tmp = ft_strndup(cmd->str, cmd->col - 1 - cmd->prlen)))
 	{
 		ft_putstr(tmp);
-		len = cmd->prlen + ft_strlen(tmp);
+		len = cmd->prlen + ft_strlen(tmp) - 1;
 		len += len % size[0] == 0 ? 0 : 1;
 		if (len % size[0] == 0)
 			tputs(tgetstr("cr", NULL), 1, tputchar);
@@ -121,7 +121,7 @@ static void	print_complline(t_compl *compl, t_cmd *cmd, int *size)
 			&& (tmp = ft_strdup(compl->ar->arg + ft_strlen(compl->arg))))
 	{
 		ft_putstr(tmp);
-		len += ft_strlen(tmp);
+		len += ft_strlen(tmp) - 1;
 		len += len % size[0] == 0 ? 0 : 1;
 		if (len % size[0] == 0)
 			tputs(tgetstr("cr", NULL), 1, tputchar);
@@ -158,8 +158,7 @@ void		display_args(t_compl *compl, t_cmd *cmd)
 
 	if (!(size = get_size(compl, cmd)))
 		return ;
-	size[6] = (compl->ar) ? ft_strlen(compl->ar->arg) + ft_strlen(compl->arg) : 0;
-	go_begin(cmd->col + size[6], cmd->sc_col);
+	go_begin(cmd->col + ((compl->ar) ? ft_strlen(compl->ar->arg) : 0), size[0]);
 	get_curr(compl);
 	tputs(tgetstr("cd", NULL), 1, tputchar);
 	if ((size_t)size[0] < compl->maxlen)
