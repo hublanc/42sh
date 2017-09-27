@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/27 11:29:13 by amazurie          #+#    #+#             */
-/*   Updated: 2017/09/27 11:38:10 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/09/27 13:28:56 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,10 @@ void		compl_addcolor(t_coargs **ar, char *path)
 	char *tmp;
 	char *tmp2;
 
-	if (path && *ar && (*ar)->arg)
+	if (*ar && (*ar)->arg)
 	{
+		if (!path)
+			path = ".";
 		if (!(tmp = ft_strjoin(path, "/")))
 		{
 			(*ar)->color = NULL;
