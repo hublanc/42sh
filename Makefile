@@ -6,7 +6,7 @@
 #    By: hublanc <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/07/24 15:04:09 by hublanc           #+#    #+#              #
-#    Updated: 2017/09/20 14:28:17 by amazurie         ###   ########.fr        #
+#    Updated: 2017/09/27 11:34:13 by amazurie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,7 +62,8 @@ SRC		=	main.c\
 			completion/display_args.c\
 			completion/compl_keys.c\
 			completion/compl_arrow.c\
-			completion/compl_star.c
+			completion/compl_star.c\
+			completion/compl_color.c
 
 # colors
 GRN     =   \033[0;32m

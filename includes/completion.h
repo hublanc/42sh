@@ -6,20 +6,21 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 09:50:30 by amazurie          #+#    #+#             */
-/*   Updated: 2017/09/20 16:42:18 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/09/27 11:37:49 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef COMPLETION_H
 # define COMPLETION_H
 
-#include <dirent.h>
+# include <dirent.h>
+# include <sys/stat.h>
 
 typedef struct		s_coargs
 {
 	int				id;
 	char			*arg;
-//	int				type; //couleur
+	char			*color;
 	struct s_coargs	*next;
 }					t_coargs;
 
@@ -75,5 +76,10 @@ int			compl_arrow(t_compl *compl, t_cmd *cmd, char *buf);
 ** compl_star.c
 */
 int			compl_star(t_compl *compl, t_cmd *cmd);
+
+/*
+** compl_color.c
+*/
+void		compl_addcolor(t_coargs **ar, char *path);
 
 #endif
