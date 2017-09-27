@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/20 13:00:36 by amazurie          #+#    #+#             */
-/*   Updated: 2017/09/27 14:16:19 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/09/27 16:31:21 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,14 @@ static void	add_argtoline(t_compl *compl, t_cmd *cmd)
 {
 	t_coargs	*args;
 
+	if (compl->curr < 0)
+		return ;
 	args = &compl->args;
 	while (args && compl->curr != args->id)
 		args = args->next;
 	if (args && args->arg)
 		add_line(cmd, args->arg + ft_strlen(compl->arg));
-	if (args->color && ft_strcmp("\e[1;36m", args->color))
+	if (args && args->color && ft_strcmp("\e[1;36m", args->color))
 		add_line(cmd, " ");
 }
 
@@ -61,11 +63,11 @@ static int	get_onscreen(t_compl *compl, t_cmd *cmd)
 	return (0);
 }
 
-int		compl_keys(t_compl *compl, t_cmd *cmd, char **buf)
+int			compl_keys(t_compl *compl, t_cmd *cmd, char **buf)
 {
 	ft_bzero(*buf, ft_strlen(*buf));
 	read(0, *buf, 999);
-	if ((*buf)[0] == 27 && !(*buf)[1])
+	if (is_sigint(0) || ((*buf)[0] == 27 && !(*buf)[1]))
 		return (-1);
 	else if ((*buf)[0] == 27 && compl_arrow(compl, cmd, *buf))
 	{
@@ -78,14 +80,11 @@ int		compl_keys(t_compl *compl, t_cmd *cmd, char **buf)
 		compl->toskip = get_onscreen(compl, cmd);
 		display_args(compl, cmd);
 	}
-	else if ((*buf)[0] == 10 && !(*buf)[1])
-	{
-		add_argtoline(compl, cmd);
-		return (-1);
-	}
 	else
 	{
 		add_argtoline(compl, cmd);
+		if ((*buf)[0] == 10 && !(*buf)[1])
+			return (-1);
 		return (0);
 	}
 	return (1);
