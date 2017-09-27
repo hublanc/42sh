@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/20 13:00:36 by amazurie          #+#    #+#             */
-/*   Updated: 2017/09/20 17:53:24 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/09/27 14:16:19 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ static void	add_argtoline(t_compl *compl, t_cmd *cmd)
 		args = args->next;
 	if (args && args->arg)
 		add_line(cmd, args->arg + ft_strlen(compl->arg));
+	if (args->color && ft_strcmp("\e[1;36m", args->color))
+		add_line(cmd, " ");
 }
 
 static int	check_onscreen(t_compl *compl, int *size, int toskip)
