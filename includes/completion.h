@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 09:50:30 by amazurie          #+#    #+#             */
-/*   Updated: 2017/09/27 11:37:49 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/09/27 16:07:23 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # include <dirent.h>
 # include <sys/stat.h>
+
+# define COMPLBUFF	130
 
 typedef struct		s_coargs
 {
@@ -81,5 +83,12 @@ int			compl_star(t_compl *compl, t_cmd *cmd);
 ** compl_color.c
 */
 void		compl_addcolor(t_coargs **ar, char *path);
+
+/*
+** compl_buff.c
+*/
+size_t		print_buff(char **buff);
+size_t		buffcat(char **buff, char *s);
+size_t		buffncat(char **buff, char *s, size_t n);
 
 #endif
