@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 09:54:57 by amazurie          #+#    #+#             */
-/*   Updated: 2017/09/27 14:16:33 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/09/27 16:33:04 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,11 @@ static char	*get_path(t_cmd *cmd)
 		return (NULL);
 	i = cmd->col - 1 - cmd->prlen;
 	while (cmd->str[i] && cmd->str[i] != '"' && cmd->str[i] != '\''
-			&& cmd->str[i] != '\'' && cmd->str[i] != ' ')
-	{
+			&& cmd->str[i] != '\'' && cmd->str[i] != ' ' && (++i) > 0)
 		go_right(cmd);
-		i++;
-	}
 	i = cmd->col - 1 - cmd->prlen;
-	if (i > 0 && (cmd->str[i] == '"' || cmd->str[i] == '\'' || cmd->str[i] == ' '))
+	if (i > 0 && (cmd->str[i] == '"' || cmd->str[i] == '\''
+				|| cmd->str[i] == ' '))
 		i--;
 	while (i > 0 && cmd->str[i] != '"' && cmd->str[i] != '\''
 			&& cmd->str[i] != ' ')
@@ -42,18 +40,31 @@ static char	*get_path(t_cmd *cmd)
 	return (word);
 }
 
+static void	init_compl(t_compl *compl, t_cmd *cmd)
+{
+	compl->path = get_path(cmd);
+	compl->arg = ft_strdup(compl->path);
+	compl->args.next = NULL;
+	compl->args.arg = NULL;
+	compl->isstar = 0;
+	compl->bi = 1;
+	compl->maxlen = 0;
+	compl->nbrargs = 0;
+	compl->isdot = 0;
+	compl->isslash = 0;
+	compl->ar = NULL;
+	compl->curr = -1;
+	compl->toskip = 0;
+}
+
 void		completion(t_cmd *cmd, char ***env, char **buf)
 {
 	t_compl	compl;
 	int		i;
 
-	compl.path = get_path(cmd);
-	compl.arg = ft_strdup(compl.path);
+	init_compl(&compl, cmd);
 	list_compl(&compl, cmd, env);
 	i = 1;
-	compl.ar = NULL;
-	compl.curr = -1;
-	compl.toskip = 0;
 	if (!compl.args.arg || compl_star(&compl, cmd))
 	{
 		ft_bzero(*buf, ft_strlen(*buf));
@@ -68,11 +79,8 @@ void		completion(t_cmd *cmd, char ***env, char **buf)
 		(*buf)[0] = ' ';
 		return ;
 	}
-	else
-	{
-		display_args(&compl, cmd);
-		while (i > 0)
-			if ((i = compl_keys(&compl, cmd, buf)) == -1)
-				ft_bzero(*buf, ft_strlen(*buf));
-	}
+	display_args(&compl, cmd);
+	while (i > 0)
+		if ((i = compl_keys(&compl, cmd, buf)) == -1)
+			ft_bzero(*buf, ft_strlen(*buf));
 }

@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 18:24:56 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/19 13:48:27 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/09/27 16:54:31 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,13 @@ int			check_number(t_token **list, char *cmd);
 int			*add_fd(int *fds, t_node *tree);
 int			*add_io(int *fds, t_node *tree, int io);
 char		**add_w(char **tab, t_node *tree, int cut);
+
+/*
+**	Tools_compl.c
+*/
+int			nbr_perline(int maxlen, int w);
+int			nbr_percol(int nbrargs, int nbrperline);
+int			maxrow_line(int lenline, int w);
+char		*get_envpath(char ***env);
 
 #endif

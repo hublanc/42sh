@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/27 11:09:06 by amazurie          #+#    #+#             */
-/*   Updated: 2017/09/27 13:13:13 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/09/27 16:24:42 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,26 +53,21 @@ static int	compl_star2(t_compl *compl, t_cmd *cmd)
 
 	prep_complstar2(compl, cmd);
 	ar = &compl->args;
-	if (compl->arg)
-		tmp = ft_strjoin(ar->arg + ft_strlen(compl->arg), " ");
-	else
-	tmp = ft_strjoin(ar->arg, " ");
+	tmp = (compl->arg) ? ft_strjoin(ar->arg + ft_strlen(compl->arg), " ")
+		: ft_strjoin(ar->arg, " ");
 	while (ar && (ar = ar->next) && ar->arg)
 	{
 		tmp2 = ft_strjoin(tmp, compl->path);
 		(tmp) ? free(tmp) : 0;
 		tmp = ft_strjoin(tmp2, "/");
 		(tmp2) ? free(tmp2) : 0;
-		if (compl->arg)
-			tmp2 = ft_strjoin(tmp, ar->arg + ft_strlen(compl->arg));
-		else
-			tmp2 = ft_strjoin(tmp, ar->arg);
+		tmp2 = ft_strjoin(tmp, ar->arg);
 		(tmp) ? free(tmp) : 0;
 		tmp = ft_strjoin(tmp2, " ");
 		(tmp2) ? free(tmp2) : 0;
 	}
 	if ((size_t)(cmd->col - 1 - cmd->prlen) > ft_strlen(cmd->str))
-	go_left(cmd);
+		go_left(cmd);
 	add_line(cmd, tmp);
 	return (1);
 }
