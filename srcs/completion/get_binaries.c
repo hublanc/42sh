@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 12:18:48 by amazurie          #+#    #+#             */
-/*   Updated: 2017/09/27 11:36:08 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/09/27 14:10:07 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int		get_files(t_compl *compl, DIR *dirp, t_coargs **args, int *idcount)
 {
 	struct dirent	*dirc;
 	t_coargs		*tmp;
+	char			*t;
 
 	if (!(dirc = readdir(dirp)))
 		return (1);
@@ -27,6 +28,12 @@ int		get_files(t_compl *compl, DIR *dirp, t_coargs **args, int *idcount)
 	(*args)->id = (*idcount)++;
 	(*args)->arg = ft_strdup(dirc->d_name);
 	compl_addcolor(args, compl->path);
+	if ((*args)->color && !ft_strcmp("\e[1;36m", (*args)->color))
+	{
+		t = ft_strjoin((*args)->arg, "/");
+		((*args)->arg) ? free((*args)->arg) : 0;
+		(*args)->arg = ft_strdup(t);
+	}
 	compl->nbrargs++;
 	if (ft_strlen((*args)->arg) + 1 > compl->maxlen)
 		compl->maxlen = ft_strlen((*args)->arg) + 1;
