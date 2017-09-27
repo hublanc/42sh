@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 15:35:33 by amazurie          #+#    #+#             */
-/*   Updated: 2017/09/20 17:55:42 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/09/27 11:39:39 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,9 @@ static void	print_args(t_compl *compl, int *size)
 			ft_putstr(tgetstr("nd", NULL));
 		if (ar->id == compl->curr)
 			ft_putstr(tgetstr("mr", NULL));
+		ft_putstr(ar->color);
 		ft_putstr(ar->arg);
+		ft_putstr(RESET);
 		i = 0;
 		while ((size_t)++i < compl->maxlen - ft_strlen(ar->arg))
 			ft_putchar(' ');
@@ -121,8 +123,7 @@ static void	print_complline(t_compl *compl, t_cmd *cmd, int *size)
 			&& (tmp = ft_strdup(compl->ar->arg + ft_strlen(compl->arg))))
 	{
 		ft_putstr(tmp);
-		len += ft_strlen(tmp) - 1;
-		len += len % size[0] == 0 ? 0 : 1;
+		len += ft_strlen(tmp);
 		if (len % size[0] == 0)
 			tputs(tgetstr("cr", NULL), 1, tputchar);
 		if (len % size[0] == 0)
@@ -174,9 +175,7 @@ void		display_args(t_compl *compl, t_cmd *cmd)
 	size[5] += size[2];
 	while (--size[5])
 		tputs(tgetstr("up", NULL), 1, tputchar);
-	size[6] = compl->maxlen * size[3];
-	while (size[6]--)
-		ft_putstr(tgetstr("le", NULL));
+	tputs(tgetstr("cr", NULL), 1, tputchar);
 	print_complline(compl, cmd, size);
 	ft_putstr_fd(tgetstr("ve", NULL), 0);
 }
