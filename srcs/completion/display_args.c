@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 15:35:33 by amazurie          #+#    #+#             */
-/*   Updated: 2017/09/27 11:39:39 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/09/27 15:58:25 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int			*get_size(t_compl *compl, t_cmd *cmd)
 	return (size);
 }
 
-static void	print_args(t_compl *compl, int *size)
+static void	print_args(t_compl *compl, int *size, char **buff)
 {
 	t_coargs	*ar;
 	int			i;
@@ -72,26 +72,26 @@ static void	print_args(t_compl *compl, int *size)
 		ar = ar->next;
 	while (ar)
 	{
-		ft_putstr(tgetstr("do", NULL));
+		buffcat(buff, tgetstr("do", NULL));
 		i = compl->maxlen * size[6];
 		while (i--)
-			ft_putstr(tgetstr("nd", NULL));
+			buffcat(buff, tgetstr("nd", NULL));
 		if (ar->id == compl->curr)
-			ft_putstr(tgetstr("mr", NULL));
-		ft_putstr(ar->color);
-		ft_putstr(ar->arg);
-		ft_putstr(RESET);
+			buffcat(buff, tgetstr("mr", NULL));
+		buffcat(buff, ar->color);
+		buffcat(buff, ar->arg);
+		buffcat(buff, RESET);
 		i = 0;
 		while ((size_t)++i < compl->maxlen - ft_strlen(ar->arg))
-			ft_putchar(' ');
-		ft_putstr(tgetstr("me", NULL));
-		ft_putchar(' ');
+			buffcat(buff, " ");
+		buffcat(buff, tgetstr("me", NULL));
+		buffcat(buff, " ");
 		ar = ar->next;
 		if (++size[5] == size[4] || size[5] == size[1])
 		{
 			size[6]++;
 			while (size[5]-- > 0)
-				tputs(tgetstr("up", NULL), 1, tputchar);
+				buffcat(buff, tgetstr("up", NULL));
 			i = compl->toskip + (size[4] - (compl->toskip + size[1]));
 			while (ar && i-- > 0)
 				ar = ar->next;
@@ -100,39 +100,40 @@ static void	print_args(t_compl *compl, int *size)
 	}
 }
 
-static void	print_complline(t_compl *compl, t_cmd *cmd, int *size)
+static void	print_complline(t_compl *compl, t_cmd *cmd, int *size, char **buff)
 {
 	char	*tmp;
 	int		len;
 
+	print_buff(buff);
 	choose_prompt(cmd);
 	len = 0;
 	if ((tmp = ft_strndup(cmd->str, cmd->col - 1 - cmd->prlen)))
 	{
-		ft_putstr(tmp);
+		buffcat(buff, tmp);
 		len = cmd->prlen + ft_strlen(tmp) - 1;
 		len += len % size[0] == 0 ? 0 : 1;
 		if (len % size[0] == 0)
-			tputs(tgetstr("cr", NULL), 1, tputchar);
+			buffcat(buff, tgetstr("cr", NULL));
 		if (len % size[0] == 0)
-			tputs(tgetstr("do", NULL), 1, tputchar);
+			buffcat(buff, tgetstr("do", NULL));
 		len = cmd->prlen + ft_strlen(tmp);
 		free(tmp);
 	}
 	if (compl->ar && compl->ar->arg
 			&& (tmp = ft_strdup(compl->ar->arg + ft_strlen(compl->arg))))
 	{
-		ft_putstr(tmp);
+		buffcat(buff, tmp);
 		len += ft_strlen(tmp);
 		if (len % size[0] == 0)
-			tputs(tgetstr("cr", NULL), 1, tputchar);
+			buffcat(buff, tgetstr("cr", NULL));
 		if (len % size[0] == 0)
-			tputs(tgetstr("do", NULL), 1, tputchar);
+			buffcat(buff, tgetstr("do", NULL));
 		free(tmp);
 	}
-	tputs(tgetstr("sc", NULL), 1, tputchar);
-	ft_putstr(cmd->str + cmd->col - 1 - cmd->prlen);
-	tputs(tgetstr("rc", NULL), 1, tputchar);
+	buffcat(buff, tgetstr("sc", NULL));
+	buffcat(buff, cmd->str + cmd->col - 1 - cmd->prlen);
+	buffcat(buff, tgetstr("rc", NULL));
 }
 
 void		get_curr(t_compl *compl)
@@ -155,27 +156,29 @@ void		get_curr(t_compl *compl)
 
 void		display_args(t_compl *compl, t_cmd *cmd)
 {
+	char			*buff;
 	int				*size;
 
 	if (!(size = get_size(compl, cmd)))
 		return ;
+	buff = (char *)ft_memalloc(COMPLBUFF);
 	go_begin(cmd->col + ((compl->ar) ? ft_strlen(compl->ar->arg) : 0), size[0]);
 	get_curr(compl);
-	tputs(tgetstr("cd", NULL), 1, tputchar);
+	buffcat(&buff, tgetstr("cd", NULL));
 	if ((size_t)size[0] < compl->maxlen)
-		print_complline(compl, cmd, size);
+		print_complline(compl, cmd, size, &buff);
 	if ((size_t)size[0] < compl->maxlen)
 		return ;
-//	ft_putstr_fd(tgetstr("vi", NULL), 0);
 	size[6] = size[2];
 	while (--size[6])
-		tputs(tgetstr("do", NULL), 1, tputchar);
+		buffcat(&buff, tgetstr("do", NULL));
 	size[6] = 0;
-	print_args(compl, size);
+	print_args(compl, size, &buff);
 	size[5] += size[2];
 	while (--size[5])
-		tputs(tgetstr("up", NULL), 1, tputchar);
-	tputs(tgetstr("cr", NULL), 1, tputchar);
-	print_complline(compl, cmd, size);
-	ft_putstr_fd(tgetstr("ve", NULL), 0);
+		buffcat(&buff, tgetstr("up", NULL));
+	buffcat(&buff, tgetstr("cr", NULL));
+	print_complline(compl, cmd, size, &buff);
+	print_buff(&buff);
+	free(buff);
 }
