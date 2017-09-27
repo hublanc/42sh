@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 10:48:34 by amazurie          #+#    #+#             */
-/*   Updated: 2017/09/27 11:45:22 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/09/27 14:03:47 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,8 @@ static int	check_command(t_cmd *cmd)
 	while (cmd->str[i] && (cmd->str[i] == 32 || cmd->str[i] == 34
 				|| cmd->str[i] == 96))
 		i--;
-	if (cmd->str[i] == 32)
+	if (i < 0 || cmd->str[i] == 32 || cmd->str[i] == 38 || cmd->str[i] == 124
+			|| cmd->str[i] == 59)
 		return (0);
 	return (1);
 }
