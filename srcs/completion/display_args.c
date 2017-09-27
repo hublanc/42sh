@@ -6,41 +6,11 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 15:35:33 by amazurie          #+#    #+#             */
-/*   Updated: 2017/09/27 15:58:25 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/09/27 17:09:01 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
-
-static int	nbr_perline(int maxlen, int w)
-{
-	int	i;
-
-	i = 1;
-	while (i * maxlen < w)
-		i++;
-	return ((--i > 0) ? i : 1);
-}
-
-static int	nbr_percol(int nbrargs, int nbrperline)
-{
-	int	i;
-
-	i = 1;
-	while (i * nbrperline < nbrargs)
-		i++;
-	return (i);
-}
-
-static int	maxrow_line(int lenline, int w)
-{
-	int	i;
-
-	i = 1;
-	while (i * w < lenline)
-		i++;
-	return (i);
-}
 
 int			*get_size(t_compl *compl, t_cmd *cmd)
 {
@@ -61,6 +31,26 @@ int			*get_size(t_compl *compl, t_cmd *cmd)
 	return (size);
 }
 
+static void	buff_arg(t_compl *compl, t_coargs *ar, char **buff, int *size)
+{
+	int	i;
+
+	buffcat(buff, tgetstr("do", NULL));
+	i = compl->maxlen * size[6];
+	while (i--)
+		buffcat(buff, tgetstr("nd", NULL));
+	if (ar->id == compl->curr)
+		buffcat(buff, tgetstr("mr", NULL));
+	buffcat(buff, ar->color);
+	buffcat(buff, ar->arg);
+	buffcat(buff, RESET);
+	i = 0;
+	while ((size_t)++i < compl->maxlen - ft_strlen(ar->arg))
+		buffcat(buff, " ");
+	buffcat(buff, tgetstr("me", NULL));
+	buffcat(buff, " ");
+}
+
 static void	print_args(t_compl *compl, int *size, char **buff)
 {
 	t_coargs	*ar;
@@ -72,20 +62,7 @@ static void	print_args(t_compl *compl, int *size, char **buff)
 		ar = ar->next;
 	while (ar)
 	{
-		buffcat(buff, tgetstr("do", NULL));
-		i = compl->maxlen * size[6];
-		while (i--)
-			buffcat(buff, tgetstr("nd", NULL));
-		if (ar->id == compl->curr)
-			buffcat(buff, tgetstr("mr", NULL));
-		buffcat(buff, ar->color);
-		buffcat(buff, ar->arg);
-		buffcat(buff, RESET);
-		i = 0;
-		while ((size_t)++i < compl->maxlen - ft_strlen(ar->arg))
-			buffcat(buff, " ");
-		buffcat(buff, tgetstr("me", NULL));
-		buffcat(buff, " ");
+		buff_arg(compl, ar, buff, size);
 		ar = ar->next;
 		if (++size[5] == size[4] || size[5] == size[1])
 		{
@@ -98,42 +75,6 @@ static void	print_args(t_compl *compl, int *size, char **buff)
 			size[5] = 0;
 		}
 	}
-}
-
-static void	print_complline(t_compl *compl, t_cmd *cmd, int *size, char **buff)
-{
-	char	*tmp;
-	int		len;
-
-	print_buff(buff);
-	choose_prompt(cmd);
-	len = 0;
-	if ((tmp = ft_strndup(cmd->str, cmd->col - 1 - cmd->prlen)))
-	{
-		buffcat(buff, tmp);
-		len = cmd->prlen + ft_strlen(tmp) - 1;
-		len += len % size[0] == 0 ? 0 : 1;
-		if (len % size[0] == 0)
-			buffcat(buff, tgetstr("cr", NULL));
-		if (len % size[0] == 0)
-			buffcat(buff, tgetstr("do", NULL));
-		len = cmd->prlen + ft_strlen(tmp);
-		free(tmp);
-	}
-	if (compl->ar && compl->ar->arg
-			&& (tmp = ft_strdup(compl->ar->arg + ft_strlen(compl->arg))))
-	{
-		buffcat(buff, tmp);
-		len += ft_strlen(tmp);
-		if (len % size[0] == 0)
-			buffcat(buff, tgetstr("cr", NULL));
-		if (len % size[0] == 0)
-			buffcat(buff, tgetstr("do", NULL));
-		free(tmp);
-	}
-	buffcat(buff, tgetstr("sc", NULL));
-	buffcat(buff, cmd->str + cmd->col - 1 - cmd->prlen);
-	buffcat(buff, tgetstr("rc", NULL));
 }
 
 void		get_curr(t_compl *compl)

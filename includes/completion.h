@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 09:50:30 by amazurie          #+#    #+#             */
-/*   Updated: 2017/09/27 16:07:23 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/09/27 16:57:55 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,11 @@ int			compl_star(t_compl *compl, t_cmd *cmd);
 ** compl_color.c
 */
 void		compl_addcolor(t_coargs **ar, char *path);
+
+/*
+** print_complline.c
+*/
+void		print_complline(t_compl *compl, t_cmd *cmd, int *size, char **buff);
 
 /*
 ** compl_buff.c

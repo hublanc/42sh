@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/27 11:08:56 by amazurie          #+#    #+#             */
-/*   Updated: 2017/09/27 11:08:57 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/09/27 16:10:39 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,15 +73,17 @@ int			compl_arrow(t_compl *compl, t_cmd *cmd, char *buf)
 	if ((buf[0] == 27 && buf[1] == 91 && ((buf[2] == 65 && !buf[3])
 					|| (buf[2] == 53 && buf[3] == 126)))
 			|| (buf[0] == 16 && !buf[1]))
-		compl->curr = (compl->curr - 1 < 0) ? compl->nbrargs - 1 : compl->curr - 1;
+		compl->curr = compl->curr - 1 < 0 ? compl->nbrargs - 1 :
+			compl->curr - 1;
 	else if ((buf[0] == 27 && buf[1] == 91 && ((buf[2] == 66 && !buf[3])
 					|| (buf[2] == 54 && buf[3] == 126)))
 			|| (buf[0] == 14 && !buf[1]))
-		compl->curr = (compl->curr + 1 > compl->nbrargs - 1) ? 0 : compl->curr + 1;
+		compl->curr = compl->curr + 1 > compl->nbrargs - 1 ? 0 :
+			compl->curr + 1;
 	else if (((buf[0] == 27 && buf[1] == 91 && buf[2] == 67 && !buf[3])
 				|| (buf[0] == 2 && !buf[1])) ||
-			((buf[0] == 27 && buf[1] == 91 && buf[2] == 68 && !buf[3])
-			 || (buf[0] == 6 && !buf[1])))
+				((buf[0] == 27 && buf[1] == 91 && buf[2] == 68 && !buf[3])
+				|| (buf[0] == 6 && !buf[1])))
 		hand_rlcompl(compl, cmd, buf);
 	else
 		return (compl_endhome(compl, cmd, buf));

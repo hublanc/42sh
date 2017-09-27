@@ -6,19 +6,19 @@
 #    By: hublanc <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/07/24 15:04:09 by hublanc           #+#    #+#              #
-#    Updated: 2017/09/27 15:48:43 by amazurie         ###   ########.fr        #
+#    Updated: 2017/09/27 16:58:25 by amazurie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME    = shell
-CC      = gcc
-FLAGS   = -Wall -Wextra -Werror
-DFLAGS = -MMD
-LIB     = libft/libft.a
-HEADER  = includes/
-LIBSRC  = libft/
-SRCDIR  = srcs/
-OBJDIR  = objs/
+NAME	= shell
+CC		= gcc
+FLAGS	= -Wall -Wextra -Werror
+DFLAGS	= -MMD
+LIB		= libft/libft.a
+HEADER	= includes/
+LIBSRC	= libft/
+SRCDIR	= srcs/
+OBJDIR	= objs/
 SRC		=	main.c\
 			terminal.c\
 			line_editor/prompt.c\
@@ -51,6 +51,7 @@ SRC		=	main.c\
 			tools/tools_lexer.c\
 			tools/tools_redir.c\
 			tools/tools_history.c\
+			tools/tools_compl.c\
 			built-in/echo.c\
 			built-in/env.c\
 			built-in/ft_cd.c\
@@ -64,6 +65,7 @@ SRC		=	main.c\
 			completion/compl_arrow.c\
 			completion/compl_star.c\
 			completion/compl_color.c\
+			completion/print_complline.c\
 			completion/compl_buff.c
 
 # colors
