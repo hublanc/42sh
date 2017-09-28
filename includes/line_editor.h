@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 16:36:09 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/14 14:13:51 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/09/26 19:41:53 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,13 @@ void		del_current(t_hist **list);
 char		check_quote(char *str);
 void		prompt_quote(t_cmd *cmd, t_hist **history, char c, int mod);
 void		prompt_backslash(t_cmd *cmd, t_hist **history, int mod);
+
+/*
+**	Cmdandor.c
+*/
+int			check_cmdandor(char *str);
+void		prompt_cmdandor(t_cmd *cmd, t_hist **history, int mod);
+void		enter_handler_cmdandor(t_cmd *cmd, t_hist **history);
 
 /*
 **	Prompt.c

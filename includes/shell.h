@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 11:50:54 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/13 19:38:58 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/09/28 18:13:34 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,12 @@ struct termios		g_term;
 /*
 **	Built-in
 */
-void		ft_echo(char **tab);
+int			ft_echo(char **tab);
 int			in_env(char *str, char **env);
-void		ft_setenv(char **tab, char ***env);
-void		ft_unsetenv(char **tab, char ***env);
-void		ft_env(char **env, char **tab);
-void		ft_cd(char **tab, char ***env);
+int			ft_setenv(char **tab, char ***env);
+int			ft_unsetenv(char **tab, char ***env);
+int			ft_env(char **env, char **tab);
+int			ft_cd(char **tab, char ***env);
 
 char		**delonenv(char *name, char **env);
 char		**prep_setenv(char *name, char *value);

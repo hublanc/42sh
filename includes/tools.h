@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 18:24:56 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/13 19:39:52 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/09/28 18:31:58 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 /*
 **	Error.c
 */
-void		print_error(int err, char *cmd);
+int			print_error(int err, char *cmd);
 void		print_usage(char c);
-int			check_access(char *path, char **env);
+int			check_access(char *path);
 int			pwdnotset(char ***env);
 void		get_signal(int n);
 
@@ -34,9 +34,11 @@ char		**get_env(char **env, int add);
 /*
 **	Tools_extra.c
 */
-void		err_nofordir(char *cmd, char ***tab);
+void		err_nofordir(char *cmd);
 void		ft_putcolor(char *prompt);
 t_token		*abort_sort(t_token *list, char *error);
+int			env_tab(char **env);
+int			return_status(void);
 
 /*
 **	Tools_history.c
@@ -71,5 +73,14 @@ int			check_number(t_token **list, char *cmd);
 int			*add_fd(int *fds, t_node *tree);
 int			*add_io(int *fds, t_node *tree, int io);
 char		**add_w(char **tab, t_node *tree, int cut);
+
+/*
+**	Tools_routine.c
+*/
+void		operator_or(t_node *tree);
+void		operator_and(t_node *tree);
+void		wait_flag(t_node *tree);
+void		end_flag(t_node *tree);
+void		pipe_flag(t_node *tree);
 
 #endif
