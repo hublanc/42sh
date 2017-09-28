@@ -84,3 +84,17 @@ void		get_signal(int n)
 	else if (n == SIGBUS)
 		ft_putstr_fd(" Bus error: 10\n", 2);
 }
+
+void		event_not_found(char *str)		// May need to be in print_error
+{
+	int		i;
+
+	i = 0;
+	ft_putstr("shell: event not found: ");
+	while (str[i] && str[i] != ' ')
+	{
+		ft_putchar(str[i]);
+		i++;
+	}
+	ft_putchar('\n');
+}
