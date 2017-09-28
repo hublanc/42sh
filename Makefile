@@ -6,7 +6,7 @@
 #    By: hublanc <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/07/24 15:04:09 by hublanc           #+#    #+#              #
-#    Updated: 2017/09/27 16:58:25 by amazurie         ###   ########.fr        #
+#    Updated: 2017/09/28 14:49:03 by amazurie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,7 +66,8 @@ SRC		=	main.c\
 			completion/compl_star.c\
 			completion/compl_color.c\
 			completion/print_complline.c\
-			completion/compl_buff.c
+			completion/compl_buff.c\
+			completion/compl_free.c
 
 # colors
 GRN     =   \033[0;32m

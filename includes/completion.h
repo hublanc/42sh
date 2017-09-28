@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 09:50:30 by amazurie          #+#    #+#             */
-/*   Updated: 2017/09/28 11:25:40 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/09/28 14:48:41 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,5 +96,11 @@ void		add_argtoline(t_compl *compl, t_cmd *cmd);
 size_t		print_buff(char **buff);
 size_t		buffcat(char **buff, char *s);
 size_t		buffncat(char **buff, char *s, size_t n);
+
+/*
+** compl_free.c
+*/
+void		free_tabl(char **tab);
+void		compl_free(t_compl *compl);
 
 #endif
