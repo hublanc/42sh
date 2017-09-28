@@ -6,13 +6,13 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/01 11:03:53 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/13 19:44:44 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/09/28 14:33:55 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-void		print_error(int err, char *cmd)
+int			print_error(int err, char *cmd)
 {
 	if (err == 1)
 	{
@@ -33,6 +33,11 @@ void		print_error(int err, char *cmd)
 	}
 	if (err == 5)
 		ft_putstr_fd("Invalid argument\n", 2);
+	if (err == 6)
+		ft_putstr_fd("cd : OLDPWD not set\n", 2);
+	if (err == 7)
+		ft_putstr_fd("usage: unsetenv Key\n", 2);
+	return (1);
 }
 
 void		print_usage(char c)
@@ -43,11 +48,10 @@ void		print_usage(char c)
 	ft_putstr_fd(" [utility[argument ...]]\n", 2);
 }
 
-int			check_access(char *path, char **env)
+int			check_access(char *path)
 {
 	int		res;
 
-	(void)env;
 	res = 1;
 	if (access(path, F_OK) == -1)
 		res = -1;
