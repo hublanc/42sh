@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 11:41:39 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/14 13:22:06 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/09/26 20:01:32 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void		choose_prompt(t_cmd *cmd)
 {
 	if (!ft_strcmp(cmd->prompt, "dquote> ") || !ft_strcmp(cmd->prompt, "quote> ")
 	|| !ft_strcmp(cmd->prompt, "heredoc> ") || !ft_strcmp(cmd->prompt, "pipe> ")
-	|| !ft_strcmp(cmd->prompt, "> "))
+	|| !ft_strcmp(cmd->prompt, "> ") || !ft_strcmp(cmd->prompt, "cmdandor> "))
 		ft_putstr(cmd->prompt);
 	else
 		print_prompt();
