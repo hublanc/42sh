@@ -6,26 +6,11 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/20 13:00:36 by amazurie          #+#    #+#             */
-/*   Updated: 2017/09/27 16:31:21 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/09/28 11:22:51 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
-
-static void	add_argtoline(t_compl *compl, t_cmd *cmd)
-{
-	t_coargs	*args;
-
-	if (compl->curr < 0)
-		return ;
-	args = &compl->args;
-	while (args && compl->curr != args->id)
-		args = args->next;
-	if (args && args->arg)
-		add_line(cmd, args->arg + ft_strlen(compl->arg));
-	if (args && args->color && ft_strcmp("\e[1;36m", args->color))
-		add_line(cmd, " ");
-}
 
 static int	check_onscreen(t_compl *compl, int *size, int toskip)
 {

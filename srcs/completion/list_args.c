@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 10:48:34 by amazurie          #+#    #+#             */
-/*   Updated: 2017/09/27 16:54:56 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/09/28 11:01:55 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,7 @@ DIR			*check_open(t_compl *compl)
 		ft_bzero(compl->path + i, ft_strlen(compl->path + i));
 		if (!compl->path || !(dirp = opendir(compl->path)))
 		{
-			if (compl->path)
-				free(compl->path);
+			(compl->path) ? free(compl->path) : 0;
 			compl->path = NULL;
 			if ((dirp = opendir(".")))
 			{
@@ -70,7 +69,7 @@ static void	compl_cmp(t_compl *compl, char **word)
 	}
 }
 
-void		list_content(t_compl *compl)
+void		list_content(t_compl *compl, t_cmd *cmd)
 {
 	DIR			*dirp;
 	t_coargs	*args;
@@ -79,6 +78,13 @@ void		list_content(t_compl *compl)
 	if (!(dirp = check_open(compl)))
 		return ;
 	compl_cmp(compl, &compl->arg);
+	if (compl->path && compl->arg && compl->path[0] == '.'
+			&& compl->path[1] == '/' && !ft_strcmp(compl->path + 2, compl->arg))
+	{
+		free(compl->arg);
+		compl->arg = NULL;
+		add_line(cmd, "/");
+	}
 	if (compl->arg && compl->arg[0] == '.')
 		compl->isdot = 1;
 	if (compl->arg && !ft_strcmp(compl->arg, "*"))
@@ -102,7 +108,7 @@ static int	check_command(t_cmd *cmd)
 	if (i <= 0)
 		return (0);
 	while (cmd->str[i] && cmd->str[i] != 32 && cmd->str[i] != 34
-				&& cmd->str[i] != 96)
+			&& cmd->str[i] != 96)
 		i--;
 	if (i <= 0)
 		return (0);
@@ -132,7 +138,7 @@ void		list_compl(t_compl *compl, t_cmd *cmd, char ***env)
 			&& compl->arg[ft_strlen(compl->arg) - 1] == '*')
 		compl->isstar = 3;
 	(compl->isstar == 3) ? compl->arg[ft_strlen(compl->arg) - 1] = 0 : 0;
-	list_content(compl);
+	list_content(compl, cmd);
 	if (!check_command(cmd) && !compl->isstar && !compl->bi
 			&& (path = get_envpath(env)))
 		if ((paths = ft_strsplit(path + 5, ':')) && paths[0])
