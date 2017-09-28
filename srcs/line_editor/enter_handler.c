@@ -24,7 +24,7 @@ void		enter_handler(t_cmd *cmd, t_control **history, char ***env)
 		prompt_quote(cmd, history, c, 0);
 	else if (c == '\\')
 		prompt_backslash(cmd, history, 0);
-	if (cmd->str)
+	if (cmd->str && cmd->str[0] != '!')
 		(*history) = dll_add_new_elem_frnt(*history, cmd->str);
 	routine(cmd->str, env, history);
 	clear_cmd(cmd);

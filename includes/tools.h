@@ -21,6 +21,7 @@ void		print_usage(char c);
 int			check_access(char *path, char **env);
 int			pwdnotset(char ***env);
 void		get_signal(int n);
+void		event_not_found(char *str);
 
 /*
 **	Tools.c
