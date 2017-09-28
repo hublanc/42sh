@@ -129,8 +129,12 @@ void		routine(char *cmd, char ***env, t_control **history)
 {
 	t_token		*list;
 	t_node		*tree;
+	char		*new_command;
 
-	list = tokenizer(cmd);
+	new_command = last_command(cmd, history);	
+//	change cmd with ! by old cmd
+//	list = tokenizer(cmd);
+	list = tokenizer(new_command);
 	list = sort_token(list, history);
 	if (!list)
 		return ((void)print_prompt());

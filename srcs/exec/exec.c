@@ -88,7 +88,7 @@ void		get_cmd(t_node *tree, char ***env, int *status, t_control **his)
 		return (del_tabstr(&tab));
 	if (ft_strcmp(tab[0], "exit") == 0)
 		stop_shell(env, tab, his);
-	if (ft_strcmp(tab[0], "echo") == 0)
+	else if (ft_strcmp(tab[0], "echo") == 0)
 		ft_echo(tab);
 	else if (ft_strcmp(tab[0], "setenv") == 0)
 		ft_setenv(tab, env);

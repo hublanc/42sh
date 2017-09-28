@@ -102,8 +102,14 @@ void		enter_hub(t_cmd *cmd, t_control **history, char ***env);
 */
 
 void		history_search(t_control **history, t_cmd *cmd, char ***env);
-void		history_search_core(t_cmd *cmd, t_cmd *search, t_control **history, char ***env);
-void		print_hist_research(t_cmd *cmd, t_cmd *search);
-char		*new_strstr(const char *big, const char *little);
+
+/*
+**	last_command.c
+*/
+
+char		*last_command(char *command, t_control **history);
+char		*get_last(char *command, t_control **history);
+char		*get_n_last(int a, t_control **history);
+char		*get_n_first(int a, t_control **history);
 
 #endif
