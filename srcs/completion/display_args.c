@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 15:35:33 by amazurie          #+#    #+#             */
-/*   Updated: 2017/09/27 17:09:01 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/09/28 15:08:35 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,8 +118,8 @@ void		display_args(t_compl *compl, t_cmd *cmd)
 	size[5] += size[2];
 	while (--size[5])
 		buffcat(&buff, tgetstr("up", NULL));
-	buffcat(&buff, tgetstr("cr", NULL));
 	print_complline(compl, cmd, size, &buff);
 	print_buff(&buff);
 	free(buff);
+	free(size);
 }

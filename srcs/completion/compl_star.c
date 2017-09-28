@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/27 11:09:06 by amazurie          #+#    #+#             */
-/*   Updated: 2017/09/27 16:24:42 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/09/28 15:13:54 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ static int	compl_star2(t_compl *compl, t_cmd *cmd)
 	if ((size_t)(cmd->col - 1 - cmd->prlen) > ft_strlen(cmd->str))
 		go_left(cmd);
 	add_line(cmd, tmp);
+	free(tmp);
 	return (1);
 }
 

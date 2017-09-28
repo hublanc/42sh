@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 09:54:57 by amazurie          #+#    #+#             */
-/*   Updated: 2017/09/27 16:33:04 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/09/28 15:09:10 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void		completion(t_cmd *cmd, char ***env, char **buf)
 	if (!compl.args.arg || compl_star(&compl, cmd))
 	{
 		ft_bzero(*buf, ft_strlen(*buf));
-		return ;
+		return compl_free(&compl);
 	}
 	if (!compl.isslash && compl.path && compl.path[0])
 		add_line(cmd, "/");
@@ -77,10 +77,11 @@ void		completion(t_cmd *cmd, char ***env, char **buf)
 		add_line(cmd, compl.args.arg + ft_strlen(compl.arg));
 		ft_bzero(*buf, ft_strlen(*buf));
 		(*buf)[0] = ' ';
-		return ;
+		return compl_free(&compl);
 	}
 	display_args(&compl, cmd);
 	while (i > 0)
 		if ((i = compl_keys(&compl, cmd, buf)) == -1)
 			ft_bzero(*buf, ft_strlen(*buf));
+	compl_free(&compl);
 }

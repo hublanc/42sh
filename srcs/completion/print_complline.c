@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/27 16:56:43 by amazurie          #+#    #+#             */
-/*   Updated: 2017/09/28 11:28:08 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/09/28 15:07:34 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void		print_complline(t_compl *compl, t_cmd *cmd, int *size, char **buff)
 	char	*tmp;
 	int		len;
 
+	buffcat(buff, tgetstr("cr", NULL));
 	print_buff(buff);
 	choose_prompt(cmd);
 	len = 0;

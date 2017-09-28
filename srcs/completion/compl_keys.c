@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/20 13:00:36 by amazurie          #+#    #+#             */
-/*   Updated: 2017/09/28 11:22:51 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/09/28 15:10:22 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,22 @@ static int	get_onscreen(t_compl *compl, t_cmd *cmd)
 	while (toskip < size[4] - size[1])
 	{
 		if (check_onscreen(compl, size, toskip))
+		{
+			free(size);
 			return (toskip);
+		}
 		toskip++;
 	}
 	while (toskip > 0)
 	{
 		if (check_onscreen(compl, size, toskip))
+		{
+			free(size);
 			return (toskip);
+		}
 		toskip--;
 	}
+	free(size);
 	return (0);
 }
 
