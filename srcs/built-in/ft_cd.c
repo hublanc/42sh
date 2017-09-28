@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/28 12:01:43 by hublanc           #+#    #+#             */
-/*   Updated: 2017/07/24 12:10:35 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/09/28 15:55:40 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void		change_pwd(char ***env)
 	ft_strdel(&new);
 }
 
-void		cd_home(char ***env)
+int			cd_home(char ***env)
 {
 	char		*new;
 	int			pos;
@@ -68,18 +68,19 @@ void		cd_home(char ***env)
 		(*env)++;
 	new = ft_strsub(**env, 5, ft_strlen(**env) - 5);
 	*env = save;
-	if ((perm = check_access(new, *env)) < 0)
+	if ((perm = check_access(new)) < 0)
 	{
 		print_error(perm == -1 ? 1 : 4, new);
 		ft_strdel(&new);
-		return ;
+		return (1);
 	}
 	chdir(new);
 	change_pwd(env);
 	ft_strdel(&new);
+	return (0);
 }
 
-void		cd_prev(char ***env)
+int			cd_prev(char ***env)
 {
 	int		pos;
 	int		perm;
@@ -88,44 +89,47 @@ void		cd_prev(char ***env)
 
 	pos = in_env("OLDPWD", *env);
 	if (pos == -1)
-		return (ft_putstr_fd("cd: OLDPWD not set\n", 2));
+		return (print_error(6, NULL));
 	save = *env;
 	while (pos--)
 		(*env)++;
 	new = ft_strsub(**env, 7, ft_strlen(**env) - 7);
 	*env = save;
-	if ((perm = check_access(new, *env)) < 0)
+	if ((perm = check_access(new)) < 0)
 	{
 		print_error(perm == -1 ? 1 : 4, new);
 		ft_strdel(&new);
-		return ;
+		return (1);
 	}
 	chdir(new);
 	change_pwd(env);
 	ft_strdel(&new);
+	return (0);
 }
 
-void		ft_cd(char **tab, char ***env)
+int			ft_cd(char **tab, char ***env)
 {
 	int			len;
 	int			perm;
 
 	len = len_array(tab);
 	if (len == 1 || (tab[1] && ft_strcmp(tab[1], "~") == 0))
-		cd_home(env);
+		return (cd_home(env));
 	else if (tab[1] && ft_strcmp(tab[1], "-") == 0)
-		cd_prev(env);
+		return (cd_prev(env));
 	else if (len == 2)
 	{
-		if ((perm = check_access(tab[1], *env)) < 0)
+		if ((perm = check_access(tab[1])) < 0)
 			return (print_error(perm == -1 ? 1 : 4, tab[1]));
 		chdir(tab[1]);
 		change_pwd(env);
+		return (0);
 	}
 	else
 	{
 		ft_putstr_fd("string not in pwd: ", 2);
 		ft_putstr_fd(tab[1], 2);
 		ft_putchar_fd('\n', 2);
+		return (1);
 	}
 }
