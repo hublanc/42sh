@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/22 15:21:04 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/18 13:58:05 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/09/29 12:33:08 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void		prompt_quote(t_cmd *cmd, t_hist **history, char c, int mod)
 		cmd_q = init_cmd("dquote> ");
 	else
 		cmd_q = init_cmd("quote> ");
+	save_cmd(&cmd_q);
 	ft_putstr(cmd_q.prompt);
 	if (!mod)
 		cmd_q.str_quote = ft_strapp(cmd_q.str_quote, cmd->str);
@@ -74,6 +75,7 @@ void		prompt_backslash(t_cmd *cmd, t_hist **history, int mod)
 	t_cmd		cmd_b;
 
 	cmd_b = init_cmd("> ");
+	save_cmd(&cmd_b);
 	ft_putstr(cmd_b.prompt);
 	if (!mod)
 		cmd_b.str_quote = ft_strapp(cmd_b.str_quote, cmd->str);

@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/29 12:56:32 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/14 13:46:50 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/09/29 12:32:45 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	prompt_heredoc(char *eof, t_token *redir, t_hist **history)
 	t_cmd		cmd_hd;
 
 	cmd_hd = init_cmd("heredoc> ");
+	save_cmd(&cmd_hd);
 	ft_putstr("heredoc> ");
 	cmd_hd.eof = ft_strdup(eof);
 	while (!cmd_hd.end_eof)

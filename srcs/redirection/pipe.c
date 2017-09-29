@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/02 17:55:21 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/13 19:50:09 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/09/29 12:32:34 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ t_token	*prompt_pipe(t_token *list)
 
 	new = NULL;
 	cmd_p = init_cmd("pipe> ");
+	save_cmd(&cmd_p);
 	ft_putstr("pipe> ");
 	while (!key_handler_pipe(&cmd_p, &list, new));
 	return (list);

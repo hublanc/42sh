@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/24 16:37:30 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/13 19:40:01 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/09/29 12:34:43 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ int			main(int ac, char **av, char **env)
 	status = 0;
 	print_prompt();
 	cmd = init_cmd(return_prompt());
+	save_cmd(&cmd);
 	history = load_history();
 	while (1)
 		key_handler(&cmd, &history, &cp_env);
