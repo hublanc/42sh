@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 09:54:57 by amazurie          #+#    #+#             */
-/*   Updated: 2017/09/28 15:09:10 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/09/29 12:51:01 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,16 +68,16 @@ void		completion(t_cmd *cmd, char ***env, char **buf)
 	if (!compl.args.arg || compl_star(&compl, cmd))
 	{
 		ft_bzero(*buf, ft_strlen(*buf));
-		return compl_free(&compl);
+		return (compl_free(&compl));
 	}
-	if (!compl.isslash && compl.path && compl.path[0])
-		add_line(cmd, "/");
+	(!compl.isslash && compl.path && compl.path[0]) ? add_line(cmd, "/") : 0;
 	if (!compl.args.next && compl.args.arg)
 	{
 		add_line(cmd, compl.args.arg + ft_strlen(compl.arg));
 		ft_bzero(*buf, ft_strlen(*buf));
-		(*buf)[0] = ' ';
-		return compl_free(&compl);
+		(compl.args.color && ft_strcmp("\e[1;36m", compl.args.color))
+			? (*buf)[0] = ' ' : 0;
+		return (compl_free(&compl));
 	}
 	display_args(&compl, cmd);
 	while (i > 0)
