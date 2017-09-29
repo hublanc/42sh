@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/14 15:40:59 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/18 19:35:35 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/09/29 21:02:11 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,6 @@ t_token			*check_pipe(t_token *list, t_token **cur)
 		return (abort_sort(list, "';'"));
 	else if (!prev)
 		return (abort_sort(list, "'|'"));
-	else if (!tmp->next)
-		list = prompt_pipe(list);
 	*cur = tmp->next;
 	return (list);
 }
