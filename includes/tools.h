@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 18:24:56 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/29 15:14:08 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/09/29 15:23:00 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,5 +90,13 @@ void		operator_and(t_node *tree);
 void		wait_flag(t_node *tree);
 void		end_flag(t_node *tree);
 void		pipe_flag(t_node *tree);
+
+/*
+**	Tools_compl.c
+*/
+int			nbr_perline(int maxlen, int w);
+int			nbr_percol(int nbrargs, int nbrperline);
+int			maxrow_line(int lenline, int w);
+char		*get_envpath(char ***env);
 
 #endif

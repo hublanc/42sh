@@ -6,19 +6,19 @@
 #    By: hublanc <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/07/24 15:04:09 by hublanc           #+#    #+#              #
-#    Updated: 2017/09/28 15:51:09 by hublanc          ###   ########.fr        #
+#    Updated: 2017/09/29 15:28:55 by hublanc          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME    = shell
-CC      = gcc
-FLAGS   = -Wall -Wextra -Werror
+NAME	= shell
+CC		= gcc
+FLAGS	= -Wall -Wextra -Werror
 DFLAGS	= -MMD
-LIB     = libft/libft.a
-HEADER  = includes/
-LIBSRC  = libft/
-SRCDIR  = srcs/
-OBJDIR  = objs/
+LIB		= libft/libft.a
+HEADER	= includes/
+LIBSRC	= libft/
+SRCDIR	= srcs/
+OBJDIR	= objs/
 SRC		=	main.c\
 			terminal.c\
 			line_editor/prompt.c\
@@ -55,11 +55,24 @@ SRC		=	main.c\
 			tools/tools_redir.c\
 			tools/tools_history.c\
 			tools/tools_routine.c\
+			tools/tools_compl.c\
 			built-in/echo.c\
 			built-in/env.c\
 			built-in/ft_cd.c\
 			built-in/set_env.c\
-			built-in/unsetenv.c
+			built-in/unsetenv.c\
+			completion/completion.c\
+			completion/list_args.c\
+			completion/get_binaries.c\
+			completion/display_args.c\
+			completion/compl_keys.c\
+			completion/compl_arrow.c\
+			completion/compl_star.c\
+			completion/compl_color.c\
+			completion/print_complline.c\
+			completion/compl_buff.c\
+			completion/compl_free.c
+
 # colors
 GRN     =   \033[0;32m
 RED     =   \033[0;31m
@@ -76,7 +89,7 @@ $(NAME): $(LIB) $(OBJS)
 	@echo "\n${CYN}PROCESSING DONE !${NC}"
 
 $(OBJDIR):
-	@mkdir -p objs objs/built-in objs/tools objs/exec objs/lexer objs/redirection objs/line_editor
+	@mkdir -p objs objs/built-in objs/tools objs/exec objs/lexer objs/redirection objs/line_editor objs/completion
 
 $(LIB):
 	@echo "${CYN}Processing ${NC}./libft/objs ${CYN}[${NC}...${CYN}]${NC}"
@@ -90,16 +103,17 @@ $(OBJDIR)%.o: $(SRCDIR)%.c $(HEADER)$(NAME).h
 clean:
 	@echo "${RED}Cleaning ${NC}./objs/ ${RED}[${NC}...${RED}]${NC}"
 	@rm -rf $(OBJS)
-	@rm -f $(DEPS)
+	@rm -rf $(DEPS)
 	@echo "${RED}Cleaning ${NC}./libft/objs/ ${RED}[${NC}...${RED}]${NC}"
 	@make -C $(LIBSRC) clean
 
 fclean: clean
 	@echo "${RED}Cleaning ${NC}./${RED}$(NAME)${NC}"
-	@rm -Rf $(NAME)
+	@rm -rf $(NAME)
 	@echo "${RED}Cleaning ${NC}./libft/${RED}libft.h${NC}\n"
 	@make -C $(LIBSRC) fclean
 	@echo "${RED}DELETE DONE !${NC}"
+	@rm -rf objs/
 
 re: fclean all
 
