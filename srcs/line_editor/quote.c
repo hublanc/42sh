@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/22 15:21:04 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/29 12:33:08 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/09/29 16:12:28 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void		prompt_quote(t_cmd *cmd, t_hist **history, char c, int mod)
 		cmd->str_quote = ft_strdup(cmd_q.str_quote);
 	}
 	clear_cmd(&cmd_q);
+	save_cmd(cmd);
 }
 
 void		prompt_backslash(t_cmd *cmd, t_hist **history, int mod)
@@ -95,4 +96,5 @@ void		prompt_backslash(t_cmd *cmd, t_hist **history, int mod)
 		cmd->str_quote = ft_strdup(cmd_b.str_quote);
 	}
 	clear_cmd(&cmd_b);
+	save_cmd(cmd);
 }
