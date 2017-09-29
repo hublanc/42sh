@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 17:27:30 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/13 19:47:10 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/09/28 17:57:31 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ typedef struct		s_token
 		PIPE,
 		SEMI_COLON,
 		IO_NUMBER,
+		ET,
+		OU,
 		}			e_type;
 	struct s_token	*next;
 }					t_token;
@@ -41,6 +43,7 @@ typedef struct		s_node
 	int				in;
 	int				out;
 	int				in_pipe;
+	int				do_it;
 	int				redir_r;
 	int				redir_l;
 	int				heredoc;
@@ -61,6 +64,7 @@ typedef struct		s_node
 /*
 **	Routine.c
 */
+int			*singleton_status(void);
 void		routine(char *cmd, char ***env, t_hist **history);
 
 /*
@@ -70,8 +74,19 @@ int			check_cmd(char **tab, char **env, t_node *tree);
 void		get_cmd(t_node *tree, char ***env, int *status, t_hist **history);
 
 /*
+**	Check_binary
+*/
+int			check_binary(char **args, char **env, char **cmd);
+
+/*
 **	Ft_cmdsplit.c
 */
 char		**ft_cmdsplit(char *str);
+
+/*
+**	Builtin.c
+*/
+int			built_in(t_node *tree, char **tab, char ***env, t_hist **his);
+int			builtin_tab(char **tab);
 
 #endif

@@ -6,13 +6,14 @@
 #    By: hublanc <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/07/24 15:04:09 by hublanc           #+#    #+#              #
-#    Updated: 2017/09/13 20:14:48 by hublanc          ###   ########.fr        #
+#    Updated: 2017/09/28 15:51:09 by hublanc          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME    = shell
 CC      = gcc
 FLAGS   = -Wall -Wextra -Werror
+DFLAGS	= -MMD
 LIB     = libft/libft.a
 HEADER  = includes/
 LIBSRC  = libft/
@@ -26,12 +27,15 @@ SRC		=	main.c\
 			line_editor/cmd.c\
 			line_editor/quote.c\
 			line_editor/history.c\
+			line_editor/cmdandor.c\
 			line_editor/load_history.c\
 			line_editor/enter_handler.c\
 			line_editor/cut_copy_paste.c\
 			exec/exec.c\
+			exec/check_binary.c\
 			exec/ft_cmdsplit.c\
 			exec/routine.c\
+			exec/builtin.c\
 			lexer/token.c\
 			lexer/lexer.c\
 			lexer/sort_token.c\
@@ -50,6 +54,7 @@ SRC		=	main.c\
 			tools/tools_lexer.c\
 			tools/tools_redir.c\
 			tools/tools_history.c\
+			tools/tools_routine.c\
 			built-in/echo.c\
 			built-in/env.c\
 			built-in/ft_cd.c\
@@ -62,7 +67,8 @@ CYN     =   \033[0;36m
 NC      =   \033[0m
 SRCS        = $(addprefix $(SRCDIR), $(SRC))
 OBJS        = $(addprefix $(OBJDIR), $(SRC:.c=.o))
-	
+DEPS		:= $(OBJS:.o=.d)
+
 all: $(OBJDIR) $(NAME)
 
 $(NAME): $(LIB) $(OBJS)
@@ -79,11 +85,12 @@ $(LIB):
 
 $(OBJDIR)%.o: $(SRCDIR)%.c $(HEADER)$(NAME).h
 	@echo "${GRN}Compiling${NC} $@"
-	@$(CC) $(FLAGS) -c -o $@ $< -I $(HEADER)
+	@$(CC) $(FLAGS) $(DFLAGS) -c -o $@ $< -I $(HEADER)
 
 clean:
 	@echo "${RED}Cleaning ${NC}./objs/ ${RED}[${NC}...${RED}]${NC}"
 	@rm -rf $(OBJS)
+	@rm -f $(DEPS)
 	@echo "${RED}Cleaning ${NC}./libft/objs/ ${RED}[${NC}...${RED}]${NC}"
 	@make -C $(LIBSRC) clean
 
@@ -92,8 +99,10 @@ fclean: clean
 	@rm -Rf $(NAME)
 	@echo "${RED}Cleaning ${NC}./libft/${RED}libft.h${NC}\n"
 	@make -C $(LIBSRC) fclean
-	@echo "${RED}DELET DONE !${NC}"
+	@echo "${RED}DELETE DONE !${NC}"
 
 re: fclean all
+
+-include $(DEPS)
 
 .PHONY: all clean fclean re
