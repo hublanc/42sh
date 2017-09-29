@@ -6,11 +6,20 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/07 16:07:25 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/18 13:57:08 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/09/29 12:34:52 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
+
+t_cmd		*save_cmd(t_cmd *cmd)
+{
+	static t_cmd	*s_cmd;
+
+	if (cmd)
+		s_cmd = cmd;
+	return (s_cmd);
+}
 
 t_cmd		init_cmd(char *prompt)
 {
