@@ -112,4 +112,16 @@ char		*get_last(char *command, t_control **history);
 char		*get_n_last(int a, t_control **history);
 char		*get_n_first(int a, t_control **history);
 
+int			is_spec(char c);
+int			is_d_dot(char *str);
+void		set_error(int a);
+void		modify_quotes(int *sq, int *dq, char c);
+char		*wd_designator(char *command, t_control **history);
+void		wd_designator_2(char *command, int *index, char **str, t_control **history);
+void		get_d_bang(char *command, char **str, t_control **history, int *index);
+void		get_last_command(char *command, char **str, t_control **history, int *index);
+void		get_old_flags(char *command, char **str, t_control **history, int *index);
+
+
+
 #endif
