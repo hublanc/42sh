@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/11 14:30:26 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/28 18:58:28 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/09/29 21:06:54 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void		enter_handler(t_cmd *cmd, t_hist **history, char ***env)
 		prompt_backslash(cmd, history, 0);
 	if (!check_cmdandor(cmd->str))
 		prompt_cmdandor(cmd, history, 0);
+	if (!checkstr_pipe(cmd->str))
+		prompt_pipe(cmd, history, 0);
 	if (cmd->str)
 		save_history(history, cmd->str);
 	routine(cmd->str, env, history);
@@ -43,6 +45,8 @@ void		enter_handler_quote(t_cmd *cmd, t_hist **history)
 	ft_putchar('\n');
 	if (!check_cmdandor(cmd->str_quote))
 		prompt_cmdandor(cmd, history, 1);
+	if (!checkstr_pipe(cmd->str_quote))
+		prompt_pipe(cmd, history, 1);
 	c = check_quote(cmd->str_quote);
 	if (!c)
 		return ;
@@ -70,6 +74,8 @@ void		enter_handler_backslash(t_cmd *cmd, t_hist **history)
 	c = check_quote(cmd->str_quote);
 	if (!check_cmdandor(cmd->str_quote))
 		prompt_cmdandor(cmd, history, 1);
+	if (!checkstr_pipe(cmd->str_quote))
+		prompt_pipe(cmd, history, 1);
 	if (!c)
 		cmd->end_bs = 1;
 	else if (c == '\\')
@@ -111,9 +117,8 @@ void		enter_hub(t_cmd *cmd, t_hist **history, char ***env)
 		enter_handler_backslash(cmd, history);
 	else if (!ft_strcmp(cmd->prompt, "cmdandor> "))
 		enter_handler_cmdandor(cmd, history);
-	/*
 	else if (!ft_strcmp(cmd->prompt, "pipe> "))
-		enter_handler_pipe(cmd, history, env);*/
+		enter_handler_pipe(cmd, history);
 	else if (!ft_strcmp(cmd->prompt, "heredoc> "))
 		enter_handler_heredoc(cmd);
 	else

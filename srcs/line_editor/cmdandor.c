@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 13:49:51 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/28 19:00:54 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/09/29 21:22:40 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,16 @@ int			check_cmdandor(char *cmd)
 		if (*str && *str == '&' && *(str + 1) == '&')
 		{
 			str += 2;
+			while (*str && *str == ' ')
+				str++;
 			if (*str == '\0')
 				return (0);
 		}
 		else if (*str && *str == '|' && *(str + 1) == '|')
 		{
 			str += 2;
+			while (*str && *str == ' ')
+				str++;
 			if (*str == '\0')
 				return (0);
 		}
@@ -51,6 +55,14 @@ void		enter_handler_cmdandor(t_cmd *cmd, t_hist **history)
 		prompt_backslash(cmd, history, 1);
 	else if (c == '\'' || c == '"')
 		prompt_quote(cmd, history, c, 1);
+	if (!checkstr_pipe(cmd->str_quote))
+		prompt_pipe(cmd, history, 1);
+	if (!check_cmdandor(cmd->str_quote))
+	{
+		ft_putstr(cmd->prompt);
+		cmd->col = cmd->prlen + 1;
+		cmd->str_quote = ft_strapp(cmd->str_quote, "\n");
+	}
 }
 
 void		prompt_cmdandor(t_cmd *cmd, t_hist **history, int mod)
