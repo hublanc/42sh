@@ -27,10 +27,8 @@ char		*wd_designator(char *command, t_control **history)
 	{
 		if (command[a] == '\'' || command[a] == '"')
 			modify_quotes(&sq, &dq, command[a]);
-		if (command[a] == '!' && sq == 0 && dq == 0)
+		else if ((command[a] == '!' || command[a] == '^') && sq == 0 && dq == 0)
 			wd_designator_2(command, &a, &str, history);
-		else if (command[a] == '!' && is_d_dot(&command[a]))
-			wd_designator_3(command, &a, &str, history);		// not created yet
 		else
 			str = ft_str_chr_cat(str, command[a]);
 		a++;
@@ -40,7 +38,7 @@ char		*wd_designator(char *command, t_control **history)
 	return (str);
 }
 
-evoid		wd_designator_2(char *command, int *index, char **str, t_control **history)
+void		wd_designator_2(char *command, int *index, char **str, t_control **history)
 {
 	if (command[*index + 1] && command[*index + 1] == '!'
 		&& (!command[*index + 2] || (command[*index + 2]
@@ -53,13 +51,200 @@ evoid		wd_designator_2(char *command, int *index, char **str, t_control **histor
 	else if (command[*index + 1] && command[*index + 1] == '-')
 		get_n_last(&command[*index], str, history, index);			//	!-n
 	else if (command[*index + 1] && command[*index + 1] == '#')
-		// test														//	!#
-	else if (command[*index + 1] && command[*index + 1] == '?')
+		get_line_again(command, index, str, history);				//	!#
+//	else if (command[*index + 1] && command[*index + 1] == '?')
 		// test														//	!?string[?]
-	else if (command[*index + 1] && command[*index + 1] == '^')
-		// test														//	!^string1^string2^
-	else if (command[*index] == '!')
+	else if (command[*index] == '^')
+		get_last_sub(&command[*index], index, str, history);		//	^string1^string2^
+	else
 		get_last_command(&command[*index], str, history, index);	//	!command
+}
+
+void		get_n_last(char *command, char **str, t_control **history, int *index)
+{
+	int		a;
+	int		b;
+	t_lst	*tmp;
+
+	a = 1;
+	b = ft_atoi(&command[2]);
+	tmp = NULL;
+	if (*history && (*history)->begin)
+		tmp = (*history)->begin;
+	while (tmp != NULL && a < b)
+	{
+		tmp = tmp->next;
+		a++;
+	}
+	if (tmp)
+	{
+		a = 0;
+		while (tmp->name[a])
+		{
+			(*str) = ft_str_chr_cat(*str, tmp->name[a]);
+			a++;
+		}
+	}
+	while (command[*index] && command[*index] != ' ')
+		(*index)++;	
+}
+
+void		get_n_first(char *command, char **str, t_control **history, int *index)
+{
+	int		a;
+	int		b;
+	t_lst	*tmp;
+
+	a = 1;
+	b = ft_atoi(&command[1]);
+	tmp = NULL;
+	if (*history && (*history)->end)
+		tmp = (*history)->end;
+	while (tmp != NULL && a < b)
+	{
+		tmp = tmp->prev;
+		a++;
+	}
+	if (tmp)
+	{
+		a = 0;
+		while (tmp->name[a])
+		{
+			(*str) = ft_str_chr_cat(*str, tmp->name[a]);
+			a++;
+		}
+	}
+	while (command[*index] && command[*index] != ' ')
+		(*index)++;
+}
+
+void		get_last_sub(char *command, int *index, char **str, t_control **history)
+{		// ^string1^string2^
+	char	**tmp;
+	int		a;
+	int		b;
+
+	tmp = NULL;
+	if (!check_sub_synt(command))
+	{
+		set_error(2, command);
+		return;
+	}
+	tmp = split_spec(command);
+	ft_putchar('a');
+	if (!(ft_strstr((*history)->begin->name, tmp[0])))
+	{
+		ft_putchar('b');
+		set_error(2, command);
+		return;
+	}
+	ft_putchar('c');
+	a = 0;
+	while (command[a] && command[a] != ' ')
+	{
+		ft_putchar('d');
+		if (ft_strncmp(&command[a], tmp[0], ft_strlen(tmp[0])) == 0)
+			break;
+		(*str) = ft_str_chr_cat(*str, command[a]);
+		a++;
+	}
+	ft_putchar('e');
+	b = 0;
+	while (tmp[1][b])
+	{
+		(*str) = ft_str_chr_cat(*str, tmp[1][b]);
+		b++;
+	}
+	b = 0;
+	while (b <= (int)ft_strlen(tmp[0]) && command[a])
+	{
+		a++;
+		b++;
+	}
+	while (command[a])
+	{
+		(*str) = ft_str_chr_cat(*str, command[a]);
+		a++;
+	}
+	while (command[*index] && command[*index] != ' ')
+		(*index)++;
+	ft_strdel(&tmp[0]);
+	ft_strdel(&tmp[1]);
+	free(tmp);
+}
+
+char		**split_spec(char *command)
+{
+	char	**result;
+	int		a;
+	int		size;
+
+	if (!(result = (char **)malloc(sizeof(char *) * (3))))
+		exit(EXIT_FAILURE);
+	if (!(result[0] = (char *)malloc(sizeof(char) * 1)))
+		exit(EXIT_FAILURE);
+	if (!(result[1] = (char *)malloc(sizeof(char) * 1)))
+		exit(EXIT_FAILURE);
+	result[0][0] = '\0';
+	result[1][0] = '\0';
+	a = 0;
+	size = 1;
+	while (command[size])
+	{
+		if (command[size] == '^')
+		{
+			a++;
+		}
+		else
+		{
+			result[a] = ft_str_chr_cat(result[a], command[size]);
+		}
+		size++;
+	}
+	result[2] = NULL;
+	return (result);
+}
+
+int			check_sub_synt(char *command)
+{
+	int		a;
+	int		b;
+	int		c;
+
+	a = 0;
+	b = 0;
+	c = 1;
+	while (command[a] && command[a] != ' ')
+	{
+		if (command[a] == '^')
+		{
+			b++;
+			if (c == 0)
+				return (0);
+			c = 0;
+		}
+		else
+			c++;
+		a++;
+	}
+	if (b != 3)
+		return (0);
+	return (1);
+}
+
+void		get_line_again(char *command, int *index, char **str, t_control **history)
+{		// !#
+	int		a;
+
+	a = 0;
+	while (a != *index)
+	{
+		(*str) = ft_str_chr_cat(*str, command[a]);
+		a++;
+	}
+	(void)history;
+	while (command[*index] && command[*index] != ' ')
+		(*index)++;
 }
 
 void		get_last_command(char *command, char **str, t_control **history, int *index)
@@ -70,7 +255,7 @@ void		get_last_command(char *command, char **str, t_control **history, int *inde
 
 	if (!command[1])
 	{
-		set_error(1);
+		set_error(1, NULL);
 		return ;
 	}
 	a = 1;
@@ -112,10 +297,23 @@ void		get_last_command(char *command, char **str, t_control **history, int *inde
 	ft_strdel(&tmp);
 }
 
-void		set_error(int a)
+void		set_error(int a, char *command)
 {
+	int		b;
+
+	b = 0;
 	if (a == 1)
 		ft_putendl("shell: syntax error near unexpected token `newline'");
+	else if (a == 2)
+	{	
+		ft_putstr("shell : s:");
+		while (command[b] && command[b] != ' ')
+		{
+			ft_putchar(command[b]);
+			b++;
+		}
+		ft_putendl(": substitution failed");
+	}
 }
 
 void		get_old_flags(char *command, char **str, t_control **history, int *index)
@@ -198,13 +396,14 @@ int			is_d_dot(char *str)
 
 	a = 0;
 	while (str[a] && str[a] != ' ')
+	{
+		if (str[a] == ':')
+			return (1);
 		a++;
-	if (str[a] == ':')
-		return (1);
-	else
-		return (0);
+	}
+	return (0);
 }
-
+/*
 char		*last_command(char *command, t_control **history)
 {
 	char	*new;
@@ -301,6 +500,7 @@ char		*last_command(char *command, t_control **history)
 	(*history) = dll_add_new_elem_frnt(*history, new);
 	return (new);
 }
+*/
 /*
 char		*get_n_first(int a, t_control **history)
 {
