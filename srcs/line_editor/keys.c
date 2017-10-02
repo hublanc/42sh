@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 11:41:39 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/18 16:53:16 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/02 11:30:11 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void		choose_prompt(t_cmd *cmd)
 	if (!ft_strcmp(cmd->prompt, "dquote> ") || !ft_strcmp(cmd->prompt, "quote> ")
 	|| !ft_strcmp(cmd->prompt, "heredoc> ") || !ft_strcmp(cmd->prompt, "pipe> ")
 	|| !ft_strcmp(cmd->prompt, "> "))
-		ft_putstr(cmd->prompt);
+		ft_putstr_fd(cmd->prompt, 2);
 	else
 		print_prompt();
 }
@@ -90,7 +90,11 @@ static char *save_buf(char *buf)
 	static char *s_buf = NULL;
 
 	if (buf)
+	{
+		if (s_buf)
+			free(s_buf);
 		s_buf = ft_strdup(buf);
+	}
 	return (s_buf);
 }
 
@@ -101,7 +105,8 @@ void		key_handler(t_cmd *cmd, t_hist **history, char ***env)
 	init_screen(cmd);
 	if (can_sigint(0) && is_sigint(0))
 	{
-		if (ft_strcmp(cmd->prompt, return_prompt()))
+		buf = return_prompt();
+		if (ft_strcmp(cmd->prompt, buf))
 		{
 			reset_cmdsiginted(cmd);
 			can_sigint(1);
@@ -113,6 +118,7 @@ void		key_handler(t_cmd *cmd, t_hist **history, char ***env)
 			cmd->stop = 0;
 			is_sigint(0);
 		}
+		free(buf);
 		buf = save_buf(NULL);
 	}
 	else
@@ -125,6 +131,7 @@ void		key_handler(t_cmd *cmd, t_hist **history, char ***env)
 		reset_cmdsiginted(cmd);
 		save_buf(buf);
 		can_sigint(1);
+		free(buf);
 		return ;
 	}
 	if (buf[0] == 27)

@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/14 15:40:59 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/14 13:49:23 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/02 11:22:02 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ t_token			*check_redirection(t_token *list,
 		list = destroy_one(list, prev);
 	}
 	tmp->token = ft_strapp(tmp->token, " ");
-	if (ft_strstr(tmp->token, "<<"))
-		prompt_heredoc(tmp->next->token, tmp, history);
-	else
+	if (!ft_strstr(tmp->token, "<<"))
 		tmp->token = ft_strapp(tmp->token, tmp->next->token);
-	list = destroy_one(list, tmp->next);
+	else if (!prompt_heredoc(tmp->next->token, tmp, history))
+			del_token(&list);
+	(list) ? list = destroy_one(list, tmp->next) : 0;
 	*cur = tmp->next;
 	return (list);
 }
@@ -53,6 +53,8 @@ t_token			*check_word(t_token *list, t_token **cur, t_hist **history)
 		if (next && next->e_type == REDIRECTION)
 		{
 			list = check_redirection(list, &next, history);
+			if (!list)
+				return (list);
 			tmp = next;
 		}
 		else if (next && next->e_type == WORD)
