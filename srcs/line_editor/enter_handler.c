@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/11 14:30:26 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/28 18:58:28 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/02 13:03:29 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,20 @@ void		enter_handler_heredoc(t_cmd *cmd)
 	ft_strdel(&(cmd->str));
 }
 
+void		enter_handler_pipe(t_cmd *cmd)
+{
+	ft_putchar('\n');
+	if (!cmd->str)
+	{
+		ft_putstr(cmd->prompt);
+		return ;
+	}
+	if (check_quote(cmd->str))
+		prompt_quote(cmd, NULL, '"', 0);
+	ft_strdel(&(cmd->str_quote));
+	cmd->end_pp = 1;
+}
+
 void		enter_hub(t_cmd *cmd, t_hist **history, char ***env)
 {
 	if (!ft_strcmp(cmd->prompt, "dquote> ")
@@ -111,9 +125,8 @@ void		enter_hub(t_cmd *cmd, t_hist **history, char ***env)
 		enter_handler_backslash(cmd, history);
 	else if (!ft_strcmp(cmd->prompt, "cmdandor> "))
 		enter_handler_cmdandor(cmd, history);
-	/*
 	else if (!ft_strcmp(cmd->prompt, "pipe> "))
-		enter_handler_pipe(cmd, history, env);*/
+		enter_handler_pipe(cmd);
 	else if (!ft_strcmp(cmd->prompt, "heredoc> "))
 		enter_handler_heredoc(cmd);
 	else
