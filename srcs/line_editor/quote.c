@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/22 15:21:04 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/02 10:36:17 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/02 11:44:33 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,12 @@ void		prompt_quote(t_cmd *cmd, t_hist **history, char c, int mod)
 		key_handler(&cmd_q, history, NULL);
 	if (!mod)
 	{
-		ft_strdel(&(cmd->str));
+		(cmd->str) ? ft_strdel(&(cmd->str)) : 0;
 		cmd->str = ft_strdup(cmd_q.str_quote);
 	}
 	else if (mod)
 	{
-		ft_strdel(&(cmd->str_quote));
+		(!cmd->str_quote) ? ft_strdel(&(cmd->str_quote)) : 0;
 		cmd->str_quote = ft_strdup(cmd_q.str_quote);
 	}
 	clear_cmd(&cmd_q);
