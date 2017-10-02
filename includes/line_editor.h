@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 16:36:09 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/29 15:23:30 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/02 13:03:13 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef struct		s_cmd
 	char			*save_cmd;
 	int				prlen;
 	int				end_bs;
+	int				end_pp;
 	int				end_eof;
 	int				line;
 	int				col;
