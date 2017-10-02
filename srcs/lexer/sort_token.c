@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/14 15:40:59 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/18 19:35:35 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/02 13:16:25 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ t_token			*check_word(t_token *list, t_token **cur, t_hist **history)
 	|| next->e_type == IO_NUMBER))
 	{
 		if (next && next->e_type == REDIRECTION)
-			list = check_redirection(list, &next, history);
+			check_redirection(list, &next, history);
 		else if (next && next->e_type == WORD)
 		{
 			tmp->token = ft_strapp(tmp->token, " ");
@@ -70,7 +70,7 @@ t_token			*check_word(t_token *list, t_token **cur, t_hist **history)
 	return (list);
 }
 
-t_token			*check_pipe(t_token *list, t_token **cur)
+t_token			*check_pipe(t_token *list, t_token **cur, t_hist **history)
 {
 	t_token		*tmp;
 	t_token		*prev;
@@ -84,7 +84,8 @@ t_token			*check_pipe(t_token *list, t_token **cur)
 	else if (!prev)
 		return (abort_sort(list, "'|'"));
 	else if (!tmp->next)
-		list = prompt_pipe(list);
+		if (!prompt_pipe(list, history))
+			del_token(&list);
 	*cur = tmp->next;
 	return (list);
 }
@@ -116,7 +117,7 @@ t_token			*sort_token(t_token *list, t_hist **history)
 		else if (tmp->e_type == REDIRECTION)
 			list = check_redirection(list, &tmp, history);
 		else if (tmp->e_type == PIPE)
-			list = check_pipe(list, &tmp);
+			list = check_pipe(list, &tmp, history);
 		else if (tmp->e_type == SEMI_COLON)
 			list = check_sc(list, &tmp);
 		else
