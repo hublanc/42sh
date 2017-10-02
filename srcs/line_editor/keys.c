@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 11:41:39 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/02 11:30:11 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/02 11:53:41 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,11 +90,7 @@ static char *save_buf(char *buf)
 	static char *s_buf = NULL;
 
 	if (buf)
-	{
-		if (s_buf)
-			free(s_buf);
 		s_buf = ft_strdup(buf);
-	}
 	return (s_buf);
 }
 
@@ -118,7 +114,7 @@ void		key_handler(t_cmd *cmd, t_hist **history, char ***env)
 			cmd->stop = 0;
 			is_sigint(0);
 		}
-		free(buf);
+		(buf) ? free(buf) : 0;
 		buf = save_buf(NULL);
 	}
 	else
@@ -158,6 +154,5 @@ void		key_handler(t_cmd *cmd, t_hist **history, char ***env)
 		copy_cut_paste_handler(cmd, buf);
 	else
 		add_line(cmd, buf);
-	if (buf)
-		free(buf);
+	(buf) ? free(buf) : 0;
 }
