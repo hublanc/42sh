@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 13:13:22 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/14 16:50:33 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/03 19:31:39 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,36 +39,6 @@ t_node		*mark_fd(t_node *tree)
 	else
 		tmp->redir_r = 1;
 	return (tmp);
-}
-
-int			open_file(t_node *tree)
-{
-	char	*file;
-	int		fd;
-	int		i;
-
-	i = ft_isdigit((tree->token)[0]) ? 1 : 0;
-	file = NULL;
-	fd = -1;
-	if (!tree || !(tree->token))
-		return (1);
-	if ((tree->token)[i] == '>' && (tree->token)[i + 1] == '>')
-	{
-		file = ft_strsub(tree->token, i + 3, ft_strlen(tree->token) - (i + 3));
-		fd = open(file, O_RDWR | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR | S_IRGRP |S_IROTH);
-	}
-	else if ((tree->token)[i] == '>')
-	{
-		file = ft_strsub(tree->token, i + 2, ft_strlen(tree->token) - (i + 2));
-		fd = open(file, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP |S_IROTH);
-	}
-	else if ((tree->token)[i] == '<' && (tree->token)[i + 1] != '<')
-	{
-		file = ft_strsub(tree->token, i + 2, ft_strlen(tree->token) - (i + 2));
-		fd = open(file, O_RDWR , S_IRUSR | S_IWUSR | S_IRGRP |S_IROTH);
-	}
-	ft_strdel(&file);
-	return (fd);
 }
 
 void	close_fd(t_node *tree)
