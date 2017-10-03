@@ -31,6 +31,8 @@ SRC		=	main.c\
 			line_editor/cut_copy_paste.c\
 			line_editor/history_search.c\
 			line_editor/last_command.c\
+			line_editor/last_command_2.c\
+			line_editor/last_command_3.c\
 			exec/exec.c\
 			exec/ft_cmdsplit.c\
 			exec/routine.c\
