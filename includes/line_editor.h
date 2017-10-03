@@ -117,6 +117,7 @@ char		*wd_designator(char *command, t_control **history);
 void		wd_designator_2(char *command, int *index, char **str, t_control **history);
 void		get_d_bang(char *command, char **str, t_control **history, int *index);
 void		get_last_command(char *command, char **str, t_control **history, int *index);
+void		get_last_command_2(char *tmp, t_control **history, char **str);
 void		get_old_flags(char *command, char **str, t_control **history, int *index);
 void		get_line_again(char *command, int *index, char **str, t_control **history);
 void		get_last_sub(char *command, int *index, char **str, t_control **history);

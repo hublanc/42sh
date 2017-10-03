@@ -131,10 +131,7 @@ void		routine(char *cmd, char ***env, t_control **history)
 	t_node		*tree;
 	char		*new_command;
 
-//	new_command = last_command(cmd, history);
 	new_command = wd_designator(cmd, history);
-//	change cmd with ! by old cmd
-//	list = tokenizer(cmd);
 	list = tokenizer(new_command);
 	list = sort_token(list, history);
 	if (!list)
