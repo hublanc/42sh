@@ -82,5 +82,9 @@ void		key_handler(t_cmd *cmd, t_control **history, char ***env)
 		go_right(cmd);
 	}
 	else if (buf[0] == 18)	// CTRL + R
-		history_search(history, cmd, env);
+	{
+		ft_strdel(&cmd->str);
+		cmd->str = history_search(history);
+		print_line(cmd);
+	}
 }
