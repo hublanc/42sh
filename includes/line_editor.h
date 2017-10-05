@@ -103,10 +103,11 @@ void		enter_hub(t_cmd *cmd, t_control **history, char ***env);
 
 char		*history_search(t_control **history);
 t_lst		*history_search_2(t_control **history, char *search);
-t_lst		*move_in_hist(t_lst *pos, char *buf);
+t_lst		*move_in_hist(t_lst *pos, char *buf, t_control **history);
 void		set_search_prompt(char *search, t_lst *tmp, int type);
-void		add_and_search(char **search, t_lst **tmp, t_control **history, char *buf);
-void		del_and_search(char **search, t_lst **tmp, t_control **history);
+t_lst		*while_handler(char *buf, char **search, t_control **history, t_lst *tmp);
+void		init_hist_search(char **search, t_lst **tmp);
+//char		*research(char **search, int *a, t_control **history, char *buf);
 
 /*
 **	last_command.c
