@@ -6,7 +6,7 @@
 #    By: hublanc <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/07/24 15:04:09 by hublanc           #+#    #+#              #
-#    Updated: 2017/10/05 14:46:11 by amazurie         ###   ########.fr        #
+#    Updated: 2017/10/05 16:41:37 by amazurie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,6 +63,7 @@ SRC		=	main.c\
 			built-in/unsetenv.c\
 			built-in/local.c\
 			built-in/cmd_loc.c\
+			built-in/unset.c\
 			completion/completion.c\
 			completion/list_args.c\
 			completion/get_binaries.c\

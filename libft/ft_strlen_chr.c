@@ -1,36 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   local.h                                            :+:      :+:    :+:   */
+/*   ft_strlen_chr.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/05 13:48:15 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/05 16:43:42 by amazurie         ###   ########.fr       */
+/*   Created: 2016/12/06 11:31:36 by amazurie          #+#    #+#             */
+/*   Updated: 2016/12/06 11:31:39 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-typedef struct		s_loc
+int		ft_strlen_chr(char *s, char c)
 {
-	char			*name;
-	char			*value;
-	struct s_loc	*next;
-}					t_loc;
+	int	i;
 
-/*
-**	cmd_loc.c
-*/
-int					gest_loc(char **cmmd);
-
-/*
-**	local.c
-*/
-void				add_loc(char *name, char *val);
-void				suppr_loc(char *name);
-t_loc				*get_loc(char *name);
-
-/*
-**	unset.c
-*/
-
-int					unset(char **tab, char ***env);
+	i = 0;
+	while (s[i] && s[i] != c)
+		i++;
+	return (i);
+}
