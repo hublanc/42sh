@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/25 18:26:10 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/28 18:59:07 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/05 16:52:53 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ int			do_built_in(char **tab, char ***env, t_hist **his)
 		status = ft_env(*env, tab);
 	else if (ft_strcmp(tab[0], "cd") == 0)
 		status = ft_cd(tab, env);
+	else if (ft_strcmp(tab[0], "unset") == 0)
+		status = unset(tab, env);
 	return (status);
 }
 
@@ -85,7 +87,8 @@ int			builtin_tab(char **tab)
 {
 	if (!ft_strcmp(tab[0], "exit") || !ft_strcmp(tab[0], "echo")
 	|| !ft_strcmp(tab[0], "setenv") || !ft_strcmp(tab[0], "unsetenv")
-	|| !ft_strcmp(tab[0], "env") || !ft_strcmp(tab[0], "cd"))
+	|| !ft_strcmp(tab[0], "env") || !ft_strcmp(tab[0], "cd")
+	|| !ft_strcmp(tab[0], "unset"))
 		return (1);
 	else
 		return (0);
