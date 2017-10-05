@@ -12,14 +12,6 @@
 
 #include "shell.h"
 
-/*
-**	BUGS :
-**	Chercher une commande dans l'hist puis faire ctrl + R
-**	Puis, appuyer sur n'importe quelle touche (autre que les lettres) pour
-**	quitter la recherche => Espaces correspondant a la commande tapee avant
-**	la recherche
-*/
-
 char		*history_search(t_control **history)
 {
 	char		buf[3];
