@@ -12,61 +12,59 @@
 
 #include "shell.h"
 
+/*
+**	BUGS :
+**	Chercher une commande dans l'hist puis faire ctrl + R
+**	Puis, appuyer sur n'importe quelle touche (autre que les lettres) pour
+**	quitter la recherche => Espaces correspondant a la commande tapee avant
+**	la recherche
+*/
+
 char		*history_search(t_control **history)
 {
 	char		buf[3];
 	char		*search;
-	char		*result;
 	t_lst		*tmp;
-	int			a;
 
-	search = NULL;
-	result = NULL;
-	tmp = NULL;
-	a = 0;
-	if (!(search = (char *)malloc(sizeof(char) * 1)))
-		exit(EXIT_FAILURE);
-	ft_strclr(search);
-	set_search_prompt(NULL, NULL, 0);
+	if (!(*history) || (*history && (*history)->length < 1))
+		return (NULL);
+	init_hist_search(&search, &tmp);
 	ft_strclr(buf);
 	while (read(1, &buf, 3))
 	{
-		if (ft_isprint(buf[0]) && (a = 1))
-			add_and_search(&search, &tmp, history, buf);
-		else if (buf[0] == 127 && ft_strlen(search) > 0 && a != 0)
-			del_and_search(&search, &tmp, history);
-		else if (buf[0] == 27 && a == 0)
-		{
-			if (buf[2] == 'A')
-				return (ft_strdup((*history)->begin->name));
-		}
-		else if (buf[0] == 27)
-			tmp = move_in_hist(tmp, buf);
-		else if (buf[0] == 10)
-		{
-			ft_strdel(&search);
-			if (tmp != NULL)
-				result = ft_strdup(tmp->name);
-			go_begin(0, 0);
-			tputs(tgetstr("cd", NULL), 1, tputchar);
-			return (result);
-		}
-		set_search_prompt(search, tmp, 1);
+		if (ft_isprint(buf[0]) || (buf[0] == 127 && ft_strlen(search) > 0)
+			|| (buf[0] == 27 && tmp))
+			tmp = while_handler(buf, &search, history, tmp);
+		else
+			break ;
 		ft_strclr(buf);
 	}
-	return (NULL);
+	if (tmp)
+	{
+		ft_strdel(&search);
+		return (ft_strdup(tmp->name));
+	}
+	else
+		return (NULL);
 }
 
-void		del_and_search(char **search, t_lst **tmp, t_control **history)
+t_lst		*while_handler(char *buf, char **search, t_control **history,
+			t_lst *tmp)
 {
-	(*search) = ft_strdelone(*search, ft_strlen(*search));
-	(*tmp) = history_search_2(history, *search);
-}
-
-void		add_and_search(char **search, t_lst **tmp, t_control **history, char *buf)
-{
-	(*search) = ft_str_chr_cat(*search, buf[0]);
-	(*tmp) = history_search_2(history, *search);
+	if (ft_isprint(buf[0]))
+	{
+		*search = ft_str_chr_cat(*search, buf[0]);
+		tmp = history_search_2(history, *search);
+	}
+	else if (buf[0] == 127 && ft_strlen(*search) > 0)
+	{
+		*search = ft_strdelone(*search, ft_strlen(*search));
+		tmp = history_search_2(history, *search);
+	}
+	else if (buf[0] == 27 && tmp)
+		tmp = move_in_hist(tmp, buf, history);
+	set_search_prompt(*search, tmp, 1);
+	return (tmp);
 }
 
 void		set_search_prompt(char *search, t_lst *tmp, int type)
@@ -83,7 +81,7 @@ void		set_search_prompt(char *search, t_lst *tmp, int type)
 	ft_putstr("(reverse-i-search)`");
 	ft_putstr(search);
 	ft_putstr("': ");
-	if (tmp != NULL)
+	if (tmp)
 		ft_putstr(tmp->name);
 	else
 	{
@@ -106,19 +104,9 @@ t_lst		*history_search_2(t_control **history, char *search)
 		tmp = (*history)->begin;
 	while (tmp != NULL)
 	{
-		if (ft_strlen(tmp->name) >= ft_strlen(search)
-			&& ft_strstr(tmp->name, search) != 0)
+		if (ft_strstr(tmp->name, search) != 0)
 			break ;
 		tmp = tmp->next;
 	}
 	return (tmp);
-}
-
-t_lst		*move_in_hist(t_lst *pos, char *buf)
-{
-	if (buf[2] == 'A' && pos && pos->next)
-		pos = pos->next;
-	else if (buf[2] == 'B' && pos && pos->prev)
-		pos = pos->prev;
-	return (pos);
 }
