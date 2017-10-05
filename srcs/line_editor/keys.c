@@ -84,6 +84,7 @@ void		key_handler(t_cmd *cmd, t_control **history, char ***env)
 	else if (buf[0] == 18)	// CTRL + R
 	{
 		ft_strdel(&cmd->str);
+		cmd->col = cmd->prlen + 1;
 		cmd->str = history_search(history);
 		print_line(cmd);
 	}
