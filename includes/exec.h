@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 17:27:30 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/28 17:57:31 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/06 13:13:14 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,13 @@ typedef struct		s_node
 **	Routine.c
 */
 int			*singleton_status(void);
-void		routine(char *cmd, char ***env, t_hist **history);
+void		routine(char *cmd, char ***env, t_control **history);
 
 /*
 **	Exec.c
 */
 int			check_cmd(char **tab, char **env, t_node *tree);
-void		get_cmd(t_node *tree, char ***env, int *status, t_hist **history);
+void		get_cmd(t_node *tree, char ***env, int *status, t_control **hist);
 
 /*
 **	Check_binary
@@ -86,7 +86,7 @@ char		**ft_cmdsplit(char *str);
 /*
 **	Builtin.c
 */
-int			built_in(t_node *tree, char **tab, char ***env, t_hist **his);
+int			built_in(t_node *tree, char **tab, char ***env, t_control **his);
 int			builtin_tab(char **tab);
 
 #endif
