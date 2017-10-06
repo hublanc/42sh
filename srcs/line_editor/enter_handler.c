@@ -26,10 +26,9 @@ void		enter_handler(t_cmd *cmd, t_control **history, char ***env)
 		prompt_backslash(cmd, history, 0);
 	if (!check_cmdandor(cmd->str))
 		prompt_cmdandor(cmd, history, 0);
-	if (cmd->str)
-		save_history(history, cmd->str);
 	if (cmd->str && cmd->str[0] != '!')
-		(*history) = dll_add_new_elem_frnt(*history, cmd->str);
+		add_hist_or_not(history, cmd->str);
+//		(*history) = dll_add_new_elem_frnt(*history, cmd->str);
 	routine(cmd->str, env, history);
 	print_prompt();
 	clear_cmd(cmd);
