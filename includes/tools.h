@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 18:24:56 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/29 15:23:00 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/06 12:12:54 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int			is_sigint(int sigint);
 int			can_sigint(int sigint);
 void		get_signal(int n);
 void		signal_do_nothing(int n);
+void		event_not_found(char *str);
 
 /*
 **	Tools.c
@@ -36,7 +37,7 @@ void		signal_do_nothing(int n);
 void		del_tabstr(char ***str);
 void		disp_tab(char **str);
 int			len_array(char **str);
-void		stop_shell(char ***env, char **tab, t_hist **history);
+void		stop_shell(char ***env, char **tab, t_control **history);
 char		**get_env(char **env, int add);
 
 /*
@@ -52,10 +53,10 @@ int			return_status(void);
 **	Tools_history.c
 */
 void		change_cmd(char *new, t_cmd *cmd);
-t_hist		*seek_next_select(t_hist *list);
-void		seek_next(t_hist **list, t_cmd *cmd);
-t_hist		*seek_prev_select(t_hist *list);
-void		seek_prev(t_hist **list, t_cmd *cmd);
+t_lst		*seek_next_select(t_control **list);
+void		seek_next(t_control **list, t_cmd *cmd);
+t_lst		*seek_prev_select(t_control **list);
+void		seek_prev(t_control **list, t_cmd *cmd);
 
 /*
 **	Tools_keys.c
