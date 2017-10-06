@@ -23,7 +23,8 @@ static int	do_export(char *name, char ***env)
 	if (ft_strchr(name, '='))
 		if (!(tab = ft_strsplit(name, '=')))
 			return (1);
-	if (!(loc = (tab) ? get_loc(tab[0]) : get_loc(name)))
+	if (!(loc = (tab) ? get_loc(tab[0]) : get_loc(name))
+			&& (!tab || !tab[0] || !tab[1]))
 	{
 		(tab && tab[1]) ? free(tab[1]) : 0;
 		(tab && tab[2]) ? free(tab[2]) : 0;
@@ -37,6 +38,7 @@ static int	do_export(char *name, char ***env)
 	tab2[2] = (tab && tab[1]) ? tab[1] : ft_strdup(loc->value);
 	tab2[3] = 0;
 	status = ft_setenv(tab2, env);
+	suppr_loc(tab2[1]);
 	(tab2[0]) ? free(tab2[0]) : 0;
 	(tab2[1]) ? free(tab2[1]) : 0;
 	(tab2[2]) ? free(tab2[2]) : 0;
