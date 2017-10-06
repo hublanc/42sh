@@ -52,6 +52,7 @@ int			return_status(void);
 /*
 **	Tools_history.c
 */
+void		add_hist_or_not(t_control **history, char *str);
 void		change_cmd(char *new, t_cmd *cmd);
 t_lst		*seek_next_select(t_control **list);
 void		seek_next(t_control **list, t_cmd *cmd);

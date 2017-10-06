@@ -22,7 +22,7 @@ void		ft_history(char **tab, char ***env, t_control **history)
 	args_pos = 0;
 	init_cd_flags(&flags);
 	get_cd_flags(&flags, tab, &args_pos);
-	file = ft_strdup(".history");
+	file = ft_strdup("/tmp/.shell_history");
 	if (!tab[1] && (*history) != NULL && (*history)->length > 0)
 		print_history(history);
 	if (tab[0] && tab[1]
