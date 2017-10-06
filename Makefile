@@ -64,6 +64,7 @@ SRC		=	main.c\
 			built-in/local.c\
 			built-in/cmd_loc.c\
 			built-in/unset.c\
+			built-in/export.c\
 			completion/completion.c\
 			completion/list_args.c\
 			completion/get_binaries.c\

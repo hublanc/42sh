@@ -31,6 +31,8 @@ int			do_built_in(char **tab, char ***env, t_hist **his)
 		status = ft_cd(tab, env);
 	else if (ft_strcmp(tab[0], "unset") == 0)
 		status = unset(tab, env);
+	else if (ft_strcmp(tab[0], "export") == 0)
+		status = export(tab, env);
 	return (status);
 }
 
@@ -88,7 +90,7 @@ int			builtin_tab(char **tab)
 	if (!ft_strcmp(tab[0], "exit") || !ft_strcmp(tab[0], "echo")
 	|| !ft_strcmp(tab[0], "setenv") || !ft_strcmp(tab[0], "unsetenv")
 	|| !ft_strcmp(tab[0], "env") || !ft_strcmp(tab[0], "cd")
-	|| !ft_strcmp(tab[0], "unset"))
+	|| !ft_strcmp(tab[0], "unset") || !ft_strcmp(tab[0], "export"))
 		return (1);
 	else
 		return (0);

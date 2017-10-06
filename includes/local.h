@@ -32,5 +32,9 @@ t_loc				*get_loc(char *name);
 /*
 **	unset.c
 */
-
 int					unset(char **tab, char ***env);
+
+/*
+**	export.c
+*/
+int					export(char **tab, char ***env);
