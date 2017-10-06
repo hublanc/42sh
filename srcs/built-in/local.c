@@ -62,7 +62,7 @@ void		suppr_loc(char *name)
 	t_loc	*loc;
 	t_loc	*loctmp;
 
-	if (!(loc = saved_loc()))
+	if (!(loc = saved_loc()) || !loc->name)
 		return ;
 	loctmp = NULL;
 	while (loc && loc->name && ft_strcmp(loc->name, name))
