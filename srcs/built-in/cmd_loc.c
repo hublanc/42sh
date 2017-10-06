@@ -25,7 +25,7 @@ int		endloc(char *cmmd)
 		i += 2;
 	while (cmmd[i] && cmmd[i] != '=')
 	{
-		if (cmmd[i] == '\'' || cmmd[i] == '"')
+		if (cmmd[i] == '\'' || cmmd[i] == '"' || cmmd[i] == 32)
 			return (0);
 		while (cmmd[i] && cmmd[i + 1] && cmmd[i] == '\\')
 			i += 2;
