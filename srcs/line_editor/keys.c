@@ -152,6 +152,13 @@ void		key_handler(t_cmd *cmd, t_control **history, char ***env)
 		enter_hub(cmd, history, env);
 	else if (buf[0] == -30 || buf[0] == -61)
 		copy_cut_paste_handler(cmd, buf);
+	else if (buf[0] == 18)	// CTRL + R
+	{
+		ft_strdel(&cmd->str);
+		cmd->col = cmd->prlen + 1;
+		cmd->str = history_search(history);
+		print_line(cmd);
+	}
 	else
 		add_line(cmd, buf);
 	if (buf)
@@ -161,12 +168,5 @@ void		key_handler(t_cmd *cmd, t_control **history, char ***env)
 		cmd->str = ft_strappone(cmd->str, buf[0], (cmd->col - 1) - cmd->prlen);
 		print_line(cmd);
 		go_right(cmd);
-	}
-	else if (buf[0] == 18)	// CTRL + R
-	{
-		ft_strdel(&cmd->str);
-		cmd->col = cmd->prlen + 1;
-		cmd->str = history_search(history);
-		print_line(cmd);
 	}
 }
