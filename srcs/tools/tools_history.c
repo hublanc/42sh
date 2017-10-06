@@ -12,6 +12,20 @@
 
 #include "shell.h"
 
+void		add_hist_or_not(t_control **history, char *str)
+{
+	if (*history && (*history)->length == 0)
+		(*history) = dll_add_new_elem_frnt(*history, str);
+	else if (*history && (*history)->begin && (*history)->begin->name
+		&& ft_strcmp((*history)->begin->name, str) != 0)
+		(*history) = dll_add_new_elem_frnt(*history, str);
+	else if (*history && (*history)->begin && (*history)->begin->name
+		&& ft_strcmp((*history)->begin->name, str) == 0)
+		return ;
+	else
+		(*history) = dll_add_new_elem_frnt(*history, str);
+}
+
 void		change_cmd(char *new, t_cmd *cmd)
 {
 	go_begin(cmd->col, cmd->sc_col);
