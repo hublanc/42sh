@@ -46,8 +46,6 @@ void		get_d_bang(char *command, char **str, t_control **history,
 	}
 	while (command[*index] && command[*index] != ' ')
 		(*index)++;
-//	ft_putstr("End of get_d_bang(), value of str == ");
-//	ft_putendl(*str);
 }
 
 void		modify_quotes(int *sq, int *dq, char c)
