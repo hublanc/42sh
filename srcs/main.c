@@ -34,7 +34,7 @@ char		**init_env(void)
 int			main(int ac, char **av, char **env)
 {
 	t_cmd		cmd;
-	t_hist		*history;
+	t_control	*history;
 	char		**cp_env;
 	int			status;
 
@@ -74,6 +74,7 @@ int			main(int ac, char **av, char **env)
 	status = 0;
 	print_prompt();
 	cmd = init_cmd(return_prompt());
+	history = NULL;
 	history = load_history();
 	while (1)
 		key_handler(&cmd, &history, &cp_env);

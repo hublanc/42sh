@@ -6,13 +6,13 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/25 18:26:10 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/28 18:59:07 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/06 13:17:11 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-int			do_built_in(char **tab, char ***env, t_hist **his)
+int			do_built_in(char **tab, char ***env, t_control **his)
 {
 	int		status;
 
@@ -33,7 +33,7 @@ int			do_built_in(char **tab, char ***env, t_hist **his)
 }
 
 int			exec_builtin_pipe(t_node *tree, char **tab,
-			char ***env, t_hist **his)
+			char ***env, t_control **his)
 {
 	pid_t	son;
 
@@ -47,7 +47,7 @@ int			exec_builtin_pipe(t_node *tree, char **tab,
 	return (0);
 }
 
-int			exec_builtin(t_node *tree, char **tab, char ***env, t_hist **his)
+int			exec_builtin(t_node *tree, char **tab, char ***env, t_control **his)
 {
 	int		outholder;
 	int		inholder;
@@ -66,7 +66,7 @@ int			exec_builtin(t_node *tree, char **tab, char ***env, t_hist **his)
 	return (status);
 }
 
-int			built_in(t_node *tree, char **tab, char ***env, t_hist **his)
+int			built_in(t_node *tree, char **tab, char ***env, t_control **his)
 {
 	int		status;
 

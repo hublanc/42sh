@@ -6,7 +6,7 @@
 #    By: hublanc <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/07/24 15:04:09 by hublanc           #+#    #+#              #
-#    Updated: 2017/09/29 15:28:55 by hublanc          ###   ########.fr        #
+#    Updated: 2017/10/06 13:06:30 by hublanc          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,11 @@ SRC		=	main.c\
 			line_editor/load_history.c\
 			line_editor/enter_handler.c\
 			line_editor/cut_copy_paste.c\
+			line_editor/history_search.c\
+			line_editor/history_search_2.c\
+			line_editor/last_command.c\
+			line_editor/last_command_2.c\
+			line_editor/last_command_3.c\
 			exec/exec.c\
 			exec/check_binary.c\
 			exec/ft_cmdsplit.c\
@@ -61,6 +66,10 @@ SRC		=	main.c\
 			built-in/ft_cd.c\
 			built-in/set_env.c\
 			built-in/unsetenv.c\
+			built-in/history.c\
+			built-in/history_2.c\
+			built-in/history_3.c\
+			built-in/history_4.c\
 			completion/completion.c\
 			completion/list_args.c\
 			completion/get_binaries.c\

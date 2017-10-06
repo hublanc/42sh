@@ -40,7 +40,7 @@ char		check_quote(char *str)
 	return (in_quote);
 }
 
-void		prompt_quote(t_cmd *cmd, t_hist **history, char c, int mod)
+void		prompt_quote(t_cmd *cmd, t_control **history, char c, int mod)
 {
 	t_cmd		cmd_q;
 
@@ -69,7 +69,7 @@ void		prompt_quote(t_cmd *cmd, t_hist **history, char c, int mod)
 	clear_cmd(&cmd_q);
 }
 
-void		prompt_backslash(t_cmd *cmd, t_hist **history, int mod)
+void		prompt_backslash(t_cmd *cmd, t_control **history, int mod)
 {
 	t_cmd		cmd_b;
 
