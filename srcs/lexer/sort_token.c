@@ -13,7 +13,7 @@
 #include "shell.h"
 
 t_token			*check_redirection(t_token *list,
-				t_token **cur, t_hist **history)
+				t_token **cur, t_control **history)
 {
 	t_token		*tmp;
 	t_token		*prev;
@@ -41,7 +41,7 @@ t_token			*check_redirection(t_token *list,
 	return (list);
 }
 
-t_token			*check_word(t_token *list, t_token **cur, t_hist **history)
+t_token			*check_word(t_token *list, t_token **cur, t_control **history)
 {
 	t_token			*tmp;
 	t_token			*next;
@@ -104,7 +104,7 @@ t_token			*check_sc(t_token *list, t_token **cur)
 	return (list);
 }
 
-t_token			*sort_token(t_token *list, t_hist **history)
+t_token			*sort_token(t_token *list, t_control **history)
 {
 	t_token		*tmp;
 

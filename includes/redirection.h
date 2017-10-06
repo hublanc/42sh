@@ -30,7 +30,7 @@ void		exec_aggre(t_node *tree);
 /*
 **	Heredoc.c
 */
-void		prompt_heredoc(char *eof, t_token *redir, t_hist **history);
+void		prompt_heredoc(char *eof, t_token *redir, t_control **history);
 void		heredoc_input(t_node *tree);
 
 /*

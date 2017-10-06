@@ -6,13 +6,13 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/11 14:30:26 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/28 18:58:28 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/06 12:06:04 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-void		enter_handler(t_cmd *cmd, t_hist **history, char ***env)
+void		enter_handler(t_cmd *cmd, t_control **history, char ***env)
 {
 	char	c;
 
@@ -28,13 +28,15 @@ void		enter_handler(t_cmd *cmd, t_hist **history, char ***env)
 		prompt_cmdandor(cmd, history, 0);
 	if (cmd->str)
 		save_history(history, cmd->str);
+	if (cmd->str && cmd->str[0] != '!')
+		(*history) = dll_add_new_elem_frnt(*history, cmd->str);
 	routine(cmd->str, env, history);
 	print_prompt();
 	clear_cmd(cmd);
 	*cmd = init_cmd(return_prompt());
 }
 
-void		enter_handler_quote(t_cmd *cmd, t_hist **history)
+void		enter_handler_quote(t_cmd *cmd, t_control **history)
 {
 	char		c;
 
@@ -60,7 +62,7 @@ void		enter_handler_quote(t_cmd *cmd, t_hist **history)
 		prompt_backslash(cmd, history, 1);
 }
 
-void		enter_handler_backslash(t_cmd *cmd, t_hist **history)
+void		enter_handler_backslash(t_cmd *cmd, t_control **history)
 {
 	char		c;
 
@@ -102,7 +104,7 @@ void		enter_handler_heredoc(t_cmd *cmd)
 	ft_strdel(&(cmd->str));
 }
 
-void		enter_hub(t_cmd *cmd, t_hist **history, char ***env)
+void		enter_hub(t_cmd *cmd, t_control **history, char ***env)
 {
 	if (!ft_strcmp(cmd->prompt, "dquote> ")
 	|| !ft_strcmp(cmd->prompt, "quote> "))
