@@ -20,7 +20,7 @@ t_control		*load_history(void)
 
 	history = NULL;
 	str = NULL;
-	if (access("/tmp/.shell_history", F_OK) != 0 || access(".history", R_OK | W_OK) != 0)
+	if (access("/tmp/.shell_history", F_OK) != 0 || access("/tmp/.shell_history", R_OK | W_OK) != 0)
 		return (NULL);
 	fd = open("/tmp/.shell_history",
 		O_RDWR | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
@@ -93,7 +93,7 @@ void			save_history(t_control **history, char *str)
 	int		fd;
 	t_lst	*tmp;
 
-	fd = open(".history",
+	fd = open("/tmp/.shell_history",
 		O_RDWR | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	if (fd == -1)
 		return ;

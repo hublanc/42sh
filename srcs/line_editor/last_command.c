@@ -19,10 +19,14 @@ char		*wd_designator(char *command, t_control **history)
 	int		dq;
 	char	*str;
 
+	ft_putendl("In wd_designator()");
 	a = 0;
 	sq = 0;
 	dq = 0;
 	str = NULL;
+	if (!(str = (char *)malloc(sizeof(char) * 1)))
+		exit(EXIT_FAILURE);
+	ft_strclr(str);
 	while (command[a])
 	{
 		if (command[a] == '\'' || command[a] == '"')
@@ -33,6 +37,10 @@ char		*wd_designator(char *command, t_control **history)
 			str = ft_str_chr_cat(str, command[a]);
 		a++;
 	}
+	if (str[ft_strlen(str) - 1] == ' ')
+		str[ft_strlen(str) - 1] = '\0';
+	if (ft_strchr(command, '!') != 0)
+		add_hist_or_not(history, str);
 	return (str);
 }
 
@@ -50,7 +58,10 @@ void		wd_designator_2(char *command, int *index, char **str,
 	else if (command[*index + 1] && command[*index + 1] == '#')
 		get_line_again(command, index, str, history);
 	else
+	{
+		ft_putendl("Going in get_last_command()");
 		get_last_command(&command[*index], str, history, index);
+	}
 }
 
 void		get_last_command(char *command, char **str, t_control **history,
@@ -106,6 +117,7 @@ void		get_last_command_2(char *tmp, t_control **history, char **str)
 			a++;
 		}
 	}
+	*str = ft_str_chr_cat(*str, ' ');
 }
 
 /*
