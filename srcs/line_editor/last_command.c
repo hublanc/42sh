@@ -19,7 +19,6 @@ char		*wd_designator(char *command, t_control **history)
 	int		dq;
 	char	*str;
 
-	ft_putendl("In wd_designator()");
 	a = 0;
 	sq = 0;
 	dq = 0;
@@ -58,10 +57,7 @@ void		wd_designator_2(char *command, int *index, char **str,
 	else if (command[*index + 1] && command[*index + 1] == '#')
 		get_line_again(command, index, str, history);
 	else
-	{
-		ft_putendl("Going in get_last_command()");
 		get_last_command(&command[*index], str, history, index);
-	}
 }
 
 void		get_last_command(char *command, char **str, t_control **history,
