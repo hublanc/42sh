@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 11:41:39 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/29 15:21:13 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/09 13:34:09 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,8 @@ void		key_handler(t_cmd *cmd, t_hist **history, char ***env)
 	init_screen(cmd);
 	if (can_sigint(0) && is_sigint(0))
 	{
-		if (ft_strcmp(cmd->prompt, return_prompt()))
+		buf = return_prompt();
+		if (ft_strcmp(cmd->prompt, buf))
 		{
 			reset_cmdsiginted(cmd);
 			can_sigint(1);
@@ -114,6 +115,7 @@ void		key_handler(t_cmd *cmd, t_hist **history, char ***env)
 			cmd->stop = 0;
 			is_sigint(0);
 		}
+		(buf) ? free(buf) : 0;
 		buf = save_buf(NULL);
 	}
 	else
@@ -126,6 +128,7 @@ void		key_handler(t_cmd *cmd, t_hist **history, char ***env)
 		reset_cmdsiginted(cmd);
 		save_buf(buf);
 		can_sigint(1);
+		free(buf);
 		return ;
 	}
 	if (buf[0] == 9 && !buf[1])
@@ -154,6 +157,5 @@ void		key_handler(t_cmd *cmd, t_hist **history, char ***env)
 		copy_cut_paste_handler(cmd, buf);
 	else
 		add_line(cmd, buf);
-	if (buf)
-		free(buf);
+	(buf) ? free(buf) : 0;
 }

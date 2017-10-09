@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 16:36:09 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/29 15:23:30 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/09 13:50:09 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void		arrow_handler(char *str, t_cmd *cmd, t_hist **hist);
 t_cmd		init_cmd(char *prompt);
 void		clear_cmd(t_cmd *cmd);
 void		init_screen(t_cmd *cmd);
+t_cmd		*save_cmd(t_cmd *cmd);
 
 /*
 **	History.c
