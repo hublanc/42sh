@@ -30,7 +30,7 @@ int			do_built_in(char **tab, char ***env, t_control **his)
 	else if (ft_strcmp(tab[0], "cd") == 0)
 		status = ft_cd(tab, env);
 	else if (ft_strcmp(tab[0], "history") == 0)
-		ft_history(tab, env, his);
+		status = ft_history(tab, env, his);
 	return (status);
 }
 

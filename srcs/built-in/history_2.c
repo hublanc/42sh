@@ -37,7 +37,7 @@ void		nflag(t_control **history, char *file)
 	close(fd);
 }
 
-void		rewrite_hist_file(t_control **history, char *file_name)
+int			rewrite_hist_file(t_control **history, char *file_name)
 {
 	int		fd;
 	t_lst	*tmp;
@@ -45,7 +45,7 @@ void		rewrite_hist_file(t_control **history, char *file_name)
 	fd = open(file_name,
 		O_RDWR | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IROTH);
 	if (fd == -1)
-		return ;
+		return (-1);
 	tmp = (*history)->end;
 	while (tmp != NULL)
 	{
@@ -53,22 +53,24 @@ void		rewrite_hist_file(t_control **history, char *file_name)
 		tmp = tmp->prev;
 	}
 	close(fd);
+	return (0);
 }
 
-void		append_hist_file(t_control **history, char *file_name)
+int			append_hist_file(t_control **history, char *file_name)
 {
 	int		fd;
 	char	*str;
 
 	fd = open(file_name, O_RDWR);
 	if (fd == -1)
-		return ;
+		return (-1);
 	while (get_next_line(fd, &str))
 	{
 		*history = dll_add_new_elem_frnt(*history, str);
 		ft_strdel(&str);
 	}
 	close(fd);
+	return (0);
 }
 
 void		print_pflag(char **tab)
