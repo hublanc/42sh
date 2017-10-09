@@ -6,13 +6,13 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/28 15:13:41 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/09 14:34:03 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/09 16:55:10 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-static void	change_pwd(char *path, char ***env)
+static void	change_pwd(char *path, char ***env, char opt)
 {
 	char	*tmp;
 
@@ -23,9 +23,10 @@ static void	change_pwd(char *path, char ***env)
 		path = tmp;
 		free(tmp);
 	}
-	if (!(tmp = check_path(path, env)))
+	if (!(tmp = check_path(path, env, opt)))
 		return ;
 	change_envpwd(tmp, env);
+	free(tmp);
 }
 
 static void	check_pwd2(char *path, char ***env, char *rep, char *tmp)
@@ -87,9 +88,9 @@ static char	*cd2(char **path, char ***env, int i)
 	char	*tmp;
 
 	tmp = NULL;
-	if (i == 1 || !ft_strcmp(path[1], "~") || (path[1][0] == '~'
-			&& path[1][1] == '/' && !path[1][2])
-			|| (path[1][0] == '-' && path[1][1] == '-'))
+	if (!path[i] || !ft_strcmp(path[i], "~") || (path[i][0] == '~'
+			&& path[i][1] == '/' && !path[i][2])
+			|| (path[i][0] == '-' && path[i][1] == '-'))
 	{
 		if (!get_elem(env, "HOME="))
 			ft_putstr_fd("cd: HOME not set.\n", 2);
@@ -107,29 +108,50 @@ static char	*cd2(char **path, char ***env, int i)
 			tmp = ft_strdup(get_elem(env, "OLDPWD="));
 	}
 	else
-		tmp = ft_strdup(path[1]);
+		tmp = ft_strdup(path[i]);
 	return (tmp);
 }
 
 int			cd(char **path, char ***env)
 {
 	char	*tmp;
+	char	opt;
 	int		i;
+	int		j;
 
 	i = 0;
 	tmp = NULL;
-	while (path[i])
-		i++;
-	if (i > 3)
+	if (!path || !path[0])
+		return (1);
+	opt = 0;
+	j = 1;
+	while (j > 0 && path[++i] && path[i][0] == '-')
+	{
+		j = 1;
+		while (path[i][j] && (path[i][j] == 'P' || path[i][j] == 'L'))
+			j++;
+		opt = path[i][j - 1];
+		if (j == 1 || (path[i][j] && path[i][j] != 'P' && path[i][j] != 'L'))
+		{
+			i--;
+			j = -1;
+			opt = 0;
+		}
+	}
+	(i < 1) ? i = 1 : 0;
+	j = 0;
+	while (path[i + j])
+		j++;
+	if (j > 2)
 		ft_putstr_fd("cd: too many arguments\n", 2);
-	else if (i == 3)
-		return (check_pwd(path[1], env, path[2]));
+	else if (j == 2)
+		return (check_pwd(path[i], env, path[i + 1]));
 	else
 	{
 		if (!(tmp = cd2(path, env, i)))
 			return (-1);
 		if (tmp)
-			change_pwd(tmp, env);
+			change_pwd(tmp, env, opt);
 		free(tmp);
 	}
 	return (0);
