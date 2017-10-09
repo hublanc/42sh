@@ -75,7 +75,7 @@ int			main(int ac, char **av, char **env)
 	print_prompt();
 	cmd = init_cmd(return_prompt());
 	history = NULL;
-	history = load_history();
+	history = load_history(env);
 	while (1)
 		key_handler(&cmd, &history, &cp_env);
 	del_tabstr(&cp_env);
