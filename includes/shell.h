@@ -64,10 +64,10 @@ int			ft_setenv(char **tab, char ***env);
 int			ft_unsetenv(char **tab, char ***env);
 int			ft_env(char **env, char **tab);
 int			ft_cd(char **tab, char ***env);
-void		ft_history(char **tab, char ***env, t_control **history);
-void		ft_history_2(char **tab, t_control **history, char *file,
+int			ft_history(char **tab, char ***env, t_control **history);
+int			ft_history_2(char **tab, t_control **history, char *file,
 			t_hist_flags flags);
-void		ft_history_3(char **tab, t_control **history, char *file,
+int			ft_history_3(char **tab, t_control **history, char *file,
 			t_hist_flags flags);
 
 char		**delonenv(char *name, char **env);
@@ -95,8 +95,8 @@ void		delete_elem_hist(int index, t_control **history);
 void		delete_elem_hist_2(t_lst *tmp, t_control **history);
 int			str_isdigit(char *str);
 void		print_pflag(char **tab);
-void		append_hist_file(t_control **history, char *file_name);
-void		rewrite_hist_file(t_control **history, char *file_name);
+int			append_hist_file(t_control **history, char *file_name);
+int			rewrite_hist_file(t_control **history, char *file_name);
 void		nflag(t_control **history, char *file);
 void		print_last_elem(t_control **history, int last);
 void		delete_list_content(t_control **history);

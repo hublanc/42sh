@@ -20,7 +20,8 @@ t_control		*load_history(void)
 
 	history = NULL;
 	str = NULL;
-	if (access("/tmp/.shell_history", F_OK) != 0 || access("/tmp/.shell_history", R_OK | W_OK) != 0)
+	if (access("/tmp/.shell_history", F_OK) != 0
+		|| access("/tmp/.shell_history", R_OK | W_OK) != 0)
 		return (NULL);
 	fd = open("/tmp/.shell_history",
 		O_RDWR | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
@@ -61,7 +62,7 @@ int				get_history_file_size(char *file_name)
 	return (size);
 }
 
-void			save_history_in_file(t_control **history, char *file_name)
+int				save_history_in_file(t_control **history, char *file_name)
 {
 	int		file_size;
 	t_lst	*tmp;
@@ -69,7 +70,7 @@ void			save_history_in_file(t_control **history, char *file_name)
 
 	file_size = get_history_file_size(file_name) - 1;
 	if ((*history)->length == file_size)
-		return ;
+		return (0);
 	tmp = (*history)->end;
 	while (file_size >= 0 && tmp != NULL)
 	{
@@ -79,16 +80,17 @@ void			save_history_in_file(t_control **history, char *file_name)
 	fd = open(file_name,
 		O_RDWR | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	if (fd == -1)
-		return ;
+		return (-1);
 	while (tmp != NULL)
 	{
 		ft_putendl_fd(tmp->name, fd);
 		tmp = tmp->prev;
 	}
 	close(fd);
+	return (0);
 }
 
-void			save_history(t_control **history, char *str)
+int				save_history(t_control **history, char *str)
 {
 	int		fd;
 	t_lst	*tmp;
@@ -96,7 +98,7 @@ void			save_history(t_control **history, char *str)
 	fd = open("/tmp/.shell_history",
 		O_RDWR | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	if (fd == -1)
-		return ;
+		return (-1);
 	ft_putendl_fd(str, fd);
 	*history = dll_add_new_elem_frnt(*history, str);
 	tmp = (*history)->begin;
@@ -107,6 +109,7 @@ void			save_history(t_control **history, char *str)
 		tmp = tmp->next;
 	}
 	close(fd);
+	return (0);
 }
 
 /*

@@ -12,12 +12,14 @@
 
 #include "shell.h"
 
-void		ft_history(char **tab, char ***env, t_control **history)
+int			ft_history(char **tab, char ***env, t_control **history)
 {
 	t_hist_flags		flags;
 	int					args_pos;
 	char				*file;
+	int					status;
 
+	status = 0;
 	(void)env;
 	args_pos = 0;
 	init_cd_flags(&flags);
@@ -32,12 +34,13 @@ void		ft_history(char **tab, char ***env, t_control **history)
 		ft_strdel(&file);
 		file = ft_strdup(tab[args_pos]);
 	}
-	ft_history_2(tab, history, file, flags);
+	status = ft_history_2(tab, history, file, flags);
 	free(file);
 	file = NULL;
+	return (status);
 }
 
-void		ft_history_2(char **tab, t_control **history, char *file,
+int			ft_history_2(char **tab, t_control **history, char *file,
 			t_hist_flags flags)
 {
 	if (flags.c == 1)
@@ -55,20 +58,23 @@ void		ft_history_2(char **tab, t_control **history, char *file,
 	if (flags.s == 1 && (*history))
 	{
 		if (tab[2])
-			save_history(history, tab[2]);
+			if (save_history(history, tab[2]) == -1)
+				return (-1);
 	}
 	if (flags.n == 1 && (*history))
 		nflag(history, file);
 	if (flags.a == 1 && (*history))
-		save_history_in_file(history, file);
-	ft_history_3(tab, history, file, flags);
+		if (save_history_in_file(history, file) == -1)
+			return (-1);
+	return (ft_history_3(tab, history, file, flags));
 }
 
-void		ft_history_3(char **tab, t_control **history, char *file,
+int			ft_history_3(char **tab, t_control **history, char *file,
 			t_hist_flags flags)
 {
 	if (flags.w == 1 && (*history))
-		rewrite_hist_file(history, file);
+		if (rewrite_hist_file(history, file) == -1)
+			return (-1);
 	if (flags.d == 1)
 	{
 		if (tab[2] && str_isdigit(tab[2]) && (*history))
@@ -77,7 +83,9 @@ void		ft_history_3(char **tab, t_control **history, char *file,
 			set_usage('d', 1);
 	}
 	if (flags.r == 1)
-		append_hist_file(history, file);
+		if (append_hist_file(history, file) == -1)
+			return (-1);
 	if (flags.p == 1 && tab[2])
 		print_pflag(tab);
+	return (0);
 }
