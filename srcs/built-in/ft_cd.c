@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/28 12:01:43 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/29 15:22:03 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/06 18:18:53 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,29 +107,146 @@ int			cd_prev(char ***env)
 	return (0);
 }
 
-int			ft_cd(char **tab, char ***env)
+int			error_cd(char *str, int err)
 {
-	int			len;
-	int			perm;
+	if (err == 1)
+	{
+		ft_putstr_fd("cd: string not in pwd: ", 2);
+		ft_putendl_fd(str, 2);
+	}
+	if (err == 2)
+	{
+		ft_putstr_fd("cd: not a directory: ", 2);
+		ft_putendl_fd(str, 2);
+	}
+	return (1);
+}
+
+char		*change_path(char **tab, int i)
+{
+	ft_putendl(tab[i]);
+	return (tab[i]);
+}
+
+int			check_arg_cd(char **tab, int i)
+{
+	int		len;
 
 	len = len_array(tab);
-	if (len == 1 || (tab[1] && ft_strcmp(tab[1], "~") == 0))
-		return (cd_home(env));
-	else if (tab[1] && ft_strcmp(tab[1], "-") == 0)
-		return (cd_prev(env));
-	else if (len == 2)
+	if (len - i > 2)
 	{
-		if ((perm = check_access(tab[1])) < 0)
-			return (print_error(perm == -1 ? 1 : 4, tab[1]));
-		chdir(tab[1]);
+		ft_putstr_fd("cd: too many arguments\n", 2);
+		return (-1);
+	}
+	else if (len - i == 2)
+	{
+		error_cd(tab[i], 1);
+		return (-1);
+	}
+	return (i);
+}
+
+int			check_opt_cd(char **tab, int *opt)
+{
+	int		i;
+	int		j;
+
+	i = 1;
+	*opt = 0;
+	while (tab[i] && tab[i][0] == '-' && ft_strcmp(tab[i], "-"))
+	{
+		j = 1;
+		while (tab[i][j])
+		{
+			if (tab[i][j] == 'P')
+				*opt = 1;
+			else if (tab[i][j] == 'L')
+				*opt = 0;
+			else if (tab[i][j] != '\0')
+				return (check_arg_cd(tab, i));
+			j++;
+		}
+		i++;
+	}
+	return (check_arg_cd(tab, i));
+}
+
+char		*load_path(char **tab, int i)
+{
+	char			buf[PATH_MAX];
+	int				pos;
+	char			**save;
+
+	if ((pos = in_env("PWD", *env)) == -1)
+		pos = pwdnotset(env);
+	
+}
+
+int			cd_basic(char **tab, char ***env, int i, int opt)
+{
+	struct stat		st;
+	int				islink;
+	char			*path;
+
+	path = NULL;
+	if (lstat(tab[i], &st) == -1)
+		return (print_error(1, tab[i]));
+	if (S_ISDIR(st.st_mode) || (islink = S_ISLNK(st.st_mode)))
+	{
+		if (access(tab[i], R_OK) == -1)
+			return (print_error(4, tab[i]));
+		if (chdir(tab[i]) == -1)
+			return (error_cd(tab[i], 2));
+		ft_putnbrel(islink);
+		path = load_path(tab, i, opt, islink);
+		else if (islink == 1 && opt)
+		{
+			tab[i] = ft_strdup("/Users/hublanc/Documents/42sh/bugfix/test/");
+			tab[i] = ft_strapp(tab[i], "kek");
+			ft_putendl(tab[i]);
+			if (readlink(tab[i], buf, sizeof(buf)) < 0)
+				ft_putendl("ERROR");
+			ft_putendl(buf);
+		}
 		change_pwd(env);
 		return (0);
 	}
+	else
+		return (error_cd(tab[i], 2));
+}
+
+int			ft_cd(char **tab, char ***env)
+{
+	int			len;
+	int			i;
+	int			opt;
+
+	i = check_opt_cd(tab, &opt);
+	if (i == -1)
+		return (1);
+	len = len_array(tab);
+	if (len - i == 0 || (tab[i] && ft_strcmp(tab[i], "~") == 0))
+		return (cd_home(env));
+	else if (tab[i] && ft_strcmp(tab[i], "-") == 0)
+		return (cd_prev(env));
+	else
+	{
+		return (cd_basic(tab, env, i, opt));
+		/*
+		**	
+		if ((perm = check_access(tab[i])) < 0)
+			return (print_error(perm == -1 ? 1 : 4, tab[i]));
+		chdir(tab[i]);
+		change_pwd(env);
+		return (0);*/
+	}
+	/*
+	**	
 	else
 	{
 		ft_putstr_fd("string not in pwd: ", 2);
 		ft_putstr_fd(tab[1], 2);
 		ft_putchar_fd('\n', 2);
 		return (1);
-	}
+	}*/
 }
