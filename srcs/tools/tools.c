@@ -50,10 +50,14 @@ int			len_array(char **str)
 
 void		stop_shell(char ***env, char **tab, t_control **history)
 {
+	char	*hist_file;
+
+	hist_file = get_history_file(env);
 	if (tab)
 		del_tabstr(&tab);
 	del_tabstr(env);
-	rewrite_hist_file(history, "/tmp/.shell_history");
+	rewrite_hist_file(history, hist_file);
+	free(hist_file);
 	if (*history)
 		*history = dll_clear_list(*history);
 	reset_term();
