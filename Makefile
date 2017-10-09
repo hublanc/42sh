@@ -59,6 +59,7 @@ SRC		=	main.c\
 			tools/tools_lexer.c\
 			tools/tools_redir.c\
 			tools/tools_history.c\
+			tools/tools_history_2.c\
 			tools/tools_routine.c\
 			tools/tools_compl.c\
 			built-in/echo.c\
