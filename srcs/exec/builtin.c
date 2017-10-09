@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/25 18:26:10 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/28 18:59:07 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/09 14:17:06 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int			do_built_in(char **tab, char ***env, t_hist **his)
 	else if (ft_strcmp(tab[0], "env") == 0)
 		status = ft_env(*env, tab);
 	else if (ft_strcmp(tab[0], "cd") == 0)
-		status = ft_cd(tab, env);
+		status = cd(tab, env);
 	return (status);
 }
 
