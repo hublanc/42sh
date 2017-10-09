@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 13:49:51 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/28 19:00:54 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/09 14:50:44 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int			check_cmdandor(char *cmd)
 	char	*str;
 
 	str = cmd;
-	while (*str)
+	while (str && *str)
 	{
 		if (*str && *str == '&' && *(str + 1) == '&')
 		{

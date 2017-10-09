@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/02 17:55:21 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/13 19:50:09 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/02 10:37:59 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void		print_line_pipe(t_cmd *cmd)
 	len += len % cmd->sc_col == 0 ? 0 : 1;
 	go_begin(cmd->col, cmd->sc_col);
 	tputs(tgetstr("cd", NULL), 1, tputchar);
-	ft_putstr(cmd->prompt);
+	ft_putstr_fd(cmd->prompt, 2);
 	ft_putstr(cmd->str);
 	if (len > cmd->col)
 	{
@@ -48,7 +48,7 @@ int		enter_handler_pipe(t_cmd *cmd, t_token **list, t_token *new)
 	ft_putchar('\n');
 	if (!cmd->str)
 	{
-		ft_putstr(cmd->prompt);
+		ft_putstr_fd(cmd->prompt, 2);
 		return (0);
 	}
 	if (check_quote(cmd->str))
@@ -98,7 +98,7 @@ t_token	*prompt_pipe(t_token *list)
 
 	new = NULL;
 	cmd_p = init_cmd("pipe> ");
-	ft_putstr("pipe> ");
+	ft_putstr_fd("pipe> ", 2);
 	while (!key_handler_pipe(&cmd_p, &list, new));
 	return (list);
 }
