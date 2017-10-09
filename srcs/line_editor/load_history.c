@@ -12,29 +12,28 @@
 
 #include "shell.h"
 
-t_control		*load_history(void)
+t_control		*load_history(char **env)
 {
 	int			fd;
 	char		*str;
 	t_control	*history;
+	char		*file;
 
 	history = NULL;
 	str = NULL;
-	if (access("/tmp/.shell_history", F_OK) != 0
-		|| access("/tmp/.shell_history", R_OK | W_OK) != 0)
+	file = get_history_file(&env);
+	if (access(file, F_OK) != 0 || access(file, R_OK | W_OK) != 0)
 		return (NULL);
-	fd = open("/tmp/.shell_history",
-		O_RDWR | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+	fd = open(file, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	if (fd == -1)
 		return (NULL);
+	free(file);
 	while (get_next_line(fd, &str) > 0)
 	{
 		if (str)
 			history = dll_add_new_elem_frnt(history, str);
 		ft_strdel(&str);
 	}
-	if (str)
-		ft_strdel(&str);
 	close(fd);
 	if (history)
 		history->original_length = history->length;
@@ -47,7 +46,7 @@ int				get_history_file_size(char *file_name)
 	char	*str;
 	int		size;
 
-	fd = open("/tmp/.shell_history",
+	fd = open(file_name,
 			O_RDWR | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	size = 0;
 	fd = open(file_name, O_RDWR);
@@ -90,12 +89,12 @@ int				save_history_in_file(t_control **history, char *file_name)
 	return (0);
 }
 
-int				save_history(t_control **history, char *str)
+int				save_history(t_control **history, char *str, char *file)
 {
 	int		fd;
 	t_lst	*tmp;
 
-	fd = open("/tmp/.shell_history",
+	fd = open(file,
 		O_RDWR | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	if (fd == -1)
 		return (-1);
