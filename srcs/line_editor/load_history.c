@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/05 13:44:34 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/13 19:43:22 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/09 11:01:39 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_hist			*load_history()
 
 	history = NULL;
 	str = NULL;
-	fd = open("/tmp/.shell_history",
+	fd = open(".shell_history",
 			O_RDWR | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	while (get_next_line(fd, &str))
 	{
@@ -39,7 +39,7 @@ void			save_history(t_hist **history, char *str)
 	int		fd;
 	t_hist	*tmp;
 
-	fd = open("/tmp/.shell_history",
+	fd = open(".shell_history",
 			O_RDWR | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	ft_putendl_fd(str, fd);
 	add_begin(history, new_history(str));
