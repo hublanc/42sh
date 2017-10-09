@@ -20,11 +20,10 @@ int			ft_history(char **tab, char ***env, t_control **history)
 	int					status;
 
 	status = 0;
-	(void)env;
 	args_pos = 0;
 	init_cd_flags(&flags);
 	get_cd_flags(&flags, tab, &args_pos);
-	file = ft_strdup("/tmp/.shell_history");
+	file = get_history_file(env);
 	if (!tab[1] && (*history) != NULL && (*history)->length > 0)
 		print_history(history);
 	if (tab[0] && tab[1]
@@ -35,8 +34,7 @@ int			ft_history(char **tab, char ***env, t_control **history)
 		file = ft_strdup(tab[args_pos]);
 	}
 	status = ft_history_2(tab, history, file, flags);
-	free(file);
-	file = NULL;
+	ft_strdel(&file);
 	return (status);
 }
 
@@ -58,7 +56,7 @@ int			ft_history_2(char **tab, t_control **history, char *file,
 	if (flags.s == 1 && (*history))
 	{
 		if (tab[2])
-			if (save_history(history, tab[2]) == -1)
+			if (save_history(history, tab[2], file) == -1)
 				return (-1);
 	}
 	if (flags.n == 1 && (*history))
@@ -88,4 +86,48 @@ int			ft_history_3(char **tab, t_control **history, char *file,
 	if (flags.p == 1 && tab[2])
 		print_pflag(tab);
 	return (0);
+}
+
+char		*get_history_file(char ***env)
+{
+	char	*home_value;
+
+	home_value = NULL;
+	get_home(env, &home_value);
+	if (home_value == NULL)
+	{
+		ft_putendl("Failure : No env");
+		return (NULL);
+	}
+	home_value = ft_strapp(home_value, "/");
+	home_value = ft_strapp(home_value, ".shell_history");
+	return (home_value);
+}
+
+void		get_home(char ***env, char **home)
+{
+	char	*value;
+	int		a;
+
+	value = NULL;
+	a = 0;
+	while ((*env)[a])
+	{
+		if (ft_strncmp((*env)[a], "HOME=", ft_strlen("HOME=")) == 0)
+		{
+			value = ft_strdup((*env)[a]);
+			break ;
+		}
+		a++;
+	}
+	if (value != NULL)
+	{
+		a = 5;
+		while (value[a])
+		{
+			*home = ft_str_chr_cat(*home, value[a]);
+			a++;
+		}
+	}
+	free(value);
 }

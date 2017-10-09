@@ -69,6 +69,9 @@ int			ft_history_2(char **tab, t_control **history, char *file,
 			t_hist_flags flags);
 int			ft_history_3(char **tab, t_control **history, char *file,
 			t_hist_flags flags);
+char		*get_history_file(char ***env);
+void		get_home(char ***env, char **home);
+
 
 char		**delonenv(char *name, char **env);
 char		**prep_setenv(char *name, char *value);
