@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/17 11:10:52 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/28 18:58:33 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/09 13:49:49 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void		routine(char *cmd, char ***env, t_hist **history)
 	list = tokenizer(cmd);
 	list = sort_token(list, history);
 	if (!list)
-		return ((void)print_prompt());
+		return ;
 	tree = create_tree(list);
 	reset_term();
 	node_print(tree, 0, 3);
