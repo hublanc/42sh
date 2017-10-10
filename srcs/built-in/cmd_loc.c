@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/05 13:46:33 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/05 16:55:23 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/10 15:41:55 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int		endloc(char *cmmd)
 		i += 2;
 	while (cmmd[i] && cmmd[i] != '=')
 	{
-		if (cmmd[i] == '\'' || cmmd[i] == '"' || cmmd[i] == 32)
+		if (cmmd[i] == '\'' || (i > 0 && (cmmd[i] == '"' || cmmd[i] == 32)))
 			return (0);
 		while (cmmd[i] && cmmd[i + 1] && cmmd[i] == '\\')
 			i += 2;
@@ -54,6 +54,16 @@ int		endloc(char *cmmd)
 	return (i);
 }
 
+static void	ssupprchr(char **s, int pos)
+{
+	int i;
+
+	pos--;
+	i = ft_strlen(*	s) - 1;
+	while (++pos <= i)
+		(*s)[pos] = (*s)[pos + 1];
+}
+
 int		gest_loc(char **cmmd)
 {
 	char	**tab;
@@ -70,6 +80,10 @@ int		gest_loc(char **cmmd)
 		return (0);
 	}
 	tab = ft_strsplit(*cmmd, '=');
+	i = -1;
+	while (tab[1] && tab[1][++i])
+		if (tab[1][i] == '"' && (i < 1 || tab[1][i - 1] != '\\'))
+			ssupprchr(&tab[1], i--);
 	add_loc(tab[0], tab[1]);
 	free(tab[1]);
 	free(tab[0]);
