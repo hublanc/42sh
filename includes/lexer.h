@@ -42,7 +42,7 @@ void		node_print(t_node *this, int current_level, int max_level);
 /*
 **	Sort_token.c
 */
-t_token		*sort_token(t_token *list, t_hist **history);
+t_token		*sort_token(t_token *list, t_control **history);
 
 /*
 **	Stock_tree.c

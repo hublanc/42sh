@@ -48,13 +48,21 @@ int			len_array(char **str)
 	return (len);
 }
 
-void		stop_shell(char ***env, char **tab, t_hist **history)
+void		stop_shell(char ***env, char **tab, t_control **history)
 {
+	char	*hist_file;
+
+	hist_file = get_history_file(env);
 	if (tab)
 		del_tabstr(&tab);
 	del_tabstr(env);
-	if (history)
-		del_history(history);
+	if (hist_file)
+	{
+		rewrite_hist_file(history, hist_file);
+		free(hist_file);
+	}
+	if (*history)
+		*history = dll_clear_list(*history);
 	reset_term();
 	ft_putendl_fd("exit", 2);
 	if (return_status() == 256)

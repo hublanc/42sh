@@ -60,7 +60,7 @@ void		control_homend(char *str, t_cmd *cmd)
 	}
 }
 
-void		arrow_handler(char *str, t_cmd *cmd, t_hist **hist)
+void		arrow_handler(char *str, t_cmd *cmd, t_control **hist)
 {
 	if (str[2] == 68 && cmd->col > cmd->prlen + 1)
 		go_left(cmd);

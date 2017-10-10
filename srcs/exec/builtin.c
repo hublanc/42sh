@@ -6,13 +6,13 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/25 18:26:10 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/28 18:59:07 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/06 14:06:56 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-int			do_built_in(char **tab, char ***env, t_hist **his)
+int			do_built_in(char **tab, char ***env, t_control **his)
 {
 	int		status;
 
@@ -29,11 +29,13 @@ int			do_built_in(char **tab, char ***env, t_hist **his)
 		status = ft_env(*env, tab);
 	else if (ft_strcmp(tab[0], "cd") == 0)
 		status = ft_cd(tab, env);
+	else if (ft_strcmp(tab[0], "history") == 0)
+		status = ft_history(tab, env, his);
 	return (status);
 }
 
 int			exec_builtin_pipe(t_node *tree, char **tab,
-			char ***env, t_hist **his)
+			char ***env, t_control **his)
 {
 	pid_t	son;
 
@@ -47,7 +49,7 @@ int			exec_builtin_pipe(t_node *tree, char **tab,
 	return (0);
 }
 
-int			exec_builtin(t_node *tree, char **tab, char ***env, t_hist **his)
+int			exec_builtin(t_node *tree, char **tab, char ***env, t_control **his)
 {
 	int		outholder;
 	int		inholder;
@@ -66,7 +68,7 @@ int			exec_builtin(t_node *tree, char **tab, char ***env, t_hist **his)
 	return (status);
 }
 
-int			built_in(t_node *tree, char **tab, char ***env, t_hist **his)
+int			built_in(t_node *tree, char **tab, char ***env, t_control **his)
 {
 	int		status;
 
@@ -85,7 +87,8 @@ int			builtin_tab(char **tab)
 {
 	if (!ft_strcmp(tab[0], "exit") || !ft_strcmp(tab[0], "echo")
 	|| !ft_strcmp(tab[0], "setenv") || !ft_strcmp(tab[0], "unsetenv")
-	|| !ft_strcmp(tab[0], "env") || !ft_strcmp(tab[0], "cd"))
+	|| !ft_strcmp(tab[0], "env") || !ft_strcmp(tab[0], "cd")
+	|| !ft_strcmp(tab[0], "history"))
 		return (1);
 	else
 		return (0);
