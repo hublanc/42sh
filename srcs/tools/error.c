@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/01 11:03:53 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/29 15:19:32 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/06 13:26:29 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,18 @@ int			pwdnotset(char ***env)
 	del_tabstr(&new);
 	pos = in_env("PWD", *env);
 	return (pos);
+}
+
+void		event_not_found(char *str)		// May need to be in print_error
+{
+	int		i;
+
+	i = 0;
+	ft_putstr("shell: event not found: ");
+	while (str[i] && str[i] != ' ')
+	{
+		ft_putchar(str[i]);
+		i++;
+	}
+	ft_putchar('\n');
 }

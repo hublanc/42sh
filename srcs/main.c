@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/24 16:37:30 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/09 13:32:08 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/10 17:59:19 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char		**init_env(void)
 int			main(int ac, char **av, char **env)
 {
 	t_cmd		cmd;
-	t_hist		*history;
+	t_control	*history;
 	char		**cp_env;
 	int			status;
 
@@ -75,7 +75,8 @@ int			main(int ac, char **av, char **env)
 	print_prompt();
 	cmd = init_cmd(return_prompt());
 	save_cmd(&cmd);
-	history = load_history();
+	history = NULL;
+	history = load_history(env);
 	while (1)
 		key_handler(&cmd, &history, &cp_env);
 	del_tabstr(&cp_env);
