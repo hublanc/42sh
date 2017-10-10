@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 13:49:51 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/10 15:56:04 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/09 14:50:44 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,17 @@ int			check_cmdandor(char *cmd)
 	char	*str;
 
 	str = cmd;
-	while (*str)
+	while (str && *str)
 	{
 		if (*str && *str == '&' && *(str + 1) == '&')
 		{
 			str += 2;
-			while (*str && *str == ' ')
-				str++;
 			if (*str == '\0')
 				return (0);
 		}
 		else if (*str && *str == '|' && *(str + 1) == '|')
 		{
 			str += 2;
-			while (*str && *str == ' ')
-				str++;
 			if (*str == '\0')
 				return (0);
 		}
@@ -45,23 +41,16 @@ void		enter_handler_cmdandor(t_cmd *cmd, t_hist **history)
 {
 	char	c;
 
-	ft_putendl("wqer");
 	cmd->str_quote = ft_strapp(cmd->str_quote, cmd->str);
 	ft_strdel(&(cmd->str));
 	ft_putchar('\n');
 	c = check_quote(cmd->str_quote);
-	if (c == '\\')
+	if (!c)
+		return ;
+	else if (c == '\\')
 		prompt_backslash(cmd, history, 1);
 	else if (c == '\'' || c == '"')
 		prompt_quote(cmd, history, c, 1);
-	if (!checkstr_pipe(cmd->str_quote))
-		prompt_pipe(cmd, history, 1);
-	if (!check_cmdandor(cmd->str_quote))
-	{
-		ft_putstr(cmd->prompt);
-		cmd->col = cmd->prlen + 1;
-		cmd->str_quote = ft_strapp(cmd->str_quote, "\n");
-	}
 }
 
 void		prompt_cmdandor(t_cmd *cmd, t_hist **history, int mod)
@@ -74,18 +63,17 @@ void		prompt_cmdandor(t_cmd *cmd, t_hist **history, int mod)
 		cmd_ao.str_quote = ft_strapp(cmd_ao.str_quote, cmd->str);
 	else if (mod)
 		cmd_ao.str_quote = ft_strapp(cmd_ao.str_quote, cmd->str_quote);
-	while (!check_cmdandor(cmd_ao.str_quote) && !cmd_ao.stop)
+	while (!check_cmdandor(cmd_ao.str_quote))
 		key_handler(&cmd_ao, history, NULL);
 	if (!mod)
 	{
-		cmd->str ? ft_strdel(&(cmd->str)) : 0;
+		ft_strdel(&(cmd->str));
 		cmd->str = ft_strdup(cmd_ao.str_quote);
 	}
 	if (mod)
 	{
-		cmd->str_quote ? ft_strdel(&(cmd->str_quote)) : 0;
+		ft_strdel(&(cmd->str_quote));
 		cmd->str_quote = ft_strdup(cmd_ao.str_quote);
 	}
 	clear_cmd(&cmd_ao);
-	save_cmd(cmd);
 }
