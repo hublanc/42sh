@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/10 11:58:10 by lbopp             #+#    #+#             */
-/*   Updated: 2017/10/10 13:10:46 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/10 13:47:38 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	join_free_all(char **date, int do_itoa);
 void	get_date_prompt(char **line, int *i);
 void	get_hostname_prompt(char **line, int *i, int mode);
 void	get_octal_value(char **line, int *i, char *code);
-void	get_path(char **line, int *i, int mode);
+void	prompt_path(char **line, int *i, int mode);
 void	get_shell_name(char **line, int *i);
 void	get_time_prompt(char **line, int *i, int mode);
 void	get_time_prompt2(char **line, int *i);

@@ -6,13 +6,13 @@
 #    By: hublanc <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/07/24 15:04:09 by hublanc           #+#    #+#              #
-#    Updated: 2017/10/10 13:28:45 by amazurie         ###   ########.fr        #
+#    Updated: 2017/10/10 13:50:55 by lbopp            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= shell
 CC		= gcc
-FLAGS	= -Wall -Wextra -Werror
+FLAGS	= -Wall -Wextra -Werror -g
 DFLAGS	= -MMD
 LIB		= libft/libft.a
 HEADER	= includes/
@@ -72,11 +72,11 @@ SRC		=	main.c\
 			prompt_statement/prompt_hostname.c\
 			prompt_statement/prompt_octal.c\
 			prompt_statement/prompt_path.c\
-			prompt_statement/prompt_shelname.c\
+			prompt_statement/prompt_shellname.c\
 			prompt_statement/prompt_time.c\
 			prompt_statement/prompt_uid.c\
 			prompt_statement/prompt_username.c\
-			prompt_statement/prompt_version.c
+			prompt_statement/prompt_version.c\
 			completion/completion.c\
 			completion/list_args.c\
 			completion/get_binaries.c\
@@ -101,7 +101,7 @@ DEPS		:= $(OBJS:.o=.d)
 all: $(OBJDIR) $(NAME)
 
 $(NAME): $(LIB) $(OBJS)
-	@$(CC) $(FLAGS)OC -L./$(LIBSRC) -lft -ltermcap -o $(NAME) $(OBJS)
+	@$(CC) $(FLAGS) -L./$(LIBSRC) -lft -ltermcap -o $(NAME) $(OBJS)
 	@echo "\n${CYN}PROCESSING DONE !${NC}"
 
 $(OBJDIR):
