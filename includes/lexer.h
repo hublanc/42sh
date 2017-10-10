@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 17:08:55 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/13 19:39:19 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/10 16:19:46 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,10 @@ t_token		*sort_token(t_token *list, t_hist **history);
 **	Stock_tree.c
 */
 t_node		*create_tree(t_token *list);
+
+/*
+**	substitution.c
+*/
+void		substitution(char **cmmd, char ***env);
 
 #endif
