@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/22 15:21:04 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/09 14:42:35 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/10 13:34:03 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,11 @@ char		check_quote(char *str)
 	in_quote = 0;
 	while (str && *str)
 	{
-		if (*str == '\\' && !in_quote)
+		if (*str == '\\' && (!in_quote || (in_quote == '"'
+			&& *(str + 1) && *(str + 1) == '"')))
 		{
 			if (*(str + 1))
-				str += 2;
+				str += (in_quote == '"' && *(str + 1) == '"') ? 1 : 2;
 			else
 				return ('\\');
 		}
@@ -64,7 +65,7 @@ void		prompt_quote(t_cmd *cmd, t_hist **history, char c, int mod)
 	}
 	else if (mod)
 	{
-		(!cmd->str_quote) ? ft_strdel(&(cmd->str_quote)) : 0;
+		cmd->str_quote ? ft_strdel(&(cmd->str_quote)) : 0;
 		cmd->str_quote = ft_strdup(cmd_q.str_quote);
 	}
 	clear_cmd(&cmd_q);
@@ -87,12 +88,12 @@ void		prompt_backslash(t_cmd *cmd, t_hist **history, int mod)
 		key_handler(&cmd_b, history, NULL);
 	if (!mod)
 	{
-		ft_strdel(&(cmd->str));
+		cmd->str ? ft_strdel(&(cmd->str)) : 0;
 		cmd->str = ft_strdup(cmd_b.str_quote);
 	}
 	else if (mod)
 	{
-		ft_strdel(&(cmd->str_quote));
+		cmd->str ? ft_strdel(&(cmd->str_quote)) : 0;
 		cmd->str_quote = ft_strdup(cmd_b.str_quote);
 	}
 	clear_cmd(&cmd_b);

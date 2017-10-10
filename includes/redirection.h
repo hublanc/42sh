@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 18:15:34 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/02 10:50:03 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/09 15:42:44 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void		heredoc_input(t_node *tree);
 /*
 **	Pipe.c
 */
-t_token		*prompt_pipe(t_token *list);
+void		prompt_pipe(t_cmd *cmd, t_hist  **history, int mod);
+void		enter_handler_pipe(t_cmd *cmd, t_hist **history);
+int			checkstr_pipe(char *cmd);
 
 #endif
