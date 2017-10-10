@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 11:50:54 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/06 12:13:59 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/10 19:50:13 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ int			in_env(char *str, char **env);
 int			ft_setenv(char **tab, char ***env);
 int			ft_unsetenv(char **tab, char ***env);
 int			ft_env(char **env, char **tab);
-int			ft_cd(char **tab, char ***env);
 int			ft_history(char **tab, char ***env, t_control **history);
 int			ft_history_2(char **tab, t_control **history, char *file,
 			t_hist_flags flags);
@@ -71,10 +70,12 @@ int			ft_history_3(char **tab, t_control **history, char *file,
 			t_hist_flags flags);
 char		*get_history_file(char ***env);
 void		get_home(char ***env, char **home);
+int			cd(char **path, char ***env);
 
 
 char		**delonenv(char *name, char **env);
 char		**prep_setenv(char *name, char *value);
+void		change_pwd(char *path, char ***env, char opt);
 
 /*
 **	terminal

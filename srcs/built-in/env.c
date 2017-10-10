@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/25 19:21:36 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/28 18:41:36 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/09 14:33:22 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int			check_opt(char **tab, int *i, char ***env, char **opt)
 void		check_set(char **tab, int *i, char ***env)
 {
 	char	*name;
-	char	**set;
+	char	*set[3];
 	int		pos;
 
 	pos = *i;
@@ -52,10 +52,11 @@ void		check_set(char **tab, int *i, char ***env)
 	while (*tab && ft_strchr(*tab, '='))
 	{
 		name = ft_strsub(*tab, 0, ft_strchr(*tab, '=') - *tab);
-		set = prep_setenv(name, ft_strchr(*tab, '=') + 1);
+		set[0] = "setenv";
+		set[1] = get_elem(env, name);
+		set[2] = ft_strchr(*tab, '=') + 1;
 		ft_setenv(set, env);
 		ft_strdel(&name);
-		del_tabstr(&set);
 		tab++;
 		(*i)++;
 	}
