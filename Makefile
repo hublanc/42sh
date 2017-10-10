@@ -6,7 +6,7 @@
 #    By: hublanc <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/07/24 15:04:09 by hublanc           #+#    #+#              #
-#    Updated: 2017/09/13 20:14:48 by hublanc          ###   ########.fr        #
+#    Updated: 2017/10/10 13:05:03 by lbopp            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,20 @@ SRC		=	main.c\
 			built-in/env.c\
 			built-in/ft_cd.c\
 			built-in/set_env.c\
-			built-in/unsetenv.c
+			built-in/unsetenv.c\
+			prompt_statement/before_curr_after.c\
+			prompt_statement/main_prompt_statement.c\
+			prompt_statement/prompt_backslash.c\
+			prompt_statement/prompt_date.c\
+			prompt_statement/prompt_hostname.c\
+			prompt_statement/prompt_octal.c\
+			prompt_statement/prompt_path.c\
+			prompt_statement/prompt_shelname.c\
+			prompt_statement/prompt_time.c\
+			prompt_statement/prompt_uid.c\
+			prompt_statement/prompt_username.c\
+			prompt_statement/prompt_version.c
+
 # colors
 GRN     =   \033[0;32m
 RED     =   \033[0;31m
@@ -70,7 +83,7 @@ $(NAME): $(LIB) $(OBJS)
 	@echo "\n${CYN}PROCESSING DONE !${NC}"
 
 $(OBJDIR):
-	@mkdir -p objs objs/built-in objs/tools objs/exec objs/lexer objs/redirection objs/line_editor
+	@mkdir -p objs objs/built-in objs/tools objs/exec objs/lexer objs/redirection objs/line_editor objs/prompt_statement
 
 $(LIB):
 	@echo "${CYN}Processing ${NC}./libft/objs ${CYN}[${NC}...${CYN}]${NC}"
@@ -92,7 +105,7 @@ fclean: clean
 	@rm -Rf $(NAME)
 	@echo "${RED}Cleaning ${NC}./libft/${RED}libft.h${NC}\n"
 	@make -C $(LIBSRC) fclean
-	@echo "${RED}DELET DONE !${NC}"
+	@echo "${RED}DELETE DONE !${NC}"
 
 re: fclean all
 

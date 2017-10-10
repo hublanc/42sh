@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/07 14:59:17 by hublanc           #+#    #+#             */
-/*   Updated: 2017/07/25 18:01:50 by nbouchin         ###   ########.fr       */
+/*   Updated: 2017/10/10 13:13:48 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,5 +117,6 @@ void				ft_putnstrbuf(char *str, int n);
 void				putbuf(void);
 int					get_next_line(const int fd, char **line);
 int					ft_strfullnb(char *str);
+int					ft_power(int nb, int pow);
 
 #endif
