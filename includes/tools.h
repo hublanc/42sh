@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 18:24:56 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/06 12:12:54 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/10 19:49:16 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,5 +100,12 @@ int			nbr_perline(int maxlen, int w);
 int			nbr_percol(int nbrargs, int nbrperline);
 int			maxrow_line(int lenline, int w);
 char		*get_envpath(char ***env);
+
+/*
+**	tools_cd.c
+*/
+void		ssupprchr(char **s, int pos);
+void		saddchr(char **s, char c, int pos);
+char		*get_elem(char ***env, char *elem);
 
 #endif
