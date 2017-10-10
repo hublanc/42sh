@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 18:24:56 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/09 14:15:44 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/10 12:58:47 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,5 +104,6 @@ char		*get_envpath(char ***env);
 */
 void		ssupprchr(char **s, int pos);
 void		saddchr(char **s, char c, int pos);
+char		*get_elem(char ***env, char *elem);
 
 #endif
