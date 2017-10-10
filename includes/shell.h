@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 11:50:54 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/09 14:07:54 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/10 13:08:13 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@
 # include "line_editor.h"
 # include "tools.h"
 # include "completion.h"
-# include "cd.h"
 
 # define CYN	"\x1B[36m"
 # define RESET	"\x1B[0m"
@@ -52,9 +51,11 @@ int			in_env(char *str, char **env);
 int			ft_setenv(char **tab, char ***env);
 int			ft_unsetenv(char **tab, char ***env);
 int			ft_env(char **env, char **tab);
+int			cd(char **path, char ***env);
 
 char		**delonenv(char *name, char **env);
 char		**prep_setenv(char *name, char *value);
+void		change_pwd(char *path, char ***env, char opt);
 
 /*
 **	terminal

@@ -6,13 +6,13 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 11:16:27 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/10 12:57:49 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/10 13:07:11 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-void	check_dotdot(char **tmp)
+static void	check_dotdot(char **tmp)
 {
 	size_t	i;
 
@@ -32,7 +32,7 @@ void	check_dotdot(char **tmp)
 		(*tmp)[0] = '/';
 }
 
-int		change_envpwd(char *tmp, char ***env)
+static int	change_envpwd(char *tmp, char ***env)
 {
 	char	*tab[4];
 
@@ -49,9 +49,25 @@ int		change_envpwd(char *tmp, char ***env)
 	return (1);
 }
 
-char	*check_path(char *path, char ***env, char opt)
+static int	change_cwd(char *tmp, char *path)
 {
 	struct stat	atr;
+
+	if (chdir(tmp) == -1)
+	{
+		if (lstat(tmp, &atr) == -1)
+			ft_putstr_fd("cd: no such file or directory: ", 2);
+		else
+			ft_putstr_fd("cd: permission denied: ", 2);
+		ft_putstr_fd(path, 2);
+		ft_putchar_fd('\n', 2);
+		return (0);
+	}
+	return (1);
+}
+
+static char	*check_path(char *path, char ***env, char opt)
+{
 	char		*tmp;
 	char		*tmp2;
 
@@ -63,21 +79,13 @@ char	*check_path(char *path, char ***env, char opt)
 		else
 			tmp2 = ft_strdup("/");
 		tmp = ft_strjoin(tmp2, path);
-		(tmp2) ? free(tmp2): 0;
+		(tmp2) ? free(tmp2) : 0;
 	}
 	else if (!(tmp = ft_strdup(path)))
 		tmp = NULL;
 	check_dotdot(&tmp);
-	if (chdir(tmp) == -1)
-	{
-		if (lstat(tmp, &atr) == -1)
-			ft_putstr_fd("cd: no such file or directory: ", 2);
-		else
-			ft_putstr_fd("cd: permission denied: ", 2);
-		ft_putstr_fd(path, 2);
-		ft_putchar_fd('\n', 2);
+	if (!change_cwd(tmp, path))
 		return (NULL);
-	}
 	if (opt == 'P')
 	{
 		(tmp) ? free(tmp) : 0;
@@ -85,4 +93,21 @@ char	*check_path(char *path, char ***env, char opt)
 		getcwd(tmp, 1024);
 	}
 	return (tmp);
+}
+
+void		change_pwd(char *path, char ***env, char opt)
+{
+	char	*tmp;
+
+	if (!ft_strncmp(path, "~/", 2))
+	{
+		if (!(tmp = ft_strjoin(get_elem(env, "HOME="), (path + 1))))
+			return ;
+		path = tmp;
+		free(tmp);
+	}
+	if (!(tmp = check_path(path, env, opt)))
+		return ;
+	change_envpwd(tmp, env);
+	free(tmp);
 }
