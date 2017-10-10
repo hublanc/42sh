@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/10 17:54:51 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/13 19:41:28 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/09/18 16:05:06 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int				isspecial(char c)
 {
-	if (c == ';' || c == '|' || c == '<' || c == '>' || c == ' ')
+	if (c == ';' || c == '|' || c == '&' || c == '<' || c == '>' || c == ' ')
 		return (0);
 	else
 		return (1);
@@ -47,6 +47,21 @@ int				add_word(char *cmd, t_token **list)
 	return (i - 1);
 }
 
+int				add_pipe_or_word(char *cmd, t_token **list)
+{
+	int		i;
+
+	i = 0;
+	if (*(cmd + 1) && *(cmd + 1) == '|')
+	{
+		add_token(list, new_token("||", 8));
+		i++;
+	}
+	else
+		add_token(list, new_token("|", 4));
+	return (i);
+}
+
 void			check_type(char **cmd, t_token **list)
 {
 	int		i;
@@ -57,7 +72,12 @@ void			check_type(char **cmd, t_token **list)
 	if (**cmd == ';')
 		add_token(list, new_token(";", 5));
 	else if (**cmd == '|')
-		add_token(list, new_token("|", 4));
+		i += add_pipe_or_word(*cmd, list);
+	else if (**cmd == '&' && *(*cmd + 1) && *(*cmd + 1) == '&')
+	{
+		add_token(list, new_token("&&", 7));
+		i++;
+	}
 	else if (**cmd == '<' || **cmd == '>')
 		i += check_chevron(list, *cmd);
 	else if (ft_isdigit(**cmd))

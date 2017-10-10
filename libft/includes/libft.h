@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/07 14:59:17 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/10 13:13:48 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/10 13:27:01 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ int					ft_strequ(char const *s1, char const *s2);
 int					ft_strnequ(char const *s1, char const *s2, size_t n);
 char				*ft_strsub(char const *s, unsigned int start, size_t len);
 char				*ft_strjoin(char const *s1, char const *s2);
+char				*ft_strndup(const char *s1, size_t n);
 
 char				*ft_strtrim(char const *s);
 char				**ft_strsplit(char const *s, char c);
@@ -118,5 +119,6 @@ void				putbuf(void);
 int					get_next_line(const int fd, char **line);
 int					ft_strfullnb(char *str);
 int					ft_power(int nb, int pow);
+int					ft_strlen_chr(char *s, char c);
 
 #endif

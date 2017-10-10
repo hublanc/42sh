@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/06 15:56:19 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/13 19:40:51 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/05 14:35:30 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,7 @@ static char			*cmdsub(char *str, int *i, int len)
 	int		j;
 
 	j = 0;
-	if (!str)
-		return (NULL);
-	if (!(new = (char*)malloc(sizeof(char) * len + 1)))
+	if (!str || !(new = (char*)malloc(sizeof(char) * len + 1)))
 		return (NULL);
 	while (str[*i] && str[*i] != ' ')
 	{
@@ -92,10 +90,12 @@ static char			*cmdsub(char *str, int *i, int len)
 			c = str[(*i)++];
 			while (str[*i] != c)
 				new[j++] = str[(*i)++];
-			(*i)++;
 		}
+		else if (str[*i] == '\\')
+			new[j++] = str[((*i)++) + 1];
 		else
-			new[j++] = str[(*i)++];
+			new[j++] = str[*i];
+		(*i)++;
 	}
 	new[j] = '\0';
 	return (new);

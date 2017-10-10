@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/12 16:48:18 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/13 19:45:34 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/09/27 15:08:58 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ char		*jump_quote(char *cmd, char **new, int *i)
 
 char		*jump_bs(char *cmd, char **new, int *i)
 {
+	*new = ft_str_chr_cat(*new, *cmd);
 	cmd++;
 	(*i)++;
 	*new = ft_str_chr_cat(*new, *cmd);

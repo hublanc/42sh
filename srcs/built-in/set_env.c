@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/25 17:21:58 by hublanc           #+#    #+#             */
-/*   Updated: 2017/07/25 15:21:51 by nbouchin         ###   ########.fr       */
+/*   Updated: 2017/09/27 20:04:25 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char		*var_app(char *name, char *value)
 	return (new);
 }
 
-char		**env_app(char *name, char *value, char ***env)
+char		**env_app(char *name, char *value, char ***env, int *status)
 {
 	char	**new;
 	int		i;
@@ -55,6 +55,7 @@ char		**env_app(char *name, char *value, char ***env)
 	if (ft_strchr(name, '='))
 	{
 		ft_putstr_fd("Invalid arguments\n", 2);
+		*status = 1;
 		return (*env);
 	}
 	if (!(new = get_env(*env, 2)))
@@ -67,13 +68,18 @@ char		**env_app(char *name, char *value, char ***env)
 	return (new);
 }
 
-void		ft_setenv(char **tab, char ***env)
+int			ft_setenv(char **tab, char ***env)
 {
 	int		pos;
 	char	**save;
+	int		status;
 
+	status = 0;
 	if (len_array(tab) == 1 || len_array(tab) > 3)
-		return (ft_putstr_fd("usage: setenv Name [Value]\n", 2));
+	{
+		ft_putstr_fd("usage: setenv Name [Value]\n", 2);
+		return (1);
+	}
 	pos = in_env(tab[1], *env);
 	if (pos >= 0)
 	{
@@ -85,5 +91,6 @@ void		ft_setenv(char **tab, char ***env)
 		*env = save;
 	}
 	else
-		*env = env_app(tab[1], tab[2], env);
+		*env = env_app(tab[1], tab[2], env, &status);
+	return (status);
 }
