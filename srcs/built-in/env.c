@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/25 19:21:36 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/12 14:51:18 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/09/28 18:41:36 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ char		*app_cmd(char **tab, int i)
 	return (new);
 }
 
-void		ft_env(char **env, char **tab)
+int			ft_env(char **env, char **tab)
 {
 	int		i;
 	char	**cp;
@@ -86,13 +86,13 @@ void		ft_env(char **env, char **tab)
 
 	i = 1;
 	if (len_array(tab) == 1)
-		return (disp_tab(env));
+		return (env_tab(env));
 	cp = get_env(env, 1);
 	if (!check_opt(tab, &i, &cp, &opt))
 	{
 		del_tabstr(&cp);
 		ft_strdel(&opt);
-		return ;
+		return (1);
 	}
 	if (ft_strchr(opt, 'i'))
 		del_tabstr(&cp);
@@ -103,4 +103,5 @@ void		ft_env(char **env, char **tab)
 	ft_strdel(&opt);
 	if (cp)
 		del_tabstr(&cp);
+	return (return_status());
 }

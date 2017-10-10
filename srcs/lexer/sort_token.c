@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/14 15:40:59 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/14 13:49:23 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/09/18 19:35:35 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,27 +45,28 @@ t_token			*check_word(t_token *list, t_token **cur, t_hist **history)
 {
 	t_token			*tmp;
 	t_token			*next;
+	t_token			*del;
 
 	tmp = *cur;
 	next = tmp->next;
-	while (tmp && (tmp->e_type == WORD || tmp->e_type == REDIRECTION))
+	del = NULL;
+	while (next && (next->e_type == WORD || next->e_type == REDIRECTION
+	|| next->e_type == IO_NUMBER))
 	{
 		if (next && next->e_type == REDIRECTION)
-		{
 			list = check_redirection(list, &next, history);
-			tmp = next;
-		}
 		else if (next && next->e_type == WORD)
 		{
 			tmp->token = ft_strapp(tmp->token, " ");
 			tmp->token = ft_strapp(tmp->token, next->token);
-			list = destroy_one(list, next);
+			del = next;
+			next = next->next;
+			list = destroy_one(list, del);
 		}
 		else
-			tmp = tmp->next;
-		next = tmp ? tmp->next : NULL;
+			next = next ? next->next : NULL;
 	}
-	*cur = tmp;
+	*cur = next;
 	return (list);
 }
 
