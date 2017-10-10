@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 13:49:51 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/10 15:56:04 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/10 18:29:37 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,10 @@ int			check_cmdandor(char *cmd)
 	return (1);
 }
 
-void		enter_handler_cmdandor(t_cmd *cmd, t_hist **history)
+void		enter_handler_cmdandor(t_cmd *cmd, t_control **history)
 {
 	char	c;
 
-	ft_putendl("wqer");
 	cmd->str_quote = ft_strapp(cmd->str_quote, cmd->str);
 	ft_strdel(&(cmd->str));
 	ft_putchar('\n');
@@ -64,7 +63,7 @@ void		enter_handler_cmdandor(t_cmd *cmd, t_hist **history)
 	}
 }
 
-void		prompt_cmdandor(t_cmd *cmd, t_hist **history, int mod)
+void		prompt_cmdandor(t_cmd *cmd, t_control **history, int mod)
 {
 	t_cmd		cmd_ao;
 
