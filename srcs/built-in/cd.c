@@ -6,28 +6,11 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/28 15:13:41 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/10 12:00:39 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/10 13:13:09 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
-
-static void	change_pwd(char *path, char ***env, char opt)
-{
-	char	*tmp;
-
-	if (!ft_strncmp(path, "~/", 2))
-	{
-		if (!(tmp = ft_strjoin(get_elem(env, "HOME="), (path + 1))))
-			return ;
-		path = tmp;
-		free(tmp);
-	}
-	if (!(tmp = check_path(path, env, opt)))
-		return ;
-	change_envpwd(tmp, env);
-	free(tmp);
-}
 
 static void	check_pwd2(char *path, char ***env, char *rep, char *tmp)
 {
@@ -112,6 +95,30 @@ static char	*cd2(char **path, char ***env, int i)
 	return (tmp);
 }
 
+static int	check_cdopt(char **path, char *opt)
+{
+	int		i;
+	int		j;
+
+	*opt = 0;
+	j = 1;
+	i = 0;
+	while (j > 0 && path[++i] && path[i][0] == '-')
+	{
+		j = 1;
+		while (path[i][j] && (path[i][j] == 'P' || path[i][j] == 'L'))
+			j++;
+		*opt = path[i][j - 1];
+		if (j == 1 || (path[i][j] && path[i][j] != 'P' && path[i][j] != 'L'))
+		{
+			i--;
+			j = -1;
+			*opt = 0;
+		}
+	}
+	return ((i < 1) ? 1 : i);
+}
+
 int			cd(char **path, char ***env)
 {
 	char	*tmp;
@@ -119,26 +126,9 @@ int			cd(char **path, char ***env)
 	int		i;
 	int		j;
 
-	i = 0;
-	tmp = NULL;
 	if (!path || !path[0])
 		return (1);
-	opt = 0;
-	j = 1;
-	while (j > 0 && path[++i] && path[i][0] == '-')
-	{
-		j = 1;
-		while (path[i][j] && (path[i][j] == 'P' || path[i][j] == 'L'))
-			j++;
-		opt = path[i][j - 1];
-		if (j == 1 || (path[i][j] && path[i][j] != 'P' && path[i][j] != 'L'))
-		{
-			i--;
-			j = -1;
-			opt = 0;
-		}
-	}
-	(i < 1) ? i = 1 : 0;
+	i = check_cdopt(path, &opt);
 	j = 0;
 	while (path[i + j])
 		j++;
