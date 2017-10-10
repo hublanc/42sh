@@ -6,13 +6,13 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/10 11:55:10 by lbopp             #+#    #+#             */
-/*   Updated: 2017/10/10 12:03:35 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/10 13:46:54 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-void	get_path(char **line, int *i, int mode)
+void	prompt_path(char **line, int *i, int mode)
 {
 	char	path[256];
 	char	*final_path;
