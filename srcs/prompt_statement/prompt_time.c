@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/10 11:48:36 by lbopp             #+#    #+#             */
-/*   Updated: 2017/10/10 12:08:25 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/10 13:45:44 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ void	get_time_prompt(char **line, int *i, int mode)
 	current.tm_hour -= (mode != 1 && current.tm_hour > 12) ? 12 : 0;
 	before = ft_itoa(current.tm_hour);
 	curr_time = ft_strdup(before);
-	curr_time = ft_stradd(curr_time, ":");
+	curr_time = ft_strapp(curr_time, ":");
 	ft_strdel(&before);
 	before = ft_itoa(current.tm_min);
-	curr_time = ft_stradd(curr_time, before);
-	curr_time = ft_stradd(curr_time, ":");
+	curr_time = ft_strapp(curr_time, before);
+	curr_time = ft_strapp(curr_time, ":");
 	ft_strdel(&before);
 	before = ft_itoa(current.tm_sec);
-	curr_time = ft_stradd(curr_time, before);
+	curr_time = ft_strapp(curr_time, before);
 	ft_strdel(&before);
 	before = ft_strsub(*line, 0, *i);
 	after = ft_strsub(*line, *i + 2, ft_strlen(*line) - *i - 2);
@@ -55,14 +55,14 @@ void	get_time_prompt2(char **line, int *i)
 	before = ft_itoa(current.tm_hour);
 	curr_time = ft_strdup(before);
 	ft_strdel(&before);
-	curr_time = ft_stradd(curr_time, ":");
+	curr_time = ft_strapp(curr_time, ":");
 	before = ft_itoa(current.tm_min);
-	curr_time = ft_stradd(curr_time, before);
+	curr_time = ft_strapp(curr_time, before);
 	ft_strdel(&before);
 	if (current.tm_hour < 12)
-		curr_time = ft_stradd(curr_time, " AM");
+		curr_time = ft_strapp(curr_time, " AM");
 	else
-		curr_time = ft_stradd(curr_time, " PM");
+		curr_time = ft_strapp(curr_time, " PM");
 	before = ft_strsub(*line, 0, *i);
 	after = ft_strsub(*line, *i + 2, ft_strlen(*line) - *i - 2);
 	ft_strdel(line);
