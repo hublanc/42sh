@@ -6,17 +6,18 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/16 18:21:51 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/13 19:41:54 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/09/18 16:09:47 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-t_node			*stock_semicolon(t_token *list, t_node *tree)
+t_node			*stock_separator(t_token *list, t_node *tree)
 {
 	while (list)
 	{
-		if (list->e_type == SEMI_COLON)
+		if (list->e_type == SEMI_COLON || list->e_type == ET
+		|| list->e_type == OU)
 			insert_right(&tree, list->e_type, list->token);
 		list = list->next;
 	}
@@ -30,7 +31,8 @@ t_node			*stock_pipe(t_token *list, t_node *tree)
 	depth = 0;
 	while (list)
 	{
-		if (list->e_type == SEMI_COLON)
+		if (list->e_type == SEMI_COLON || list->e_type == ET
+		|| list->e_type == OU)
 			depth++;
 		else if (list->e_type == PIPE)
 			insert_pipe(&tree, list->e_type, list->token, depth);
@@ -48,7 +50,8 @@ t_node			*stock_token(t_token *list, t_node *tree, int word)
 	depth = 0;
 	while (list)
 	{
-		if (list->e_type == SEMI_COLON)
+		if (list->e_type == SEMI_COLON || list->e_type == ET
+		|| list->e_type == OU)
 		{
 			depth++;
 			pipe = 0;
@@ -73,7 +76,7 @@ t_node			*create_tree(t_token *list)
 	tree = NULL;
 	if (!list)
 		return (tree);
-	tree = stock_semicolon(list, tree);
+	tree = stock_separator(list, tree);
 	tree = stock_pipe(list, tree);
 	tree = stock_token(list, tree, 0);
 	tree = stock_token(list, tree, 1);
