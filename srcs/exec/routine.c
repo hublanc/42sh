@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/17 11:10:52 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/09 13:49:49 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/10 18:16:18 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void		check_status(int status)
 		ft_putchar('\n');
 }
 
-void		exec_cmd(t_node *tree, char ***env, t_hist **hist)
+void		exec_cmd(t_node *tree, char ***env, t_control **hist)
 {
 	static int		input = 0;
 	static int		fd[2] = {0, 1};
@@ -58,7 +58,7 @@ void		exec_cmd(t_node *tree, char ***env, t_hist **hist)
 	}
 }
 
-void		hub(t_node *tree, char ***env, t_hist **hist)
+void		hub(t_node *tree, char ***env, t_control **hist)
 {
 	static int		pid_w = 0;
 
@@ -81,7 +81,7 @@ void		hub(t_node *tree, char ***env, t_hist **hist)
 	tree->value == 3 ? manage_fd(tree) : 0;
 }
 
-void		exec_tree(t_node *tree, char ***env, t_hist **hist)
+void		exec_tree(t_node *tree, char ***env, t_control **hist)
 {
 	if (!tree)
 		return ;
@@ -97,12 +97,14 @@ void		exec_tree(t_node *tree, char ***env, t_hist **hist)
 		exec_tree(tree->right, env, hist);
 }
 
-void		routine(char *cmd, char ***env, t_hist **history)
+void		routine(char *cmd, char ***env, t_control **history)
 {
 	t_token		*list;
 	t_node		*tree;
+	char		*new_command;
 
-	list = tokenizer(cmd);
+	new_command = wd_designator(cmd, history);
+	list = tokenizer(new_command);
 	list = sort_token(list, history);
 	if (!list)
 		return ;

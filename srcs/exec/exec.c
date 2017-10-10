@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/26 16:13:08 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/28 18:56:27 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/06 12:10:55 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int			check_cmd(char **tab, char **env, t_node *tree)
 	return (status);
 }
 
-void		get_cmd(t_node *tree, char ***env, int *status, t_hist **his)
+void		get_cmd(t_node *tree, char ***env, int *status, t_control **his)
 {
 	int		i;
 	char	**tab;

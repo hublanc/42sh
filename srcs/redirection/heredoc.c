@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/29 12:56:32 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/02 11:20:35 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/10 17:53:18 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	heredoc_input(t_node *tree)
 	close(fd[1]);
 }	
 
-int		prompt_heredoc(char *eof, t_token *redir, t_hist **history)
+int		prompt_heredoc(char *eof, t_token *redir, t_control **history)
 {
 	t_cmd		cmd_hd;
 
