@@ -6,7 +6,7 @@
 /*   By: nbouchin <nbouchin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 11:46:11 by nbouchin          #+#    #+#             */
-/*   Updated: 2017/10/10 13:20:22 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/10 15:38:06 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,35 +32,27 @@ char	*split_prompt(char *str)
 
 int		print_prompt(void)
 {
-	int		size;
 	char	*prompt;
-	
-	return (size);
+	t_loc	*local;
+
+	if (!(local = get_loc("PS1")))
+	{
+		add_loc("PS1", "\\h @ \\W\\$ > ");
+		local = get_loc("PS1");
+	}
+	prompt = (local && local->value) ? ft_strdup(local->value) : ft_strdup("42sh> ");
+	prompt_management(&prompt);
+	ft_putstr(prompt);
+	return (ft_strlen(prompt));
 }
 
 char	*return_prompt(void)
 {
-	char	*pwd;
-	char	*swap;
-	char	*hostname;
-	char	*ret;
+	char	*prompt;
+	t_loc	*local;
 
-	pwd = NULL;
-	hostname = NULL;
-	(!(swap = (char*)ft_memalloc(sizeof(char) * 256))) ? exit(0) : 0;
-	pwd = split_prompt(getcwd(pwd, 2048));
-	ret = ft_strdup("21sh@");
-	gethostname(swap, 255);
-	hostname = ft_strsub(swap, 0, ft_strlen(swap) - 6);
-	(swap) ? ft_strdel(&swap) : 0;
-	ret = ft_realloc(ret, ft_strlen(hostname));
-	ret = ft_strcat(ret, hostname);
-	ret = ft_realloc(ret, 1);
-	ret = ft_strcat(ret, " ");
-	ret = ft_realloc(ret, ft_strlen(pwd) + 4);
-	ret = ft_strcat(ret, pwd);
-	ret = ft_strcat(ret, " >> ");
-	(hostname) ? ft_strdel(&hostname) : 0;
-	(pwd) ? ft_strdel(&pwd) : 0;
-	return (ret);
+	local = get_loc("PS1");
+	prompt = ft_strdup(local->value);
+	prompt_management(&prompt);
+	return (prompt);
 }

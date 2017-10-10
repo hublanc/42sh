@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/03 10:28:17 by lbopp             #+#    #+#             */
-/*   Updated: 2017/10/10 13:10:04 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/10 15:31:51 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,17 @@ static void	get_prompt2(char **line, int *i)
 	else if ((*line)[*i] == '\\' && (*line)[*i + 1] && (*line)[*i + 1] == 'V')
 		get_version(line, i, 2);
 	else if ((*line)[*i] == '\\' && (*line)[*i + 1] && (*line)[*i + 1] == 'w')
-		get_path(line, i, 1);
+		prompt_path(line, i, 1);
 	else if ((*line)[*i] == '\\' && (*line)[*i + 1] && (*line)[*i + 1] == 'W')
-		get_path(line, i, 2);
+		prompt_path(line, i, 2);
 	else if ((*line)[*i] == '\\' && (*line)[*i + 1] && (*line)[*i + 1] == '$')
 		get_uid_prompt(line, i);
 	else if ((*line)[*i] == '\\' && (*line)[*i + 1] && ft_isdigit((*line)[*i + 1]))
 		get_octal_value(line, i, &(*line)[*i + 1]);
 	else if ((*line)[*i] == '\\' && (*line)[*i + 1] && (*line)[*i + 1] == '\\')
 		add_backslash(line, i);
+	else if ((*line)[*i] == '\\' && (*line)[*i + 1] && (*line)[*i + 1] == 'e')
+		return ;
 	else
 		del_backslash(line, i);
 }
