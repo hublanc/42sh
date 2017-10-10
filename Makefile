@@ -6,7 +6,7 @@
 #    By: hublanc <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/07/24 15:04:09 by hublanc           #+#    #+#              #
-#    Updated: 2017/09/29 15:28:55 by hublanc          ###   ########.fr        #
+#    Updated: 2017/10/10 16:20:57 by amazurie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,7 @@ SRC		=	main.c\
 			lexer/sort_token.c\
 			lexer/stock_tree.c\
 			lexer/node.c\
+			lexer/substitution.c\
 			redirection/filedescriptor.c\
 			redirection/pipe.c\
 			redirection/heredoc.c\

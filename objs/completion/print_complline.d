@@ -1,0 +1,4 @@
+objs/completion/print_complline.o: srcs/completion/print_complline.c \
+  includes/shell.h includes/../libft/includes/libft.h includes/exec.h \
+  includes/line_editor.h includes/lexer.h includes/redirection.h \
+  includes/tools.h includes/completion.h
