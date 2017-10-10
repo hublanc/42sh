@@ -21,7 +21,8 @@ t_control		*load_history(char **env)
 
 	history = NULL;
 	str = NULL;
-	file = get_history_file(&env);
+	if ((file = get_history_file(&env)) == NULL)
+		return (NULL);
 	if (access(file, F_OK) != 0 || access(file, R_OK | W_OK) != 0)
 		return (NULL);
 	fd = open(file, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);

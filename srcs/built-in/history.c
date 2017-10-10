@@ -28,7 +28,7 @@ int			ft_history(char **tab, char ***env, t_control **history)
 		print_history(history);
 	if (tab[0] && tab[1]
 		&& (flags.a == 1 || flags.n == 1 || flags.w == 1 || flags.r == 1)
-		&& tab[args_pos] && args_pos > 1)
+		&& tab[args_pos] && args_pos > 1 && file != NULL)
 	{
 		ft_strdel(&file);
 		file = ft_strdup(tab[args_pos]);
@@ -95,10 +95,7 @@ char		*get_history_file(char ***env)
 	home_value = NULL;
 	get_home(env, &home_value);
 	if (home_value == NULL)
-	{
-		ft_putendl("Failure : No env");
 		return (NULL);
-	}
 	home_value = ft_strapp(home_value, "/");
 	home_value = ft_strapp(home_value, ".shell_history");
 	return (home_value);
