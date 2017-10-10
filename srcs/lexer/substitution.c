@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/10 15:49:56 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/10 16:21:45 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/10 16:52:38 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,20 @@ void	substitution(char **cmmd, char ***env)
 		if ((*cmmd)[i] == '$')
 			while ((*cmmd)[j] && (*cmmd)[j] != 32 && (*cmmd)[j] != 9 && (*cmmd)[j] != '\n')
 				j++;
-		if (j > 0)
+		if (j > i)
 		{
-			tmp2 = ft_strndup(*cmmd + i, j - i);
+			tmp2 = ft_strndup(*cmmd + i + 1, j - i - 1);
 			//futur ajout local
-			if ((tmp = get_elem(env, tmp2)) && ++tmp)
+			if (tmp2 && (tmp = get_elem(env, tmp2)) && *(++tmp))
 			{
+				free(tmp2);
+				tmp2 = ft_strndup(*cmmd, i);
+				tmp = ft_strjoin(tmp2, tmp);
+				(tmp2) ? free(tmp2) : 0;
+				tmp2 = ft_strjoin(tmp, *cmmd + j);
+				(tmp) ? free(tmp) : 0;
+				(tmp2) ? free(*cmmd) : 0;
+				(tmp2) ? *cmmd = ft_strdup(tmp2) : 0;
 			}
 			else
 				while (j-- > i)
