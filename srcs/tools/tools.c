@@ -56,8 +56,11 @@ void		stop_shell(char ***env, char **tab, t_control **history)
 	if (tab)
 		del_tabstr(&tab);
 	del_tabstr(env);
-	rewrite_hist_file(history, hist_file);
-	free(hist_file);
+	if (hist_file)
+	{
+		rewrite_hist_file(history, hist_file);
+		free(hist_file);
+	}
 	if (*history)
 		*history = dll_clear_list(*history);
 	reset_term();
