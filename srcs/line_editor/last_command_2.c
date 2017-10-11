@@ -44,6 +44,7 @@ void		get_d_bang(char *command, char **str, t_control **history,
 		*str = ft_str_chr_cat(*str, (*history)->begin->name[a]);
 		a++;
 	}
+	*str = ft_str_chr_cat(*str, ' ');
 	while (command[*index] && command[*index] != ' ')
 		(*index)++;
 }
