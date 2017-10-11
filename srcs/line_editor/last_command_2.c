@@ -18,7 +18,9 @@ void		set_error(int a, char *command)
 
 	b = 0;
 	if (a == 1)
+	{
 		ft_putendl("shell: syntax error near unexpected token `newline'");
+	}
 	else if (a == 2)
 	{
 		ft_putstr("shell : s:");

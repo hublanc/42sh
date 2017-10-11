@@ -46,9 +46,7 @@ char		*wd_designator(char *command, t_control **history)
 void		wd_designator_2(char *command, int *index, char **str,
 			t_control **history)
 {
-	if (command[*index + 1] && command[*index + 1] == '!'
-		&& (!command[*index + 2] || (command[*index + 2]
-			&& command[*index + 2] != ':')))
+	if (command[*index + 1] && command[*index + 1] == '!')
 		get_d_bang(&command[*index], str, history, index);
 	else if (command[*index + 1] && ft_isdigit(command[*index + 1]))
 		get_n_first(&command[*index], str, history, index);
