@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 11:16:27 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/11 16:49:42 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/11 17:33:27 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@ static void	check_dotdot(char **tmp)
 		while ((*tmp) && (*tmp)[i] != '/')
 			ssupprchr(tmp, i--);
 	}
-	ft_putendl("FIN : ");
-	ft_putstr(*tmp);
 	(*tmp)[ft_strlen(*tmp) - 1] == '/' ? (*tmp)[ft_strlen(*tmp) - 1] = 0 : 0;
 	if (!(*tmp)[0])
 		(*tmp)[0] = '/';

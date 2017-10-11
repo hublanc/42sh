@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 15:20:15 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/13 19:41:36 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/11 18:14:52 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void			insert_token(t_node **leaf, t_token *tk, int depth, int pipe)
 	}
 	else if (depth > 0)
 		insert_token(&(*leaf)->right, tk, depth - 1, pipe);
-	else if ((*leaf)->value == 5)
+	else if ((*leaf)->value == 5 || (*leaf)->value >= 7)
 		insert_token(&(*leaf)->left, tk, depth, pipe);
 	else if (pipe > 0)
 		insert_token(&(*leaf)->right, tk, depth, pipe - 1);
@@ -99,7 +99,7 @@ void			insert_pipe(t_node **leaf, int value, char *token, int depth)
 	}
 	else if (depth > 0)
 		insert_pipe(&(*leaf)->right, value, token, depth - 1);
-	else if ((*leaf)->value == 5)
+	else if ((*leaf)->value == 5 || (*leaf)->value >= 7)
 		insert_pipe(&(*leaf)->left, value, token, depth);
 	else if ((*leaf)->value == 4)
 		insert_pipe(&(*leaf)->right, value, token, depth);
