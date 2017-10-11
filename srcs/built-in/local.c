@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/05 14:47:20 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/11 15:51:40 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/11 16:48:50 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,12 +93,6 @@ t_loc		*get_loc(char *name)
 
 	if (!(loc = saved_loc()))
 		return (NULL);
-	while (loc && loc->name && loc->value)
-	{
-		ft_putendl(loc->name);
-		ft_putendl(loc->value);
-		loc = loc->next;
-	}
 	while (loc && loc->name && name && ft_strcmp(loc->name, name))
 		loc = loc->next;
 	if (!loc || !loc->name)
