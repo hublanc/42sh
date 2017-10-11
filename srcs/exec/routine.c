@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/17 11:10:52 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/06 13:21:55 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/11 17:50:56 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,8 @@ void		routine(char *cmd, char ***env, t_control **history)
 	new_command = wd_designator(cmd, history);
 	list = tokenizer(new_command);
 	list = sort_token(list, history);
-	if (!list)
-		return ((void)print_prompt());
+	/*if (!list)
+		return ((void)print_prompt());*/
 	tree = create_tree(list);
 	reset_term();
 	node_print(tree, 0, 3);
