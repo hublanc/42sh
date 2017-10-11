@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/01 11:03:53 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/06 13:26:29 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/10 19:43:30 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,12 @@ int			check_access(char *path)
 
 int			pwdnotset(char ***env)
 {
-	char		**new;
+	char		*new[2];
 	int			pos;
 
-	new = prep_setenv("PWD", NULL);
+	new[0] = "setenv";
+	new[1] = get_elem(env, "PWD=");
 	ft_setenv(new, env);
-	del_tabstr(&new);
 	pos = in_env("PWD", *env);
 	return (pos);
 }
