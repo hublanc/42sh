@@ -20,12 +20,13 @@ static void	check_dotdot(char **tmp)
 		return ;
 	while ((i = ft_strschr_len(*tmp, "..")))
 	{
-		while ((*tmp) && (*tmp)[i] != '/')
+		while ((*tmp)[i] && (*tmp)[i] != '/')
 			ssupprchr(tmp, i);
 		ssupprchr(tmp, i--);
 		ssupprchr(tmp, i--);
-		while ((*tmp) && (*tmp)[i] != '/')
-			ssupprchr(tmp, i--);
+		if (ft_strschr_len(*tmp, "/") <= i)
+			while ((*tmp)[i] && (*tmp)[i] != '/')
+				ssupprchr(tmp, i--);
 	}
 	(*tmp)[ft_strlen(*tmp) - 1] == '/' ? (*tmp)[ft_strlen(*tmp) - 1] = 0 : 0;
 	if (!(*tmp)[0])
