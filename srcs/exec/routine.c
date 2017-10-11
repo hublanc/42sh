@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/17 11:10:52 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/11 20:01:00 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/11 21:25:31 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,6 @@ void		routine(char *cmd, char ***env, t_control **history)
 	ft_putendl("TRI");
 	list = sort_token(list, history);
 /*
-**
 **	if (!list)
 **		return ((void)print_prompt());
 */
