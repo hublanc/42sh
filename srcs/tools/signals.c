@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   signals.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/10/11 21:20:29 by hublanc           #+#    #+#             */
+/*   Updated: 2017/10/11 21:20:43 by hublanc          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell.h"
 
-void	reset_cmdsiginted(t_cmd *cmd)
+void		reset_cmdsiginted(t_cmd *cmd)
 {
 	clear_cmd(cmd);
 	*cmd = init_cmd(return_prompt());

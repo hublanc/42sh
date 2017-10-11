@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:12:29 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/27 19:06:34 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/04 19:58:08 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,10 @@
 int		ft_echo(char **tab)
 {
 	int		i;
+	int		nl;
 
 	i = 1;
+	nl = 1;
 	if (fcntl(STDOUT_FILENO, F_GETFD) < 0)
 	{
 		ft_putstr_fd("echo: write error: Bad file descriptor\n", 2);
@@ -24,6 +26,8 @@ int		ft_echo(char **tab)
 	}
 	if (len_array(tab) > 1)
 	{
+		nl = !ft_strcmp("-n", tab[1]) ? 0 : 1;
+		i += !ft_strcmp("-n", tab[1]) ? 1 : 0;
 		while (tab[i])
 		{
 			ft_putstr(tab[i]);
@@ -32,6 +36,7 @@ int		ft_echo(char **tab)
 			i++;
 		}
 	}
-	ft_putchar('\n');
+	if (nl)
+		ft_putchar('\n');
 	return (0);
 }
