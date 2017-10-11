@@ -6,7 +6,7 @@
 #    By: hublanc <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/07/24 15:04:09 by hublanc           #+#    #+#              #
-#    Updated: 2017/10/10 13:50:55 by lbopp            ###   ########.fr        #
+#    Updated: 2017/10/11 17:33:39 by lbopp            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -77,6 +77,7 @@ SRC		=	main.c\
 			prompt_statement/prompt_uid.c\
 			prompt_statement/prompt_username.c\
 			prompt_statement/prompt_version.c\
+			prompt_statement/add_escape.c\
 			completion/completion.c\
 			completion/list_args.c\
 			completion/get_binaries.c\

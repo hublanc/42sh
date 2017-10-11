@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 11:41:39 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/11 15:05:19 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/11 17:00:46 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void		print_line(t_cmd *cmd)
 {
 	int		len;
 
-	len = (int)ft_strlen(cmd->str);
+	len = cmd->prlen + (int)ft_strlen(cmd->str);
 	len += len % cmd->sc_col == 0 ? 0 : 1;
 	go_begin(cmd->col, cmd->sc_col);
 	tputs(tgetstr("cd", NULL), 1, tputchar);

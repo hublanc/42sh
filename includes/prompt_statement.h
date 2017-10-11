@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/10 11:58:10 by lbopp             #+#    #+#             */
-/*   Updated: 2017/10/10 13:47:38 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/11 17:34:27 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <time.h>
 
 void	add_backslash(char **line, int *i);
+void	add_escape(char **line, int *i);
 char	*before_curr_after(char **before, char *curr, char **after);
 void	del_backslash(char **line, int *i);
 void	join_free_all(char **date, int do_itoa);
