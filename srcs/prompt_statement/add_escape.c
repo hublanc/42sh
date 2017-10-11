@@ -1,38 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prompt_hostname.c                                  :+:      :+:    :+:   */
+/*   add_escape.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/10 11:47:33 by lbopp             #+#    #+#             */
-/*   Updated: 2017/10/11 17:44:11 by lbopp            ###   ########.fr       */
+/*   Created: 2017/10/11 17:30:53 by lbopp             #+#    #+#             */
+/*   Updated: 2017/10/11 17:37:43 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shell.h"
+#include <shell.h>
 
-void	get_hostname_prompt(char **line, int *i, int mode)
+void	add_escape(char	**line, int *i)
 {
-	char	*hostname;
-	char	**split;
-	char	*after;
-	char	*before;
+	char	tmp[2];
+	char		*after;
+	char		*before;
 
-	if (!(hostname = ft_memalloc(sizeof(char) * 256)))
-		exit (EXIT_FAILURE);
-	gethostname(hostname, 256);
 	before = ft_strsub(*line, 0, *i);
 	after = ft_strsub(*line, *i + 2, ft_strlen(*line) - *i - 2);
-	if (mode == 1)
-	{
-		split = ft_strsplit(hostname, '.');
-		ft_strdel(&hostname);
-		hostname = ft_strdup(split[0]);
-		// FREE split
-	}
-	*i += ft_strlen(hostname) - 1;
+	tmp[1] = '\0';
+	tmp[0] = '\e';
 	ft_strdel(line);
-	*line = before_curr_after(&before, hostname, &after);
-	ft_strdel(&hostname);
+	*line = before_curr_after(&before, tmp, &after);
 }
