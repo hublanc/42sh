@@ -51,7 +51,11 @@ char	*return_prompt(void)
 	char	*prompt;
 	t_loc	*local;
 
-	local = get_loc("PS1");
+	if (!(local = get_loc("PS1")))
+	{
+		add_loc("PS1", "\\h @ \\W\\$ > ");
+		local = get_loc("PS1");
+	}
 	prompt = ft_strdup(local->value);
 	prompt_management(&prompt);
 	return (prompt);
