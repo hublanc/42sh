@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 16:36:09 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/10 18:20:19 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/11 20:43:52 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,20 @@ char		*return_prompt(void);
 **	Cut_copy_paste.c
 */
 void		copy_cut_paste_handler(t_cmd *cmd, char *macro);
+
+/*
+**	Cut_copy_paste2.c
+*/
+void		right_handler(t_cmd *cmd, int *swap, int start);
+void		left_handler(t_cmd *cmd, int *swap, int start);
+void		cut_str(t_cmd *cmd, int start);
+void		stock_buffer(t_cmd *cmd, int start);
+
+/*
+**	Cut_copy_paste3.c
+*/
+void		print_charev(t_cmd *cmd);
+void		print_up(int nb, int n);
 
 /*
 **	Load_history.c

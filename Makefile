@@ -6,7 +6,7 @@
 #    By: hublanc <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/07/24 15:04:09 by hublanc           #+#    #+#              #
-#    Updated: 2017/10/11 17:38:04 by hublanc          ###   ########.fr        #
+#    Updated: 2017/10/11 20:41:34 by hublanc          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,8 @@ SRC		=	main.c\
 			line_editor/load_history.c\
 			line_editor/enter_handler.c\
 			line_editor/cut_copy_paste.c\
+			line_editor/cut_copy_paste2.c\
+			line_editor/cut_copy_paste3.c\
 			line_editor/history_search.c\
 			line_editor/history_search_2.c\
 			line_editor/last_command.c\
@@ -41,11 +43,13 @@ SRC		=	main.c\
 			exec/ft_cmdsplit.c\
 			exec/routine.c\
 			exec/builtin.c\
+			exec/extra_exec.c\
 			lexer/token.c\
 			lexer/lexer.c\
 			lexer/sort_token.c\
 			lexer/stock_tree.c\
 			lexer/node.c\
+			lexer/extra_lexer.c\
 			redirection/filedescriptor.c\
 			redirection/pipe.c\
 			redirection/heredoc.c\

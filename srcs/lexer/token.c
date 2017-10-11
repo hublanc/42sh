@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/10 17:42:56 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/13 19:42:04 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/11 20:21:05 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,22 +55,6 @@ void			del_token(t_token **list)
 	}
 }
 
-t_token			*get_prev(t_token *list, t_token *cur)
-{
-	t_token		*tmp;
-
-	tmp = list;
-	if (!list)
-		return (NULL);
-	while (tmp)
-	{
-		if (tmp->next && tmp->next == cur)
-			return (tmp);
-		tmp = tmp->next;
-	}
-	return (NULL);
-}
-
 t_token			*destroy_one(t_token *list, t_token *cur)
 {
 	t_token		*prev;
@@ -95,18 +79,4 @@ t_token			*destroy_one(t_token *list, t_token *cur)
 		prev = prev->next;
 	}
 	return (list);
-}
-
-void			display_token(t_token *list)
-{
-	t_token		*tmp;
-
-	tmp = list;
-	if (!list)
-		return ;
-	while (tmp)
-	{
-		ft_putendl(tmp->token);
-		tmp = tmp->next;
-	}
 }

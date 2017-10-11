@@ -6,14 +6,14 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 15:20:15 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/11 18:14:52 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/11 20:21:20 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 #include <stdio.h>
 
-void			destroy_leaf(t_node * leaf)
+void			destroy_leaf(t_node *leaf)
 {
 	if (leaf->token)
 		ft_strdel(&(leaf->token));
@@ -103,29 +103,4 @@ void			insert_pipe(t_node **leaf, int value, char *token, int depth)
 		insert_pipe(&(*leaf)->left, value, token, depth);
 	else if ((*leaf)->value == 4)
 		insert_pipe(&(*leaf)->right, value, token, depth);
-}
-
-void			node_print(t_node *this, int current_level, int max_level)
-{
-	int i;
-
-	if (this)
-	{
-		node_print(this->right, current_level + 1, max_level);
-		for (i = 0; i < current_level; i++)
-			printf("    ");
-		printf("%s\n", this->token);
-		node_print(this->left, current_level + 1, max_level);
-	} 
-	else
-	{
-		if (current_level < max_level)
-		{
-			node_print(NULL, current_level + 1, max_level);
-			for (i = 0; i < current_level; i++)
-				printf("    ");
-			printf("..\n");
-			node_print(NULL, current_level + 1, max_level);
-		}
-	}
 }
