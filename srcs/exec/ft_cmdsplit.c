@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/06 15:56:19 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/27 16:13:44 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/10 15:35:33 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,12 @@ static int			spend_quote(char *str, int j)
 	c = str[j];
 	i = 1;
 	while (str[j + i] && str[j + i] != c)
+	{
+		if (str[j + i] == '\\' && str[j + i + 1]
+			&& str[j + i + 1] == '"')
+			i++;
 		i++;
+	}
 	return (i);
 }
 
@@ -62,6 +67,8 @@ static int			getlen(char *str)
 		str++;
 		while (*str && *str != c)
 		{
+			if (*str == '\\' && *(str + 1) && *(str + 1) == '"')
+				str++;
 			len++;
 			str++;
 		}
@@ -74,10 +81,22 @@ static int			getlen(char *str)
 	return (len);
 }
 
+static void			add_quote_content(char *str, char *new, int *i, int *j)
+{
+	char		c;
+
+	c = str[(*i)++];
+	while (str[*i] != c)
+	{
+		if (str[*i] == '\\' && str[*i + 1] && str[*i + 1] == '"')
+			(*i)++;
+		new[(*j)++] = str[(*i)++];
+	}
+}
+
 static char			*cmdsub(char *str, int *i, int len)
 {
 	char	*new;
-	char	c;
 	int		j;
 
 	j = 0;
@@ -86,11 +105,7 @@ static char			*cmdsub(char *str, int *i, int len)
 	while (str[*i] && str[*i] != ' ')
 	{
 		if (str[*i] == '\'' || str[*i] == '"')
-		{
-			c = str[(*i)++];
-			while (str[*i] != c)
-				new[j++] = str[(*i)++];
-		}
+			add_quote_content(str, new, i, &j);
 		else if (str[*i] == '\\')
 			new[j++] = str[((*i)++) + 1];
 		else

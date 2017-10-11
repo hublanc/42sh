@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/05 13:44:34 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/06 12:00:48 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/10 19:44:52 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ int				get_history_file_size(char *file_name)
 	fd = open(file_name,
 			O_RDWR | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	size = 0;
-	fd = open(file_name, O_RDWR);
 	if (fd == -1)
 		return (size);
 	while (get_next_line(fd, &str))
