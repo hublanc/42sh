@@ -75,11 +75,10 @@ void		suppr_loc(char *name)
 	if (!loctmp)
 	{
 		loctmp = loc;
-		loc = loc->next;
 		(loctmp->name) ? free(loctmp->name) : 0;
 		(loctmp->value) ? free(loctmp->value) : 0;
-		free(loctmp);
-		loctmp = NULL;
+		loctmp->name = NULL;
+		loctmp->value = NULL;
 		return ;
 	}
 	loctmp->next = loc->next;
