@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/10 11:47:33 by lbopp             #+#    #+#             */
-/*   Updated: 2017/10/10 12:06:56 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/11 17:44:11 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	get_hostname_prompt(char **line, int *i, int mode)
 		hostname = ft_strdup(split[0]);
 		// FREE split
 	}
-	*i += ft_strlen(hostname);
+	*i += ft_strlen(hostname) - 1;
 	ft_strdel(line);
 	*line = before_curr_after(&before, hostname, &after);
 	ft_strdel(&hostname);
