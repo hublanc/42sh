@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/01 11:03:53 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/10 19:43:30 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/11 21:22:25 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,11 @@ int			pwdnotset(char ***env)
 	return (pos);
 }
 
-void		event_not_found(char *str)		// May need to be in print_error
+/*
+** May need to be in print_error
+*/
+
+void		event_not_found(char *str)
 {
 	int		i;
 

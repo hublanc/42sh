@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/25 13:27:31 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/13 19:45:43 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/11 21:20:07 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static char			*pass_quote(char *s, char c)
 	s++;
 	while (*s && *s != c)
 		s++;
-	return (s); 
+	return (s);
 }
 
 static int			count_word(char *s)
@@ -54,13 +54,13 @@ static int			get_len(char *s)
 	{
 		if (*s == '\'' || *s == '"')
 		{
-			 c = *s;
-			 s++;
-			 while (*s && *s != c)
-			 {
+			c = *s;
+			s++;
+			while (*s && *s != c)
+			{
 				len++;
 				s++;
-			 }
+			}
 		}
 		else
 		{
@@ -71,7 +71,7 @@ static int			get_len(char *s)
 	return (len);
 }
 
-static char				*create_word(char *s)
+static char			*create_word(char *s)
 {
 	char		*new;
 	int			i;

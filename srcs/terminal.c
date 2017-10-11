@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 11:40:20 by hublanc           #+#    #+#             */
-/*   Updated: 2017/08/23 15:59:28 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/11 21:24:39 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,6 @@ void		set_terminal(void)
 
 void		reset_term(void)
 {
-	/*struct termios	term;
-
-	tcgetattr(0, &term);
-	term.c_lflag &= ~(ECHO | ICANON);
-	tcsetattr(0, TCSADRAIN, &term);*/
 	tcsetattr(0, TCSADRAIN, &g_term);
 }
 
