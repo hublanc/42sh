@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/22 15:21:04 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/29 15:11:18 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/10 13:34:03 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,15 @@ char		check_quote(char *str)
 	char	in_quote;
 	int		ignore;
 
-	in_quote = 0;
 	ignore = 0;
+	in_quote = 0;
 	while (str && *str)
 	{
-		if (*str == '\\' && !in_quote)
+		if (*str == '\\' && (!in_quote || (in_quote == '"'
+			&& *(str + 1) && *(str + 1) == '"')))
 		{
 			if (*(str + 1))
-				str += 2;
+				str += (in_quote == '"' && *(str + 1) == '"') ? 1 : 2;
 			else
 				return ('\\');
 		}
@@ -48,7 +49,8 @@ void		prompt_quote(t_cmd *cmd, t_control **history, char c, int mod)
 		cmd_q = init_cmd("dquote> ");
 	else
 		cmd_q = init_cmd("quote> ");
-	ft_putstr(cmd_q.prompt);
+	save_cmd(&cmd_q);
+	ft_putstr_fd(cmd_q.prompt, 2);
 	if (!mod)
 		cmd_q.str_quote = ft_strapp(cmd_q.str_quote, cmd->str);
 	else if (mod)
@@ -58,15 +60,16 @@ void		prompt_quote(t_cmd *cmd, t_control **history, char c, int mod)
 		key_handler(&cmd_q, history, NULL);
 	if (!mod)
 	{
-		ft_strdel(&(cmd->str));
+		(cmd->str) ? ft_strdel(&(cmd->str)) : 0;
 		cmd->str = ft_strdup(cmd_q.str_quote);
 	}
 	else if (mod)
 	{
-		ft_strdel(&(cmd->str_quote));
+		cmd->str_quote ? ft_strdel(&(cmd->str_quote)) : 0;
 		cmd->str_quote = ft_strdup(cmd_q.str_quote);
 	}
 	clear_cmd(&cmd_q);
+	save_cmd(cmd);
 }
 
 void		prompt_backslash(t_cmd *cmd, t_control **history, int mod)
@@ -74,7 +77,8 @@ void		prompt_backslash(t_cmd *cmd, t_control **history, int mod)
 	t_cmd		cmd_b;
 
 	cmd_b = init_cmd("> ");
-	ft_putstr(cmd_b.prompt);
+	save_cmd(&cmd_b);
+	ft_putstr_fd(cmd_b.prompt, 2);
 	if (!mod)
 		cmd_b.str_quote = ft_strapp(cmd_b.str_quote, cmd->str);
 	else if (mod)
@@ -84,13 +88,14 @@ void		prompt_backslash(t_cmd *cmd, t_control **history, int mod)
 		key_handler(&cmd_b, history, NULL);
 	if (!mod)
 	{
-		ft_strdel(&(cmd->str));
+		cmd->str ? ft_strdel(&(cmd->str)) : 0;
 		cmd->str = ft_strdup(cmd_b.str_quote);
 	}
 	else if (mod)
 	{
-		ft_strdel(&(cmd->str_quote));
+		cmd->str ? ft_strdel(&(cmd->str_quote)) : 0;
 		cmd->str_quote = ft_strdup(cmd_b.str_quote);
 	}
 	clear_cmd(&cmd_b);
+	save_cmd(cmd);
 }

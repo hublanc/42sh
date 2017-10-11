@@ -48,10 +48,14 @@ void		signal_do_nothing(int n)
 
 void		get_signal(int n)
 {
+	t_cmd	*cmd;
+
 	if (g_is_child)
 		return ;
 	if (n == SIGINT)
 	{
+		cmd = save_cmd(NULL);
+		(cmd && cmd->str) ? ft_putstr(cmd->str + cmd->col - 1 - cmd->prlen) : 0;
 		ft_putchar('\n');
 		print_prompt();
 		is_sigint(1);
