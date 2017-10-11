@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 17:27:30 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/06 13:13:14 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/11 19:26:12 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ typedef struct		s_node
 /*
 **	Routine.c
 */
-int			*singleton_status(void);
 void		routine(char *cmd, char ***env, t_control **history);
 
 /*
@@ -82,6 +81,12 @@ int			check_binary(char **args, char **env, char **cmd);
 **	Ft_cmdsplit.c
 */
 char		**ft_cmdsplit(char *str);
+
+/*
+**	Extra_exec.c
+*/
+void		add_quote_content(char *str, char *new, int *i, int *j);
+int			*singleton_status(void);
 
 /*
 **	Builtin.c

@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/06 15:56:19 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/10 15:35:33 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/11 19:26:31 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,19 +79,6 @@ static int			getlen(char *str)
 		str++;
 	}
 	return (len);
-}
-
-static void			add_quote_content(char *str, char *new, int *i, int *j)
-{
-	char		c;
-
-	c = str[(*i)++];
-	while (str[*i] != c)
-	{
-		if (str[*i] == '\\' && str[*i + 1] && str[*i + 1] == '"')
-			(*i)++;
-		new[(*j)++] = str[(*i)++];
-	}
 }
 
 static char			*cmdsub(char *str, int *i, int len)
