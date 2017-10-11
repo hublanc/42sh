@@ -6,18 +6,11 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/17 11:10:52 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/11 18:41:03 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/11 20:01:00 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
-
-int			*singleton_status(void)
-{
-	static int		status = 0;
-
-	return (&status);
-}
 
 void		check_status(int status)
 {
@@ -108,8 +101,11 @@ void		routine(char *cmd, char ***env, t_control **history)
 	display_token(list);
 	ft_putendl("TRI");
 	list = sort_token(list, history);
-	/*if (!list)
-		return ((void)print_prompt());*/
+/*
+**
+**	if (!list)
+**		return ((void)print_prompt());
+*/
 	display_token(list);
 	tree = create_tree(list);
 	reset_term();

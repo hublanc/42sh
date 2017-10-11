@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/07 16:07:25 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/09 15:11:00 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/11 20:31:44 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_cmd		*save_cmd(t_cmd *cmd)
 t_cmd		init_cmd(char *prompt)
 {
 	t_cmd	new;
-	
+
 	if (!ft_strcmp(prompt, "dquote> ") || !ft_strcmp(prompt, "quote> ")
 	|| !ft_strcmp(prompt, "heredoc> ") || !ft_strcmp(prompt, "pipe> ")
 	|| !ft_strcmp(prompt, "> ") || !ft_strcmp(prompt, "cmdandor> "))

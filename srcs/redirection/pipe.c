@@ -6,11 +6,19 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/02 17:55:21 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/10 18:23:32 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/11 20:57:49 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
+
+char	*extra_checkstr_pipe(char *str)
+{
+	str += 2;
+	while (*str || *str == ' ' || *str == '\n' || *str == '\t')
+		str++;
+	return (str);
+}
 
 int		checkstr_pipe(char *cmd)
 {
@@ -23,9 +31,7 @@ int		checkstr_pipe(char *cmd)
 	{
 		if (*str == '|' && *(str + 1) && *(str + 1) == '|')
 		{
-			str += 2;
-			while (*str || *str == ' ' || *str == '\n' || *str == '\t')
-				str++;
+			str = extra_checkstr_pipe(str);
 			if (*str == '|')
 				return (1);
 		}

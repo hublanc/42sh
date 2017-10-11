@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/01 14:07:57 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/13 19:43:59 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/11 20:48:23 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,8 @@ void		dup_file(t_node *tree, int i)
 {
 	int		fd;
 
-	fd = open(tree->aggre_out_w[i], O_RDWR | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+	fd = open(tree->aggre_out_w[i]
+			, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	dup2(fd, tree->aggre_out_nb[i]);
 	tree->fd_out = add_fd_aggre(tree->fd_out, fd);
 }
@@ -83,7 +84,7 @@ void		exec_aggre(t_node *tree)
 	int		i;
 
 	i = 0;
-	while (tree->aggre_in_w &&tree->aggre_in_w[i] != NULL)
+	while (tree->aggre_in_w && tree->aggre_in_w[i] != NULL)
 	{
 		if (!ft_strcmp(tree->aggre_in_w[i], "-"))
 			close(tree->aggre_in_nb[i]);
