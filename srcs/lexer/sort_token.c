@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/14 15:40:59 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/18 19:35:35 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/10 17:20:07 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ t_token			*check_redirection(t_token *list,
 		list = destroy_one(list, prev);
 	}
 	tmp->token = ft_strapp(tmp->token, " ");
-	if (ft_strstr(tmp->token, "<<"))
-		prompt_heredoc(tmp->next->token, tmp, history);
-	else
+	if (!ft_strstr(tmp->token, "<<"))
 		tmp->token = ft_strapp(tmp->token, tmp->next->token);
-	list = destroy_one(list, tmp->next);
+	else if (!prompt_heredoc(tmp->next->token, tmp, history))
+			del_token(&list);
+	(list) ? list = destroy_one(list, tmp->next) : 0;
 	*cur = tmp->next;
 	return (list);
 }
@@ -54,7 +54,12 @@ t_token			*check_word(t_token *list, t_token **cur, t_control **history)
 	|| next->e_type == IO_NUMBER))
 	{
 		if (next && next->e_type == REDIRECTION)
+		{
 			list = check_redirection(list, &next, history);
+			if (!list)
+				return (list);
+			tmp = next;
+		}
 		else if (next && next->e_type == WORD)
 		{
 			tmp->token = ft_strapp(tmp->token, " ");
@@ -77,14 +82,17 @@ t_token			*check_pipe(t_token *list, t_token **cur)
 
 	tmp = *cur;
 	prev = get_prev(list, tmp);
-	if (tmp->next && tmp->next->e_type == PIPE)
+	if (tmp->next && (tmp->next->e_type == PIPE || tmp->next->e_type == OU))
 		return (abort_sort(list, "'|'"));
 	else if (tmp->next && tmp->next->e_type == SEMI_COLON)
 		return (abort_sort(list, "';'"));
 	else if (!prev)
 		return (abort_sort(list, "'|'"));
+	/*
+	**	
 	else if (!tmp->next)
-		list = prompt_pipe(list);
+		if (!prompt_pipe(list, history))
+			del_token(&list);*/
 	*cur = tmp->next;
 	return (list);
 }
@@ -117,7 +125,8 @@ t_token			*sort_token(t_token *list, t_control **history)
 			list = check_redirection(list, &tmp, history);
 		else if (tmp->e_type == PIPE)
 			list = check_pipe(list, &tmp);
-		else if (tmp->e_type == SEMI_COLON)
+		else if (tmp->e_type == SEMI_COLON || tmp->e_type == OU
+				|| tmp->e_type == ET)
 			list = check_sc(list, &tmp);
 		else
 			tmp = tmp->next;

@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 11:41:39 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/06 12:03:47 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/10 18:05:30 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,8 @@ void		key_handler(t_cmd *cmd, t_control **history, char ***env)
 	init_screen(cmd);
 	if (can_sigint(0) && is_sigint(0))
 	{
-		if (ft_strcmp(cmd->prompt, return_prompt()))
+		buf = return_prompt();
+		if (ft_strcmp(cmd->prompt, buf))
 		{
 			reset_cmdsiginted(cmd);
 			can_sigint(1);
@@ -114,6 +115,7 @@ void		key_handler(t_cmd *cmd, t_control **history, char ***env)
 			cmd->stop = 0;
 			is_sigint(0);
 		}
+		(buf) ? free(buf) : 0;
 		buf = save_buf(NULL);
 	}
 	else
@@ -126,6 +128,7 @@ void		key_handler(t_cmd *cmd, t_control **history, char ***env)
 		reset_cmdsiginted(cmd);
 		save_buf(buf);
 		can_sigint(1);
+		free(buf);
 		return ;
 	}
 	if (buf[0] == 9 && !buf[1])
@@ -161,12 +164,5 @@ void		key_handler(t_cmd *cmd, t_control **history, char ***env)
 	}
 	else
 		add_line(cmd, buf);
-	if (buf)
-		free(buf);
-	else if (ft_isprint(buf[0]))
-	{
-		cmd->str = ft_strappone(cmd->str, buf[0], (cmd->col - 1) - cmd->prlen);
-		print_line(cmd);
-		go_right(cmd);
-	}
+	(buf) ? free(buf) : 0;
 }

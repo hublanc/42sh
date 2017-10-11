@@ -6,7 +6,7 @@
 /*   By: nbouchin <nbouchin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 11:46:11 by nbouchin          #+#    #+#             */
-/*   Updated: 2017/09/14 13:21:37 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/02 10:26:17 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,19 +41,19 @@ int		print_prompt(void)
 	hostname = NULL;
 	(!(swap = (char*)ft_memalloc(sizeof(char) * 256))) ? exit(0) : 0;
 	pwd = split_prompt(getcwd(pwd, 2048));
-	ft_putstr_fd("\x1B[32;1m", 1);
-	ft_putstr_fd("21sh@", 1);
+	ft_putstr_fd("\x1B[32;1m", 2);
+	ft_putstr_fd("21sh@", 2);
 	gethostname(swap, 255);
 	hostname = ft_strsub(swap, 0, ft_strlen(swap) - 6);
 	size = ft_strlen(hostname) + 1;
 	(swap) ? ft_strdel(&swap) : 0;
-	ft_putstr_fd(hostname, 1);
-	ft_putstr_fd(" ", 1);
-	ft_putstr_fd("\x1B[36;0m\x1B[34;1m", 1);
+	ft_putstr_fd(hostname, 2);
+	ft_putstr_fd(" ", 2);
+	ft_putstr_fd("\x1B[36;0m\x1B[34;1m", 2);
 	size += ft_strlen(pwd);
-	ft_putstr_fd(pwd, 1);
-	ft_putstr_fd("\x1B[36;0m", 1);
-	ft_putstr_fd(" >> ", 1);
+	ft_putstr_fd(pwd, 2);
+	ft_putstr_fd("\x1B[36;0m", 2);
+	ft_putstr_fd(" >> ", 2);
 	(hostname) ? ft_strdel(&hostname) : 0;
 	(pwd) ? ft_strdel(&pwd) : 0;
 	size += 14;

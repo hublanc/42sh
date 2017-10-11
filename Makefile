@@ -6,7 +6,7 @@
 #    By: hublanc <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/07/24 15:04:09 by hublanc           #+#    #+#              #
-#    Updated: 2017/10/06 13:06:30 by hublanc          ###   ########.fr        #
+#    Updated: 2017/10/11 17:38:04 by hublanc          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,9 +62,11 @@ SRC		=	main.c\
 			tools/tools_history_2.c\
 			tools/tools_routine.c\
 			tools/tools_compl.c\
+			tools/tools_cd.c\
 			built-in/echo.c\
 			built-in/env.c\
-			built-in/ft_cd.c\
+			built-in/cd.c\
+			built-in/cd2.c\
 			built-in/set_env.c\
 			built-in/unsetenv.c\
 			built-in/history.c\
