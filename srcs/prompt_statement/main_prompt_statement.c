@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/03 10:28:17 by lbopp             #+#    #+#             */
-/*   Updated: 2017/10/11 11:33:23 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/11 17:33:11 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void	get_prompt2(char **line, int *i)
 	else if ((*line)[*i] == '\\' && (*line)[*i + 1] && (*line)[*i + 1] == '\\')
 		add_backslash(line, i);
 	else if ((*line)[*i] == '\\' && (*line)[*i + 1] && (*line)[*i + 1] == 'e')
-		return ;
+		add_escape(line, i);
 	else
 		del_backslash(line, i);
 }
