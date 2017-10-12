@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/11 14:30:26 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/12 15:35:03 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/12 15:41:03 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void		enter_handler(t_cmd *cmd, t_control **history, char ***env)
 		prompt_cmdandor(cmd, history, 0);
 	if (cmd->str && cmd->str[0] != '!')
 		add_hist_or_not(history, cmd->str);
-//		(*history) = dll_add_new_elem_frnt(*history, cmd->str);
 	routine(cmd->str, env, history);
 	print_prompt();
 	clear_cmd(cmd);
