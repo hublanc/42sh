@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/05 14:47:20 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/12 12:10:25 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/12 18:23:17 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int		add_locenv(char *name, char *val, char ***env)
 		return (0);
 	i = -1;
 	while ((*env)[++i] && ft_strncmp((*env)[i], name,
-				ft_strlen_chr((*env)[i], '=') - 1))
+				ft_strlen_chr((*env)[i], '=')))
 		;
 	if (!(*env)[i])
 		return (0);
@@ -95,6 +95,7 @@ void			suppr_loc(char *name)
 		(loctmp->value) ? free(loctmp->value) : 0;
 		loctmp->name = NULL;
 		loctmp->value = NULL;
+		(loc->next) ? loc = loc->next : 0;
 		return ;
 	}
 	loctmp->next = loc->next;
