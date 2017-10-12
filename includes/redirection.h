@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 18:15:34 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/12 12:16:18 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/12 18:59:21 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 /*
 **	Filedescriptor.c
 */
-int			open_file(t_node *tree);
 void		close_fd(t_node *tree);
 void		manage_fd(t_node *tree);
 void		prep_fd(t_node *tree);

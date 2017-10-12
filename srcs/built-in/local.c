@@ -6,8 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/05 14:47:20 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/12 14:18:48 by lbopp            ###   ########.fr       */
-/*   Updated: 2017/10/12 14:17:22 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/12 19:00:24 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +97,7 @@ void			suppr_loc(char *name)
 		(loctmp->value) ? free(loctmp->value) : 0;
 		loctmp->name = NULL;
 		loctmp->value = NULL;
+		(loc->next) ? loc = loc->next : 0;
 		return ;
 	}
 	loctmp->next = loc->next;

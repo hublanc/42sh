@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/17 11:10:52 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/12 15:53:28 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/12 18:59:46 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,10 +96,8 @@ void		routine(char *cmd, char ***env, t_control **history)
 	display_token(list);
 	ft_putendl("TRI");
 	list = sort_token(list, history);
-/*
-**	if (!list)
-**		return ((void)print_prompt());
-*/
+	if (!list)
+		return ;
 	display_token(list);
 	tree = create_tree(list);
 	reset_term();
