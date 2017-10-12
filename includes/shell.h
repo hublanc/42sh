@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 11:50:54 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/10 13:27:45 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/12 14:02:50 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ int			ft_cd(char **tab, char ***env);
 
 char		**delonenv(char *name, char **env);
 char		**prep_setenv(char *name, char *value);
+char		***save_env(char ***env);
 
 /*
 **	terminal
