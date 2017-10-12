@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/26 16:13:08 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/12 12:12:45 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/12 15:20:37 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ int			check_cmd(char **tab, char **env, t_node *tree)
 	}
 	if (son && tree->in == 0 && tree->out == 1)
 		waitpid(son, &status, WUNTRACED | WCONTINUED);
+	else
+		fetch_pid(son);
 	ft_strdel(&cmd);
 	return (status);
 }

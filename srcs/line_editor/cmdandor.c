@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 13:49:51 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/11 21:14:29 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/12 15:48:24 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int			check_cmdandor(char *cmd)
 	char	*str;
 
 	str = cmd;
-	while (*str)
+	while (str && *str)
 	{
 		if (*str && *str == '&' && *(str + 1) == '&')
 		{
@@ -59,7 +59,7 @@ void		enter_handler_cmdandor(t_cmd *cmd, t_control **history)
 	{
 		ft_putstr(cmd->prompt);
 		cmd->col = cmd->prlen + 1;
-		cmd->str_quote = ft_strapp(cmd->str_quote, "\n");
+		cmd->str_quote = ft_strapp(cmd->str_quote, " ");
 	}
 }
 
