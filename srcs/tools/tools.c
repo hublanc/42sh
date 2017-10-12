@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/26 11:28:19 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/13 19:44:51 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/09/28 19:33:27 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,9 @@ void		stop_shell(char ***env, char **tab, t_hist **history)
 		del_history(history);
 	reset_term();
 	ft_putendl_fd("exit", 2);
-	exit(EXIT_SUCCESS);
+	if (return_status() == 256)
+		exit(1);
+	exit(return_status());
 }
 
 char		**get_env(char **env, int add)
