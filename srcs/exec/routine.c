@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/17 11:10:52 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/12 18:59:46 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/12 19:15:30 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void		exec_cmd(t_node *tree, char ***env, t_control **hist)
 	}
 }
 
-void		hub(t_node *tree, char ***env, t_control **hist)
+int			hub(t_node *tree, char ***env, t_control **hist)
 {
 	if (tree->value == 1)
 		exec_cmd(tree, env, hist);
@@ -64,23 +64,28 @@ void		hub(t_node *tree, char ***env, t_control **hist)
 		wait_flag(tree);
 	}
 	tree->value != 3 ? close_fd(tree) : 0;
-	tree->value == 3 ? manage_fd(tree) : 0;
+	if (tree->value == 3 && manage_fd(tree) == -1)
+		return (-1);
+	return (1);
 }
 
-void		exec_tree(t_node *tree, char ***env, t_control **hist)
+int		exec_tree(t_node *tree, char ***env, t_control **hist)
 {
 	if (!tree)
-		return ;
-	if (tree->value < 5)
-		hub(tree, env, hist);
-	if (tree->left && tree->left->do_it == 0)
-		exec_tree(tree->left, env, hist);
+		return (0);
+	if (tree->value < 5 && hub(tree, env, hist) == -1)
+		return (-1);
+	if (tree->left && tree->left->do_it == 0
+			&& exec_tree(tree->left, env, hist) == -1)
+			return (-1);
 	if (tree->value == 7)
 		operator_and(tree);
 	else if (tree->value == 8)
 		operator_or(tree);
-	if (tree->right && tree->right->do_it == 0)
-		exec_tree(tree->right, env, hist);
+	if (tree->right && tree->right->do_it == 0
+			&& exec_tree(tree->right, env, hist) == -1)
+			return (-1);
+	return (1);
 }
 
 void		routine(char *cmd, char ***env, t_control **history)
