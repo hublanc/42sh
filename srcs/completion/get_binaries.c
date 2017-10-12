@@ -6,22 +6,11 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 12:18:48 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/12 11:24:39 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/12 12:35:16 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
-
-//temporaire a supprimer apres merge de cd
-static void	saddchr(char **s, char c, int pos)
-{
-	int i;
-
-	i = ft_strlen(*s) + 1;
-	while (--i	 >= pos)
-		(*s)[i + 1] = (*s)[i];
-	(*s)[pos] = c;
-}
 
 static char	*add_handspace(const char *name)
 {
