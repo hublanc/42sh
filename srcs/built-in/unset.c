@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/05 16:40:44 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/05 17:06:32 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/12 18:17:34 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ static int	argunset(char *name, char ***env)
 					ft_strlen_chr((*env)[i], '=') - 1))
 			i++;
 		if (!(*env)[i] || ft_strcmp((*env)[i], name))
-				return (1);
+			return (1);
 		else
 		{
-			if(!(tab = (char **)ft_memalloc(sizeof (char *) * 3)))
-					return (1);
+			if (!(tab = (char **)ft_memalloc(sizeof(char *) * 3)))
+				return (1);
 			tab[0] = "unsetenv";
 			tab[1] = name;
 			tab[2] = NULL;
@@ -51,6 +51,6 @@ int			unset(char **tab, char ***env)
 	status = 0;
 	while (tab[++i])
 		if (argunset(tab[i], env))
-				status = 1;
+			status = 1;
 	return (status);
 }
