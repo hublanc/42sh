@@ -6,13 +6,13 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 12:22:12 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/12 12:32:44 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/12 15:30:36 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-int			*add_fd(int *fds, t_node *tree, char ***env)
+int			*add_fd(int *fds, t_node *tree)
 {
 	int		*new;
 	int		i;
@@ -21,7 +21,8 @@ int			*add_fd(int *fds, t_node *tree, char ***env)
 	if (!fds)
 	{
 		new = (int*)ft_memalloc(sizeof(int) * 2);
-		new[0] = open_file(tree, env);
+		if ((new[0] = open_file(tree)) == -1)
+			return (NULL);
 		new[1] = -1;
 		return (new);
 	}
@@ -34,7 +35,8 @@ int			*add_fd(int *fds, t_node *tree, char ***env)
 		new[i] = fds[i];
 		i++;
 	}
-	new[i++] = open_file(tree, env);
+	if ((new[i++] = open_file(tree)) == -1)
+		return (NULL);
 	new[i] = -1;
 	ft_memdel((void**)&fds);
 	return (new);
