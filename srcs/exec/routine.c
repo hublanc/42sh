@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/17 11:10:52 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/12 12:34:42 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/12 15:45:17 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void		exec_cmd(t_node *tree, char ***env, t_hist **hist)
 	}
 }
 
-void		hub(t_node *tree, char ***env, t_hist **hist)
+int		hub(t_node *tree, char ***env, t_hist **hist)
 {
 	static int		pid_w = 0;
 
@@ -78,23 +78,28 @@ void		hub(t_node *tree, char ***env, t_hist **hist)
 		pid_w += (tree->right->value != 4) ? 2 : 1;
 	}
 	tree->value != 3 ? close_fd(tree) : 0;
-	tree->value == 3 ? manage_fd(tree, env) : 0;
+	if (tree->value == 3 && manage_fd(tree) == -1)
+		return (-1);
+	return (1);
 }
 
-void		exec_tree(t_node *tree, char ***env, t_hist **hist)
+int		exec_tree(t_node *tree, char ***env, t_hist **hist)
 {
 	if (!tree)
-		return ;
-	if (tree->value < 5)
-		hub(tree, env, hist);
-	if (tree->left && tree->left->do_it == 0)
-		exec_tree(tree->left, env, hist);
+		return (0);
+	if (tree->value < 5 && hub(tree, env, hist) == -1)
+		return (-1);
+	if (tree->left && tree->left->do_it == 0
+			&& exec_tree(tree->left, env, hist) == -1)
+			return (-1);
 	if (tree->value == 7)
 		operator_and(tree);
 	else if (tree->value == 8)
 		operator_or(tree);
-	if (tree->right && tree->right->do_it == 0)
-		exec_tree(tree->right, env, hist);
+	if (tree->right && tree->right->do_it == 0
+			&& exec_tree(tree->right, env, hist) == -1)
+			return (-1);
+	return (1);
 }
 
 void		routine(char *cmd, char ***env, t_hist **history)
@@ -105,7 +110,7 @@ void		routine(char *cmd, char ***env, t_hist **history)
 	list = tokenizer(cmd);
 	list = sort_token(list, history);
 	if (!list)
-		return ((void)print_prompt());
+		return ;
 	tree = create_tree(list);
 	reset_term();
 	node_print(tree, 0, 3);
