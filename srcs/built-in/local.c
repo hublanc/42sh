@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/05 14:47:20 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/12 12:10:25 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/12 14:05:49 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,13 @@ static t_loc	*saved_loc(void)
 	return (loc);
 }
 
-static int		add_locenv(char *name, char *val, char ***env)
+static int		add_locenv(char *name, char *val)
 {
+	char	***env;
 	char	*tmp;
 	int		i;
 
+	env = save_env(NULL);
 	if (!env || !*env || !**env)
 		return (0);
 	i = -1;
@@ -47,11 +49,11 @@ static int		add_locenv(char *name, char *val, char ***env)
 	return (1);
 }
 
-void			add_loc(char *name, char *val, char ***env)
+void			add_loc(char *name, char *val)
 {
 	t_loc	*loc;
 
-	if (add_locenv(name, val, env))
+	if (add_locenv(name, val))
 		return ;
 	if ((loc = get_loc(name)))
 	{
