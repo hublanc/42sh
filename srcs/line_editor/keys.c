@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 11:41:39 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/10 18:05:30 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/12 17:37:54 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,21 @@ void		choose_prompt(t_cmd *cmd)
 		print_prompt();
 }
 
+void		pass_prompt(t_cmd *cmd)
+{
+	int		i;
+
+	i = 0;
+	while (i < cmd->prlen)
+	{
+		if (i == cmd->sc_col)
+			go_down();
+		else
+			tputs(tgetstr("nd", NULL), 1, tputchar);
+		i++;
+	}
+}
+
 void		print_line(t_cmd *cmd)
 {
 	int		len;
@@ -35,8 +50,9 @@ void		print_line(t_cmd *cmd)
 	len = cmd->prlen + (int)ft_strlen(cmd->str);
 	len += len % cmd->sc_col == 0 ? 0 : 1;
 	go_begin(cmd->col, cmd->sc_col);
+	pass_prompt(cmd);
 	tputs(tgetstr("cd", NULL), 1, tputchar);
-	choose_prompt(cmd);
+	//choose_prompt(cmd);
 	ft_putstr(cmd->str);
 	if (len > cmd->col)
 	{

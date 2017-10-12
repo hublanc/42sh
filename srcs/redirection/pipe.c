@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/02 17:55:21 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/11 21:11:58 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/12 16:31:53 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,7 @@ void	enter_handler_pipe(t_cmd *cmd, t_control **history)
 	ft_strdel(&(cmd->str));
 	ft_putchar('\n');
 	c = check_quote(cmd->str_quote);
-	if (!c)
-		return ;
-	else if (c == '\\')
+	if (c == '\\')
 		prompt_backslash(cmd, history, 1);
 	else if (c == '\'' || c == '"')
 		prompt_quote(cmd, history, c, 1);
@@ -69,7 +67,7 @@ void	enter_handler_pipe(t_cmd *cmd, t_control **history)
 	{
 		ft_putstr(cmd->prompt);
 		cmd->col = cmd->prlen + 1;
-		cmd->str_quote = ft_strapp(cmd->str_quote, "\n");
+		cmd->str_quote = ft_strapp(cmd->str_quote, " ");
 	}
 }
 
