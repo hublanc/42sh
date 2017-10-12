@@ -6,11 +6,12 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/10 15:49:56 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/12 17:24:33 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/12 17:45:36 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
+
 //a suppr apres merge cd
 static void	ssupprchr(char **s, int pos)
 {
@@ -37,6 +38,37 @@ static char	*get_elem(char ***env, char *elem)
 	return ((*env)[i] + ft_strlen(elem));
 }
 
+//temporaire a supprimer apres merge de cd
+static void	saddchr(char ** s, char c, int pos)
+{
+	int i;
+
+	i = ft_strlen(*s) + 1;
+	while (--i >= pos)
+		(*s)[i + 1] = (*s)[i];
+	(*s)[pos] = c;
+}
+
+static char	*add_handspace(const char *name)
+{
+	char	*s;
+	int	i;
+	int	j;
+
+	i = -1;
+	j = 0;
+	while (name[++i])
+		if (name[i] == 32)
+			j++;
+	s = (char *)ft_memalloc(ft_strlen(name) + j);
+	ft_strcat(s, name);
+	i = -1;
+	while (s[++i])
+		if (s[i] == 32)
+			saddchr(&s, '\\', i++);
+	return (s);
+}
+
 static int	do_substitue(char **cmmd, int i, int j, char **tmp2)
 {
 	t_loc	*loc;
@@ -49,7 +81,7 @@ static int	do_substitue(char **cmmd, int i, int j, char **tmp2)
 	{
 		free(*tmp2);
 		*tmp2 = ft_strndup(*cmmd, i);
-		tmp = ft_strjoin(*tmp2, tmp);
+		tmp = ft_strjoin(*tmp2, add_handspace(tmp));
 		(*tmp2) ? free(*tmp2) : 0;
 		*tmp2 = ft_strjoin(tmp, *cmmd + j);
 		(tmp) ? free(tmp) : 0;
