@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/10 15:49:56 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/12 10:24:27 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/12 14:43:29 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,13 @@ char	*get_elem(char ***env, char *elem)
 
 static void	substitute(char **cmmd, char ***env, int i, int j)
 {
+	t_loc	*loc;
 	char	*tmp;
 	char	*tmp2;
 
 	tmp2 = ft_strndup(*cmmd + i + 1, j - i - 1);
-	//futur ajout local
-	if (tmp2 && tmp2[0] && (tmp = get_elem(env, tmp2)) && *(++tmp))
+	if (tmp2 && tmp2[0] && (((tmp = get_elem(env, tmp2)) && *(++tmp))
+				|| ((loc = get_loc(tmp2)) && (tmp = loc->value))))
 	{
 		free(tmp2);
 		tmp2 = ft_strndup(*cmmd, i);
