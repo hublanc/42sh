@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 11:50:54 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/12 15:39:49 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/12 15:45:18 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,11 @@
 
 # include "exec.h"
 # include "lexer.h"
-# include "line_editor.h"
 # include "redirection.h"
+# include "line_editor.h"
 # include "tools.h"
+# include "completion.h"
+# include "local.h"
 
 # define CYN	"\x1B[36m"
 # define RESET	"\x1B[0m"
@@ -45,13 +47,13 @@ struct termios		g_term;
 /*
 **	Built-in
 */
-void		ft_echo(char **tab);
+int			ft_echo(char **tab);
 int			in_env(char *str, char **env);
-void		ft_setenv(char **tab, char ***env);
-void		ft_unsetenv(char **tab, char ***env);
-void		ft_env(char **env, char **tab);
-void		ft_cd(char **tab, char ***env);
-void		ft_read(char **cmd, char ***env);
+int			ft_setenv(char **tab, char ***env);
+int			ft_unsetenv(char **tab, char ***env);
+int			ft_env(char **env, char **tab);
+int			ft_cd(char **tab, char ***env);
+int			ft_read(char **cmd, char ***env);
 
 char		**delonenv(char *name, char **env);
 char		**prep_setenv(char *name, char *value);

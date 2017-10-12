@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/02 14:08:53 by lbopp             #+#    #+#             */
-/*   Updated: 2017/10/12 15:39:43 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/12 15:47:21 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		put_my_char(int c)
 	return (1);
 }
 
-char	*read_r_opt(char **cmd)
+char	*read_r_opt(void)
 {
 	char	buf[2];
 	char	*readding;
@@ -54,7 +54,7 @@ char	*read_r_opt(char **cmd)
 	return (readding);
 }
 
-char	*read_without_opt(char **cmd)
+char	*read_without_opt(void)
 {
 	char	*readding;
 	char	buf[2];
@@ -165,7 +165,7 @@ void	read_put_in_var(char **cmd, char *readding)
 	}
 }
 
-void	ft_read(char **cmd, char ***env)
+int		ft_read(char **cmd, char ***env)
 {
 	int		opt;
 	char	*readding;
@@ -177,11 +177,12 @@ void	ft_read(char **cmd, char ***env)
 	if (cmd && !cmd[g_optind])
 		cmd[g_optind] = ft_strdup("REPLY");
 	if (opt != 0 && opt != 'r')
-		return ;
+		return (0);
 	if (opt == 'r')
-		readding = read_r_opt(cmd);
+		readding = read_r_opt();
 	else
-		readding = read_without_opt(cmd);
+		readding = read_without_opt();
 	read_put_in_var(cmd, readding);
 	ft_strdel(&readding);
+	return (0);
 }
