@@ -6,13 +6,13 @@
 #    By: hublanc <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/07/24 15:04:09 by hublanc           #+#    #+#              #
-#    Updated: 2017/10/12 14:47:51 by hublanc          ###   ########.fr        #
+#    Updated: 2017/10/12 18:15:50 by hublanc          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= shell
 CC		= gcc
-FLAGS	= -Wall -Wextra -Werror
+FLAGS	= -Wall -Wextra -Werror -g
 DFLAGS	= -MMD
 LIB		= libft/libft.a
 HEADER	= includes/
@@ -80,6 +80,23 @@ SRC		=	main.c\
 			built-in/history_2.c\
 			built-in/history_3.c\
 			built-in/history_4.c\
+			built-in/local.c\
+			built-in/cmd_loc.c\
+			built-in/unset.c\
+			built-in/export.c\
+			prompt_statement/before_curr_after.c\
+			prompt_statement/main_prompt_statement.c\
+			prompt_statement/prompt_backslash.c\
+			prompt_statement/prompt_date.c\
+			prompt_statement/prompt_hostname.c\
+			prompt_statement/prompt_octal.c\
+			prompt_statement/prompt_path.c\
+			prompt_statement/prompt_shellname.c\
+			prompt_statement/prompt_time.c\
+			prompt_statement/prompt_uid.c\
+			prompt_statement/prompt_username.c\
+			prompt_statement/prompt_version.c\
+			prompt_statement/add_escape.c\
 			completion/completion.c\
 			completion/list_args.c\
 			completion/get_binaries.c\
@@ -104,11 +121,11 @@ DEPS		:= $(OBJS:.o=.d)
 all: $(OBJDIR) $(NAME)
 
 $(NAME): $(LIB) $(OBJS)
-	@$(CC) $(FLAGS)OC -L./$(LIBSRC) -lft -ltermcap -o $(NAME) $(OBJS)
+	@$(CC) $(FLAGS) -L./$(LIBSRC) -lft -ltermcap -o $(NAME) $(OBJS)
 	@echo "\n${CYN}PROCESSING DONE !${NC}"
 
 $(OBJDIR):
-	@mkdir -p objs objs/built-in objs/tools objs/exec objs/lexer objs/redirection objs/line_editor objs/completion
+	@mkdir -p objs objs/built-in objs/tools objs/exec objs/lexer objs/redirection objs/line_editor objs/completion objs/prompt_statement
 
 $(LIB):
 	@echo "${CYN}Processing ${NC}./libft/objs ${CYN}[${NC}...${CYN}]${NC}"
@@ -131,8 +148,8 @@ fclean: clean
 	@rm -rf $(NAME)
 	@echo "${RED}Cleaning ${NC}./libft/${RED}libft.h${NC}\n"
 	@make -C $(LIBSRC) fclean
-	@echo "${RED}DELETE DONE !${NC}"
 	@rm -rf objs/
+	@echo "${RED}DELETE DONE !${NC}"
 
 re: fclean all
 
