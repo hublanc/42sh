@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 13:13:22 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/12 18:58:56 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/12 19:19:21 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,26 +89,31 @@ void		prep_fd(t_node *tree)
 		dup2(tree->in, 0);
 }
 
-void		manage_fd(t_node *tree)
+int			manage_fd(t_node *tree)
 {
 	t_node		*tmp;
 	int			i;
 
+	if (substitution(&tree->token, 1) == -1)
+		return (-1);
 	i = ft_isdigit((tree->token)[0]) ? 1 : 0;
 	tmp = mark_fd(tree);
 	if (ft_strchr(tree->token, '&'))
 		manage_aggre(tmp, tree);
 	else if ((tree->token)[i] == '>')
 	{
-		tmp->fd_out = add_fd(tmp->fd_out, tree);
+		if (!(tmp->fd_out = add_fd(tmp->fd_out, tree)))
+			return (-1);
 		tmp->fd_out_io = add_io(tmp->fd_out_io, tree, 1);
 	}
 	else if ((tree->token)[i] == '<' && (tree->token)[i + 1] != '<')
 	{
-		tmp->fd_in = add_fd(tmp->fd_in, tree);
+		if (!(tmp->fd_in = add_fd(tmp->fd_in, tree)))
+			return (-1);
 		tmp->fd_in_io = add_io(tmp->fd_in_io, tree, 0);
 	}
 	else if ((tree->token)[i] == '<' && (tree->token)[i + 1] == '<')
 		tmp->heredoc_str = ft_strsub(tree->token, i + 3,
-						ft_strlen(tree->token) - (i + 3));
+				ft_strlen(tree->token) - (i + 3));
+	return (1);
 }
