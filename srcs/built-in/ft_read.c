@@ -6,11 +6,11 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/02 14:08:53 by lbopp             #+#    #+#             */
-/*   Updated: 2017/10/02 16:38:52 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/12 15:39:43 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lsh.h"
+#include "shell.h"
 
 /*
 **	Ctrl C a gerer quand on mettra dans le shell
@@ -22,17 +22,12 @@ int		put_my_char(int c)
 	return (1);
 }
 
-/*
-**	read avec le -r
-**	Il faut juste stocker dans variable local
-*/
-
 char	*read_r_opt(char **cmd)
 {
 	char	buf[2];
 	char	*readding;
 
-	init_term();
+	set_terminal();
 	readding = ft_strnew(0);
 	while (1)
 	{
@@ -52,10 +47,10 @@ char	*read_r_opt(char **cmd)
 		else if (ft_isprint(buf[0]) && !buf[1])
 		{
 			ft_putchar(buf[0]);
-			readding = ft_stradd(readding, buf);
+			readding = ft_strapp(readding, buf);
 		}
 	}
-	default_term();
+	reset_term();
 	return (readding);
 }
 
@@ -66,7 +61,7 @@ char	*read_without_opt(char **cmd)
 	int		backslash;
 
 	backslash = 0;
-	init_term();
+	set_terminal();
 	readding = ft_strnew(0);
 	while (1)
 	{
@@ -94,15 +89,15 @@ char	*read_without_opt(char **cmd)
 			if (!backslash)
 				backslash = 1;
 			else
-				readding = ft_stradd(readding, buf);
+				readding = ft_strapp(readding, buf);
 		}
 		else if (ft_isprint(buf[0]) && !buf[1])
 		{
 			ft_putchar(buf[0]);
-			readding = ft_stradd(readding, buf);
+			readding = ft_strapp(readding, buf);
 		}
 	}
-	default_term();
+	reset_term();
 	return (readding);
 }
 
@@ -134,7 +129,7 @@ int		valid_local_var(char **cmd)
 		{
 			if (!ft_isalnum(cmd[i][j]) && cmd[i][j] != '_')
 			{
-				ft_putstr("shell: read: `");
+				ft_putstr("\nshell: read: `");
 				ft_putstr(cmd[i]);
 				ft_putendl("': not a valid identifier");
 				return (0);
@@ -159,24 +154,28 @@ void	read_put_in_var(char **cmd, char *readding)
 	printf("\n");
 	while (cmd[g_optind + 1])
 	{
-		printf("%s = [%s]\n", cmd[g_optind], split[i]);
+		add_locenv(cmd[g_optind], split[i]);
 		g_optind++;
 		i++;
 	}
 	while (split[i])
 	{
-		printf("ajout de [%s] a %s\n", split[i], cmd[g_optind]);
+		add_locenv(cmd[g_optind], split[i]);
 		i++;
 	}
 }
 
-void	ft_read(char **cmd, char **env)
+void	ft_read(char **cmd, char ***env)
 {
 	int		opt;
 	char	*readding;
 
+	(void)env;
 	readding = NULL;
+	g_optind = 0;
 	opt = get_read_opt(cmd);
+	if (cmd && !cmd[g_optind])
+		cmd[g_optind] = ft_strdup("REPLY");
 	if (opt != 0 && opt != 'r')
 		return ;
 	if (opt == 'r')
@@ -185,9 +184,4 @@ void	ft_read(char **cmd, char **env)
 		readding = read_without_opt(cmd);
 	read_put_in_var(cmd, readding);
 	ft_strdel(&readding);
-}
-
-int	main(int ac, char **av, char **env)
-{
-	ft_read(av + 1, env);
 }
