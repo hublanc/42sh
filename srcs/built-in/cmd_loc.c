@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/05 13:46:33 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/10 15:41:55 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/12 11:56:18 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static void	ssupprchr(char **s, int pos)
 		(*s)[pos] = (*s)[pos + 1];
 }
 
-int		gest_loc(char **cmmd)
+int		gest_loc(char **cmmd, char ***env)
 {
 	char	**tab;
 	char	*s;
@@ -84,7 +84,7 @@ int		gest_loc(char **cmmd)
 	while (tab[1] && tab[1][++i])
 		if (tab[1][i] == '"' && (i < 1 || tab[1][i - 1] != '\\'))
 			ssupprchr(&tab[1], i--);
-	add_loc(tab[0], tab[1]);
+	add_loc(tab[0], tab[1], env);
 	free(tab[1]);
 	free(tab[0]);
 	free(tab);
