@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 11:41:39 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/18 16:53:16 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/09/29 15:21:13 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void		choose_prompt(t_cmd *cmd)
 {
 	if (!ft_strcmp(cmd->prompt, "dquote> ") || !ft_strcmp(cmd->prompt, "quote> ")
 	|| !ft_strcmp(cmd->prompt, "heredoc> ") || !ft_strcmp(cmd->prompt, "pipe> ")
-	|| !ft_strcmp(cmd->prompt, "> "))
+	|| !ft_strcmp(cmd->prompt, "> ") || !ft_strcmp(cmd->prompt, "cmdandor> "))
 		ft_putstr(cmd->prompt);
 	else
 		print_prompt();
@@ -65,7 +65,8 @@ void		add_line(t_cmd *cmd, char *buf)
 	signal(SIGINT, &signal_do_nothing);
 	i = -1;
 	k = 0;
-	while (buf && ++i < 999 && buf[i] && (ft_isprint(buf[i]) || buf[i] == 9))
+	while (buf && (size_t)++i < ft_strlen(buf) && buf[i] && (ft_isprint(buf[i])
+				|| buf[i] == 9))
 	{
 		j = 2;
 		if (buf[i] == 9)
@@ -127,6 +128,8 @@ void		key_handler(t_cmd *cmd, t_hist **history, char ***env)
 		can_sigint(1);
 		return ;
 	}
+	if (buf[0] == 9 && !buf[1])
+		completion(cmd, env, &buf);
 	if (buf[0] == 27)
 		arrow_handler(buf, cmd, history);
 	else if (buf[0] == 127 && cmd->col > cmd->prlen + 1)
