@@ -6,15 +6,15 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/02 14:08:53 by lbopp             #+#    #+#             */
-/*   Updated: 2017/10/12 16:10:36 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/12 16:58:48 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
 /*
-**	Ctrl C a gerer quand on mettra dans le shell
-*/
+ **	Ctrl C a gerer quand on mettra dans le shell
+ */
 
 int		put_my_char(int c)
 {
@@ -141,10 +141,25 @@ int		valid_local_var(char **cmd)
 	return (1);
 }
 
-void	read_put_in_var(char **cmd, char *readding)
+char            **prep_setenv(char *name, char *value)
+{
+	char            **tab;
+
+	tab = (char**)ft_memalloc(sizeof(char*) * 4);
+	tab[0] = ft_strdup("setenv");
+	if (name)
+		tab[1] = ft_strdup(name);
+	if (value)
+		tab[2] = ft_strdup(value);
+	tab[3] = NULL;
+	return (tab);
+}
+
+void	read_put_in_var(char **cmd, char *readding, char ***env)
 {
 	char	**split;
 	int		i;
+	char	**tmp_tab;
 
 	i = 0;
 	if (!cmd[g_optind] || !valid_local_var(&cmd[g_optind]))
@@ -154,35 +169,38 @@ void	read_put_in_var(char **cmd, char *readding)
 	printf("\n");
 	while (cmd[g_optind + 1])
 	{
-		add_locenv(cmd[g_optind], split[i]);
+		add_loc(cmd[g_optind], split[i]);
+		ft_setenv(tmp_tab, env);
+		del_tabstr(&tmp_tab);
 		g_optind++;
 		i++;
 	}
 	while (split[i])
 	{
-		add_locenv(cmd[g_optind], split[i]);
+		add_loc(tmp_tab, env);
+		del_tabstr(&tmp_tab);
 		i++;
 	}
 }
 
-void	ft_read(char **cmd, char ***env)
+int		ft_read(char **cmd, char ***env)
 {
 	int		opt;
 	char	*readding;
 
 	(void)env;
 	readding = NULL;
-	g_optind = 0;
+	g_optind = 1;
 	opt = get_read_opt(cmd);
 	if (cmd && !cmd[g_optind])
 		cmd[g_optind] = ft_strdup("REPLY");
 	if (opt != 0 && opt != 'r')
-		return ;
+		return (0);
 	if (opt == 'r')
 		readding = read_r_opt();
 	else
 		readding = read_without_opt();
-	read_put_in_var(cmd, readding);
+	read_put_in_var(cmd, readding, env);
 	ft_strdel(&readding);
-	return ;
+	return (0);
 }
