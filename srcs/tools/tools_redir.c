@@ -6,25 +6,36 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 12:22:12 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/12 18:56:32 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/12 19:09:17 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-int			*add_fd(int *fds, t_node *tree)
+static int	*add_fd2(t_node *tree)
 {
 	int		*new;
-	int		i;
 
-	i = 0;
-	if (!fds)
+	new = (int*)ft_memalloc(sizeof(int) * 2);
+	if ((new[0] = open_file(tree)) == -1)
 	{
 		new = (int*)ft_memalloc(sizeof(int) * 2);
 		new[0] = open_file(tree);
 		new[1] = -1;
 		return (new);
 	}
+	new[1] = -1;
+	return (new);
+}
+
+int			*add_fd(int *fds, t_node *tree)
+{
+	int		*new;
+	int		i;
+
+	if (!fds)
+		return (add_fd2(tree));
+	i = 0;
 	while (fds[i] != -1)
 		i++;
 	new = (int*)ft_memalloc(sizeof(int) * (i + 2));
@@ -34,7 +45,11 @@ int			*add_fd(int *fds, t_node *tree)
 		new[i] = fds[i];
 		i++;
 	}
-	new[i++] = open_file(tree);
+	if ((new[i++] = open_file(tree)) == -1)
+	{
+		free(new);
+		return (NULL);
+	}
 	new[i] = -1;
 	ft_memdel((void**)&fds);
 	return (new);

@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 17:08:55 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/12 18:41:11 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/12 19:16:56 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,6 @@ void		extra_check_word(t_token *list, t_token *tmp, t_token **next);
 /*
 **	substitution.c
 */
-void		substitution(char **cmmd, char ***env);
+int			substitution(char **cmmd, int is_redir);
 
 #endif
