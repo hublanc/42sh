@@ -6,7 +6,7 @@
 #    By: hublanc <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/07/24 15:04:09 by hublanc           #+#    #+#              #
-#    Updated: 2017/10/11 21:15:58 by hublanc          ###   ########.fr        #
+#    Updated: 2017/10/12 14:47:51 by hublanc          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,8 @@ SRC		=	main.c\
 			exec/routine.c\
 			exec/builtin.c\
 			exec/extra_exec.c\
+			exec/manage_pid.c\
+			exec/pid_pipe.c\
 			lexer/token.c\
 			lexer/lexer.c\
 			lexer/sort_token.c\
