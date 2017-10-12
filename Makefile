@@ -6,7 +6,7 @@
 #    By: hublanc <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/07/24 15:04:09 by hublanc           #+#    #+#              #
-#    Updated: 2017/10/12 12:55:09 by amazurie         ###   ########.fr        #
+#    Updated: 2017/10/12 18:54:19 by amazurie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -117,8 +117,8 @@ fclean: clean
 	@rm -rf $(NAME)
 	@echo "${RED}Cleaning ${NC}./libft/${RED}libft.h${NC}\n"
 	@make -C $(LIBSRC) fclean
-	@echo "${RED}DELETE DONE !${NC}"
 	@rm -rf objs/
+	@echo "${RED}DELETE DONE !${NC}"
 
 re: fclean all
 
