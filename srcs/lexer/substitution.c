@@ -6,23 +6,23 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/10 15:49:56 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/12 10:24:27 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/12 18:17:56 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-void	ssupprchr(char **s, int pos)
+void		ssupprchr(char **s, int pos)
 {
 	int	i;
 
 	pos--;
-	i = ft_strlen(*s)	- 1;
+	i = ft_strlen(*s) - 1;
 	while (++pos <= i)
 		(*s)[pos] = (*s)[pos + 1];
 }
 
-char	*get_elem(char ***env, char *elem)
+char		*get_elem(char ***env, char *elem)
 {
 	int	i;
 
@@ -71,7 +71,8 @@ void		substitution(char **cmmd, char ***env)
 	while ((*cmmd)[++i])
 	{
 		if ((*cmmd)[i] == '\'')
-			while ((*cmmd)[i] && (*cmmd)[++i] != '\'');
+			while ((*cmmd)[i] && (*cmmd)[++i] != '\'')
+				;
 		j = i + 1;
 		if ((*cmmd)[i] == '$')
 			while ((*cmmd)[j] && (*cmmd)[j] != 32 && (*cmmd)[j] != 9
