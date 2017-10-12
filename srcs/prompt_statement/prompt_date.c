@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/10 11:46:05 by lbopp             #+#    #+#             */
-/*   Updated: 2017/10/10 13:11:05 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/12 11:55:04 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void		get_date_prompt(char **line, int *i)
 	date = return_date();
 	before = ft_strsub(*line, 0, *i);
 	after = ft_strsub(*line, *i + 2, ft_strlen(*line) - *i - 2);
-	*i += ft_strlen(date);
+	*i += ft_strlen(date) - 1;
 	ft_strdel(line);
 	*line = before_curr_after(&before, date, &after);
 	ft_strdel(&date);
