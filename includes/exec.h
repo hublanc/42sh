@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 17:27:30 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/11 19:26:12 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/12 12:17:50 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ typedef struct		s_token
 		IO_NUMBER,
 		ET,
 		OU,
-		}			e_type;
+	}				e_type;
 	struct s_token	*next;
 }					t_token;
 
@@ -64,34 +64,36 @@ typedef struct		s_node
 /*
 **	Routine.c
 */
-void		routine(char *cmd, char ***env, t_control **history);
+void				routine(char *cmd, char ***env, t_control **history);
 
 /*
 **	Exec.c
 */
-int			check_cmd(char **tab, char **env, t_node *tree);
-void		get_cmd(t_node *tree, char ***env, int *status, t_control **hist);
+int					check_cmd(char **tab, char **env, t_node *tree);
+void				get_cmd(t_node *tree, char ***env, int *status,
+					t_control **hist);
 
 /*
 **	Check_binary
 */
-int			check_binary(char **args, char **env, char **cmd);
+int					check_binary(char **args, char **env, char **cmd);
 
 /*
 **	Ft_cmdsplit.c
 */
-char		**ft_cmdsplit(char *str);
+char				**ft_cmdsplit(char *str);
 
 /*
 **	Extra_exec.c
 */
-void		add_quote_content(char *str, char *new, int *i, int *j);
-int			*singleton_status(void);
+void				add_quote_content(cha *str, char *new, int *i, int *j);
+int					*singleton_status(void);
 
 /*
 **	Builtin.c
 */
-int			built_in(t_node *tree, char **tab, char ***env, t_control **his);
-int			builtin_tab(char **tab);
+int					built_in(t_node *tree, char **tab, char ***env,
+					t_control **his);
+int					builtin_tab(char **tab);
 
 #endif

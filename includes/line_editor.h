@@ -6,12 +6,12 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 16:36:09 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/11 20:43:52 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/12 12:25:35 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LINE_EDITOR
-# define LINE_EDITOR
+#ifndef LINE_EDITOR_H
+# define LINE_EDITOR_H
 
 typedef struct		s_cmd
 {
@@ -43,115 +43,123 @@ typedef struct		s_hist
 /*
 **	Keys.c
 */
-void		key_handler(t_cmd *cmd, t_control **history, char ***env);
-void		print_line(t_cmd *cmd);
-void		choose_prompt(t_cmd *cmd);
-void		add_line(t_cmd *cmd, char *buf);
+void				key_handler(t_cmd *cmd, t_control **history, char ***env);
+void				print_line(t_cmd *cmd);
+void				choose_prompt(t_cmd *cmd);
+void				add_line(t_cmd *cmd, char *buf);
 
 /*
 **	Arrow.c
 */
-void		arrow_handler(char *str, t_cmd *cmd, t_control **hist);
+void				arrow_handler(char *str, t_cmd *cmd, t_control **hist);
 
 /*
 **	Cmd.c
 */
-t_cmd		init_cmd(char *prompt);
-void		clear_cmd(t_cmd *cmd);
-void		init_screen(t_cmd *cmd);
-t_cmd		*save_cmd(t_cmd *cmd);
+t_cmd				init_cmd(char *prompt);
+void				clear_cmd(t_cmd *cmd);
+void				init_screen(t_cmd *cmd);
+t_cmd				*save_cmd(t_cmd *cmd);
 
 /*
 **	History.c
 */
-t_hist		*new_history(char *cmd);
-void		add_begin(t_hist **list, t_hist *new);
-void		delone_history(t_hist **list);
-void		del_history(t_hist **list);
-void		del_current(t_hist **list);
+t_hist				*new_history(char *cmd);
+void				add_begin(t_hist **list, t_hist *new);
+void				delone_history(t_hist **list);
+void				del_history(t_hist **list);
+void				del_current(t_hist **list);
 
 /*
 **	Quote.c
 */
-char		check_quote(char *str);
-void		prompt_quote(t_cmd *cmd, t_control **history, char c, int mod);
-void		prompt_backslash(t_cmd *cmd, t_control **history, int mod);
+char				check_quote(char *str);
+void				prompt_quote(t_cmd *cmd, t_control **history, char c,
+					int mod);
+void				prompt_backslash(t_cmd *cmd, t_control **history, int mod);
 
 /*
 **	Cmdandor.c
 */
-int			check_cmdandor(char *str);
-void		prompt_cmdandor(t_cmd *cmd, t_control **history, int mod);
-void		enter_handler_cmdandor(t_cmd *cmd, t_control **history);
+int					check_cmdandor(char *str);
+void				prompt_cmdandor(t_cmd *cmd, t_control **history, int mod);
+void				enter_handler_cmdandor(t_cmd *cmd, t_control **history);
 
 /*
 **	Prompt.c
 */
-int			print_prompt(void);
-char		*return_prompt(void);
+int					print_prompt(void);
+char				*return_prompt(void);
 
 /*
 **	Cut_copy_paste.c
 */
-void		copy_cut_paste_handler(t_cmd *cmd, char *macro);
+void				copy_cut_paste_handler(t_cmd *cmd, char *macro);
 
 /*
 **	Cut_copy_paste2.c
 */
-void		right_handler(t_cmd *cmd, int *swap, int start);
-void		left_handler(t_cmd *cmd, int *swap, int start);
-void		cut_str(t_cmd *cmd, int start);
-void		stock_buffer(t_cmd *cmd, int start);
+void				right_handler(t_cmd *cmd, int *swap, int start);
+void				left_handler(t_cmd *cmd, int *swap, int start);
+void				cut_str(t_cmd *cmd, int start);
+void				stock_buffer(t_cmd *cmd, int start);
 
 /*
 **	Cut_copy_paste3.c
 */
-void		print_charev(t_cmd *cmd);
-void		print_up(int nb, int n);
+void				print_charev(t_cmd *cmd);
+void				print_up(int nb, int n);
 
 /*
 **	Load_history.c
 */
-t_control	*load_history(char **env);
-int			save_history(t_control **history, char *str, char *file);
-int			get_history_file_size(char *file_name);
-int			save_history_in_file(t_control **history, char *file_name);
+t_control			*load_history(char **env);
+int					save_history(t_control **history, char *str, char *file);
+int					get_history_file_size(char *file_name);
+int					save_history_in_file(t_control **history, char *file_name);
 
 /*
 **	Enter_handler.c
 */
-void		enter_hub(t_cmd *cmd, t_control **history, char ***env);
+void				enter_hub(t_cmd *cmd, t_control **history, char ***env);
 
 /*
 **	History search
 */
 
-char		*history_search(t_control **history);
-t_lst		*history_search_2(t_control **history, char *search);
-t_lst		*move_in_hist(t_lst *pos, char *buf, t_control **history);
-void		set_search_prompt(char *search, t_lst *tmp, int type);
-t_lst		*while_handler(char *buf, char **search, t_control **history, t_lst *tmp);
-void		init_hist_search(char **search, t_lst **tmp);
-//char		*research(char **search, int *a, t_control **history, char *buf);
+char				*history_search(t_control **history);
+t_lst				*history_search_2(t_control **history, char *search);
+t_lst				*move_in_hist(t_lst *pos, char *buf, t_control **history);
+void				set_search_prompt(char *search, t_lst *tmp, int type);
+t_lst				*while_handler(char *buf, char **search,
+					t_control **history, t_lst *tmp);
+void				init_hist_search(char **search, t_lst **tmp);
+/*
+**	char		*research(char **search,int *a,t_control **history,char *buf);
+*/
 
 /*
 **	last_command.c
 */
 
+char				*last_command(char *command, t_control **history);
 
-char		*last_command(char *command, t_control **history);
-
-void		set_error(int a, char *command);
-void		modify_quotes(int *sq, int *dq, char c);
-char		*wd_designator(char *command, t_control **history);
-void		wd_designator_2(char *command, int *index, char **str, t_control **history);
-void		get_d_bang(char *command, char **str, t_control **history, int *index);
-void		get_last_command(char *command, char **str, t_control **history, int *index);
-void		get_last_command_2(char *tmp, t_control **history, char **str);
-void		get_line_again(char *command, int *index, char **str, t_control **history);
-void		get_n_first(char *command, char **str, t_control **history, int *index);
-void		get_n_last(char *command, char **str, t_control **history, int *index);
-
-
+void				set_error(int a, char *command);
+void				modify_quotes(int *sq, int *dq, char c);
+char				*wd_designator(char *command, t_control **history);
+void				wd_designator_2(char *command, int *index, char **str,
+					t_control **history);
+void				get_d_bang(char *command, char **str, t_control **history,
+					int *index);
+void				get_last_command(char *command, char **str,
+					t_control **history, int *index);
+void				get_last_command_2(char *tmp, t_control **history,
+					char **str);
+void				get_line_again(char *command, int *index, char **str,
+					t_control **history);
+void				get_n_first(char *command, char **str, t_control **history,
+					int *index);
+void				get_n_last(char *command, char **str, t_control **history,
+					int *index);
 
 #endif
