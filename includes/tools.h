@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 18:24:56 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/12 12:35:07 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/12 17:46:57 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ t_lst		*seek_next_select(t_control **list);
 void		seek_next(t_control **list, t_cmd *cmd);
 t_lst		*seek_prev_select(t_control **list);
 void		seek_prev(t_control **list, t_cmd *cmd);
+void		set_selected_null(t_control **history);
 
 /*
 **	Tools_keys.c
