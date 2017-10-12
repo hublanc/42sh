@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 13:56:16 by mameyer           #+#    #+#             */
-/*   Updated: 2017/09/26 13:56:17 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/12 15:39:00 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,7 @@ char		*wd_designator(char *command, t_control **history)
 	sq = 0;
 	dq = 0;
 	str = NULL;
-	if (!(str = (char *)malloc(sizeof(char) * 1)))
-		exit(EXIT_FAILURE);
-	ft_strclr(str);
+	str = ft_memalloc(1);
 	while (command[a])
 	{
 		if (command[a] == '\'' || command[a] == '"')
