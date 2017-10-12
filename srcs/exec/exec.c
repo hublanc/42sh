@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/26 16:13:08 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/12 15:06:56 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/12 17:41:55 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,10 @@ void		get_cmd(t_node *tree, char ***env, int *status, t_hist **his)
 	int		i;
 	char	**tab;
 
-	substitution(&tree->token, 0);
 	i = 0;
 	if (gest_loc(&tree->token))
 		return ;
+	substitution(&tree->token, 0);
 	tab = ft_cmdsplit(tree->token);
 	if (!tree->token || *(tree->token) == '\0' || !tab || !*tab)
 		return (del_tabstr(&tab));
