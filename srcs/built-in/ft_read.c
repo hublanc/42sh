@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/02 14:08:53 by lbopp             #+#    #+#             */
-/*   Updated: 2017/10/12 15:39:43 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/12 16:10:36 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		put_my_char(int c)
 	return (1);
 }
 
-char	*read_r_opt(char **cmd)
+char	*read_r_opt(void)
 {
 	char	buf[2];
 	char	*readding;
@@ -54,7 +54,7 @@ char	*read_r_opt(char **cmd)
 	return (readding);
 }
 
-char	*read_without_opt(char **cmd)
+char	*read_without_opt(void)
 {
 	char	*readding;
 	char	buf[2];
@@ -179,9 +179,10 @@ void	ft_read(char **cmd, char ***env)
 	if (opt != 0 && opt != 'r')
 		return ;
 	if (opt == 'r')
-		readding = read_r_opt(cmd);
+		readding = read_r_opt();
 	else
-		readding = read_without_opt(cmd);
+		readding = read_without_opt();
 	read_put_in_var(cmd, readding);
 	ft_strdel(&readding);
+	return ;
 }
