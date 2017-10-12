@@ -6,11 +6,26 @@
 /*   By: nbouchin <nbouchin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 11:46:11 by nbouchin          #+#    #+#             */
-/*   Updated: 2017/10/11 17:56:51 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/12 14:24:48 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
+
+//a supprimer apres merge cd
+static char	*get_elem(char ***env, char *elem)
+{
+	int	i;
+
+	if		(!env || !*env || !**env)
+		return (NULL);
+	i = 0;
+	while ((*env)[i] && ft_strncmp((*env)[i], elem, ft_strlen(elem)))
+		i++;
+	if (!(*env)[i])
+		return (NULL);
+	return ((*env)[i] + ft_strlen(elem));
+}
 
 char	*split_prompt(char *str)
 {
@@ -33,15 +48,21 @@ char	*split_prompt(char *str)
 int		print_prompt(void)
 {
 	char	*prompt;
+	char	*tmp;
 	t_loc	*local;
 	size_t	size;
 
+	tmp = NULL;
 	if (!(local = get_loc("PS1")))
 	{
-		add_loc("PS1", "\\h @ \\W\\$ > ");
-		local = get_loc("PS1");
+		if (!(tmp = get_elem(save_env(NULL), "PS1=")))
+		{
+			add_loc("PS1", "\\h @ \\W\\$ > ");
+			local = get_loc("PS1");
+		}
 	}
-	prompt = (local && local->value) ? ft_strdup(local->value) : ft_strdup("42sh> ");
+	(!tmp && local && local->value) ? tmp = local->value : 0;
+	prompt = (tmp) ? ft_strdup(tmp) : ft_strdup("42sh> ");
 	prompt_management(&prompt);
 	ft_putstr(prompt);
 	size = ft_strlen(prompt);
@@ -52,14 +73,20 @@ int		print_prompt(void)
 char	*return_prompt(void)
 {
 	char	*prompt;
+	char	*tmp;
 	t_loc	*local;
 
+	tmp = NULL;
 	if (!(local = get_loc("PS1")))
 	{
-		add_loc("PS1", "\\h @ \\W\\$ > ");
-		local = get_loc("PS1");
+		if (!(tmp = get_elem(save_env(NULL), "PS1=")))
+		{
+			add_loc("PS1", "\\h @ \\W\\$ > ");
+			local = get_loc("PS1");
+		}
 	}
-	prompt = ft_strdup(local->value);
+	(!tmp && local && local->value) ? tmp = local->value : 0;
+	prompt = (tmp) ? ft_strdup(tmp) : ft_strdup("42sh> ");
 	prompt_management(&prompt);
 	return (prompt);
 }
