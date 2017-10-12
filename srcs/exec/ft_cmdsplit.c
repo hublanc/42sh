@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/06 15:56:19 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/11 19:26:31 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/12 12:13:02 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ static int			countword(char *str)
 		{
 			if (str[i] == '\'' || str[i] == '"')
 				i += spend_quote(str, i);
+			else if (str[i] == '\\')
+				i++;
 			i++;
 			isw = 1;
 		}

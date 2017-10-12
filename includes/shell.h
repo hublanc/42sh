@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 11:50:54 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/11 18:41:19 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/12 12:19:59 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,51 +58,51 @@ struct termios		g_term;
 /*
 **	Built-in
 */
-int			ft_echo(char **tab);
-int			in_env(char *str, char **env);
-int			ft_setenv(char **tab, char ***env);
-int			ft_unsetenv(char **tab, char ***env);
-int			ft_env(char **env, char **tab);
-int			ft_history(char **tab, char ***env, t_control **history);
-int			ft_history_2(char **tab, t_control **history, char *file,
-			t_hist_flags flags);
-int			ft_history_3(char **tab, t_control **history, char *file,
-			t_hist_flags flags);
-char		*get_history_file(char ***env);
-void		get_home(char ***env, char **home);
-int			cd(char **path, char ***env);
+int					ft_echo(char **tab);
+int					in_env(char *str, char **env);
+int					ft_setenv(char **tab, char ***env);
+int					ft_unsetenv(char **tab, char ***env);
+int					ft_env(char **env, char **tab);
+int					ft_history(char **tab, char ***env, t_control **history);
+int					ft_history_2(char **tab, t_control **history, char *file,
+					t_hist_flags flags);
+int					ft_history_3(char **tab, t_control **history, char *file,
+					t_hist_flags flags);
+char				*get_history_file(char ***env);
+void				get_home(char ***env, char **home);
+int					cd(char **path, char ***env);
 
-
-char		**delonenv(char *name, char **env);
-char		**prep_setenv(char *name, char *value);
-void		change_pwd(char *path, char ***env, char opt);
+char				**delonenv(char *name, char **env);
+char				**prep_setenv(char *name, char *value);
+void				change_pwd(char *path, char ***env, char opt);
 
 /*
 **	terminal
 */
-void		set_terminal(void);
-void		reset_term(void);
-void		reset_disp(void);
-int			tputchar(int c);
+void				set_terminal(void);
+void				reset_term(void);
+void				reset_disp(void);
+int					tputchar(int c);
 
 /*
 **	History_builtin
 */
 
-void		init_cd_flags(t_hist_flags *flags);
-void		get_cd_flags(t_hist_flags *flags, char **tab, int *args_pos);
-void		get_cd_flags_2(t_hist_flags *flags, char c);
-void		set_usage(char c, int type);
-void		print_history(t_control **history);
-int			get_num(int size);
-void		delete_elem_hist(int index, t_control **history);
-void		delete_elem_hist_2(t_lst *tmp, t_control **history);
-int			str_isdigit(char *str);
-void		print_pflag(char **tab);
-int			append_hist_file(t_control **history, char *file_name);
-int			rewrite_hist_file(t_control **history, char *file_name);
-void		nflag(t_control **history, char *file);
-void		print_last_elem(t_control **history, int last);
-void		delete_list_content(t_control **history);
+void				init_cd_flags(t_hist_flags *flags);
+void				get_cd_flags(t_hist_flags *flags, char **tab,
+					int *args_pos);
+void				get_cd_flags_2(t_hist_flags *flags, char c);
+void				set_usage(char c, int type);
+void				print_history(t_control **history);
+int					get_num(int size);
+void				delete_elem_hist(int index, t_control **history);
+void				delete_elem_hist_2(t_lst *tmp, t_control **history);
+int					str_isdigit(char *str);
+void				print_pflag(char **tab);
+int					append_hist_file(t_control **history, char *file_name);
+int					rewrite_hist_file(t_control **history, char *file_name);
+void				nflag(t_control **history, char *file);
+void				print_last_elem(t_control **history, int last);
+void				delete_list_content(t_control **history);
 
 #endif
