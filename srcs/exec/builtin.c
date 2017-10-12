@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/25 18:26:10 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/12 17:02:38 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/12 17:29:03 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int			do_built_in(char **tab, char ***env, t_hist **his)
 	else if (ft_strcmp(tab[0], "cd") == 0)
 		status = ft_cd(tab, env);
 	else if (ft_strcmp(tab[0], "read") == 0)
-		status = ft_read(tab, env);
+		status = ft_read(tab + 1, env);
 	else if (ft_strcmp(tab[0], "unset") == 0)
 		status = unset(tab, env);
 	else if (ft_strcmp(tab[0], "export") == 0)
