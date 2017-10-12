@@ -6,7 +6,7 @@
 #    By: hublanc <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/07/24 15:04:09 by hublanc           #+#    #+#              #
-#    Updated: 2017/10/12 16:51:53 by lbopp            ###   ########.fr        #
+#    Updated: 2017/10/12 17:01:51 by lbopp            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,6 +62,10 @@ SRC		=	main.c\
 			built-in/set_env.c\
 			built-in/unsetenv.c\
 			built-in/ft_read.c\
+			built-in/local.c\
+			built-in/cmd_loc.c\
+			built-in/unset.c\
+			built-in/export.c\
 			completion/completion.c\
 			completion/list_args.c\
 			completion/get_binaries.c\
