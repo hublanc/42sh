@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/01 11:03:53 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/29 15:19:32 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/12 15:52:02 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,26 +17,26 @@ int			print_error(int err, char *cmd)
 	if (err == 1)
 	{
 		ft_putstr_fd(cmd, 2);
-		ft_putstr_fd(": No such file or directory\n", 2);
+		ft_putstr_fd(": No such file or directory", 2);
 	}
-	if (err == 2)
+	else if (err == 2)
 	{
 		ft_putstr_fd("command not found: ", 2);
 		ft_putendl_fd(cmd, 2);
 	}
-	if (err == 3)
-		ft_putstr_fd("cd: HOME not set\n", 2);
-	if (err == 4)
+	else if (err == 8)
 	{
+		ft_putstr_fd("42sh: ", 2);
 		ft_putstr_fd(cmd, 2);
-		ft_putstr_fd(": Permission denied\n", 2);
+		ft_putstr_fd(": ambiguous redirect", 2);
 	}
-	if (err == 5)
-		ft_putstr_fd("Invalid argument\n", 2);
-	if (err == 6)
-		ft_putstr_fd("cd : OLDPWD not set\n", 2);
-	if (err == 7)
-		ft_putstr_fd("usage: unsetenv Key\n", 2);
+	(err == 3) ? ft_putstr_fd("cd: HOME not set", 2) : 0;
+	(err == 4) ? ft_putstr_fd(cmd, 2) : 0;
+	(err == 4) ? ft_putstr_fd(": Permission denied", 2) : 0;
+	(err == 5) ? ft_putstr_fd("Invalid argument", 2) : 0;
+	(err == 6) ? ft_putstr_fd("cd : OLDPWD not set", 2) : 0;
+	(err == 7) ? ft_putstr_fd("usage: unsetenv Key", 2) : 0;
+	ft_putchar_fd('\n', 2);
 	return (1);
 }
 

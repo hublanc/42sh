@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 17:08:55 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/10 16:19:46 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/12 15:07:55 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,6 @@ t_node		*create_tree(t_token *list);
 /*
 **	substitution.c
 */
-void		substitution(char **cmmd, char ***env);
+int			substitution(char **cmmd, int is_redir);
 
 #endif
