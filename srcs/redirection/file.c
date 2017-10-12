@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/03 19:10:40 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/03 19:31:58 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/12 18:49:05 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ char		*get_file(t_node *tree)
 	int		i;
 	char	*file;
 
+	substitution(&tree->token, 0);
 	file = NULL;
 	i = ft_isdigit((tree->token)[0]) ? 1 : 0;
 	if ((tree->token)[i] == '>' && (tree->token)[i + 1] == '>')
