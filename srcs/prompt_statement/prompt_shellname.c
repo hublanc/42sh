@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/10 11:53:21 by lbopp             #+#    #+#             */
-/*   Updated: 2017/10/10 11:55:00 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/12 11:59:04 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	get_ttyname(char **line, int *i)
 	after = ft_strsub(*line, *i + 2, ft_strlen(*line) - *i - 2);
 	if (name[0] && name[0] == '/')
 		name++;
-	*i += ft_strlen(name);
+	*i += ft_strlen(name) - 1;
 	ft_strdel(line);
 	*line = before_curr_after(&before, name, &after);
 }
