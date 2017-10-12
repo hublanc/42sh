@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 16:36:09 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/18 13:56:45 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/09/29 15:23:30 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct		s_hist
 void		key_handler(t_cmd *cmd, t_hist **history, char ***env);
 void		print_line(t_cmd *cmd);
 void		choose_prompt(t_cmd *cmd);
+void		add_line(t_cmd *cmd, char *buf);
 
 /*
 **	Arrow.c
@@ -73,6 +74,13 @@ void		del_current(t_hist **list);
 char		check_quote(char *str);
 void		prompt_quote(t_cmd *cmd, t_hist **history, char c, int mod);
 void		prompt_backslash(t_cmd *cmd, t_hist **history, int mod);
+
+/*
+**	Cmdandor.c
+*/
+int			check_cmdandor(char *str);
+void		prompt_cmdandor(t_cmd *cmd, t_hist **history, int mod);
+void		enter_handler_cmdandor(t_cmd *cmd, t_hist **history);
 
 /*
 **	Prompt.c

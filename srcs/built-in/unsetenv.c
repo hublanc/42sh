@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/26 10:47:21 by hublanc           #+#    #+#             */
-/*   Updated: 2017/07/24 12:10:58 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/09/28 18:34:05 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,13 @@ char		**delonenv(char *name, char **env)
 	return (new);
 }
 
-void		ft_unsetenv(char **tab, char ***env)
+int			sub_unsetenv(char **tab, char ***env)
 {
-	int			pos;
-	char		**new;
 	int			i;
+	int			pos;
+	int			status;
+	char		**new;
 
-	if (len_array(tab) < 2)
-		return (ft_putstr_fd("usage: unsetenv Key\n", 2));
 	i = 1;
 	while (tab && tab[i])
 	{
@@ -57,12 +56,22 @@ void		ft_unsetenv(char **tab, char ***env)
 			new = delonenv(tab[i], *env);
 			del_tabstr(env);
 			*env = new;
+			status = 0;
 		}
 		else
 		{
 			ft_putstr_fd(tab[i], 2);
 			ft_putstr_fd(" not found\n", 2);
+			status = 1;
 		}
 		i++;
 	}
+	return (status);
+}
+
+int			ft_unsetenv(char **tab, char ***env)
+{
+	if (len_array(tab) < 2)
+		return (print_error(7, NULL));
+	return (sub_unsetenv(tab, env));
 }
