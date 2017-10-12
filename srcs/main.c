@@ -6,11 +6,20 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/24 16:37:30 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/25 18:20:40 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/12 14:00:32 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/shell.h"
+
+char		***save_env(char ***env)
+{
+	static char ***s_env = NULL;
+
+	if (env)
+		s_env = env;
+	return (s_env);
+}
 
 char		**init_env(void)
 {
@@ -41,6 +50,7 @@ int			main(int ac, char **av, char **env)
 	(void)ac;
 	(void)av;
 	cp_env = (*env) ? get_env(env, 1) : init_env();
+	save_env(&cp_env);
 	signal(SIGINT, get_signal);
 	set_terminal();
 
@@ -76,6 +86,6 @@ int			main(int ac, char **av, char **env)
 	cmd = init_cmd(return_prompt());
 	history = load_history();
 	while (1)
-		key_handler(&cmd, &history, &cp_env);
+		key_handler(&cmd, &history, save_env(NULL));
 	del_tabstr(&cp_env);
 }
