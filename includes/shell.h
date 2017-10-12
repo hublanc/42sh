@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 11:50:54 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/12 12:19:59 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/12 18:14:43 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,9 @@
 # include "redirection.h"
 # include "line_editor.h"
 # include "tools.h"
+# include "prompt_statement.h"
 # include "completion.h"
+# include "local.h"
 
 # define CYN	"\x1B[36m"
 # define RESET	"\x1B[0m"
@@ -75,6 +77,7 @@ int					cd(char **path, char ***env);
 char				**delonenv(char *name, char **env);
 char				**prep_setenv(char *name, char *value);
 void				change_pwd(char *path, char ***env, char opt);
+char				***save_env(char ***env);
 
 /*
 **	terminal
