@@ -6,7 +6,7 @@
 #    By: hublanc <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/07/24 15:04:09 by hublanc           #+#    #+#              #
-#    Updated: 2017/10/12 18:15:50 by hublanc          ###   ########.fr        #
+#    Updated: 2017/10/12 18:33:11 by hublanc          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,6 +80,7 @@ SRC		=	main.c\
 			built-in/history_2.c\
 			built-in/history_3.c\
 			built-in/history_4.c\
+			built-in/ft_read.c\
 			built-in/local.c\
 			built-in/cmd_loc.c\
 			built-in/unset.c\
