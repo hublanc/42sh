@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 13:13:22 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/14 16:50:33 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/12 12:34:14 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,13 @@ t_node		*mark_fd(t_node *tree)
 	return (tmp);
 }
 
-int			open_file(t_node *tree)
+int			open_file(t_node *tree, char ***env)
 {
 	char	*file;
 	int		fd;
 	int		i;
 
+	substitution(&tree->token, env);
 	i = ft_isdigit((tree->token)[0]) ? 1 : 0;
 	file = NULL;
 	fd = -1;
@@ -119,7 +120,7 @@ void	prep_fd(t_node *tree)
 		dup2(tree->in, 0);
 }
 
-void		manage_fd(t_node *tree)
+void		manage_fd(t_node *tree, char ***env)
 {
 	t_node		*tmp;
 	int			i;
@@ -130,12 +131,12 @@ void		manage_fd(t_node *tree)
 		manage_aggre(tmp, tree);
 	else if ((tree->token)[i] == '>')
 	{
-		tmp->fd_out = add_fd(tmp->fd_out, tree);
+		tmp->fd_out = add_fd(tmp->fd_out, tree, env);
 		tmp->fd_out_io = add_io(tmp->fd_out_io, tree, 1);
 	}
 	else if ((tree->token)[i] == '<' && (tree->token)[i + 1] != '<')
 	{
-		tmp->fd_in = add_fd(tmp->fd_in, tree);
+		tmp->fd_in = add_fd(tmp->fd_in, tree, env);
 		tmp->fd_in_io = add_io(tmp->fd_in_io, tree, 0);
 	}
 	else if ((tree->token)[i] == '<' && (tree->token)[i + 1] == '<')
