@@ -6,17 +6,48 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 12:18:48 by amazurie          #+#    #+#             */
-/*   Updated: 2017/09/27 16:41:24 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/12 11:24:39 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
+//temporaire a supprimer apres merge de cd
+static void	saddchr(char **s, char c, int pos)
+{
+	int i;
+
+	i = ft_strlen(*s) + 1;
+	while (--i	 >= pos)
+		(*s)[i + 1] = (*s)[i];
+	(*s)[pos] = c;
+}
+
+static char	*add_handspace(const char *name)
+{
+	char	*s;
+	int		i;
+	int		j;
+
+	i = -1;
+	j = 0;
+	while (name[++i])
+		if (name[i] == 32)
+			j++;
+	s = (char *)ft_memalloc(ft_strlen(name) + j);
+	ft_strcat(s, name);
+	i = -1;
+	while (s[++i])
+		if (s[i] == 32)
+			saddchr(&s, '\\', i++);
+	return (s);
+}
+
 static void	add_arg(t_compl *compl, struct dirent *dirc, t_coargs **args)
 {
 	char			*t;
 
-	(*args)->arg = ft_strdup(dirc->d_name);
+	(*args)->arg = add_handspace(dirc->d_name);
 	compl_addcolor(args, compl->path);
 	if ((*args)->color && !ft_strcmp("\e[1;36m", (*args)->color))
 	{
@@ -41,8 +72,8 @@ int			get_files(t_compl *compl, DIR *dirp, t_coargs **args, int *idcount)
 		return (1);
 	tmp = *args;
 	if ((compl->arg && ft_strncmp(dirc->d_name, compl->arg,
-		ft_strlen(compl->arg))) || (dirc->d_name[0] == '.'
-			&& (!compl->isdot || (dirc->d_name[1] && dirc->d_name[1] == '.'))))
+					ft_strlen(compl->arg))) || (dirc->d_name[0] == '.'
+				&& (!compl->isdot || (dirc->d_name[1] && dirc->d_name[1] == '.'))))
 		return (get_files(compl, dirp, args, idcount));
 	(*args)->id = (*idcount)++;
 	add_arg(compl, dirc, args);
