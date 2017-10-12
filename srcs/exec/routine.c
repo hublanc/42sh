@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/17 11:10:52 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/11 21:25:31 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/12 15:53:28 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,22 +53,15 @@ void		exec_cmd(t_node *tree, char ***env, t_control **hist)
 
 void		hub(t_node *tree, char ***env, t_control **hist)
 {
-	static int		pid_w = 0;
-
 	if (tree->value == 1)
 		exec_cmd(tree, env, hist);
 	if (tree->wait)
-	{
-		while (pid_w-- > 0)
-			wait(NULL);
-		pid_w = 0;
-	}
+		wait_allpid();
 	if (tree->value == 4 && tree->right)
 	{
 		pipe_flag(tree);
 		end_flag(tree);
 		wait_flag(tree);
-		pid_w += (tree->right->value != 4) ? 2 : 1;
 	}
 	tree->value != 3 ? close_fd(tree) : 0;
 	tree->value == 3 ? manage_fd(tree) : 0;
@@ -96,6 +89,8 @@ void		routine(char *cmd, char ***env, t_control **history)
 	t_node		*tree;
 	char		*new_command;
 
+	if (!cmd)
+		return ;
 	new_command = wd_designator(cmd, history);
 	list = tokenizer(new_command);
 	display_token(list);
