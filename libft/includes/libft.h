@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/07 14:59:17 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/12 18:12:04 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/12 18:32:02 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <fcntl.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include "ft_getopt.h"
 # define BUFF_SIZE 50
 # define BUFF_CHAR 50
 
