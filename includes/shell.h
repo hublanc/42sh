@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 11:50:54 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/29 15:23:15 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/05 13:48:59 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 # include "line_editor.h"
 # include "tools.h"
 # include "completion.h"
+# include "local.h"
 
 # define CYN	"\x1B[36m"
 # define RESET	"\x1B[0m"
