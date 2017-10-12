@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/05 13:48:15 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/12 11:57:06 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/12 14:06:43 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ typedef struct		s_loc
 /*
 **	cmd_loc.c
 */
-int					gest_loc(char **cmmd, char ***env);
+int					gest_loc(char **cmmd);
 
 /*
 **	local.c
 */
-void				add_loc(char *name, char *val, char ***env);
+void				add_loc(char *name, char *val);
 void				suppr_loc(char *name);
 t_loc				*get_loc(char *name);
 
