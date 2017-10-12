@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/17 11:10:52 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/28 18:58:33 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/12 12:34:42 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void		hub(t_node *tree, char ***env, t_hist **hist)
 		pid_w += (tree->right->value != 4) ? 2 : 1;
 	}
 	tree->value != 3 ? close_fd(tree) : 0;
-	tree->value == 3 ? manage_fd(tree) : 0;
+	tree->value == 3 ? manage_fd(tree, env) : 0;
 }
 
 void		exec_tree(t_node *tree, char ***env, t_hist **hist)
