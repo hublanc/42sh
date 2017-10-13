@@ -100,6 +100,10 @@ void		key_handler(t_cmd *cmd, t_control **history, char ***env)
 	}
 	else if (i == -1)
 		return ;
+	if (buf[0] == 9 && !buf[1] && is_sigint(0) == 0)
+		completion(cmd, env, &buf);
+	else if (buf[0] == 9 && !buf[1])
+		is_sigint(1);
 	if (is_sigint(0))
 	{
 		reset_cmdsiginted(cmd);
@@ -108,8 +112,6 @@ void		key_handler(t_cmd *cmd, t_control **history, char ***env)
 		free(buf);
 		return ;
 	}
-	if (buf[0] == 9 && !buf[1])
-		completion(cmd, env, &buf);
 	handle_key(cmd, history, env, buf);
 	(buf) ? free(buf) : 0;
 }
