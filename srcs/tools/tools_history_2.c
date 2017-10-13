@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/09 15:57:56 by mameyer           #+#    #+#             */
-/*   Updated: 2017/10/12 15:33:16 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/13 16:05:22 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ void		set_selected_null(t_control **history)
 {
 	t_lst		*tmp;
 
+	if ((*history) == NULL)
+		return ;
 	tmp = NULL;
 	tmp = (*history)->begin;
 	while (tmp != NULL)
