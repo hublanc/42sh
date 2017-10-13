@@ -77,7 +77,6 @@ void		completion(t_cmd *cmd, char ***env, char **buf)
 
 	init_compl(&compl, cmd);
 	list_compl(&compl, cmd, env);
-	i = 1;
 	if (!compl.args.arg || compl_star(&compl, cmd))
 	{
 		ft_bzero(*buf, ft_strlen(*buf));
@@ -93,6 +92,7 @@ void		completion(t_cmd *cmd, char ***env, char **buf)
 		return (compl_free(&compl));
 	}
 	display_args(&compl, cmd);
+	i = 1;
 	while (i > 0)
 		if ((i = compl_keys(&compl, cmd, buf)) == -1)
 			ft_bzero(*buf, ft_strlen(*buf));
