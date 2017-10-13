@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 17:36:47 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/13 08:43:19 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/13 16:47:07 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void		print_line(t_cmd *cmd)
 	go_begin(cmd->col, cmd->sc_col);
 	pass_prompt(cmd);
 	tputs(tgetstr("cd", NULL), 1, tputchar);
-	//choose_prompt(cmd);
+//	choose_prompt(cmd);
 	ft_putstr(cmd->str);
 	if (len > cmd->col)
 	{
