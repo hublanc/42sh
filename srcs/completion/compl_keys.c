@@ -59,7 +59,9 @@ int			compl_keys(t_compl *compl, t_cmd *cmd, char **buf)
 {
 	ft_bzero(*buf, ft_strlen(*buf));
 	read(0, *buf, 999);
-	if (is_sigint(0) || ((*buf)[0] == 27 && !(*buf)[1]))
+	if (is_sigint(0))
+		return (0);
+	if ((*buf)[0] == 27 && !(*buf)[1])
 		return (-1);
 	else if ((*buf)[0] == 27 && compl_arrow(compl, cmd, *buf))
 	{
