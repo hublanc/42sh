@@ -75,9 +75,12 @@ static void	print_args(t_compl *compl, int *size, char **buff)
 			size[5] = 0;
 		}
 	}
+	size[5] += size[2];
+	while (--size[5])
+		buffcat(buff, tgetstr("up", NULL));
 }
 
-void		get_curr(t_compl *compl)
+static void	get_curr(t_compl *compl)
 {
 	t_coargs *ar;
 
@@ -105,6 +108,7 @@ void		display_args(t_compl *compl, t_cmd *cmd)
 	buff = (char *)ft_memalloc(COMPLBUFF);
 	go_begin(cmd->col + ((compl->ar) ? ft_strlen(compl->ar->arg) : 0), size[0]);
 	get_curr(compl);
+	ft_putstr(tgetstr("vi", NULL));
 	buffcat(&buff, tgetstr("cd", NULL));
 	if ((size_t)size[0] < compl->maxlen)
 		print_complline(compl, cmd, size, &buff);
@@ -115,11 +119,9 @@ void		display_args(t_compl *compl, t_cmd *cmd)
 		buffcat(&buff, tgetstr("do", NULL));
 	size[6] = 0;
 	print_args(compl, size, &buff);
-	size[5] += size[2];
-	while (--size[5])
-		buffcat(&buff, tgetstr("up", NULL));
 	print_complline(compl, cmd, size, &buff);
 	print_buff(&buff);
+	ft_putstr(tgetstr("ve", NULL));
 	free(buff);
 	free(size);
 }
