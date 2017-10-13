@@ -46,4 +46,5 @@ void		compl_free(t_compl *compl)
 	(compl->path) ? free(compl->path) : 0;
 	(compl->arg) ? free(compl->arg) : 0;
 	compl_freeargs(&compl->args);
+	signal(SIGINT, &get_signal);
 }
