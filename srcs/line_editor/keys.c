@@ -30,7 +30,7 @@ static int	check_sigint(t_cmd *cmd, char **buf)
 		{
 			reset_cmdsiginted(cmd);
 			can_sigint(1);
-			return (0);
+			return (-1);
 		}
 		else
 		{
@@ -89,15 +89,16 @@ static void	handle_key(t_cmd *cmd, t_control **history, char ***env, char *buf)
 
 void		key_handler(t_cmd *cmd, t_control **history, char ***env)
 {
-	char			*buf;
+	char	*buf;
+	int		i;
 
 	init_screen(cmd);
-	if (check_sigint(cmd, &buf))
+	if ((i = check_sigint(cmd, &buf)))
 	{
 		buf = (char *)ft_memalloc(1000);
 		read(0, buf, 999);
 	}
-	else
+	else if (i == -1)
 		return ;
 	if (is_sigint(0))
 	{
