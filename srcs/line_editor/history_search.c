@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/18 15:09:47 by mameyer           #+#    #+#             */
-/*   Updated: 2017/10/12 17:34:39 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/13 16:47:04 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char		*history_search(t_control **history)
 	while (read(1, &buf, 3))
 	{
 //		printf("[0] = %d | [1] = %d | [2] = %d\n", buf[0], buf[1], buf[2]);
-		if (ft_isprint(buf[0]) || (buf[0] == 127 && ft_strlen(search) > 0)
+		if (ft_isprint(buf[0]) || (buf[0] == 127)
 			|| (buf[0] == 27 && tmp))
 			tmp = while_handler(buf, &search, history, tmp);
 		else
@@ -49,7 +49,7 @@ t_lst		*while_handler(char *buf, char **search, t_control **history,
 		*search = ft_str_chr_cat(*search, buf[0]);
 		tmp = history_search_2(history, *search);
 	}
-	else if (buf[0] == 127 && ft_strlen(*search) > 0)
+	else if (buf[0] == 127 && *search && ft_strlen(*search) > 0)
 	{
 		*search = ft_strdelone(*search, ft_strlen(*search));
 		tmp = history_search_2(history, *search);
