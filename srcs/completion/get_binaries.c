@@ -23,7 +23,7 @@ static char	*add_handspace(const char *name)
 	while (name[++i])
 		if (name[i] == 32)
 			j++;
-	s = (char *)ft_memalloc(ft_strlen(name) + j);
+	s = (char *)ft_memalloc(ft_strlen(name) + j + 1);
 	ft_strcat(s, name);
 	i = -1;
 	while (s[++i])
@@ -64,8 +64,8 @@ int			get_files(t_compl *compl, DIR *dirp, t_coargs **args, int *idcount)
 		ft_strlen(compl->arg))) || (dirc->d_name[0] == '.'
 		&& (!compl->isdot || (dirc->d_name[1] && dirc->d_name[1] == '.'))))
 		return (get_files(compl, dirp, args, idcount));
-	(*args)->id = (*idcount)++;
 	add_arg(compl, dirc, args);
+	(*args)->id = (*idcount)++;
 	if (!((*args)->next = (t_coargs *)ft_memalloc(sizeof(t_coargs))))
 	{
 		(*args)->next = NULL;
