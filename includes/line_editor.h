@@ -44,6 +44,10 @@ typedef struct		s_hist
 **	Keys.c
 */
 void				key_handler(t_cmd *cmd, t_control **history, char ***env);
+
+/*
+**	line_edit.c
+*/
 void				print_line(t_cmd *cmd);
 void				choose_prompt(t_cmd *cmd);
 void				add_line(t_cmd *cmd, char *buf);

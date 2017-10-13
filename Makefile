@@ -28,6 +28,7 @@ SRC		=	main.c\
 			line_editor/quote.c\
 			line_editor/history.c\
 			line_editor/cmdandor.c\
+			line_editor/line_edit.c\
 			line_editor/load_history.c\
 			line_editor/enter_handler.c\
 			line_editor/cut_copy_paste.c\
