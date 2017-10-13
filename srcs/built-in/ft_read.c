@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/02 14:08:53 by lbopp             #+#    #+#             */
-/*   Updated: 2017/10/12 18:24:07 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/13 13:44:08 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,7 @@ char            **prep_setenv(char *name, char *value)
 	return (tab);
 }
 
-void	read_put_in_var(char **cmd, char *readding)
+int		read_put_in_var(char **cmd, char *readding)
 {
 	char	**split;
 	char	*tmp;
@@ -163,10 +163,10 @@ void	read_put_in_var(char **cmd, char *readding)
 
 	i = 0;
 	tmp = ft_strnew(0);
-	if (!cmd[g_optind] || !valid_local_var(&cmd[g_optind]))
-		return ;
+	if (!valid_local_var(&cmd[g_optind]))
+		return (1);
 	if (!(split = ft_strsplit(readding, ' ')))
-		return ;
+		return (1);
 	ft_putchar('\n');
 	while (cmd[g_optind + 1])
 		add_loc(cmd[g_optind++], split[i++]);
@@ -179,6 +179,7 @@ void	read_put_in_var(char **cmd, char *readding)
 	add_loc(cmd[g_optind], tmp);
 	ft_strdel(&tmp);
 	del_tabstr(&split);
+	return (0);
 }
 
 char	**default_mod(void)
@@ -197,6 +198,7 @@ int		ft_read(char **cmd, char ***env)
 	int		opt;
 	int		default_read;
 	char	*readding;
+	int		error;
 
 	(void)env;
 	default_read = 0;
@@ -209,14 +211,16 @@ int		ft_read(char **cmd, char ***env)
 		cmd = default_mod();
 	}
 	if (opt != 0 && opt != 'r')
-		return (0);
+		return (2);
 	if (opt == 'r')
 		readding = read_r_opt();
 	else
 		readding = read_without_opt();
-	read_put_in_var(cmd, readding);
+	error = read_put_in_var(cmd, readding);
 	if (default_read)
 		del_tabstr(&cmd);
 	ft_strdel(&readding);
+	if (error)
+		return (error);
 	return (0);
 }
