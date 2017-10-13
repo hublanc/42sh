@@ -12,6 +12,18 @@
 
 #include "shell.h"
 
+static void	compl_issigint(int n)
+{
+	t_cmd *cmd;
+
+	if (n)
+		;
+	is_sigint(1);
+	ft_putstr(tgetstr("cd", NULL));
+	if ((cmd = save_cmd(NULL)))
+		print_line(cmd);
+}
+
 static char	*get_path(t_cmd *cmd)
 {
 	char	*word;
@@ -55,6 +67,7 @@ static void	init_compl(t_compl *compl, t_cmd *cmd)
 	compl->ar = NULL;
 	compl->curr = -1;
 	compl->toskip = 0;
+	signal(SIGINT, &compl_issigint);
 }
 
 void		completion(t_cmd *cmd, char ***env, char **buf)
