@@ -160,6 +160,7 @@ void		key_handler(t_cmd *cmd, t_control **history, char ***env)
 	else if (buf[0] == 12 && !buf[1])
 	{
 		tputs(tgetstr("cl", NULL), 1, tputchar);
+		print_prompt();
 		print_line(cmd);
 	}
 	else if (buf[0] == 4 && !buf[1] && (!cmd->str || !cmd->str[0]))
