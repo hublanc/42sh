@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/24 16:37:30 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/12 17:56:33 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/16 18:46:19 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,10 @@ int			main(int ac, char **av, char **env)
 	cp_env = (*env) ? get_env(env, 1) : init_env();
 	save_env(&cp_env);
 	signal(SIGINT, get_signal);
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGTSTP, SIG_IGN);
+	signal(SIGKILL, SIG_IGN);
+	signal(SIGTERM, SIG_IGN);
 	set_terminal();
 
 	 /*
