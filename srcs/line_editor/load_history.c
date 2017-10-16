@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/05 13:44:34 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/12 19:12:19 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/16 18:33:35 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ t_control		*load_history(char **env)
 			history = dll_add_new_elem_frnt(history, str);
 		ft_strdel(&str);
 	}
+	ft_strdel(&str);
 	close(fd);
 	if (history)
 		history->original_length = history->length;
