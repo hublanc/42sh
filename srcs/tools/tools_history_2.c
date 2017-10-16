@@ -6,11 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/09 15:57:56 by mameyer           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2017/10/16 16:12:27 by mameyer          ###   ########.fr       */
-=======
-/*   Updated: 2017/10/13 16:05:22 by mameyer          ###   ########.fr       */
->>>>>>> a6bb3a761af1e32ed88d8a9f604766a01f8091d9
+/*   Updated: 2017/10/16 17:24:32 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +14,6 @@
 
 void		add_hist_or_not(t_control **history, char *str)
 {
-<<<<<<< HEAD
 	int		i;
 	char	*cpy;
 
@@ -41,7 +36,6 @@ void		add_hist_or_not(t_control **history, char *str)
 		return ;
 	else
 		(*history) = dll_add_new_elem_frnt(*history, cpy);
-=======
 	if (*history && (*history)->length == 0)
 		(*history) = dll_add_new_elem_frnt(*history, str);
 	else if (*history && (*history)->begin && (*history)->begin->name
@@ -52,7 +46,6 @@ void		add_hist_or_not(t_control **history, char *str)
 		return ;
 	else
 		(*history) = dll_add_new_elem_frnt(*history, str);
->>>>>>> a6bb3a761af1e32ed88d8a9f604766a01f8091d9
 }
 
 void		change_cmd(char *new, t_cmd *cmd)
