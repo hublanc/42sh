@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/11 21:20:29 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/11 21:20:43 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/16 17:43:29 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void		get_signal(int n)
 		(cmd && cmd->str) ? ft_putstr(cmd->str + cmd->col - 1 - cmd->prlen) : 0;
 		ft_putchar('\n');
 		print_prompt();
+		read_singleton(0);
 		is_sigint(1);
 	}
 	else if (n == SIGSEGV)

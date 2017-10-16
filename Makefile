@@ -6,7 +6,7 @@
 #    By: hublanc <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/07/24 15:04:09 by hublanc           #+#    #+#              #
-#    Updated: 2017/10/12 19:09:42 by hublanc          ###   ########.fr        #
+#    Updated: 2017/10/16 17:31:37 by lbopp            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -82,7 +82,10 @@ SRC		=	main.c\
 			built-in/history_2.c\
 			built-in/history_3.c\
 			built-in/history_4.c\
-			built-in/ft_read.c\
+			built-in/read/ft_read.c\
+			built-in/read/ft_read2.c\
+			built-in/read/read_r_opt.c\
+			built-in/read/read_without_opt.c\
 			built-in/local.c\
 			built-in/cmd_loc.c\
 			built-in/unset.c\
@@ -128,7 +131,7 @@ $(NAME): $(LIB) $(OBJS)
 	@echo "\n${CYN}PROCESSING DONE !${NC}"
 
 $(OBJDIR):
-	@mkdir -p objs objs/built-in objs/tools objs/exec objs/lexer objs/redirection objs/line_editor objs/completion objs/prompt_statement
+	@mkdir -p objs objs/built-in objs/tools objs/exec objs/lexer objs/redirection objs/line_editor objs/completion objs/prompt_statement objs/built-in/read
 
 $(LIB):
 	@echo "${CYN}Processing ${NC}./libft/objs ${CYN}[${NC}...${CYN}]${NC}"
