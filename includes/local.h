@@ -6,9 +6,13 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/05 13:48:15 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/12 14:06:43 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/16 19:38:20 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#ifndef LOCAL_H
+
+# define LOCAL_H
 
 typedef struct		s_loc
 {
@@ -38,3 +42,5 @@ int					unset(char **tab, char ***env);
 **	export.c
 */
 int					export(char **tab, char ***env);
+
+#endif
