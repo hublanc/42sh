@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/05 13:44:34 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/16 18:33:35 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/16 19:23:00 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,10 @@
 t_control		*load_history(char **env)
 {
 	int			fd;
-	char		*str;
 	t_control	*history;
 	char		*file;
 
 	history = NULL;
-	str = NULL;
 	if ((file = get_history_file(&env)) == NULL)
 		return (NULL);
 	if (access(file, F_OK) != 0 || access(file, R_OK | W_OK) != 0)
@@ -29,13 +27,14 @@ t_control		*load_history(char **env)
 	if (fd == -1)
 		return (NULL);
 	free(file);
-	while (get_next_line(fd, &str) > 0)
+	file = NULL;
+	while (get_next_line(fd, &file) > 0)
 	{
-		if (str)
-			history = dll_add_new_elem_frnt(history, str);
-		ft_strdel(&str);
+		if (file)
+			history = dll_add_new_elem_frnt(history, file);
+		ft_strdel(&file);
 	}
-	ft_strdel(&str);
+	ft_strdel(&file);
 	close(fd);
 	if (history)
 		history->original_length = history->length;

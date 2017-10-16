@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/10 11:46:05 by lbopp             #+#    #+#             */
-/*   Updated: 2017/10/12 11:55:04 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/16 19:15:02 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static char	*return_date(void)
 	struct tm	current;
 	char		*date;
 	static char	*day_array[7] =
-		{"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
+	{"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
 	static char	*month_array[12] = {" Jan ", " Feb ", " Mar ", " Apr ", " May ",
 		" Jun ", " Jul ", " Aug ", " Sep ", " Oct ", " Nov ", " Dec "};
 	time_t		t;
