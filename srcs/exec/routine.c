@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/17 11:10:52 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/12 19:15:30 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/16 18:47:14 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,4 +111,5 @@ void		routine(char *cmd, char ***env, t_control **history)
 	set_terminal();
 	del_token(&list);
 	destroy_tree(tree);
+	free(new_command);
 }
