@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 16:36:09 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/12 12:25:35 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/16 12:51:40 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct		s_hist
 **	Keys.c
 */
 void				key_handler(t_cmd *cmd, t_control **history, char ***env);
+char				*save_buf(char *buf);
 
 /*
 **	line_edit.c
