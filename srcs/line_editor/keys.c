@@ -6,13 +6,13 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 11:41:39 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/13 16:47:07 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/16 17:43:10 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-static char *save_buf(char *buf)
+char		*save_buf(char *buf)
 {
 	static char *s_buf = NULL;
 
