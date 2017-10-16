@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/02 14:08:53 by lbopp             #+#    #+#             */
-/*   Updated: 2017/10/16 14:43:03 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/16 17:35:57 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	**prep_setenv(char *name, char *value)
 {
-	char            **tab;
+	char	**tab;
 
 	tab = (char**)ft_memalloc(sizeof(char*) * 4);
 	tab[0] = ft_strdup("setenv");
@@ -26,7 +26,7 @@ char	**prep_setenv(char *name, char *value)
 	return (tab);
 }
 
-void	read_put_in_var(char **cmd, char *readding)
+int		read_put_in_var(char **cmd, char *readding)
 {
 	char	**split;
 	char	*tmp;
@@ -34,10 +34,10 @@ void	read_put_in_var(char **cmd, char *readding)
 
 	i = 0;
 	tmp = ft_strnew(0);
-	if (!cmd[g_optind] || !valid_local_var(&cmd[g_optind]))
-		return ;
+	if (!valid_local_var(&cmd[g_optind]))
+		return (1);
 	if (!(split = ft_strsplit(readding, ' ')))
-		return ;
+		return (1);
 	ft_putchar('\n');
 	while (cmd[g_optind + 1])
 		add_loc(cmd[g_optind++], split[i++]);
@@ -50,6 +50,7 @@ void	read_put_in_var(char **cmd, char *readding)
 	add_loc(cmd[g_optind], tmp);
 	ft_strdel(&tmp);
 	del_tabstr(&split);
+	return (0);
 }
 
 char	**default_mod(void)
@@ -68,6 +69,7 @@ int		ft_read(char **cmd)
 	int		opt;
 	int		default_read;
 	char	*readding;
+	int		error;
 
 	read_singleton(1);
 	default_read = 0;
@@ -80,14 +82,13 @@ int		ft_read(char **cmd)
 		cmd = default_mod();
 	}
 	if (opt != 0 && opt != 'r')
-		return (0);
-	if (opt == 'r')
-		readding = read_r_opt();
-	else
-		readding = read_without_opt();
-	read_put_in_var(cmd, readding);
+		return (2);
+	readding = (opt == 'r') ? read_r_opt() : read_without_opt();
+	error = read_put_in_var(cmd, readding);
 	if (default_read)
 		del_tabstr(&cmd);
 	ft_strdel(&readding);
+	if (error)
+		return (error);
 	return (0);
 }

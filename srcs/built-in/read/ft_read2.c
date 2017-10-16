@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/16 14:42:39 by lbopp             #+#    #+#             */
-/*   Updated: 2017/10/16 14:42:55 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/16 17:28:10 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		put_my_char(int c)
 int		read_singleton(int sig)
 {
 	static int	data;
-	
+
 	if (sig == -1)
 		return (data);
 	else
