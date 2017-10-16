@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/10 11:47:33 by lbopp             #+#    #+#             */
-/*   Updated: 2017/10/11 17:50:45 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/16 19:15:20 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	get_hostname_prompt(char **line, int *i, int mode)
 	char	*before;
 
 	if (!(hostname = ft_memalloc(sizeof(char) * 256)))
-		exit (EXIT_FAILURE);
+		exit(EXIT_FAILURE);
 	gethostname(hostname, 256);
 	before = ft_strsub(*line, 0, *i);
 	after = ft_strsub(*line, *i + 2, ft_strlen(*line) - *i - 2);

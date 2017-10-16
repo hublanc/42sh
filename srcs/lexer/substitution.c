@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/10 15:49:56 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/12 19:12:59 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/16 19:26:22 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 static char	*add_handspace(const char *name)
 {
 	char	*s;
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 
 	i = -1;
 	j = 0;
