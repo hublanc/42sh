@@ -6,7 +6,7 @@
 /*   By: nbouchin <nbouchin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 11:46:11 by nbouchin          #+#    #+#             */
-/*   Updated: 2017/10/12 18:18:33 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/16 14:53:02 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int		print_prompt(void)
 	{
 		if (!(tmp = get_elem(save_env(NULL), "PS1=")))
 		{
-			add_loc("PS1", "\\h @ \\W\\$ > ");
+			add_loc("PS1", "\e[0;31m\\h @ \\W\\$ > ");
 			local = get_loc("PS1");
 		}
 	}

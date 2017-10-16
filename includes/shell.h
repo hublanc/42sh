@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 11:50:54 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/12 18:34:00 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/16 14:51:48 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,13 @@ int					in_env(char *str, char **env);
 int					ft_setenv(char **tab, char ***env);
 int					ft_unsetenv(char **tab, char ***env);
 int					ft_env(char **env, char **tab);
-int					ft_read(char **tab, char ***env);
+int					ft_read(char **tab);
+char				*read_r_opt(void);
+char				*read_without_opt(void);
+int					valid_local_var(char **cmd);
+int					get_read_opt(char **cmd);
+int					put_my_char(int c);
+int					read_singleton(int sig);
 int					ft_history(char **tab, char ***env, t_control **history);
 int					ft_history_2(char **tab, t_control **history, char *file,
 					t_hist_flags flags);
