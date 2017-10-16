@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/09 15:57:56 by mameyer           #+#    #+#             */
-/*   Updated: 2017/10/12 15:33:16 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/16 17:24:32 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,28 @@
 
 void		add_hist_or_not(t_control **history, char *str)
 {
+	int		i;
+	char	*cpy;
+
+	i = 0;
+	cpy = NULL;
+	cpy = ft_strdup(str);
+	while (ft_strchr(cpy, '\n'))
+	{
+		i = ft_strchr(cpy, '\n') - cpy;
+		ft_putendl(cpy);
+		cpy[i] = ' ';
+	}
+	if (*history && (*history)->length == 0)
+		(*history) = dll_add_new_elem_frnt(*history, cpy);
+	else if (*history && (*history)->begin && (*history)->begin->name
+		&& ft_strcmp((*history)->begin->name, cpy) != 0)
+		(*history) = dll_add_new_elem_frnt(*history, cpy);
+	else if (*history && (*history)->begin && (*history)->begin->name
+		&& ft_strcmp((*history)->begin->name, cpy) == 0)
+		return ;
+	else
+		(*history) = dll_add_new_elem_frnt(*history, cpy);
 	if (*history && (*history)->length == 0)
 		(*history) = dll_add_new_elem_frnt(*history, str);
 	else if (*history && (*history)->begin && (*history)->begin->name
@@ -47,6 +69,8 @@ void		set_selected_null(t_control **history)
 {
 	t_lst		*tmp;
 
+	if ((*history) == NULL)
+		return ;
 	tmp = NULL;
 	tmp = (*history)->begin;
 	while (tmp != NULL)
