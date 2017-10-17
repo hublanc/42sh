@@ -6,11 +6,24 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 13:56:16 by mameyer           #+#    #+#             */
-/*   Updated: 2017/10/17 16:58:03 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/17 17:15:18 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
+
+int			init_wd_des(char **str, char *command, int *a, int *sq)
+{
+	*a = 0;
+	*sq = 0;
+	if (!(ft_strchr(command, '!')))
+	{
+		*str = ft_strdup(command);
+		return (0);
+	}
+	*str = ft_memalloc(1);
+	return (1);
+}
 
 char		*wd_designator(char *command, t_control **history)
 {
@@ -19,16 +32,9 @@ char		*wd_designator(char *command, t_control **history)
 	int		dq;
 	char	*str;
 
-	a = 0;
-	sq = 0;
 	dq = 0;
-	str = NULL;
-	if (!(ft_strchr(command, '!')))
-	{
-		str = ft_strdup(command);
+	if (!init_wd_des(&str, command, &a, &sq))
 		return (str);
-	}
-	str = ft_memalloc(1);
 	while (command[a])
 	{
 		if (command[a] == '\'' || command[a] == '"')
@@ -45,8 +51,6 @@ char		*wd_designator(char *command, t_control **history)
 	if (str[ft_strlen(str) - 1] == ' ')
 		str[ft_strlen(str) - 1] = '\0';
 	add_hist_or_not(history, str);
-	ft_putstr("RETURNING ");
-	ft_putendl(str);
 	return (str);
 }
 
@@ -104,8 +108,6 @@ void		get_last_command(char *command, char **str, t_control **history,
 		a++;
 	}
 	tmp[a - 1] = '\0';
-	ft_putstr("tmp = ");
-	ft_putendl(tmp);
 	get_last_command_2(tmp, history, str);
 	while (command[*index] && command[*index] != ' ')
 		(*index)++;
