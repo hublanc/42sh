@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 13:13:22 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/12 19:19:21 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/16 19:13:02 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_node		*mark_fd(t_node *tree)
 	return (tmp);
 }
 
-void	close_fd(t_node *tree)
+void		close_fd(t_node *tree)
 {
 	int		i;
 

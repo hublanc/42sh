@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/22 15:21:04 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/11 20:35:02 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/17 15:04:02 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,13 @@ char		check_quote(char *str)
 	in_quote = 0;
 	while (str && *str)
 	{
+		ft_putchar(*str);
+		ft_putendl("");
 		if (*str == '\\' && (!in_quote || (in_quote == '"'
 			&& *(str + 1) && *(str + 1) == '"')))
 		{
 			if (*(str + 1))
-				str += (in_quote == '"' && *(str + 1) == '"') ? 1 : 2;
+				str += (in_quote == '"' && *(str + 1) == '"') ? 2 : 1;
 			else
 				return ('\\');
 		}
