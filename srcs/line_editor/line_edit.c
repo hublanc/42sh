@@ -6,13 +6,13 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 17:36:47 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/13 16:47:07 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/17 11:25:15 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-void		go_down()
+void		go_down(void)
 {
 	tputs(tgetstr("cr", NULL), 1, tputchar);
 	tputs(tgetstr("do", NULL), 1, tputchar);
@@ -20,7 +20,8 @@ void		go_down()
 
 void		choose_prompt(t_cmd *cmd)
 {
-	if (!ft_strcmp(cmd->prompt, "dquote> ") || !ft_strcmp(cmd->prompt, "quote> ")
+	if (!ft_strcmp(cmd->prompt, "dquote> ")
+			|| !ft_strcmp(cmd->prompt, "quote> ")
 	|| !ft_strcmp(cmd->prompt, "heredoc> ") || !ft_strcmp(cmd->prompt, "pipe> ")
 	|| !ft_strcmp(cmd->prompt, "> ") || !ft_strcmp(cmd->prompt, "cmdandor> "))
 		ft_putstr(cmd->prompt);
@@ -52,7 +53,6 @@ void		print_line(t_cmd *cmd)
 	go_begin(cmd->col, cmd->sc_col);
 	pass_prompt(cmd);
 	tputs(tgetstr("cd", NULL), 1, tputchar);
-//	choose_prompt(cmd);
 	ft_putstr(cmd->str);
 	if (len > cmd->col)
 	{
@@ -92,8 +92,7 @@ void		add_line(t_cmd *cmd, char *buf)
 		while (++j < 4)
 		{
 			cmd->str = ft_strappone(cmd->str, buf[i],
-					(cmd->col + k - 1) - cmd->prlen);
-			k++;
+					(cmd->col + k++ - 1) - cmd->prlen);
 		}
 	}
 	print_line(cmd);

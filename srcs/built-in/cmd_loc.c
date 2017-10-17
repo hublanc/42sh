@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/05 13:46:33 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/12 19:16:16 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/16 19:29:16 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int			endloc(char *cmmd)
 	return (check_afterequal(cmmd, i));
 }
 
-int		gest_loc(char **cmmd)
+int			gest_loc(char **cmmd)
 {
 	char	**tab;
 	char	*s;

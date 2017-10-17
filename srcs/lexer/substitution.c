@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/10 15:49:56 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/12 19:12:59 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/17 11:23:00 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 static char	*add_handspace(const char *name)
 {
 	char	*s;
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 
 	i = -1;
 	j = 0;
@@ -40,7 +40,8 @@ static int	do_substitue(char **cmmd, int i, int j, char **tmp2)
 
 	env = save_env(NULL);
 	if (*tmp2 && (*tmp2)[0] && (((tmp = get_elem(env, *tmp2)) && *(++tmp))
-				|| ((loc = get_loc(*tmp2)) && (tmp = loc->value))))
+		|| ((loc = get_loc(*tmp2))
+		&& (tmp = loc->value))))
 	{
 		free(*tmp2);
 		*tmp2 = ft_strndup(*cmmd, i);
