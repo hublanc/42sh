@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/09 15:57:56 by mameyer           #+#    #+#             */
-/*   Updated: 2017/10/16 17:24:32 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/17 10:58:33 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,10 @@ void		add_hist_or_not(t_control **history, char *str)
 		(*history) = dll_add_new_elem_frnt(*history, cpy);
 	else if (*history && (*history)->begin && (*history)->begin->name
 		&& ft_strcmp((*history)->begin->name, cpy) == 0)
+	{
+		free(cpy);
 		return ;
+	}
 	else
 		(*history) = dll_add_new_elem_frnt(*history, cpy);
 	if (*history && (*history)->length == 0)
@@ -43,9 +46,13 @@ void		add_hist_or_not(t_control **history, char *str)
 		(*history) = dll_add_new_elem_frnt(*history, str);
 	else if (*history && (*history)->begin && (*history)->begin->name
 		&& ft_strcmp((*history)->begin->name, str) == 0)
+	{
+		free(cpy);
 		return ;
+	}
 	else
 		(*history) = dll_add_new_elem_frnt(*history, str);
+	free(cpy);
 }
 
 void		change_cmd(char *new, t_cmd *cmd)
@@ -63,6 +70,11 @@ void		change_cmd(char *new, t_cmd *cmd)
 	cmd->col = ft_strlen(new) + cmd->prlen + 1;
 	ft_strdel(&(cmd->str));
 	cmd->str = ft_strdup(new);
+	if (cmd->col % cmd->sc_col == 1)
+	{
+		tputs(tgetstr("cr", NULL), 1, tputchar);
+		tputs(tgetstr("do", NULL), 1, tputchar);
+	}
 }
 
 void		set_selected_null(t_control **history)
