@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/17 11:10:52 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/17 15:38:24 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/17 16:29:09 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ void		routine(char *cmd, char ***env, t_control **history)
 	display_token(list);
 	tree = create_tree(list);
 	reset_term();
-	node_print(tree, 0, 3);
+	node_print(tree, 0, 5);
 	exec_tree(tree, env, history);
 	set_terminal();
 	del_token(&list);
