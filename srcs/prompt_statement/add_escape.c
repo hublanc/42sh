@@ -6,15 +6,15 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/11 17:30:53 by lbopp             #+#    #+#             */
-/*   Updated: 2017/10/11 17:37:43 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/16 19:14:02 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <shell.h>
 
-void	add_escape(char	**line, int *i)
+void	add_escape(char **line, int *i)
 {
-	char	tmp[2];
+	char		tmp[2];
 	char		*after;
 	char		*before;
 

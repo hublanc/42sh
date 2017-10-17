@@ -6,13 +6,13 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/03 10:28:17 by lbopp             #+#    #+#             */
-/*   Updated: 2017/10/11 17:33:11 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/16 19:16:05 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-void	join_free_all(char **date, int do_itoa)
+void			join_free_all(char **date, int do_itoa)
 {
 	char	*to_free;
 
@@ -21,7 +21,7 @@ void	join_free_all(char **date, int do_itoa)
 	ft_strdel(&to_free);
 }
 
-static void	get_prompt2(char **line, int *i)
+static void		get_prompt2(char **line, int *i)
 {
 	if ((*line)[*i] == '\\' && (*line)[*i + 1] && (*line)[*i + 1] == 'u')
 		get_username(line, i);
@@ -35,7 +35,8 @@ static void	get_prompt2(char **line, int *i)
 		prompt_path(line, i, 2);
 	else if ((*line)[*i] == '\\' && (*line)[*i + 1] && (*line)[*i + 1] == '$')
 		get_uid_prompt(line, i);
-	else if ((*line)[*i] == '\\' && (*line)[*i + 1] && ft_isdigit((*line)[*i + 1]))
+	else if ((*line)[*i] == '\\' && (*line)[*i + 1]
+			&& ft_isdigit((*line)[*i + 1]))
 		get_octal_value(line, i, &(*line)[*i + 1]);
 	else if ((*line)[*i] == '\\' && (*line)[*i + 1] && (*line)[*i + 1] == '\\')
 		add_backslash(line, i);
@@ -45,7 +46,7 @@ static void	get_prompt2(char **line, int *i)
 		del_backslash(line, i);
 }
 
-static void	get_prompt(char **line, int *i)
+static void		get_prompt(char **line, int *i)
 {
 	if ((*line)[*i + 1] == 'd')
 		get_date_prompt(line, i);
@@ -67,7 +68,7 @@ static void	get_prompt(char **line, int *i)
 		get_prompt2(line, i);
 }
 
-void		prompt_management(char **line)
+void			prompt_management(char **line)
 {
 	int		i;
 	char	tmp[2];

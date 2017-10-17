@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/17 11:10:52 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/16 18:49:34 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/17 15:38:24 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int			hub(t_node *tree, char ***env, t_control **hist)
 	return (1);
 }
 
-int		exec_tree(t_node *tree, char ***env, t_control **hist)
+int			exec_tree(t_node *tree, char ***env, t_control **hist)
 {
 	if (!tree)
 		return (0);
@@ -77,14 +77,14 @@ int		exec_tree(t_node *tree, char ***env, t_control **hist)
 		return (-1);
 	if (tree->left && tree->left->do_it == 0
 			&& exec_tree(tree->left, env, hist) == -1)
-			return (-1);
+		return (-1);
 	if (tree->value == 7)
 		operator_and(tree);
 	else if (tree->value == 8)
 		operator_or(tree);
 	if (tree->right && tree->right->do_it == 0
 			&& exec_tree(tree->right, env, hist) == -1)
-			return (-1);
+		return (-1);
 	return (1);
 }
 
