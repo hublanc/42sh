@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 13:56:16 by mameyer           #+#    #+#             */
-/*   Updated: 2017/10/17 15:49:48 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/17 15:57:22 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char		*wd_designator(char *command, t_control **history)
 void		wd_designator_2(char *command, int *index, char **str,
 			t_control **history)
 {
-	if (command[*index] == '\\' && command[*index + 1] == '!')
+	if (command[*index - 1] && command[*index - 1] == '\\')
 		*str = ft_str_chr_cat(*str, '!');
 	else if (command[*index + 1] && command[*index + 1] == '!')
 		get_d_bang(&command[*index], str, history, index);
