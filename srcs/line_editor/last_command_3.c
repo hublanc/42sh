@@ -6,11 +6,23 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/03 14:28:49 by mameyer           #+#    #+#             */
-/*   Updated: 2017/10/17 16:43:27 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/17 17:22:27 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
+
+void		get_n_2(char *tmp_str, char **str)
+{
+	int		a;
+
+	a = 0;
+	while (tmp_str[a])
+	{
+		(*str) = ft_str_chr_cat(*str, tmp_str[a]);
+		a++;
+	}
+}
 
 int			get_n_last(char *command, char **str, t_control **history,
 			int *index)
@@ -34,14 +46,7 @@ int			get_n_last(char *command, char **str, t_control **history,
 		a++;
 	}
 	if (tmp)
-	{
-		a = 0;
-		while (tmp->name[a])
-		{
-			(*str) = ft_str_chr_cat(*str, tmp->name[a]);
-			a++;
-		}
-	}
+		get_n_2(tmp->name, str);
 	while (command[*index] && command[*index] != ' ')
 		(*index)++;
 	return (1);
@@ -67,14 +72,7 @@ int			get_n_first(char *command, char **str, t_control **history,
 		a++;
 	}
 	if (tmp)
-	{
-		a = 0;
-		while (tmp->name[a])
-		{
-			(*str) = ft_str_chr_cat(*str, tmp->name[a]);
-			a++;
-		}
-	}
+		get_n_2(tmp->name, str);
 	while (command[*index] && command[*index] != ' ')
 		(*index)++;
 	return (1);
