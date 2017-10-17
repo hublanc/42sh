@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/14 15:40:59 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/12 17:46:41 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/17 17:10:53 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ t_token			*check_word(t_token *list, t_token **cur, t_control **history)
 			list = check_redirection(list, &next, history);
 			if (!list)
 				return (list);
-			tmp = next;
 		}
 		else if (next && next->e_type == WORD)
 			extra_check_word(list, tmp, &next);
