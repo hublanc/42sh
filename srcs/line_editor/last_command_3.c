@@ -6,13 +6,13 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/03 14:28:49 by mameyer           #+#    #+#             */
-/*   Updated: 2017/10/03 14:28:50 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/17 16:43:27 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-void		get_n_last(char *command, char **str, t_control **history,
+int			get_n_last(char *command, char **str, t_control **history,
 			int *index)
 {
 	int		a;
@@ -20,7 +20,11 @@ void		get_n_last(char *command, char **str, t_control **history,
 	t_lst	*tmp;
 
 	a = 1;
+	if (command[2] && !ft_isdigit(command[2]))
+		return (0);
 	b = ft_atoi(&command[2]);
+	if (b > (*history)->length || b == 0)
+		return (0);
 	tmp = NULL;
 	if (*history && (*history)->begin)
 		tmp = (*history)->begin;
@@ -40,9 +44,10 @@ void		get_n_last(char *command, char **str, t_control **history,
 	}
 	while (command[*index] && command[*index] != ' ')
 		(*index)++;
+	return (1);
 }
 
-void		get_n_first(char *command, char **str, t_control **history,
+int			get_n_first(char *command, char **str, t_control **history,
 			int *index)
 {
 	int		a;
@@ -51,6 +56,8 @@ void		get_n_first(char *command, char **str, t_control **history,
 
 	a = 1;
 	b = ft_atoi(&command[1]);
+	if (b > (*history)->length || b == 0)
+		return (0);
 	tmp = NULL;
 	if (*history && (*history)->end)
 		tmp = (*history)->end;
@@ -70,6 +77,7 @@ void		get_n_first(char *command, char **str, t_control **history,
 	}
 	while (command[*index] && command[*index] != ' ')
 		(*index)++;
+	return (1);
 }
 
 void		get_line_again(char *command, int *index, char **str,

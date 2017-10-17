@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 13:56:16 by mameyer           #+#    #+#             */
-/*   Updated: 2017/10/17 15:57:22 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/17 16:58:03 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,19 +34,23 @@ char		*wd_designator(char *command, t_control **history)
 		if (command[a] == '\'' || command[a] == '"')
 			modify_quotes(&sq, &dq, command[a]);
 		else if ((command[a] == '!') && sq == 0 && dq == 0)
-			wd_designator_2(command, &a, &str, history);
+		{
+			if (!wd_designator_2(command, &a, &str, history))
+				return (NULL);
+		}
 		else
 			str = ft_str_chr_cat(str, command[a]);
 		a++;
 	}
 	if (str[ft_strlen(str) - 1] == ' ')
 		str[ft_strlen(str) - 1] = '\0';
-	if (ft_strchr(command, '!') != 0)
-		add_hist_or_not(history, str);
+	add_hist_or_not(history, str);
+	ft_putstr("RETURNING ");
+	ft_putendl(str);
 	return (str);
 }
 
-void		wd_designator_2(char *command, int *index, char **str,
+int			wd_designator_2(char *command, int *index, char **str,
 			t_control **history)
 {
 	if (command[*index - 1] && command[*index - 1] == '\\')
@@ -54,13 +58,26 @@ void		wd_designator_2(char *command, int *index, char **str,
 	else if (command[*index + 1] && command[*index + 1] == '!')
 		get_d_bang(&command[*index], str, history, index);
 	else if (command[*index + 1] && ft_isdigit(command[*index + 1]))
-		get_n_first(&command[*index], str, history, index);
+	{
+		if (!get_n_first(&command[*index], str, history, index))
+		{
+			event_not_found(command);
+			return (0);
+		}
+	}
 	else if (command[*index + 1] && command[*index + 1] == '-')
-		get_n_last(&command[*index], str, history, index);
+	{
+		if (!get_n_last(&command[*index], str, history, index))
+		{
+			event_not_found(command);
+			return (0);
+		}
+	}
 	else if (command[*index + 1] && command[*index + 1] == '#')
 		get_line_again(command, index, str, history);
 	else
 		get_last_command(&command[*index], str, history, index);
+	return (1);
 }
 
 void		get_last_command(char *command, char **str, t_control **history,
@@ -87,6 +104,8 @@ void		get_last_command(char *command, char **str, t_control **history,
 		a++;
 	}
 	tmp[a - 1] = '\0';
+	ft_putstr("tmp = ");
+	ft_putendl(tmp);
 	get_last_command_2(tmp, history, str);
 	while (command[*index] && command[*index] != ' ')
 		(*index)++;
