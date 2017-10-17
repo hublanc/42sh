@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/17 11:10:52 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/17 15:12:46 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/17 15:49:51 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,10 +96,7 @@ void		routine(char *cmd, char ***env, t_control **history)
 
 	if (!cmd)
 		return ;
-	if (ft_strchr(cmd, '!'))
-		new_command = wd_designator(cmd, history);
-	else
-		new_command = ft_strdup(cmd);
+	new_command = wd_designator(cmd, history);
 	list = tokenizer(new_command);
 	display_token(list);
 	ft_putendl("TRI");
