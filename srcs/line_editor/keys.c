@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 11:41:39 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/16 19:17:04 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/18 15:30:29 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ void		key_handler(t_cmd *cmd, t_control **history, char ***env)
 	int		i;
 
 	init_screen(cmd);
+	buf = NULL;
 	if ((i = check_sigint(cmd, &buf)))
 	{
 		buf = (char *)ft_memalloc(1000);

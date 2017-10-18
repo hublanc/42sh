@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/03 10:28:17 by lbopp             #+#    #+#             */
-/*   Updated: 2017/10/16 19:16:05 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/18 15:58:37 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,8 @@ static void		get_prompt(char **line, int *i)
 void			prompt_management(char **line)
 {
 	int		i;
-	char	tmp[2];
 
 	i = 0;
-	tmp[1] = '\0';
 	while ((*line) && (*line)[i])
 	{
 		if ((*line)[i] == '\\')
