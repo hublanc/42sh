@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/16 14:34:59 by lbopp             #+#    #+#             */
-/*   Updated: 2017/10/16 17:27:40 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/18 14:02:05 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ char		*read_r_opt(void)
 			ft_strdel(&readding);
 			save_buf(buf);
 			can_sigint(1);
-			ft_putchar_fd(buf[1], 0);
 			return (NULL);
 		}
 		else if (buf[0] == 10 || buf[0] == 4)
