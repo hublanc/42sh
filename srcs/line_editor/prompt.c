@@ -6,7 +6,7 @@
 /*   By: nbouchin <nbouchin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 11:46:11 by nbouchin          #+#    #+#             */
-/*   Updated: 2017/10/16 17:33:20 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/18 13:07:24 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,31 @@ char	*split_prompt(char *str)
 	return (ret);
 }
 
+size_t	strlen_prompt(char *prompt)
+{
+	int		i;
+	size_t	size;
+	int		in_escape;
+
+	i = 0;
+	in_escape = 0;
+	size = 0;
+	while (prompt[i])
+	{
+		if (prompt[i] == 27)
+			in_escape = 1;
+		else if ((in_escape == 1 && prompt[i] != '[')
+				|| (in_escape == 2 && ft_isalpha(prompt[i])))
+			in_escape = 0;
+		else if (in_escape && prompt[i] == '[')
+			in_escape = 2;
+		else if (!in_escape)
+			size++;
+		i++;
+	}
+	return (size);
+}
+
 int		print_prompt(void)
 {
 	char	*prompt;
@@ -38,11 +63,12 @@ int		print_prompt(void)
 	size_t	size;
 
 	tmp = NULL;
+	size = 0;
 	if (!(local = get_loc("PS1")))
 	{
 		if (!(tmp = get_elem(save_env(NULL), "PS1=")))
 		{
-			add_loc("PS1", "\\h @ \\W\\$ > ");
+			add_loc("PS1", "\e[0;31m\\h @ \\W\\$ > ");
 			local = get_loc("PS1");
 		}
 	}
@@ -50,7 +76,7 @@ int		print_prompt(void)
 	prompt = (tmp) ? ft_strdup(tmp) : ft_strdup("42sh> ");
 	prompt_management(&prompt);
 	ft_putstr(prompt);
-	size = ft_strlen(prompt);
+	size = strlen_prompt(prompt);
 	ft_strdel(&prompt);
 	return (size);
 }
