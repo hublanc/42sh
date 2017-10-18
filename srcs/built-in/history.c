@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/18 18:08:42 by mameyer           #+#    #+#             */
-/*   Updated: 2017/09/18 18:08:44 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/18 16:42:39 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ char		*get_history_file(char ***env)
 	char	*home_value;
 
 	home_value = NULL;
+	home_value = ft_memalloc(1);
 	get_home(env, &home_value);
 	if (home_value == NULL)
 		return (NULL);
