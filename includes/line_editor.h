@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 16:36:09 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/17 16:38:46 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/18 13:06:55 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ void				enter_handler_cmdandor(t_cmd *cmd, t_control **history);
 */
 int					print_prompt(void);
 char				*return_prompt(void);
+size_t				strlen_prompt(char *prompt);
 
 /*
 **	Cut_copy_paste.c

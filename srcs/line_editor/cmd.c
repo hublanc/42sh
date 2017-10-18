@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/07 16:07:25 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/11 20:31:44 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/18 13:05:19 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_cmd		init_cmd(char *prompt)
 		new.prompt = ft_strdup(prompt);
 	else
 		new.prompt = prompt;
-	new.prlen = ft_strlen(prompt);
+	new.prlen = strlen_prompt(prompt);
 	new.str = NULL;
 	new.str_quote = NULL;
 	new.buffer = NULL;
