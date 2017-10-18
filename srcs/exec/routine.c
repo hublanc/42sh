@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/17 11:10:52 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/17 15:49:51 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/18 13:24:10 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,10 @@ void		routine(char *cmd, char ***env, t_control **history)
 	ft_putendl("TRI");
 	list = sort_token(list, history);
 	if (!list)
+	{
+		ft_strdel(&new_command);
 		return ;
+	}
 	display_token(list);
 	tree = create_tree(list);
 	reset_term();

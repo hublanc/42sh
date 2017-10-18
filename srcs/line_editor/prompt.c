@@ -6,7 +6,7 @@
 /*   By: nbouchin <nbouchin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 11:46:11 by nbouchin          #+#    #+#             */
-/*   Updated: 2017/10/18 13:07:24 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/18 16:03:01 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,20 +55,18 @@ size_t	strlen_prompt(char *prompt)
 	return (size);
 }
 
-int		print_prompt(void)
+void	print_prompt(void)
 {
 	char	*prompt;
 	char	*tmp;
 	t_loc	*local;
-	size_t	size;
 
 	tmp = NULL;
-	size = 0;
 	if (!(local = get_loc("PS1")))
 	{
 		if (!(tmp = get_elem(save_env(NULL), "PS1=")))
 		{
-			add_loc("PS1", "\e[0;31m\\h @ \\W\\$ > ");
+			add_loc("PS1", "\\h @ \\W\\$ > ");
 			local = get_loc("PS1");
 		}
 	}
@@ -76,9 +74,7 @@ int		print_prompt(void)
 	prompt = (tmp) ? ft_strdup(tmp) : ft_strdup("42sh> ");
 	prompt_management(&prompt);
 	ft_putstr(prompt);
-	size = strlen_prompt(prompt);
 	ft_strdel(&prompt);
-	return (size);
 }
 
 char	*return_prompt(void)
