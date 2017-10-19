@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 16:36:09 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/19 14:53:54 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/19 16:39:23 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ void				print_up(int nb, int n);
 **	Load_history.c
 */
 t_control			*load_history(char **env);
+void				load_history_2(int fd, t_control **history);
 int					save_history(t_control **history, char *str, char *file);
 int					get_history_file_size(char *file_name);
 int					save_history_in_file(t_control **history, char *file_name);
