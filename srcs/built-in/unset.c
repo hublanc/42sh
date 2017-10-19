@@ -37,6 +37,7 @@ static int	argunset(char *name, char ***env)
 			return (i);
 		}
 	}
+	suppr_loc(name);
 	return (0);
 }
 
