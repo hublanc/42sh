@@ -6,14 +6,17 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/16 14:34:59 by lbopp             #+#    #+#             */
-/*   Updated: 2017/10/19 12:08:17 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/19 15:50:33 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-static void	read_r_opt2(char **readding, char buf[2])
+static void	read_r_opt2(char **readding, char buf[6])
 {
+	int		i;
+	char	tmp[2];
+
 	if (buf[0] == 127 && !buf[1])
 	{
 		if (*readding)
@@ -22,25 +25,30 @@ static void	read_r_opt2(char **readding, char buf[2])
 			tputs(tgetstr("cd", NULL), 1, &put_my_char);
 			(*readding)[ft_strlen(*readding) - 1] = '\0';
 		}
+		return ;
 	}
-	else if (ft_isprint(buf[0]) && !buf[1] && !read_singleton(-1))
+	i = 0;
+	while (buf[i] && ft_isprint(buf[i]))
 	{
-		ft_putchar(buf[0]);
-		*readding = ft_strapp(*readding, buf);
+		tmp[1] = '\0';
+		tmp[0] = buf[i];
+		*readding = ft_strapp(*readding, tmp);
+		ft_putchar(buf[i]);
+		i++;
 	}
 }
 
 char		*read_r_opt(void)
 {
-	char	buf[2];
+	char	buf[6];
 	char	*readding;
 
 	set_terminal();
 	readding = ft_strnew(0);
 	while (1)
 	{
-		ft_bzero(buf, 2);
-		read(0, buf, 1);
+		ft_bzero(buf, 6);
+		read(0, buf, 5);
 		if (!read_singleton(-1))
 		{
 			ft_strdel(&readding);
