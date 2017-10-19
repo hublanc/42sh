@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/07 16:07:25 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/18 13:05:19 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/19 15:19:43 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,14 @@ void		init_screen(t_cmd *cmd)
 {
 	struct winsize	sc;
 
-	ioctl(0, TIOCGWINSZ, &sc);
-	cmd->sc_col = sc.ws_col;
-	cmd->sc_row = sc.ws_row;
+	if (ioctl(0, TIOCGWINSZ, &sc) == -1)
+	{
+		cmd->sc_col = 10;
+		cmd->sc_row = 10;
+	}
+	else
+	{
+		cmd->sc_col = sc.ws_col;
+		cmd->sc_row = sc.ws_row;
+	}
 }
