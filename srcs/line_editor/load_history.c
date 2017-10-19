@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/05 13:44:34 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/19 17:48:16 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/19 18:09:36 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int				get_history_file_size(char *file_name)
 	char	*str;
 	int		size;
 
+	str = NULL;
 	fd = open(file_name,
 			O_RDWR | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	size = 0;
@@ -68,6 +69,7 @@ int				get_history_file_size(char *file_name)
 		size++;
 		ft_strdel(&str);
 	}
+	ft_strdel(&str);
 	close(fd);
 	return (size);
 }
