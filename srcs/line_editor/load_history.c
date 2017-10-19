@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/05 13:44:34 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/19 16:39:48 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/19 17:48:16 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void		load_history_2(int fd, t_control **history)
 			ft_strdel(&file);
 		}
 	}
+	ft_strdel(&file);
 	close(fd);
 	if (*history)
 		(*history)->original_length = (*history)->length;
