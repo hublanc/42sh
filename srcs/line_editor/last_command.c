@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 13:56:16 by mameyer           #+#    #+#             */
-/*   Updated: 2017/10/17 17:15:18 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/19 13:30:51 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,15 @@ int			wd_designator_2(char *command, int *index, char **str,
 	else if (command[*index + 1] && command[*index + 1] == '#')
 		get_line_again(command, index, str, history);
 	else
-		get_last_command(&command[*index], str, history, index);
+		if (!get_last_command(&command[*index], str, history, index))
+		{
+			event_not_found(command);
+			return (0);
+		}
 	return (1);
 }
 
-void		get_last_command(char *command, char **str, t_control **history,
+int			get_last_command(char *command, char **str, t_control **history,
 			int *index)
 {
 	int		a;
@@ -93,7 +97,7 @@ void		get_last_command(char *command, char **str, t_control **history,
 	if (!command[1])
 	{
 		set_error(1, NULL);
-		return ;
+		return (-1);
 	}
 	a = 1;
 	tmp = NULL;
@@ -108,13 +112,15 @@ void		get_last_command(char *command, char **str, t_control **history,
 		a++;
 	}
 	tmp[a - 1] = '\0';
-	get_last_command_2(tmp, history, str);
+	if (!get_last_command_2(tmp, history, str))
+		return (0);
 	while (command[*index] && command[*index] != ' ')
 		(*index)++;
 	ft_strdel(&tmp);
+	return (1);
 }
 
-void		get_last_command_2(char *tmp, t_control **history, char **str)
+int			get_last_command_2(char *tmp, t_control **history, char **str)
 {
 	t_lst	*lst;
 	int		a;
@@ -136,8 +142,10 @@ void		get_last_command_2(char *tmp, t_control **history, char **str)
 			*str = ft_str_chr_cat(*str, lst->name[a]);
 			a++;
 		}
+		*str = ft_str_chr_cat(*str, ' ');
+		return (1);
 	}
-	*str = ft_str_chr_cat(*str, ' ');
+	return (0);
 }
 
 /*

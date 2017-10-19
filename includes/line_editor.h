@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 16:36:09 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/17 16:38:46 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/19 13:28:19 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,9 +156,9 @@ int					wd_designator_2(char *command, int *index, char **str,
 					t_control **history);
 void				get_d_bang(char *command, char **str, t_control **history,
 					int *index);
-void				get_last_command(char *command, char **str,
+int					get_last_command(char *command, char **str,
 					t_control **history, int *index);
-void				get_last_command_2(char *tmp, t_control **history,
+int					get_last_command_2(char *tmp, t_control **history,
 					char **str);
 void				get_line_again(char *command, int *index, char **str,
 					t_control **history);
