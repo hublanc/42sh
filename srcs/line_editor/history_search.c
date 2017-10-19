@@ -6,11 +6,46 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/18 15:09:47 by mameyer           #+#    #+#             */
-/*   Updated: 2017/10/19 18:29:19 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/19 18:41:38 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
+
+/*
+**		TO DO
+**		Set while(1) and go through funcs which will check chars
+**		If ctrl + d is pressed, quit
+**		If ctrl + c is pressed, quit
+*/
+
+char		*history_search_new(t_control **history)
+{
+	char	*search;
+	char	*result;
+
+	ft_memalloc(search);
+	while (1)
+		result = history_search_new_2(history, &search);
+	ft_strdel(&search);
+	if (result)
+		return (result);
+	return (NULL);
+}
+
+char		*history_search_new_2(t_control **history, char **search)
+{
+	char	buf[3];
+
+	read(1, buf, 3);
+	if (buf[0] >= 'a' && buf[0] <= 'z')
+		*search = ft_str_chr_cat(*search, buf[0]);
+	else if (buf[0] == 10)
+	{
+		return (result);
+		// VALIDATE
+	}
+}
 
 char		*history_search(t_control **history)
 {
