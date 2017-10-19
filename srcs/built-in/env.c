@@ -5,104 +5,131 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/25 19:21:36 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/09 14:33:22 by amazurie         ###   ########.fr       */
+/*   Created: 2017/10/19 21:48:12 by hublanc           #+#    #+#             */
+/*   Updated: 2017/10/19 21:48:15 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-int			check_opt(char **tab, int *i, char ***env, char **opt)
+static int	built_env(char **lstav, char ***envcpy, size_t *i)
 {
-	char	**new;
-
-	*opt = ft_strnew(0);
-	while (tab[*i] && tab[*i][0] == '-')
+	i[1] = 0;
+	while (lstav[i[0]] && lstav[i[0]][++i[1]] && lstav[i[0]][0] == '-')
 	{
-		if (ft_strcmp(tab[*i], "-i") == 0)
-			*opt = ft_str_chr_cat(*opt, tab[*i][1]);
-		else if (ft_strcmp(tab[*i], "-u") == 0)
+		if (lstav[i[0]][i[1]] == 'i')
+			del_tabstr(envcpy);
+		else if (lstav[i[0]][i[1]] == 'u')
 		{
-			if (in_env(tab[++(*i)], *env) != -1)
-			{
-				new = delonenv(tab[(*i)], *env);
-				del_tabstr(env);
-				*env = new;
-			}
+			if (builtu_env(lstav, envcpy, i) == 1)
+				return (1);
+			i[1] = ft_strlen(lstav[i[0]]) - 1;
 		}
-		else if (tab[*i][1] != '\0')
+		else if (lstav[i[0]][i[1]])
 		{
-			print_usage(tab[*i][1]);
-			return (0);
+			ft_putstr_fd("env: illegal option -- ", 2);
+			ft_putchar_fd(lstav[i[0]][i[1]], 2);
+			ft_putstr_fd("\nusage [-i] [-u name] [utility [arguments]]\n", 2);
+			return (1);
 		}
-		tab[*i] ? (*i)++ : 0;
 	}
-	return (1);
+	return (0);
 }
 
-void		check_set(char **tab, int *i, char ***env)
+static int	envexec(char **lstav, char ***envcpy, t_control **hist, size_t *i)
 {
-	char	*name;
-	char	*set[3];
-	int		pos;
+	char	**tmp;
 
-	pos = *i;
-	while (pos--)
-		tab++;
-	while (*tab && ft_strchr(*tab, '='))
+	if ((tmp = (char **)ft_memalloc(sizeof(char *) * 3)) == NULL)
+		return (print_alloc_error("allocation error"));
+	if ((tmp[1] = ft_strdup(lstav[i[0]++])) == NULL)
+		return (print_alloc_error("allocation error"));
+	while (lstav[i[0]])
 	{
-		name = ft_strsub(*tab, 0, ft_strchr(*tab, '=') - *tab);
-		set[0] = "setenv";
-		set[1] = get_elem(env, name);
-		set[2] = ft_strchr(*tab, '=') + 1;
-		ft_setenv(set, env);
-		ft_strdel(&name);
-		tab++;
-		(*i)++;
+		if ((tmp[0] = ft_strjoin(tmp[1], " ")) == NULL)
+			return (print_alloc_error("allocation error"));
+		free(tmp[1]);
+		if ((tmp[1] = ft_strjoin(tmp[0], lstav[i[0]++])) == NULL)
+			return (print_alloc_error("allocation error"));
+		free(tmp[0]);
 	}
+	routine(tmp[1], envcpy, hist);
+	free(tmp[1]);
+	free(tmp);
+	i[2] = 0;
+	i[0]--;
+	return (return_status());
 }
 
-char		*app_cmd(char **tab, int i)
+static int	env_set(char *name_value, char ***env)
 {
-	char	*new;
+	int			stat;
+	char		*name;
+	char		*val;
+	char		**tab;
 
-	new = ft_strnew(0);
-	if (!tab[i])
-		return (new);
-	new = ft_strapp(new, tab[i++]);
-	while (tab[i])
+	if (name_value[0] == '=')
 	{
-		new = ft_str_chr_cat(new, ' ');
-		new = ft_strapp(new, tab[i++]);
-	}
-	return (new);
-}
-
-int			ft_env(char **env, char **tab)
-{
-	int		i;
-	char	**cp;
-	char	*opt;
-	char	*cmd;
-
-	i = 1;
-	if (len_array(tab) == 1)
-		return (env_tab(env));
-	cp = get_env(env, 1);
-	if (!check_opt(tab, &i, &cp, &opt))
-	{
-		del_tabstr(&cp);
-		ft_strdel(&opt);
+		ft_putstr_fd("env: setenv: ", 2);
+		ft_putstr_fd(name_value, 2);
+		ft_putstr_fd(" Invalid argument", 2);
 		return (1);
 	}
-	if (ft_strchr(opt, 'i'))
-		del_tabstr(&cp);
-	check_set(tab, &i, &cp);
-	cmd = app_cmd(tab, i);
-	routine(cmd, &cp, NULL);
-	ft_strdel(&cmd);
-	ft_strdel(&opt);
-	if (cp)
-		del_tabstr(&cp);
-	return (return_status());
+	name = ft_strsub(name_value, 0, ft_strchr(name_value, '=') - name_value);
+	val = ft_strsub(name_value, ft_strchr(name_value, '=') - name_value + 1,
+		ft_strlen(name_value) - (ft_strchr(name_value, '=') - name_value));
+	tab = prep_setenv(name, val);
+	stat = ft_setenv(tab, env);
+	ft_strdel(&name);
+	ft_strdel(&val);
+	del_tabstr(&tab);
+	return (stat);
+}
+
+static int	ft_env2(char **lstav, char ***envcpy, t_control **hist)
+{
+	size_t		*i;
+	int			status;
+
+	status = 0;
+	if ((i = (size_t *)ft_memalloc(sizeof(size_t) * 6)) == NULL)
+		return (1);
+	i[0] = 0;
+	i[2] = 1;
+	i[4] = 1;
+	while (lstav[++i[0]])
+	{
+		i[3] = 0;
+		if (built_env(lstav, envcpy, i) == 1)
+			return (error_env(i));
+		!lstav[i[0]][1] && lstav[i[0]][0] == '-' ? del_tabstr(envcpy) : 0;
+		if (!i[3] && ft_strchr(lstav[i[0]], '=')
+			&& (env_set(lstav[i[0]], envcpy)) == 1)
+			return (error_env(i));
+		else if (i[4] == 1 && lstav[i[0]] && lstav[i[0]][0] != '-'
+				&& (!ft_strchr(lstav[i[0] - 1], 'u')
+				|| lstav[i[0] - 1][ft_strlen_chr(lstav[i[0] - 1], 'u') + 1]))
+			status = envexec(lstav, envcpy, hist, i);
+	}
+	end_ft_env(i, *envcpy);
+	return (status);
+}
+
+int			ft_env(char **lstav, char **env, t_control **hist)
+{
+	char		**envcpy;
+	int			status;
+
+	envcpy = NULL;
+	if (!lstav[1])
+		return (env_tab(env));
+	else
+	{
+		if ((envcpy = get_env(env, 1)) == NULL)
+			return (print_alloc_error("allocation error"));
+		status = ft_env2(lstav, &envcpy, hist);
+		chdir(get_elem(&env, "PWD"));
+		del_tabstr(&envcpy);
+	}
+	return (status);
 }
