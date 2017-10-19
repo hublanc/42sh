@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/26 10:47:21 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/28 18:34:05 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/19 16:11:57 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char		**delonenv(char *name, char **env)
 		return (env);
 	while (env[len])
 		len++;
-	if (!(new = (char**)ft_memalloc(sizeof(char*) * len)))
+	if (!(new = (char**)ft_memalloc(sizeof(char*) * (len + 1))))
 		return (NULL);
 	while (*env)
 	{
