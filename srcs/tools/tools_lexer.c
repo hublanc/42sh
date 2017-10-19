@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/12 16:48:18 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/12 18:55:46 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/18 21:02:19 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,17 @@ char		*jump_quote(char *cmd, char **new, int *i)
 	(*i)++;
 	while (*cmd && *cmd != c)
 	{
-		*new = ft_str_chr_cat(*new, *cmd);
-		cmd++;
-		(*i)++;
+		if (*cmd == '\\' && *(cmd + 1) && *(cmd + 1) == '"' && c == '"')
+			cmd = jump_bs(cmd, new, i);
+		else
+		{
+			*new = ft_str_chr_cat(*new, *cmd);
+			cmd++;
+			(*i)++;
+		}
 	}
+	if (*cmd == '\0')
+		return (cmd);
 	*new = ft_str_chr_cat(*new, *cmd);
 	cmd++;
 	(*i)++;
@@ -37,6 +44,8 @@ char		*jump_bs(char *cmd, char **new, int *i)
 	*new = ft_str_chr_cat(*new, *cmd);
 	cmd++;
 	(*i)++;
+	if (*cmd == '\0')
+		return (cmd);
 	*new = ft_str_chr_cat(*new, *cmd);
 	cmd++;
 	(*i)++;

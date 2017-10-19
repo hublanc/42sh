@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/24 16:37:30 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/16 19:11:33 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/18 15:20:28 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,31 +58,7 @@ int			main(int ac, char **av, char **env)
 	signal(SIGTERM, SIG_IGN);
 	set_terminal();
 
-	 /*
-	 *test
-	 
-	t_token		*list;
-	char		*str;
-	char		*str1;
-	str = ft_strdup("ls -a ; ls | cat | wc -c > toto < winz");
-	str1 = ft_strdup("cd bin ; echo test ; ls | cat > blablou");
-	//char *test = ft_strdup("mkdir test ; cd test ; ls -a ; ls | cat | wc -c > fifi ; cat fifi");
-	char *str2= ft_strdup("ls");
-	//char *strt = ft_strdup("ls | cat >< 1");
-	list = tokenizer(str2);
-	display_token(list);	
-	ft_putcolor("\nSORT\n");
-	list = sort_token(list);
-	display_token(list);
-	ft_putcolor("\nPRINT_TREE\n\n");
-	t_node	*tree;
-	tree = create_tree(list);
-	ft_putstr("\n\n");
-	node_print(tree, 0, 6);
-	exec_tree(tree, &cp_env);
-	ft_putcolor("FIN TEST");
-	ft_putchar('\n');
-	
+	 /*test
 	//FIN TEST*/
 
 	status = 0;

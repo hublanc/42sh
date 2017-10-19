@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/25 18:26:10 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/16 17:27:20 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/18 16:39:30 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,12 @@ int			exec_builtin_pipe(t_node *tree, char **tab,
 	if (!son)
 	{
 		prep_fd(tree);
+		if (!ft_strcmp(tab[0], "exit"))
+			exit(0);
 		do_built_in(tab, env, his);
 		exit(0);
 	}
+	fetch_pid(son);
 	return (0);
 }
 
