@@ -6,7 +6,7 @@
 #    By: hublanc <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/07/24 15:04:09 by hublanc           #+#    #+#              #
-#    Updated: 2017/10/16 17:31:37 by lbopp            ###   ########.fr        #
+#    Updated: 2017/10/19 19:56:48 by hublanc          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,6 +74,7 @@ SRC		=	main.c\
 			tools/tools_cd.c\
 			built-in/echo.c\
 			built-in/env.c\
+			built-in/env2.c\
 			built-in/cd.c\
 			built-in/cd2.c\
 			built-in/set_env.c\
