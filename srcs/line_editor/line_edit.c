@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 17:36:47 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/16 19:25:54 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/17 11:25:15 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,7 @@ void		add_line(t_cmd *cmd, char *buf)
 		while (++j < 4)
 		{
 			cmd->str = ft_strappone(cmd->str, buf[i],
-					(cmd->col + k - 1) - cmd->prlen);
-			k++;
+					(cmd->col + k++ - 1) - cmd->prlen);
 		}
 	}
 	print_line(cmd);

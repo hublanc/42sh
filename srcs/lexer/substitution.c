@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/10 15:49:56 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/16 19:26:22 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/19 13:55:29 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static char	*add_handspace(const char *name)
 	while (name[++i])
 		if (name[i] == 32)
 			j++;
-	s = (char *)ft_memalloc(ft_strlen(name) + j);
+	s = (char *)ft_memalloc(ft_strlen(name) + j + 1);
 	ft_strcat(s, name);
 	i = -1;
 	while (s[++i])
@@ -37,14 +37,18 @@ static int	do_substitue(char **cmmd, int i, int j, char **tmp2)
 	t_loc	*loc;
 	char	***env;
 	char	*tmp;
+	char	*tmp3;
 
 	env = save_env(NULL);
 	if (*tmp2 && (*tmp2)[0] && (((tmp = get_elem(env, *tmp2)) && *(++tmp))
-				|| ((loc = get_loc(*tmp2)) && (tmp = loc->value))))
+		|| ((loc = get_loc(*tmp2))
+		&& (tmp = loc->value))))
 	{
 		free(*tmp2);
 		*tmp2 = ft_strndup(*cmmd, i);
-		tmp = ft_strjoin(*tmp2, add_handspace(tmp));
+		tmp3 = add_handspace(tmp);
+		tmp = ft_strjoin(*tmp2, tmp3);
+		ft_strdel(&tmp3);
 		(*tmp2) ? free(*tmp2) : 0;
 		*tmp2 = ft_strjoin(tmp, *cmmd + j);
 		(tmp) ? free(tmp) : 0;
@@ -76,6 +80,24 @@ static int	substitute(char **cmmd, int i, int j, int is_redir)
 	return (1);
 }
 
+static int	quote_substitution(char **cmmd, int *i, int *j, int is_redir)
+{
+	while ((*cmmd)[*i] && (*cmmd)[++(*i)] != '"')
+	{
+		*j = *i + 1;
+		*i += (*cmmd)[*i] == '\\' ? 1 : 0;
+		if ((*cmmd)[*i] == '$')
+			while ((*cmmd)[*j] && (*cmmd)[*j] != 32 && (*cmmd)[*j] != 9
+			&& (*cmmd)[*j] != '\n' && (*cmmd)[*j] != '"'
+			&& (*cmmd)[*j] != '$' && (*cmmd)[*j] != '\\')
+				(*j)++;
+		if (*j > *i + 1)
+			if (substitute(cmmd, *i, *j, is_redir) == -1)
+				return (-1);
+	}
+	return (1);
+}
+
 int			substitution(char **cmmd, int is_redir)
 {
 	int		i;
@@ -89,15 +111,18 @@ int			substitution(char **cmmd, int is_redir)
 		if ((*cmmd)[i] == '\'')
 			while ((*cmmd)[i] && (*cmmd)[++i] != '\'')
 				;
+		if ((*cmmd)[i] == '"')
+			if (quote_substitution(cmmd, &i, &j, is_redir) == -1)
+				return (-1);
 		j = i + 1;
+		i += (*cmmd)[i] == '\\' ? 1 : 0;
 		if ((*cmmd)[i] == '$')
 			while ((*cmmd)[j] && (*cmmd)[j] != 32 && (*cmmd)[j] != 9
-					&& (*cmmd)[j] != '\n' && (*cmmd)[j] != '"'
-					&& (*cmmd)[j] != '$')
+				&& (*cmmd)[j] != '\n' && (*cmmd)[j] != '"'
+				&& (*cmmd)[j] != '$' && (*cmmd)[j] != '\\')
 				j++;
-		if (j > i + 1)
-			if (substitute(cmmd, i, j, is_redir) == -1)
-				return (-1);
+		if (j > i + 1 && substitute(cmmd, i, j, is_redir) == -1)
+			return (-1);
 	}
 	return (1);
 }
