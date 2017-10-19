@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 19:28:26 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/19 15:24:54 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/19 15:56:22 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ void		arrow_handler(char *str, t_cmd *cmd, t_control **hist)
 		seek_prev(hist, cmd);
 	else if (str[1] == 0)
 	{
-		printf("[0] = %d | [1] = %d | [2] = %d\n", str[0], str[1], str[2]);
 		reset_term();
 		exit(EXIT_SUCCESS);
 	}
