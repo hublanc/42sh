@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/05 16:40:44 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/19 16:12:43 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/19 16:34:30 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static int	argunset(char *name, char ***env)
 {
+	char	**new;
 	int		i;
 
 	if (!get_loc(name) && env && *env)
@@ -27,7 +28,9 @@ static int	argunset(char *name, char ***env)
 			return (1);
 		else
 		{
-			*env = delonenv(name, *env);
+			new = delonenv(name, *env);
+			del_tabstr(env);
+			*env = new;
 			i = 0;
 			while ((*env)[i] && ft_strncmp((*env)[i], name,
 					ft_strlen_chr((*env)[i], '=') - 1))
