@@ -6,14 +6,17 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/16 14:38:52 by lbopp             #+#    #+#             */
-/*   Updated: 2017/10/19 12:08:23 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/19 15:49:46 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-static void	treatment_read_key2(char buf[2], int *backslash, char **readding)
+static void	treatment_read_key2(char buf[6], int *backslash, char **readding)
 {
+	int		i;
+	char	tmp[2];
+
 	if (buf[0] == '\\')
 	{
 		ft_putchar(buf[0]);
@@ -21,16 +24,20 @@ static void	treatment_read_key2(char buf[2], int *backslash, char **readding)
 			*backslash = 1;
 		else
 			*readding = ft_strapp(*readding, buf);
+		return ;
 	}
-	else if (ft_isprint(buf[0]) && !buf[1] && read_singleton(-1))
+	i = 0;
+	while (buf[i] && ft_isprint(buf[i]))
 	{
-		*backslash = 0;
-		ft_putchar(buf[0]);
-		*readding = ft_strapp(*readding, buf);
+		tmp[1] = '\0';
+		tmp[0] = buf[i];
+		*readding = ft_strapp(*readding, tmp);
+		ft_putchar(buf[i]);
+		i++;
 	}
 }
 
-static int	treatment_read_key(char buf[2], int *backslash, char **readding)
+static int	treatment_read_key(char buf[6], int *backslash, char **readding)
 {
 	if ((buf[0] == 10 || buf[0] == 4) && !(*backslash))
 		return (1);
@@ -56,7 +63,7 @@ static int	treatment_read_key(char buf[2], int *backslash, char **readding)
 char		*read_without_opt(void)
 {
 	char	*readding;
-	char	buf[2];
+	char	buf[6];
 	int		backslash;
 
 	backslash = 0;
@@ -64,8 +71,8 @@ char		*read_without_opt(void)
 	readding = ft_strnew(0);
 	while (1)
 	{
-		ft_bzero(buf, 2);
-		read(0, buf, 1);
+		ft_bzero(buf, 6);
+		read(0, buf, 5);
 		if (!read_singleton(-1))
 		{
 			ft_strdel(&readding);
