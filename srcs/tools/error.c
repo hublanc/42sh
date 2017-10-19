@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/01 11:03:53 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/12 19:09:59 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/17 11:29:47 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int			print_error(int err, char *cmd)
 	else if (err == 2)
 	{
 		ft_putstr_fd("command not found: ", 2);
-		ft_putendl_fd(cmd, 2);
+		ft_putstr_fd(cmd, 2);
 	}
 	else if (err == 8)
 	{
