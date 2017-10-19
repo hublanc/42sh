@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 13:56:16 by mameyer           #+#    #+#             */
-/*   Updated: 2017/10/19 13:30:51 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/19 15:30:48 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,24 @@
 
 int			init_wd_des(char **str, char *command, int *a, int *sq)
 {
+	int		z;
+
+	z = 0;
 	*a = 0;
 	*sq = 0;
 	if (!(ft_strchr(command, '!')))
 	{
 		*str = ft_strdup(command);
+		return (0);
+	}
+	while (command[z] && command[z] != '!')
+		z++;
+	z++;
+	if (command[z] && command[z] != '-' && !ft_isdigit(command[z])
+			&& command[z] != '!' && (!(command[z] >= 'a' && command[z] <= 'z')))
+	{
+		*str = ft_strdup(command);
+		ft_putendl("ERROR IN init_wd_des()");
 		return (0);
 	}
 	*str = ft_memalloc(1);
@@ -77,14 +90,8 @@ int			wd_designator_2(char *command, int *index, char **str,
 			return (0);
 		}
 	}
-	else if (command[*index + 1] && command[*index + 1] == '#')
-		get_line_again(command, index, str, history);
 	else
-		if (!get_last_command(&command[*index], str, history, index))
-		{
-			event_not_found(command);
-			return (0);
-		}
+		get_last_command(&command[*index], str, history, index);
 	return (1);
 }
 
@@ -103,15 +110,13 @@ int			get_last_command(char *command, char **str, t_control **history,
 	tmp = NULL;
 	while (command[a] && command[a] != ' ')
 		a++;
-	if (!(tmp = (char *)malloc(sizeof(char) * (a + 1))))
-		exit(EXIT_FAILURE);
+	tmp = ft_memalloc(a + 1);
 	a = 1;
 	while (command[a] && command[a] != ' ')
 	{
 		tmp[a - 1] = command[a];
 		a++;
 	}
-	tmp[a - 1] = '\0';
 	if (!get_last_command_2(tmp, history, str))
 		return (0);
 	while (command[*index] && command[*index] != ' ')
