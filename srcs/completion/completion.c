@@ -18,10 +18,11 @@ static void	compl_issigint(int n)
 
 	if (n)
 		;
-	is_sigint(1);
+	is_sigint(2);
 	ft_putstr(tgetstr("cd", NULL));
 	if ((cmd = save_cmd(NULL)))
 		print_line(cmd);
+	signal(SIGINT, &get_signal);
 }
 
 static char	*get_path(t_cmd *cmd)

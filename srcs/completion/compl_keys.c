@@ -57,9 +57,14 @@ static int	get_onscreen(t_compl *compl, t_cmd *cmd)
 
 int			compl_keys(t_compl *compl, t_cmd *cmd, char **buf)
 {
+	int	i;
+
 	ft_bzero(*buf, ft_strlen(*buf));
 	read(0, *buf, 999);
-	if (is_sigint(0))
+	if ((i = is_sigint(0)) == 2)
+		return (0);
+	(i == 1) ? is_sigint(1) : 0;
+	if (i == 1)
 		return (0);
 	if ((*buf)[0] == 27 && !(*buf)[1])
 		return (-1);
