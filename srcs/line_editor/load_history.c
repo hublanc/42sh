@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/05 13:44:34 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/16 19:23:00 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/18 16:50:32 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,16 @@ t_control		*load_history(char **env)
 	if ((file = get_history_file(&env)) == NULL)
 		return (NULL);
 	if (access(file, F_OK) != 0 || access(file, R_OK | W_OK) != 0)
+	{
+		ft_strdel(&file);
 		return (NULL);
+	}
 	fd = open(file, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	if (fd == -1)
 		return (NULL);
-	free(file);
-	file = NULL;
+	ft_strdel(&file);
 	while (get_next_line(fd, &file) > 0)
-	{
+{
 		if (file)
 			history = dll_add_new_elem_frnt(history, file);
 		ft_strdel(&file);
