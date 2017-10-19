@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/03 14:28:49 by mameyer           #+#    #+#             */
-/*   Updated: 2017/10/17 17:22:27 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/19 14:00:59 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void		get_line_again(char *command, int *index, char **str,
 	int		a;
 
 	a = 0;
-	while (a != *index)
+	while (a != *index - 1)
 	{
 		(*str) = ft_str_chr_cat(*str, command[a]);
 		a++;

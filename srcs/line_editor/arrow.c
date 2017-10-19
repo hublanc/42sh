@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 19:28:26 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/13 19:42:21 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/19 15:24:54 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void		arrow_handler(char *str, t_cmd *cmd, t_control **hist)
 	if (str[2] == 68 && cmd->col > cmd->prlen + 1)
 		go_left(cmd);
 	else if (str[2] == 67
-	&& cmd->col < (int)ft_strlen(cmd->str) + cmd->prlen + 1)
+			&& cmd->col < (int)ft_strlen(cmd->str) + cmd->prlen + 1)
 		go_right(cmd);
 	else if (str[2] == 65)
 		seek_next(hist, cmd);
@@ -73,6 +73,7 @@ void		arrow_handler(char *str, t_cmd *cmd, t_control **hist)
 		seek_prev(hist, cmd);
 	else if (str[1] == 0)
 	{
+		printf("[0] = %d | [1] = %d | [2] = %d\n", str[0], str[1], str[2]);
 		reset_term();
 		exit(EXIT_SUCCESS);
 	}
