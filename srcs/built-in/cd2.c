@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 11:16:27 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/12 12:27:28 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/19 13:42:50 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ static char	*check_path(char *path, char ***env, char opt)
 		tmp = NULL;
 	check_dotdot(&tmp);
 	if (!change_cwd(tmp, path))
-		return (NULL);
+		ft_strdel(&tmp);
 	if (opt == 'P')
 	{
 		(tmp) ? free(tmp) : 0;
@@ -99,16 +99,23 @@ static char	*check_path(char *path, char ***env, char opt)
 void		change_pwd(char *path, char ***env, char opt)
 {
 	char	*tmp;
+	char	*tmp2;
 
 	if (!ft_strncmp(path, "~/", 2))
 	{
 		if (!(tmp = ft_strjoin(get_elem(env, "HOME="), (path + 1))))
 			return ;
-		path = tmp;
+		tmp2 = ft_strdup(tmp);
 		free(tmp);
 	}
-	if (!(tmp = check_path(path, env, opt)))
+	else
+		tmp2 = ft_strdup(path);
+	if (!(tmp = check_path(tmp2, env, opt)))
+	{
+		free(tmp2);
 		return ;
+	}
 	change_envpwd(tmp, env);
+	free(tmp2);
 	free(tmp);
 }
