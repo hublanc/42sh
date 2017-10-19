@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 16:36:09 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/19 15:48:50 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/19 15:50:46 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void				add_line(t_cmd *cmd, char *buf);
 /*
 **	Arrow.c
 */
+void				control_homend(char *str, t_cmd *cmd);
 void				arrow_handler(char *str, t_cmd *cmd, t_control **hist);
 
 /*
