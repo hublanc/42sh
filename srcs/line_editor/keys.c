@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 11:41:39 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/19 15:41:08 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/19 18:29:56 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,7 @@ static void	handle_key(t_cmd *cmd, t_control **history, char ***env, char *buf)
 		print_line(cmd);
 	}
 	else if (buf[0] == 4 && !buf[1] && (!cmd->str || !cmd->str[0]))
-	{
-		reset_term();
-		exit(EXIT_SUCCESS);
-	}
+		stop_shell(env, NULL, history);
 	else
 		handle_key2(cmd, history, env, buf);
 }
