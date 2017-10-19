@@ -6,13 +6,13 @@
 #    By: hublanc <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/07/24 15:04:09 by hublanc           #+#    #+#              #
-#    Updated: 2017/10/19 16:31:47 by amazurie         ###   ########.fr        #
+#    Updated: 2017/10/19 16:38:32 by amazurie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= shell
 CC		= gcc
-FLAGS	= -Wall -Wextra -Werror -g #-fsanitize=address
+FLAGS	= -Wall -Wextra -Werror -g
 DFLAGS	= -MMD
 LIB		= libft/libft.a
 HEADER	= includes/
