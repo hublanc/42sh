@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 11:16:27 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/19 13:42:50 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/19 14:51:19 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,14 @@ static void	check_dotdot(char **tmp)
 		return ;
 	while ((i = ft_strschr_len(*tmp, "..")))
 	{
+		while (i == ft_strschr_len(*tmp + i, "..."))
+		{
+			while ((*tmp)[i] == '.')
+				i++;
+			i = ft_strschr_len(*tmp + i, "..");
+		}
+		if (!ft_strschr_len(*tmp + i, ".."))
+			return ;
 		while ((*tmp)[i] && (*tmp)[i] != '/')
 			ssupprchr(tmp, i);
 		ssupprchr(tmp, i--);
