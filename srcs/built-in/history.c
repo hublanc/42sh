@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/18 18:08:42 by mameyer           #+#    #+#             */
-/*   Updated: 2017/10/18 16:52:54 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/19 17:59:07 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,10 @@ int			ft_history_2(char **tab, t_control **history, char *file,
 	if (flags.n == 1 && (*history))
 		nflag(history, file);
 	if (flags.a == 1 && (*history))
+	{
 		if (save_history_in_file(history, file) == -1)
 			return (-1);
+	}
 	return (ft_history_3(tab, history, file, flags));
 }
 
