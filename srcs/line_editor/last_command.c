@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 13:56:16 by mameyer           #+#    #+#             */
-/*   Updated: 2017/10/19 15:30:48 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/19 15:55:46 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int			init_wd_des(char **str, char *command, int *a, int *sq)
 			&& command[z] != '!' && (!(command[z] >= 'a' && command[z] <= 'z')))
 	{
 		*str = ft_strdup(command);
-		ft_putendl("ERROR IN init_wd_des()");
 		return (0);
 	}
 	*str = ft_memalloc(1);
@@ -52,7 +51,8 @@ char		*wd_designator(char *command, t_control **history)
 	{
 		if (command[a] == '\'' || command[a] == '"')
 			modify_quotes(&sq, &dq, command[a]);
-		else if ((command[a] == '!') && sq == 0 && dq == 0)
+		else if ((command[a] == '!' && (command[a - 1] != ' '
+						|| !command[a - 1])) && sq == 0 && dq == 0)
 		{
 			if (!wd_designator_2(command, &a, &str, history))
 				return (NULL);
