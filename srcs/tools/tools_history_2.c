@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/09 15:57:56 by mameyer           #+#    #+#             */
-/*   Updated: 2017/10/16 19:11:43 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/17 11:05:50 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,11 @@ void		change_cmd(char *new, t_cmd *cmd)
 	cmd->col = ft_strlen(new) + cmd->prlen + 1;
 	ft_strdel(&(cmd->str));
 	cmd->str = ft_strdup(new);
+	if (cmd->col % cmd->sc_col == 1)
+	{
+		tputs(tgetstr("cr", NULL), 1, tputchar);
+		tputs(tgetstr("do", NULL), 1, tputchar);
+	}
 }
 
 void		set_selected_null(t_control **history)
