@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 11:50:54 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/19 17:31:43 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/20 15:10:38 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ int					ft_echo(char **tab);
 int					in_env(char *str, char **env);
 int					ft_setenv(char **tab, char ***env);
 int					ft_unsetenv(char **tab, char ***env);
-int					ft_env(char **env, char **tab);
+int					ft_env(char **lstav, char **env, t_control **hist);
+int					builtu_env(char **lstav, char ***env, size_t *i);
 int					ft_read(char **tab);
 char				*read_r_opt(void);
 char				*read_without_opt(void);
@@ -85,6 +86,10 @@ char				**delonenv(char *name, char **env);
 char				**prep_setenv(char *name, char *value);
 void				change_pwd(char *path, char ***env, char opt);
 char				***save_env(char ***env);
+char				**env_app(char *name, char *value, char ***env, int *status);
+int					print_alloc_error(char *str);
+int					error_env(size_t *i);
+void				end_ft_env(size_t *i, char **env);
 
 /*
 **	terminal
