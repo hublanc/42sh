@@ -6,18 +6,11 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/18 15:09:47 by mameyer           #+#    #+#             */
-/*   Updated: 2017/10/20 11:52:43 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/20 17:12:06 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
-
-/*
-**		TO DO
-**		Set while(1) and go through funcs which will check chars
-**		If ctrl + d is pressed, quit
-**		If ctrl + c is pressed, quit
-*/
 
 char		*history_search(t_control **history)
 {
