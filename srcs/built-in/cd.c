@@ -51,9 +51,8 @@ static int	check_pwd(char *path, char ***env, char *rep)
 		ft_putstr_fd("cd: HOME not set.\n", 2);
 		return (0);
 	}
-	else if (!(tmp = ft_strdup(get_elem(env, "PWD"))))
-		ft_putstr_fd("cd: PWD not set.\n", 2);
-	else if ((tmp2 = ft_strschr(tmp, path)) == 0)
+	else if (!(tmp = ft_strdup(get_elem(env, "PWD")))
+			|| (tmp2 = ft_strschr(tmp, path)) == 0)
 	{
 		ft_putstr_fd("cd: string not in pwd: ", 2);
 		ft_putstr_fd(path, 2);
@@ -128,6 +127,7 @@ int			cd(char **path, char ***env)
 
 	if (!path || !path[0])
 		return (1);
+	check_isenvpwd(env);
 	i = check_cdopt(path, &opt);
 	j = 0;
 	while (path[i + j])

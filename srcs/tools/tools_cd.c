@@ -45,3 +45,19 @@ void	saddchr(char **s, char c, int pos)
 		(*s)[i + 1] = (*s)[i];
 	(*s)[pos] = c;
 }
+
+void	check_isenvpwd(char ***env)
+{
+	char	*tab[4];
+	char	tmp[1025];
+
+	if (get_elem(env, "PWD="))
+		return ;
+	tab[0] = "setenv";
+	tab[1] = "PWD";
+	ft_bzero(tmp, 1025);
+	getcwd(tmp, 1024);
+	tab[2] = tmp;
+	tab[3] = 0;
+	ft_setenv(tab, env);
+}
