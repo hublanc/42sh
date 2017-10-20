@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/26 16:13:08 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/12 19:17:50 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/19 21:51:30 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void		ft_exec(char *cmd, char **args, char **env)
 {
-	char		**bin;
 	int			i;
 
 	i = 0;
@@ -22,8 +21,7 @@ void		ft_exec(char *cmd, char **args, char **env)
 		execve(args[0], args, env);
 	else if (cmd)
 		execve(cmd, args, env);
-	del_tabstr(&bin);
-	exit(EXIT_FAILURE);
+	exit(EXIT_SUCCESS);
 }
 
 int			check_cmd(char **tab, char **env, t_node *tree)
