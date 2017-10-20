@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 12:22:12 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/17 13:58:15 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/20 21:57:15 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,10 +91,10 @@ char		**add_w(char **tab, t_node *tree, int cut)
 		new[1] = NULL;
 		return (new);
 	}
-	new = (char**)ft_memalloc(sizeof(char*) * (len_array(tab) + 1));
+	new = (char**)ft_memalloc(sizeof(char*) * (len_array(tab) + 2));
 	while (tab[i])
 	{
-		new[i] = tab[i];
+		new[i] = ft_strdup(tab[i]);
 		i++;
 	}
 	new[i++] = ft_strsub(tree->token, cut, ft_strlen(tree->token) - cut);
