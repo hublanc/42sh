@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/14 15:40:59 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/17 17:10:53 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/20 17:47:02 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,14 @@ t_token			*check_sc(t_token *list, t_token **cur)
 
 	tmp = *cur;
 	prev = get_prev(list, tmp);
+	if (!prev && tmp && tmp->e_type == ET)
+		return (abort_sort(list, "'&&'"));
+	if (!prev && tmp && tmp->e_type == OU)
+		return (abort_sort(list, "'||'"));
+	if (tmp->next && tmp->next->e_type == ET)
+		return (abort_sort(list, "'&&'"));
+	if (tmp->next && tmp->next->e_type == OU)
+		return (abort_sort(list, "'||'"));
 	if (tmp->next && tmp->next->e_type == SEMI_COLON)
 		return (abort_sort(list, "';;'"));
 	if (tmp->next && tmp->next->e_type == PIPE)
