@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/12 16:48:18 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/18 21:02:19 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/20 22:00:09 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,6 @@ void		token_chevron(t_token **list, char *cmd)
 			add_token(list, new_token("<<", 3));
 		else if (cmd[1] && cmd[1] == '&')
 			add_token(list, new_token("<&", 3));
-		else if (cmd[1] && cmd[1] == '>')
-			add_token(list, new_token("<>", 3));
 		else
 			add_token(list, new_token("<", 3));
 	}

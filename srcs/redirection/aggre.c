@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/01 14:07:57 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/11 20:48:23 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/20 21:56:38 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ void		dup_file(t_node *tree, int i)
 {
 	int		fd;
 
+	ft_putcolor("WORD\n");
+	ft_putstr(tree->aggre_out_w[i]);
 	fd = open(tree->aggre_out_w[i]
 			, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	dup2(fd, tree->aggre_out_nb[i]);

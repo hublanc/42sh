@@ -12,7 +12,7 @@
 
 NAME	= shell
 CC		= gcc
-FLAGS	= -Wall -Wextra -Werror -fsanitize=address
+FLAGS	= -Wall -Wextra -Werror #-fsanitize=address
 DFLAGS	= -MMD
 LIB		= libft/libft.a
 HEADER	= includes/
