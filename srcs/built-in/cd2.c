@@ -47,7 +47,7 @@ static int	change_envpwd(char *tmp, char ***env)
 
 	tab[0] = "setenv";
 	tab[1] = "OLDPWD";
-	tab[2] = tmp;
+	tab[2] = get_elem(env, "PWD=");
 	tab[3] = 0;
 	ft_setenv(tab, env);
 	tab[0] = "setenv";
@@ -66,6 +66,8 @@ static int	change_cwd(char *tmp, char *path)
 	{
 		if (lstat(tmp, &atr) == -1)
 			ft_putstr_fd("cd: no such file or directory: ", 2);
+		else if (!S_ISDIR(atr.st_mode))
+			ft_putstr_fd("cd: not a directory: ", 2);
 		else
 			ft_putstr_fd("cd: permission denied: ", 2);
 		ft_putstr_fd(path, 2);
