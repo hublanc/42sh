@@ -24,10 +24,9 @@ static void	check_dotdot(char **tmp)
 		{
 			while ((*tmp)[i] == '.')
 				i++;
-			i = ft_strschr_len(*tmp + i, "..");
+			if (!ft_strschr_len(*tmp + i, ".."))
+				return ;
 		}
-		if (!ft_strschr_len(*tmp + i, ".."))
-			return ;
 		while ((*tmp)[i] && (*tmp)[i] != '/')
 			ssupprchr(tmp, i);
 		ssupprchr(tmp, i--);
@@ -100,7 +99,7 @@ static char	*check_path(char *path, char ***env, char opt)
 	if (opt == 'P')
 	{
 		(tmp) ? free(tmp) : 0;
-		tmp = (char *)ft_memalloc(1024);
+		tmp = (char *)ft_memalloc(1025);
 		getcwd(tmp, 1024);
 	}
 	return (tmp);

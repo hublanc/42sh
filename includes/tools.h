@@ -108,5 +108,6 @@ char		*get_envpath(char ***env);
 void		ssupprchr(char **s, int pos);
 void		saddchr(char **s, char c, int pos);
 char		*get_elem(char ***env, char *elem);
+void		check_isenvpwd(char ***env);
 
 #endif
