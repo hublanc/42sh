@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 16:36:09 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/19 15:50:46 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/20 11:43:58 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ void				print_up(int nb, int n);
 **	Load_history.c
 */
 t_control			*load_history(char **env);
+void				load_history_2(int fd, t_control **history);
 int					save_history(t_control **history, char *str, char *file);
 int					get_history_file_size(char *file_name);
 int					save_history_in_file(t_control **history, char *file_name);
@@ -136,14 +137,14 @@ void				enter_hub(t_cmd *cmd, t_control **history, char ***env);
 
 char				*history_search(t_control **history);
 t_lst				*history_search_2(t_control **history, char *search);
+t_lst				*while_handler(char *buf, char **search,
+					t_control **history, t_lst *tmp);
+
 t_lst				*move_in_hist(t_lst *pos, char *buf, t_control **history);
 void				set_search_prompt(char *search, t_lst *tmp, int type);
 t_lst				*while_handler(char *buf, char **search,
 					t_control **history, t_lst *tmp);
 void				init_hist_search(char **search, t_lst **tmp);
-/*
-**	char		*research(char **search,int *a,t_control **history,char *buf);
-*/
 
 /*
 **	last_command.c

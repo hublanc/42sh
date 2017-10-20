@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/05 13:44:34 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/18 16:50:32 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/19 18:09:36 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,26 @@ t_control		*load_history(char **env)
 	if (fd == -1)
 		return (NULL);
 	ft_strdel(&file);
-	while (get_next_line(fd, &file) > 0)
+	load_history_2(fd, &history);
+	return (history);
+}
+
+void		load_history_2(int fd, t_control **history)
 {
+	char	*file;
+
+	while (get_next_line(fd, &file))
+	{
 		if (file)
-			history = dll_add_new_elem_frnt(history, file);
-		ft_strdel(&file);
+		{
+			*history = dll_add_new_elem_frnt(*history, file);
+			ft_strdel(&file);
+		}
 	}
 	ft_strdel(&file);
 	close(fd);
-	if (history)
-		history->original_length = history->length;
-	return (history);
+	if (*history)
+		(*history)->original_length = (*history)->length;
 }
 
 int				get_history_file_size(char *file_name)
@@ -49,6 +58,7 @@ int				get_history_file_size(char *file_name)
 	char	*str;
 	int		size;
 
+	str = NULL;
 	fd = open(file_name,
 			O_RDWR | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	size = 0;
@@ -59,6 +69,7 @@ int				get_history_file_size(char *file_name)
 		size++;
 		ft_strdel(&str);
 	}
+	ft_strdel(&str);
 	close(fd);
 	return (size);
 }
