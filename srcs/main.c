@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/24 16:37:30 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/20 13:18:27 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/20 13:55:06 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ int			main(int ac, char **av, char **env)
 	char		**cp_env;
 	int			status;
 
+	if (ac != 1)
+		return (-1);
 	(void)ac;
 	(void)av;
 	cp_env = (*env) ? get_env(env, 1) : init_env();
