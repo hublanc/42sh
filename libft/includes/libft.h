@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/07 14:59:17 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/12 18:32:02 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/20 21:27:55 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,5 +125,6 @@ char				*ft_strschr(char *s1, char *s2);
 size_t				ft_strschr_len(char *s1, char *s2);
 int					ft_power(int nb, int pow);
 int					ft_strlen_chr(char *s, char c);
+char				*ft_strapphead(char *str1, char *str2);
 
 #endif

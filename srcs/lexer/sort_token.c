@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/14 15:40:59 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/17 17:10:53 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/20 21:32:20 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_token			*check_redirection(t_token *list,
 	}
 	if (prev && prev->e_type == IO_NUMBER)
 	{
-		tmp->token = ft_strappone(tmp->token, *(prev->token), 0);
+		tmp->token = ft_strapphead(tmp->token, prev->token);
 		list = destroy_one(list, prev);
 	}
 	tmp->token = ft_strapp(tmp->token, " ");
