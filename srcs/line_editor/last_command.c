@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 13:56:16 by mameyer           #+#    #+#             */
-/*   Updated: 2017/10/19 15:55:46 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/19 17:31:24 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,10 @@ char		*wd_designator(char *command, t_control **history)
 	{
 		if (command[a] == '\'' || command[a] == '"')
 			modify_quotes(&sq, &dq, command[a]);
-		else if ((command[a] == '!' && (command[a - 1] != ' '
+		else if (((command[a] == '!' && (command[a - 1] != ' '
 						|| !command[a - 1])) && sq == 0 && dq == 0)
-		{
-			if (!wd_designator_2(command, &a, &str, history))
-				return (NULL);
-		}
+				&& !wd_designator_2(command, &a, &str, history))
+			return (NULL);
 		else
 			str = ft_str_chr_cat(str, command[a]);
 		a++;
@@ -64,6 +62,8 @@ char		*wd_designator(char *command, t_control **history)
 	if (str[ft_strlen(str) - 1] == ' ')
 		str[ft_strlen(str) - 1] = '\0';
 	add_hist_or_not(history, str);
+	ft_putstr("Returning ");
+	ft_putendl(str);
 	return (str);
 }
 
