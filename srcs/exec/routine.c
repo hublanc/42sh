@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/17 11:10:52 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/19 15:50:22 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/20 13:19:08 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ void		routine(char *cmd, char ***env, t_control **history)
 
 	if (!cmd)
 		return ;
+	ft_putendl("TEST");
 	new_command = wd_designator(cmd, history);
 	list = tokenizer(new_command);
 	display_token(list);
