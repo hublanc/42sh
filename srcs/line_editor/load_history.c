@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/05 13:44:34 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/19 18:09:36 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/23 11:06:38 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_control		*load_history(char **env)
 	return (history);
 }
 
-void		load_history_2(int fd, t_control **history)
+void			load_history_2(int fd, t_control **history)
 {
 	char	*file;
 
