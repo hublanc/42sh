@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/11 14:30:26 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/20 12:00:54 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/23 11:52:59 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,10 @@ void		enter_handler(t_cmd *cmd, t_control **history, char ***env)
 	if (cmd->str && cmd->str[0] != '!')
 		add_hist_or_not(history, cmd->str);
 	routine(cmd->str, env, history);
-	print_prompt();
+	if (!is_sigint(0))
+		print_prompt();
+	else
+		is_sigint(1);
 	clear_cmd(cmd);
 	*cmd = init_cmd(return_prompt());
 }
