@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/25 17:21:58 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/27 20:04:25 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/23 10:24:44 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ char		**env_app(char *name, char *value, char ***env, int *status)
 		return (*env);
 	}
 	if (!(new = get_env(*env, 2)))
-		new = (char**)ft_memalloc(sizeof(char*) * 2);
+		if (!(new = (char**)ft_memalloc(sizeof(char*) * 2)))
+			return (NULL);
 	del_tabstr(env);
 	env = NULL;
 	while (new[i])
@@ -92,5 +93,7 @@ int			ft_setenv(char **tab, char ***env)
 	}
 	else
 		*env = env_app(tab[1], tab[2], env, &status);
+	if (env == NULL)
+		return (1);
 	return (status);
 }

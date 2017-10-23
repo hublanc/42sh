@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 13:56:16 by mameyer           #+#    #+#             */
-/*   Updated: 2017/10/19 17:31:24 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/23 10:42:19 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int			init_wd_des(char **str, char *command, int *a, int *sq)
 	z = 0;
 	*a = 0;
 	*sq = 0;
+	*str = NULL;
 	if (!(ft_strchr(command, '!')))
 	{
 		*str = ft_strdup(command);
@@ -30,10 +31,12 @@ int			init_wd_des(char **str, char *command, int *a, int *sq)
 	if (command[z] && command[z] != '-' && !ft_isdigit(command[z])
 			&& command[z] != '!' && (!(command[z] >= 'a' && command[z] <= 'z')))
 	{
-		*str = ft_strdup(command);
+		if (!(*str = ft_strdup(command)))
+			return (-1);
 		return (0);
 	}
-	*str = ft_memalloc(1);
+	if (!(*str = ft_memalloc(1)))
+		return (-1);
 	return (1);
 }
 
@@ -110,7 +113,8 @@ int			get_last_command(char *command, char **str, t_control **history,
 	tmp = NULL;
 	while (command[a] && command[a] != ' ')
 		a++;
-	tmp = ft_memalloc(a + 1);
+	if (!(tmp = ft_memalloc(a + 1)))
+		return (0);
 	a = 1;
 	while (command[a] && command[a] != ' ')
 	{
