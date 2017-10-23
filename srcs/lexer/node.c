@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 15:20:15 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/11 20:21:20 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/23 10:31:03 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ void			insert_token(t_node **leaf, t_token *tk, int depth, int pipe)
 {
 	if (!*leaf)
 	{
-		*leaf = (t_node*)ft_memalloc(sizeof(struct s_node));
+		if (!(*leaf = (t_node*)ft_memalloc(sizeof(struct s_node))))
+			return ;
 		(*leaf)->value = tk->e_type;
 		if (tk->token)
 			(*leaf)->token = ft_strdup(tk->token);
@@ -75,7 +76,8 @@ void			insert_right(t_node **leaf, int value, char *token)
 {
 	if (!*leaf)
 	{
-		*leaf = (t_node*)ft_memalloc(sizeof(struct s_node));
+		if (!(*leaf = (t_node*)ft_memalloc(sizeof(struct s_node))))
+			return ;
 		(*leaf)->value = value;
 		if (token)
 			(*leaf)->token = ft_strdup(token);
@@ -90,7 +92,8 @@ void			insert_pipe(t_node **leaf, int value, char *token, int depth)
 {
 	if (!*leaf)
 	{
-		*leaf = (t_node*)ft_memalloc(sizeof(struct s_node));
+		if (!(*leaf = (t_node*)ft_memalloc(sizeof(struct s_node))))
+			return ;
 		(*leaf)->value = value;
 		if (token)
 			(*leaf)->token = ft_strdup(token);

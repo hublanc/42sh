@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/25 19:21:36 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/20 15:09:34 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/23 10:23:28 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ static int	env_set(char *name_value, char ***env)
 	char		*val;
 	char		**tab;
 
+	tab = NULL;
 	if (name_value[0] == '=')
 	{
 		ft_putstr_fd("env: setenv: ", 2);
@@ -79,6 +80,8 @@ static int	env_set(char *name_value, char ***env)
 	val = ft_strsub(name_value, ft_strchr(name_value, '=') - name_value + 1,
 		ft_strlen(name_value) - (ft_strchr(name_value, '=') - name_value));
 	tab = prep_setenv(name, val);
+	if (tab == NULL)
+		return (1);
 	stat = ft_setenv(tab, env);
 	ft_strdel(&name);
 	ft_strdel(&val);
