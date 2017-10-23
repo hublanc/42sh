@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/14 15:40:59 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/20 18:21:13 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/23 15:22:05 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,16 @@ t_token			*check_redirection(t_token *list,
 	prev = get_prev(list, tmp);
 	if (!tmp->next || tmp->next->e_type != WORD)
 	{
-		ft_putstr_fd("parse error near redir\n", 2);
+		ft_putstr_fd("parse error near redir ", 2);
+		(tmp->next) ? ft_putstr_fd(tmp->next->token, 2)
+			: ft_putstr_fd("'\\n'", 2);
+		ft_putstr_fd("\n", 2);
 		del_token(&list);
 		return (list);
 	}
 	if (prev && prev->e_type == IO_NUMBER)
-	{
 		tmp->token = ft_strappone(tmp->token, *(prev->token), 0);
-		list = destroy_one(list, prev);
-	}
+	(prev && prev->e_type == IO_NUMBER) ? list = destroy_one(list, prev) : 0;
 	tmp->token = ft_strapp(tmp->token, " ");
 	if (!ft_strstr(tmp->token, "<<"))
 		tmp->token = ft_strapp(tmp->token, tmp->next->token);
