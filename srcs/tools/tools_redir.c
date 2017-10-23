@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 12:22:12 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/17 13:58:15 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/23 10:45:35 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ static int	*add_fd2(t_node *tree)
 {
 	int		*new;
 
-	new = (int*)ft_memalloc(sizeof(int) * 2);
+	if (!(new = (int*)ft_memalloc(sizeof(int) * 2)))
+		return (NULL);
 	new[0] = open_file(tree);
 	new[1] = -1;
 	return (new);
@@ -32,7 +33,8 @@ int			*add_fd(int *fds, t_node *tree)
 	i = 0;
 	while (fds[i] != -1)
 		i++;
-	new = (int*)ft_memalloc(sizeof(int) * (i + 2));
+	if (!(new = (int*)ft_memalloc(sizeof(int) * (i + 2))))
+		return (NULL);
 	i = 0;
 	while (fds[i] != -1)
 	{
@@ -57,14 +59,16 @@ int			*add_io(int *fds, t_node *tree, int io)
 	i = 0;
 	if (!fds)
 	{
-		new = (int*)ft_memalloc(sizeof(int) * 2);
+		if (!(new = (int*)ft_memalloc(sizeof(int) * 2)))
+			return (NULL);
 		new[0] = ft_isdigit((tree->token[0])) ? ft_atoi(tree->token) : io;
 		new[1] = -1;
 		return (new);
 	}
 	while (fds[i] != -1)
 		i++;
-	new = (int*)ft_memalloc(sizeof(int) * (i + 2));
+	if (!(new = (int*)ft_memalloc(sizeof(int) * (i + 2))))
+		return (NULL);
 	i = 0;
 	while (fds[i] != -1)
 	{
@@ -86,12 +90,14 @@ char		**add_w(char **tab, t_node *tree, int cut)
 	i = 0;
 	if (!tab)
 	{
-		new = (char**)ft_memalloc(sizeof(char*) * 2);
+		if (!(new = (char**)ft_memalloc(sizeof(char*) * 2)))
+			return (NULL);
 		new[0] = ft_strsub(tree->token, cut, ft_strlen(tree->token) - cut);
 		new[1] = NULL;
 		return (new);
 	}
-	new = (char**)ft_memalloc(sizeof(char*) * (len_array(tab) + 1));
+	if (!(new = (char**)ft_memalloc(sizeof(char*) * (len_array(tab) + 1))))
+		return (NULL);
 	while (tab[i])
 	{
 		new[i] = tab[i];

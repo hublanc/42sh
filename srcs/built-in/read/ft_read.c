@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/02 14:08:53 by lbopp             #+#    #+#             */
-/*   Updated: 2017/10/19 13:08:23 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/23 10:23:18 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ char	**prep_setenv(char *name, char *value)
 {
 	char	**tab;
 
-	tab = (char**)ft_memalloc(sizeof(char*) * 4);
+	if (!(tab = (char**)ft_memalloc(sizeof(char*) * 4)))
+		return (NULL);
 	tab[0] = ft_strdup("setenv");
 	if (name)
 		tab[1] = ft_strdup(name);
