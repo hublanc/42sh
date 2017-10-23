@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/27 16:50:31 by amazurie          #+#    #+#             */
-/*   Updated: 2017/09/27 16:54:22 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/23 11:11:22 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,18 @@ char	*get_envpath(char ***env)
 		if (!ft_strncmp("PATH=", (*env)[i], 5))
 			return ((*env)[i]);
 	return (NULL);
+}
+
+int		check_lname(char *n1, char *n2, int len)
+{
+	while (len && *n1 && *n2 && ft_toupper(*n1) == ft_toupper(*n2))
+	{
+		len--;
+		n1++;
+		n2++;
+	}
+	if (!len)
+		return (0);
+	else
+		return (*(unsigned char*)n1 - *(unsigned char*)n2);
 }
