@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 16:36:09 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/20 11:43:58 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/23 15:42:17 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,7 @@ t_lst				*move_in_hist(t_lst *pos, char *buf, t_control **history);
 void				set_search_prompt(char *search, t_lst *tmp, int type);
 t_lst				*while_handler(char *buf, char **search,
 					t_control **history, t_lst *tmp);
+char				*return_handler(t_lst *tmp, char *buf, char **search);
 void				init_hist_search(char **search, t_lst **tmp);
 
 /*
