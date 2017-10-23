@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/07 16:07:25 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/19 17:33:12 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/23 13:36:16 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ void		init_screen(t_cmd *cmd)
 
 	if (ioctl(0, TIOCGWINSZ, &sc) == -1)
 	{
-		cmd->sc_col = 10;
-		cmd->sc_row = 10;
+		cmd->sc_col = 100;
+		cmd->sc_row = 100;
 	}
 	else
 	{
