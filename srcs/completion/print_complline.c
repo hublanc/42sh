@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/27 16:56:43 by amazurie          #+#    #+#             */
-/*   Updated: 2017/09/28 15:07:34 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/23 12:55:50 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@ static void	print_linearg(t_compl *compl, char **buff, int *size, int *len)
 {
 	char	*tmp;
 
-	if (compl->ar && compl->ar->arg
-			&& (tmp = ft_strdup(compl->ar->arg + ft_strlen(compl->arg))))
+	if (compl->ar && compl->ar->arg && (tmp = ft_strdup(compl->ar->arg)))
 	{
 		buffcat(buff, tmp);
 		*len += ft_strlen(tmp);
@@ -38,7 +37,8 @@ void		print_complline(t_compl *compl, t_cmd *cmd, int *size, char **buff)
 	print_buff(buff);
 	choose_prompt(cmd);
 	len = 0;
-	if ((tmp = ft_strndup(cmd->str, cmd->col - 1 - cmd->prlen)))
+	if ((tmp = ft_strndup(cmd->str, cmd->col - 1 - cmd->prlen
+					- ((compl->curr >= 0) ? ft_strlen(compl->arg) : 0))))
 	{
 		buffcat(buff, tmp);
 		len = cmd->prlen + ft_strlen(tmp) - 1;
@@ -81,16 +81,23 @@ static void	reprint_line(t_compl *compl, t_cmd *cmd)
 
 void		add_argtoline(t_compl *compl, t_cmd *cmd)
 {
-	t_coargs		*args;
+	t_coargs	*args;
+	int			i;
 
 	if (compl->curr < 0)
 		return ;
 	args = &compl->args;
 	while (args && compl->curr != args->id)
 		args = args->next;
+	i = ft_strlen(compl->arg);
+	while (i-- && cmd->col > cmd->prlen + 1)
+	{
+		cmd->str = ft_strdelone(cmd->str, (cmd->col - 1) - cmd->prlen);
+		go_left(cmd);
+	}
 	reprint_line(compl, cmd);
 	if (args && args->arg)
-		add_line(cmd, args->arg + ft_strlen(compl->arg));
+		add_line(cmd, args->arg);
 	if (args && args->color && ft_strcmp("\e[1;36m", args->color))
 		add_line(cmd, " ");
 }
