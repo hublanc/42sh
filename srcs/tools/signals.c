@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/11 21:20:29 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/23 11:47:40 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/23 15:58:01 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void		reset_cmdsiginted(t_cmd *cmd)
 {
+	if (!cmd)
+		return ;
 	clear_cmd(cmd);
 	*cmd = init_cmd(return_prompt());
 	init_screen(cmd);
@@ -67,7 +69,8 @@ void		get_signal(int n)
 	if (n == SIGINT)
 	{
 		cmd = save_cmd(NULL);
-		(cmd && cmd->str) ? ft_putstr(cmd->str + cmd->col - 1 - cmd->prlen) : 0;
+		(cmd && cmd->str && cmd->str + cmd->col - 1 - cmd->prlen)
+			? ft_putstr(cmd->str + cmd->col - 1 - cmd->prlen) : 0;
 		ft_putchar('\n');
 		print_prompt();
 		read_singleton(0);
