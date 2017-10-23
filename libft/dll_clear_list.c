@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/30 06:25:47 by mameyer           #+#    #+#             */
-/*   Updated: 2017/08/30 06:30:12 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/23 10:59:03 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,5 @@ t_control		*dll_clear_list(t_control *control)
 		}
 		free(control);
 	}
-	return (control);
+	return (NULL);
 }

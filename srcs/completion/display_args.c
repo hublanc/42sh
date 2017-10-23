@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 15:35:33 by amazurie          #+#    #+#             */
-/*   Updated: 2017/09/28 15:08:35 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/23 10:27:09 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,8 @@ void		display_args(t_compl *compl, t_cmd *cmd)
 
 	if (!(size = get_size(compl, cmd)))
 		return ;
-	buff = (char *)ft_memalloc(COMPLBUFF);
+	if (!(buff = (char *)ft_memalloc(COMPLBUFF)))
+		return ;
 	go_begin(cmd->col + ((compl->ar) ? ft_strlen(compl->ar->arg) : 0), size[0]);
 	get_curr(compl);
 	ft_putstr(tgetstr("vi", NULL));

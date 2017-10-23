@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 11:40:20 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/19 11:57:38 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/23 11:05:19 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int			read_terminfo(char *tmp)
 }
 
 int			get_terminfo(void)
-{			
+{
 	struct dirent	*dirc;
 	DIR				*dirp;
 	char			*tmp;
