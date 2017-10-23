@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 18:24:56 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/20 21:57:23 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/23 15:26:05 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ int			check_number(t_token **list, char *cmd);
 int			*add_fd(int *fds, t_node *tree);
 int			*add_io(int *fds, t_node *tree, int io);
 char		**add_w(char **tab, t_node *tree, int cut);
+int			type_redir(char *str);
 
 /*
 **	Tools_routine.c
