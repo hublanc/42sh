@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/26 16:13:08 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/23 12:45:32 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/23 14:14:22 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,12 @@ int			check_cmd(char **tab, char **env, t_node *tree)
 	son = fork();
 	if (son == 0)
 	{
-		prep_fd(tree);
 		if (tree->in_pipe != 0)
 			close(tree->in_pipe);
-		ft_exec(cmd, tab, env);
+		if (prep_fd(tree) != -1)
+			ft_exec(cmd, tab, env);
+		else
+			exit(EXIT_FAILURE);
 	}
 	if (son && tree->in == 0 && tree->out == 1)
 		waitpid(son, &status, WUNTRACED | WCONTINUED);

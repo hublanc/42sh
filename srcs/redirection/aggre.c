@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/01 14:07:57 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/23 11:04:57 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/23 14:14:09 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void		manage_aggre(t_node *cmd, t_node *redir)
 	}
 }
 
-void		exec_dup(char *word, int fd2)
+int			exec_dup(char *word, int fd2)
 {
 	int		fd1;
 
@@ -38,7 +38,9 @@ void		exec_dup(char *word, int fd2)
 	{
 		ft_putnbr_fd(fd1, 2);
 		ft_putstr_fd(": Bad file descriptor\n", 2);
+		return (-1);
 	}
+	return (0);
 }
 
 int			*add_fd_aggre(int *fds, int fd)
@@ -81,7 +83,7 @@ void		dup_file(t_node *tree, int i)
 	tree->fd_out = add_fd_aggre(tree->fd_out, fd);
 }
 
-void		exec_aggre(t_node *tree)
+int			exec_aggre(t_node *tree)
 {
 	int		i;
 
@@ -90,8 +92,9 @@ void		exec_aggre(t_node *tree)
 	{
 		if (!ft_strcmp(tree->aggre_in_w[i], "-"))
 			close(tree->aggre_in_nb[i]);
-		else if (ft_strfullnb(tree->aggre_in_w[i]))
-			exec_dup(tree->aggre_in_w[i], tree->aggre_in_nb[i]);
+		else if (ft_strfullnb(tree->aggre_in_w[i]) &&
+				exec_dup(tree->aggre_in_w[i], tree->aggre_in_nb[i]) == -1)
+			return (-1);
 		else
 			ft_putstr_fd("file number expected\n", 2);
 		i++;
@@ -101,10 +104,12 @@ void		exec_aggre(t_node *tree)
 	{
 		if (!ft_strcmp(tree->aggre_out_w[i], "-"))
 			close(tree->aggre_out_nb[i]);
-		else if (ft_strfullnb(tree->aggre_out_w[i]))
-			exec_dup(tree->aggre_out_w[i], tree->aggre_out_nb[i]);
+		else if (ft_strfullnb(tree->aggre_out_w[i])
+				&& exec_dup(tree->aggre_out_w[i], tree->aggre_out_nb[i]) == -1)
+				return (-1);
 		else
 			dup_file(tree, i);
 		i++;
 	}
+	return (0);
 }
