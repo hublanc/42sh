@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/26 16:13:08 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/23 12:45:32 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/23 13:52:05 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,10 @@ int			check_cmd(char **tab, char **env, t_node *tree)
 			close(tree->in_pipe);
 		ft_exec(cmd, tab, env);
 	}
-	if (son && tree->in == 0 && tree->out == 1)
-		waitpid(son, &status, WUNTRACED | WCONTINUED);
-	else
+	if (son && (tree->pipe || tree->end_pipe))
 		fetch_pid(son);
+	else if (son)
+		waitpid(son, &status, WUNTRACED | WCONTINUED);
 	ft_strdel(&cmd);
 	return (status);
 }
