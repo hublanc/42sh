@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/10 17:54:51 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/17 15:38:14 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/23 13:16:57 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,10 @@ void			check_type(char **cmd, t_token **list)
 		add_token(list, new_token(";", 5));
 	else if (**cmd == '|')
 		i += add_pipe_or_word(*cmd, list);
-	else if (**cmd == '&' && *(*cmd + 1) && *(*cmd + 1) == '&')
+	else if (**cmd == '&')
 	{
-		add_token(list, new_token("&&", 7));
+		(!*(*cmd + 1) || *(*cmd + 1) != '&') ?
+			*list = abort_sort(*list, "&") : add_token(list, new_token("&&", 7));
 		i++;
 	}
 	else if (**cmd == '<' || **cmd == '>')
