@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 11:41:39 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/23 13:43:13 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/23 13:49:25 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,8 +109,11 @@ void		key_handler(t_cmd *cmd, t_control **history, char ***env)
 	{
 		if (!(buf = (char *)ft_memalloc(1000)))
 			return ;
-		if (read(0, buf, 999) == -1)
-			stop_shell(env, NULL, history);
+		if (!read(0, buf, 999))
+		{
+			reset_term();
+			(return_status() == 256) ? exit(1) : exit(0);
+		}
 	}
 	else if (i == -1)
 		return ;
