@@ -6,11 +6,15 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/18 15:09:47 by mameyer           #+#    #+#             */
-/*   Updated: 2017/10/23 16:28:46 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/23 17:36:50 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
+
+/*
+**		Change history_search return from char * to int
+*/
 
 char		*history_search(t_control **history)
 {
