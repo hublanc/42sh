@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/07 16:07:25 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/23 14:15:40 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/23 16:03:10 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,16 @@
 t_cmd		*save_cmd(t_cmd *cmd)
 {
 	static t_cmd	*s_cmd;
+	t_cmd			*tmpcmd;
 
 	if (cmd)
 		s_cmd = cmd;
+	else
+	{
+		tmpcmd = s_cmd;
+		s_cmd = NULL;
+		return (tmpcmd);
+	}
 	return (s_cmd);
 }
 

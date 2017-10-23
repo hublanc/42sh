@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/29 12:56:32 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/23 15:42:37 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/23 16:03:39 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,6 @@ int		prompt_heredoc(char *eof, t_token *redir, t_control **history)
 	redir->token = ft_strapp(redir->token, "<< ");
 	redir->token = ft_strapp(redir->token, cmd_hd.str_quote);
 	clear_cmd(&cmd_hd);
+	save_cmd(NULL);
 	return ((!cmd_hd.stop) ? 1 : 0);
 }
