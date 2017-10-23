@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/27 11:09:06 by amazurie          #+#    #+#             */
-/*   Updated: 2017/09/28 15:13:54 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/23 11:57:35 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,19 @@
 
 static void	prep_complstar2(t_compl *compl, t_cmd *cmd)
 {
-	if (compl->arg)
-		go_right(cmd);
+	int			i;
+
 	if (compl->path[ft_strlen(compl->path) - 1] == '/')
 		compl->path[ft_strlen(compl->path) - 1] = 0;
 	if (!compl->isslash)
 	{
 		cmd->str = ft_strdelone(cmd->str, cmd->col - 1 - cmd->prlen);
+		go_left(cmd);
+	}
+	i = ft_strlen(compl->arg);
+	while (i--)
+	{
+		cmd->str = ft_strdelone(cmd->str, (cmd->col - 1) - cmd->prlen);
 		go_left(cmd);
 	}
 }
@@ -53,8 +59,7 @@ static int	compl_star2(t_compl *compl, t_cmd *cmd)
 
 	prep_complstar2(compl, cmd);
 	ar = &compl->args;
-	tmp = (compl->arg) ? ft_strjoin(ar->arg + ft_strlen(compl->arg), " ")
-		: ft_strjoin(ar->arg, " ");
+	tmp = ft_strjoin(ar->arg, " ");
 	while (ar && (ar = ar->next) && ar->arg)
 	{
 		tmp2 = ft_strjoin(tmp, compl->path);
