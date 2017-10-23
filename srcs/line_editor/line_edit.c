@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 17:36:47 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/23 14:15:05 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/23 15:10:53 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void		add_line(t_cmd *cmd, char *buf)
 	print_line(cmd);
 	while (k--)
 		go_right(cmd);
-	if (buf[i])
+	if (i > 0 && buf[i])
 	{
 		save_buf(buf + i);
 		can_sigint(1);
