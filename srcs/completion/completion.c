@@ -6,11 +6,25 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 09:54:57 by amazurie          #+#    #+#             */
-/*   Updated: 2017/09/29 15:26:39 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/23 11:50:52 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
+
+void		compl_addline(t_cmd *cmd, t_compl *compl)
+{
+
+	int		i;
+
+	i = ft_strlen(compl->arg);
+	while (i-- && cmd->col > cmd->prlen + 1)
+	{
+		cmd->str = ft_strdelone(cmd->str, (cmd->col - 1) - cmd->prlen);
+		go_left(cmd);
+	}
+	add_line(cmd, compl->args.arg);
+}
 
 static void	compl_issigint(int n)
 {
@@ -86,7 +100,7 @@ void		completion(t_cmd *cmd, char ***env, char **buf)
 	(!compl.isslash && compl.path && compl.path[0]) ? add_line(cmd, "/") : 0;
 	if (!compl.args.next && compl.args.arg)
 	{
-		add_line(cmd, compl.args.arg + ft_strlen(compl.arg));
+		compl_addline(cmd, &compl);
 		ft_bzero(*buf, ft_strlen(*buf));
 		(compl.args.color && ft_strcmp("\e[1;36m", compl.args.color))
 			? (*buf)[0] = ' ' : 0;
