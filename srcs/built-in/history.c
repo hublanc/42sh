@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/18 18:08:42 by mameyer           #+#    #+#             */
-/*   Updated: 2017/10/19 18:10:24 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/23 10:59:17 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,7 @@ int			ft_history_2(char **tab, t_control **history, char *file,
 			t_hist_flags flags)
 {
 	if (flags.c == 1)
-	{
 		(*history) = dll_clear_list(*history);
-		(*history) = NULL;
-	}
 	if (tab[0] && tab[1] && str_isdigit(tab[1]))
 	{
 		if (tab[2])

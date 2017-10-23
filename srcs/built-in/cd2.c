@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 11:16:27 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/19 14:51:19 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/23 10:56:10 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,8 @@ static char	*check_path(char *path, char ***env, char opt)
 	if (opt == 'P')
 	{
 		(tmp) ? free(tmp) : 0;
-		tmp = (char *)ft_memalloc(1025);
+		if (!(tmp = (char *)ft_memalloc(1025)))
+			return (NULL);
 		getcwd(tmp, 1024);
 	}
 	return (tmp);
