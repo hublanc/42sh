@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/18 15:09:47 by mameyer           #+#    #+#             */
-/*   Updated: 2017/10/20 17:12:06 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/23 16:28:46 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,19 @@ char		*history_search(t_control **history)
 	char		*search;
 	t_lst		*tmp;
 
-	signal(SIGINT, &signal_do_nothing);
 	if (!(*history) || (*history && (*history)->length < 1))
 		return (NULL);
 	init_hist_search(&search, &tmp);
 	ft_strclr(buf);
 	while (read(1, &buf, 3))
 	{
+		if (is_sigint(0))
+		{
+			can_sigint(1);
+			is_sigint(1);
+			save_buf(buf);
+			return (NULL);
+		}
 		if (ft_isprint(buf[0]) || (buf[0] == 127)
 			|| (buf[0] == 27 && tmp))
 			tmp = while_handler(buf, &search, history, tmp);
@@ -32,13 +38,17 @@ char		*history_search(t_control **history)
 			break ;
 		ft_strclr(buf);
 	}
-	if (tmp)
+	return (return_handler(tmp, buf, &search));
+}
+
+char		*return_handler(t_lst *tmp, char *buf, char **search)
+{
+	if (tmp && buf[0] == 10)
 	{
-		ft_strdel(&search);
+		ft_strdel(search);
 		return (ft_strdup(tmp->name));
 	}
-	else
-		return (NULL);
+	return (NULL);
 }
 
 t_lst		*while_handler(char *buf, char **search, t_control **history,
