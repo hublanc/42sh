@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 12:18:48 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/12 13:28:04 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/23 11:07:18 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int			get_files(t_compl *compl, DIR *dirp, t_coargs **args, int *idcount)
 	if (!(dirc = readdir(dirp)))
 		return (1);
 	tmp = *args;
-	if ((compl->arg && ft_strncmp(dirc->d_name, compl->arg,
+	if ((compl->arg && check_lname(compl->arg, dirc->d_name,
 		ft_strlen(compl->arg))) || (dirc->d_name[0] == '.'
 		&& (!compl->isdot || (dirc->d_name[1] && dirc->d_name[1] == '.'))))
 		return (get_files(compl, dirp, args, idcount));
