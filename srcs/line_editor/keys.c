@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 11:41:39 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/23 12:43:47 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/23 14:05:00 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,9 @@ char		*save_buf(char *buf)
 
 static int	check_sigint(t_cmd *cmd, char **buf)
 {
-	if (can_sigint(0) && is_sigint(0))
+	int	i;
+
+	if ((i = can_sigint(0)) && is_sigint(0))
 	{
 		*buf = return_prompt();
 		if (ft_strcmp(cmd->prompt, *buf))
@@ -42,13 +44,23 @@ static int	check_sigint(t_cmd *cmd, char **buf)
 		*buf = save_buf(NULL);
 		return (0);
 	}
+	else if (i)
+	{
+		(*buf) ? free(*buf) : 0;
+		*buf = save_buf(NULL);
+		return (0);
+	}
 	return (1);
 }
 
 static void	handle_key2(t_cmd *cmd, t_control **history, char ***env, char *buf)
 {
 	if (buf[0] == 10)
+	{
+		(buf[1]) ? save_buf(buf + 1) : 0;
+		(buf[1]) ? can_sigint(1) : 0;
 		enter_hub(cmd, history, env);
+	}
 	else if (buf[0] == -30 || buf[0] == -61)
 		copy_cut_paste_handler(cmd, buf);
 	else if (buf[0] == 18)
@@ -97,7 +109,15 @@ void		key_handler(t_cmd *cmd, t_control **history, char ***env)
 	{
 		if (!(buf = (char *)ft_memalloc(1000)))
 			return ;
+<<<<<<< HEAD
 		read(0, buf, 999);
+=======
+		if (!read(0, buf, 999))
+		{
+			reset_term();
+			(return_status() == 256) ? exit(1) : exit(0);
+		}
+>>>>>>> 9f0ac2422423a36aa5f5a0dcec6777a7009d2d9e
 	}
 	else if (i == -1)
 		return ;
