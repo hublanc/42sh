@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 13:13:22 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/16 19:13:02 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/23 14:05:46 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void		close_fd(t_node *tree)
 	}
 }
 
-void		prep_fd(t_node *tree)
+int			prep_fd(t_node *tree)
 {
 	int		i;
 
@@ -78,7 +78,8 @@ void		prep_fd(t_node *tree)
 	if (tree->heredoc)
 		heredoc_input(tree);
 	if (tree->aggre)
-		exec_aggre(tree);
+		if (exec_aggre(tree) == -1)
+			return (-1);
 	if (tree->redir_l && tree->fd_in)
 	{
 		while ((tree->fd_in)[i] != -1)
@@ -87,6 +88,7 @@ void		prep_fd(t_node *tree)
 	}
 	else
 		dup2(tree->in, 0);
+	return (0);
 }
 
 int			manage_fd(t_node *tree)
