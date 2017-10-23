@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 12:18:48 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/12 13:28:04 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/23 10:42:40 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ static char	*add_handspace(const char *name)
 	while (name[++i])
 		if (name[i] == 32)
 			j++;
-	s = (char *)ft_memalloc(ft_strlen(name) + j + 1);
+	if (!(s = (char *)ft_memalloc(ft_strlen(name) + j + 1)))
+		return (NULL);
 	ft_strcat(s, name);
 	i = -1;
 	while (s[++i])

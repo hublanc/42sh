@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/24 16:37:30 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/20 13:55:06 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/23 10:37:19 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ char		**init_env(void)
 	char		*pwd;
 	char		*tmp;
 
-	new = (char**)ft_memalloc(sizeof(char*) * 4);
+	if (!(new = (char**)ft_memalloc(sizeof(char*) * 4)))
+		return (NULL);
 	pwd = ft_strdup("PWD=");
 	tmp = getcwd(NULL, PATH_MAX + 1);
 	pwd = ft_strapp(pwd, tmp);
@@ -47,11 +48,14 @@ int			main(int ac, char **av, char **env)
 	char		**cp_env;
 	int			status;
 
+	cp_env = NULL;
 	if (ac != 1)
 		return (-1);
 	(void)ac;
 	(void)av;
 	cp_env = (*env) ? get_env(env, 1) : init_env();
+	if (cp_env == NULL)
+		return (-1);
 	save_env(&cp_env);
 	signal(SIGINT, get_signal);
 	signal(SIGQUIT, SIG_IGN);

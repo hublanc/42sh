@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 11:41:39 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/20 17:14:39 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/23 10:33:52 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,8 @@ void		key_handler(t_cmd *cmd, t_control **history, char ***env)
 	buf = NULL;
 	if ((i = check_sigint(cmd, &buf)))
 	{
-		buf = (char *)ft_memalloc(1000);
+		if (!(buf = (char *)ft_memalloc(1000)))
+			return ;
 		read(0, buf, 999);
 	}
 	else if (i == -1)

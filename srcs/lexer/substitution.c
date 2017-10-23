@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/10 15:49:56 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/19 13:55:29 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/23 10:32:47 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ static char	*add_handspace(const char *name)
 	while (name[++i])
 		if (name[i] == 32)
 			j++;
-	s = (char *)ft_memalloc(ft_strlen(name) + j + 1);
+	if (!(s = (char *)ft_memalloc(ft_strlen(name) + j + 1)))
+		return (NULL);
 	ft_strcat(s, name);
 	i = -1;
 	while (s[++i])
@@ -47,6 +48,8 @@ static int	do_substitue(char **cmmd, int i, int j, char **tmp2)
 		free(*tmp2);
 		*tmp2 = ft_strndup(*cmmd, i);
 		tmp3 = add_handspace(tmp);
+		if (tmp3 == NULL)
+			return (0);
 		tmp = ft_strjoin(*tmp2, tmp3);
 		ft_strdel(&tmp3);
 		(*tmp2) ? free(*tmp2) : 0;
