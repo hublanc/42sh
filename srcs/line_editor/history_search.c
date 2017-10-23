@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/18 15:09:47 by mameyer           #+#    #+#             */
-/*   Updated: 2017/10/20 17:12:06 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/23 13:46:02 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ char		*history_search(t_control **history)
 	char		*search;
 	t_lst		*tmp;
 
-	signal(SIGINT, &signal_do_nothing);
 	if (!(*history) || (*history && (*history)->length < 1))
 		return (NULL);
 	init_hist_search(&search, &tmp);
