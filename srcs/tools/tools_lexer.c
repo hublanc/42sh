@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/12 16:48:18 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/20 22:00:09 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/23 12:55:54 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,14 +92,20 @@ int			check_chevron(t_token **list, char *cmd)
 int			check_number(t_token **list, char *cmd)
 {
 	char	*new;
+	int		i;
 
+	i = 0;
 	new = NULL;
-	if (*(cmd + 1) && (*(cmd + 1) == '>' || *(cmd + 1) == '<'))
+	if (!cmd)
+		return (0);
+	while (cmd[i] && ft_isdigit(cmd[i]))
+		new = ft_str_chr_cat(new, cmd[i++]);
+	if (cmd[i] && (cmd[i] == '>' || cmd[i] == '<'))
 	{
-		new = ft_str_chr_cat(new, *cmd);
 		add_token(list, new_token(new, 6));
 		ft_strdel(&new);
-		return (0);
+		return (i - 1);
 	}
+	ft_strdel(&new);
 	return (add_word(cmd, list));
 }
