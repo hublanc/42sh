@@ -72,6 +72,7 @@ SRC		=	main.c\
 			tools/tools_routine.c\
 			tools/tools_compl.c\
 			tools/tools_cd.c\
+			tools/tools_env.c\
 			built-in/echo.c\
 			built-in/env.c\
 			built-in/env2.c\

@@ -36,29 +36,27 @@ static int	built_env(char **lstav, char ***envcpy, size_t *i)
 	return (0);
 }
 
-static int	envexec(char **lstav, char ***envcpy, t_control **hist, size_t *i)
+static int	envexec(char **lstav, char ***envcpy, size_t *i, char **env)
 {
 	char	**tmp;
+	size_t	j;
+	int		k;
 
-	if ((tmp = (char **)ft_memalloc(sizeof(char *) * 3)) == NULL)
+	j = i[0];
+	while (lstav[j])
+		j++;
+	if ((tmp = (char **)ft_memalloc(sizeof(char *) * j)) == NULL)
 		return (print_alloc_error("allocation error"));
-	if ((tmp[1] = ft_strdup(lstav[i[0]++])) == NULL)
-		return (print_alloc_error("allocation error"));
+	k = 0;
 	while (lstav[i[0]])
-	{
-		if ((tmp[0] = ft_strjoin(tmp[1], " ")) == NULL)
+		if ((tmp[k++] = ft_strdup(lstav[i[0]++])) == NULL)
 			return (print_alloc_error("allocation error"));
-		free(tmp[1]);
-		if ((tmp[1] = ft_strjoin(tmp[0], lstav[i[0]++])) == NULL)
-			return (print_alloc_error("allocation error"));
-		free(tmp[0]);
-	}
-	routine(tmp[1], envcpy, hist);
+	k = check_envcmd(tmp, *envcpy, env);
 	free(tmp[1]);
 	free(tmp);
 	i[2] = 0;
 	i[0]--;
-	return (return_status());
+	return (k);
 }
 
 static int	env_set(char *name_value, char ***env)
@@ -89,7 +87,7 @@ static int	env_set(char *name_value, char ***env)
 	return (stat);
 }
 
-static int	ft_env2(char **lstav, char ***envcpy, t_control **hist)
+static int	ft_env2(char **lstav, char ***envcpy, char **env)
 {
 	size_t		*i;
 	int			status;
@@ -112,7 +110,7 @@ static int	ft_env2(char **lstav, char ***envcpy, t_control **hist)
 		else if (i[4] == 1 && lstav[i[0]] && lstav[i[0]][0] != '-'
 				&& (!ft_strchr(lstav[i[0] - 1], 'u')
 				|| lstav[i[0] - 1][ft_strlen_chr(lstav[i[0] - 1], 'u') + 1]))
-			status = envexec(lstav, envcpy, hist, i);
+			status = envexec(lstav, envcpy, i, env);
 	}
 	end_ft_env(i, *envcpy);
 	return (status);
@@ -123,6 +121,8 @@ int			ft_env(char **lstav, char **env, t_control **hist)
 	char		**envcpy;
 	int			status;
 
+	if (hist)
+		;
 	envcpy = NULL;
 	if (!lstav[1])
 		return (env_tab(env));
@@ -130,7 +130,7 @@ int			ft_env(char **lstav, char **env, t_control **hist)
 	{
 		if ((envcpy = get_env(env, 1)) == NULL)
 			return (print_alloc_error("allocation error"));
-		status = ft_env2(lstav, &envcpy, hist);
+		status = ft_env2(lstav, &envcpy, env);
 		chdir(get_elem(&env, "PWD"));
 		del_tabstr(&envcpy);
 	}
