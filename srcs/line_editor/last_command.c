@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 13:56:16 by mameyer           #+#    #+#             */
-/*   Updated: 2017/10/24 14:23:11 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/24 17:03:58 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,11 @@ char		*wd_designator(char *command, t_control **history)
 	{
 		if (command[a] == '\'' || command[a] == '"')
 			modify_quotes(&sq, &dq, command[a]);
-		else if (((command[a] == '!' && (command[a - 1] != ' '
+		if (((command[a] == '!' && (command[a - 1] != ' '
 						|| !command[a - 1])) && sq == 0 && dq == 0)
 				&& !wd_designator_2(command, &a, &str, history))
 			return (NULL);
-		else
+		else if (command[a])
 			str = ft_str_chr_cat(str, command[a]);
 		a++;
 	}
