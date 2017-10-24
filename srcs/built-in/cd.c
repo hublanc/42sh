@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/28 15:13:41 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/24 15:50:11 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/24 16:59:43 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static char	*cd2(char **path, char ***env, int i)
 		else
 			tmp = ft_strdup(get_elem(env, "HOME="));
 	}
-	else if (ft_strcmp(path[1], "-") == 0)
+	else if (ft_strcmp(path[i], "-") == 0)
 	{
 		if (!get_elem(env, "OLDPWD="))
 		{
@@ -96,26 +96,20 @@ static char	*cd2(char **path, char ***env, int i)
 
 static int	check_cdopt(char **path, char *opt)
 {
-	int		i;
-	int		j;
+	int	i;
+	int	ret;
 
-	*opt = 0;
-	j = 1;
 	i = 0;
-	while (j > 0 && path[++i] && path[i][0] == '-')
+	while (path[i])
+		i++;
+	g_optind = 1;
+	while ((ret = ft_getopt(i, (const char**)path, "LP")) != -1)
 	{
-		j = 1;
-		while (path[i][j] && (path[i][j] == 'P' || path[i][j] == 'L'))
-			j++;
-		*opt = path[i][j - 1];
-		if (j == 1 || (path[i][j] && path[i][j] != 'P' && path[i][j] != 'L'))
-		{
-			i--;
-			j = -1;
-			*opt = 0;
-		}
+		*opt = ret;
+		if (*opt == '?')
+			return (-1);
 	}
-	return ((i < 1) ? 1 : i);
+	return (g_optind);
 }
 
 int			cd(char **path, char ***env)
@@ -128,7 +122,8 @@ int			cd(char **path, char ***env)
 	if (!path || !path[0])
 		return (1);
 	check_isenvpwd(env);
-	i = check_cdopt(path, &opt);
+	if ((i = check_cdopt(path, &opt)) == -1)
+		return (1);
 	j = 0;
 	while (path[i + j])
 		j++;
