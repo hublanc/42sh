@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 11:50:54 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/20 15:10:38 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/24 15:51:23 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int					cd(char **path, char ***env);
 
 char				**delonenv(char *name, char **env);
 char				**prep_setenv(char *name, char *value);
-void				change_pwd(char *path, char ***env, char opt);
+int					change_pwd(char *path, char ***env, char opt);
 char				***save_env(char ***env);
 char				**env_app(char *name, char *value, char ***env, int *status);
 int					print_alloc_error(char *str);
