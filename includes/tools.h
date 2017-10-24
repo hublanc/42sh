@@ -111,4 +111,11 @@ void		saddchr(char **s, char c, int pos);
 char		*get_elem(char ***env, char *elem);
 void		check_isenvpwd(char ***env);
 
+/*
+** tools_env.c
+*/
+int			print_alloc_error(char *str);
+int			error_env(size_t *i);
+void		end_ft_env(size_t *i, char **env);
+
 #endif

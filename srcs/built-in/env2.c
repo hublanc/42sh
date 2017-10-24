@@ -40,25 +40,6 @@ static int	hand_u(char *uelem, char ***envcpy, size_t *i)
 	}
 }
 
-int			print_alloc_error(char *str)
-{
-	ft_putendl_fd(str, 2);
-	return (1);
-}
-
-int			error_env(size_t *i)
-{
-	free(i);
-	return (1);
-}
-
-void		end_ft_env(size_t *i, char **env)
-{
-	if (i[2])
-		env_tab(env);
-	free(i);
-}
-
 int			builtu_env(char **lstav, char ***envcpy, size_t *i)
 {
 	int		stat;
@@ -78,4 +59,35 @@ int			builtu_env(char **lstav, char ***envcpy, size_t *i)
 	}
 	i[3] = 1;
 	return (stat);
+}
+
+static void	ft_envexec(char *cmd, char **args, char **env)
+{
+	int			i;
+
+	i = 0;
+	if (ft_strchr(args[0], '/'))
+		execve(args[0], args, env);
+	else if (cmd)
+		execve(cmd, args, env);
+	exit(EXIT_SUCCESS);
+}
+
+int			check_envcmd(char **tab, char **env, char **originenv)
+{
+	pid_t		son;
+	int			status;
+	char		*cmd;
+
+	cmd = NULL;
+	status = check_binary(tab, originenv, &cmd);
+	if (status == 126 || status == 127)
+		return (status);
+	son = fork();
+	if (son == 0)
+		ft_envexec(cmd, tab, env);
+	else
+		waitpid(son, &status, WUNTRACED | WCONTINUED);
+	ft_strdel(&cmd);
+	return (status);
 }

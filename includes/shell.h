@@ -90,6 +90,7 @@ char				**env_app(char *name, char *value, char ***env, int *status);
 int					print_alloc_error(char *str);
 int					error_env(size_t *i);
 void				end_ft_env(size_t *i, char **env);
+int					check_envcmd(char **tab, char **env, char **originenv);
 
 /*
 **	terminal
