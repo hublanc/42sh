@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/18 15:09:47 by mameyer           #+#    #+#             */
-/*   Updated: 2017/10/23 17:36:50 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/24 13:09:32 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@
 **		Change history_search return from char * to int
 */
 
-char		*history_search(t_control **history)
+int			history_search(t_control **history, char **str)
 {
 	char		buf[3];
 	char		*search;
 	t_lst		*tmp;
 
 	if (!(*history) || (*history && (*history)->length < 1))
-		return (NULL);
+		return (0);
 	init_hist_search(&search, &tmp);
 	ft_strclr(buf);
 	while (read(1, &buf, 3))
@@ -33,7 +33,7 @@ char		*history_search(t_control **history)
 			can_sigint(1);
 			is_sigint(1);
 			save_buf(buf);
-			return (NULL);
+			return (0);
 		}
 		if (ft_isprint(buf[0]) || (buf[0] == 127)
 			|| (buf[0] == 27 && tmp))
@@ -42,17 +42,18 @@ char		*history_search(t_control **history)
 			break ;
 		ft_strclr(buf);
 	}
-	return (return_handler(tmp, buf, &search));
+	return (return_handler(tmp, buf, &search, str));
 }
 
-char		*return_handler(t_lst *tmp, char *buf, char **search)
+int			return_handler(t_lst *tmp, char *buf, char **search, char **str)
 {
 	if (tmp && buf[0] == 10)
 	{
 		ft_strdel(search);
-		return (ft_strdup(tmp->name));
+		*str = ft_strdup(tmp->name);
+		return (1);
 	}
-	return (NULL);
+	return (1);
 }
 
 t_lst		*while_handler(char *buf, char **search, t_control **history,
