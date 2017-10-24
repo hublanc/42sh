@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/28 15:13:41 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/19 13:37:07 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/24 13:01:31 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static int	check_pwd(char *path, char ***env, char *rep)
 		ft_putstr_fd("cd: HOME not set.\n", 2);
 		return (0);
 	}
-	else if (!(tmp = ft_strdup(get_elem(env, "PWD")))
+	else if (!(tmp = ft_strdup(get_elem(env, "PWD=")))
 			|| (tmp2 = ft_strschr(tmp, path)) == 0)
 	{
 		ft_putstr_fd("cd: string not in pwd: ", 2);
