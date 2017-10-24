@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 11:41:39 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/23 16:31:29 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/24 13:23:22 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,9 @@ static void	handle_key2(t_cmd *cmd, t_control **history, char ***env, char *buf)
 	{
 		ft_strdel(&cmd->str);
 		cmd->col = cmd->prlen + 1;
-		cmd->str = history_search(history);
-		enter_hub(cmd, history, env);
+
+		if (history_search(history, &cmd->str) == 1)
+			enter_hub(cmd, history, env);
 		return ;
 	}
 	else
