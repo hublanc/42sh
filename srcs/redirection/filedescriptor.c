@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 13:13:22 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/23 19:37:41 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/24 20:00:07 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ int			manage_fd(t_node *tree)
 		tmp->fd_in_io = add_io(tmp->fd_in_io, tree, 0);
 	}
 	else if (type_redir(tree->token) == 3)
-		tmp->heredoc_str = ft_strsub(tree->token, i + 3,
-				ft_strlen(tree->token) - (i + 3));
+		manage_heredoc(tree, tmp);
 	return (1);
 }

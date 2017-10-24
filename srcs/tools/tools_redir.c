@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 12:22:12 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/23 16:49:44 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/24 15:25:25 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,11 @@ static int	*add_fd2(t_node *tree)
 	int		*new;
 
 	new = (int*)ft_memalloc(sizeof(int) * 2);
-	new[0] = open_file(tree);
+	if ((new[0] = open_file(tree)) == -1)
+	{
+		free(new);
+		return (NULL);
+	}
 	new[1] = -1;
 	return (new);
 }
