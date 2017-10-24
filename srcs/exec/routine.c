@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/17 11:10:52 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/20 13:19:08 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/24 21:39:23 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,13 @@ void		check_status(int status)
 
 void		exec_cmd(t_node *tree, char ***env, t_control **hist)
 {
-	static int		input = 0;
+	static int		input  = 0;
 	static int		fd[2] = {0, 1};
 	int				*signal;
 
 	signal = singleton_status();
+	if (get_fail() == 1)
+		reset_var(&input, &fd[0], &fd[1]);
 	if (tree->pipe)
 		pipe(fd);
 	else if (tree->end_pipe)
@@ -44,15 +46,14 @@ void		exec_cmd(t_node *tree, char ***env, t_control **hist)
 	if (tree->pipe)
 		input = fd[0];
 	if (tree->end_pipe)
-	{
-		input = 0;
-		fd[0] = 0;
-		fd[1] = 1;
-	}
+		reset_var(&input, &fd[0], &fd[1]);
 }
 
 int			hub(t_node *tree, char ***env, t_control **hist)
 {
+	int		*fail;
+
+	fail = singleton_fail();
 	if (tree->value == 1)
 		exec_cmd(tree, env, hist);
 	if (tree->wait)
@@ -65,26 +66,34 @@ int			hub(t_node *tree, char ***env, t_control **hist)
 	}
 	tree->value != 3 ? close_fd(tree) : 0;
 	if (tree->value == 3 && manage_fd(tree) == -1)
+	{
+		*fail = 1;
 		return (-1);
+	}
 	return (1);
 }
 
 int			exec_tree(t_node *tree, char ***env, t_control **hist)
 {
+	static int		stop = 0;
+
 	if (!tree)
 		return (0);
 	if (tree->value < 5 && hub(tree, env, hist) == -1)
+	{
+		stop = 1;
 		return (-1);
-	if (tree->left && tree->left->do_it == 0
-			&& exec_tree(tree->left, env, hist) == -1)
-		return (-1);
+	}
+	if (tree->left && tree->left->do_it == 0 && !stop)
+		exec_tree(tree->left, env, hist);
 	if (tree->value == 7)
 		operator_and(tree);
 	else if (tree->value == 8)
 		operator_or(tree);
-	if (tree->right && tree->right->do_it == 0
-			&& exec_tree(tree->right, env, hist) == -1)
-		return (-1);
+	if (tree->value >= 5 && stop == 1)
+		stop = 0;
+	if (tree->right && tree->right->do_it == 0 && !stop)
+		exec_tree(tree->right, env, hist);
 	return (1);
 }
 
@@ -96,7 +105,6 @@ void		routine(char *cmd, char ***env, t_control **history)
 
 	if (!cmd)
 		return ;
-	ft_putendl("TEST");
 	new_command = wd_designator(cmd, history);
 	list = tokenizer(new_command);
 	display_token(list);
@@ -109,8 +117,8 @@ void		routine(char *cmd, char ***env, t_control **history)
 	}
 	display_token(list);
 	tree = create_tree(list);
-	reset_term();
 	node_print(tree, 0, 5);
+	reset_term();
 	exec_tree(tree, env, history);
 	set_terminal();
 	del_token(&list);
