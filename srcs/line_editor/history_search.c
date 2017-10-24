@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/18 15:09:47 by mameyer           #+#    #+#             */
-/*   Updated: 2017/10/24 13:09:32 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/24 13:12:36 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int			history_search(t_control **history, char **str)
 		if (ft_isprint(buf[0]) || (buf[0] == 127)
 			|| (buf[0] == 27 && tmp))
 			tmp = while_handler(buf, &search, history, tmp);
-		else
+		else if (buf[0] != 18)
 			break ;
 		ft_strclr(buf);
 	}
