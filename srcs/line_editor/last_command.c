@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 13:56:16 by mameyer           #+#    #+#             */
-/*   Updated: 2017/10/25 17:02:53 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/25 17:21:11 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ char		*wd_designator(char *command, t_control **history)
 	if (str && str[ft_strlen(str) - 1] == ' ')
 		str[ft_strlen(str) - 1] = '\0';
 	add_hist_or_not(history, str);
-	ft_putstr("Returning ");
 	ft_putendl(str);
 	return (str);
 }
@@ -75,29 +74,23 @@ int			wd_designator_2(char *command, int *index, char **str,
 {
 	if (*index - 1 >= 0 && command[*index - 1] && command[*index - 1] == '\\')
 		*str = ft_str_chr_cat(*str, '!');
-	else if (command[*index + 1] && command[*index + 1] == '!')
+	else if (command[*index + 1] && command[*index + 1] == '!'
+			&& !(get_d_bang(&command[*index], str, history, index)))
 	{
-		if (!(get_d_bang(&command[*index], str, history, index)))
-		{
-			event_not_found(command);
-			return (0);
-		}
+		event_not_found(command);
+		return (0);
 	}
-	else if (command[*index + 1] && ft_isdigit(command[*index + 1]))
+	else if (command[*index + 1] && ft_isdigit(command[*index + 1])
+			&& (!get_n_first(&command[*index], str, history, index)))
 	{
-		if (!get_n_first(&command[*index], str, history, index))
-		{
-			event_not_found(command);
-			return (0);
-		}
+		event_not_found(command);
+		return (0);
 	}
-	else if (command[*index + 1] && command[*index + 1] == '-')
+	else if (command[*index + 1] && command[*index + 1] == '-'
+			&& (!get_n_last(&command[*index], str, history, index)))
 	{
-		if (!get_n_last(&command[*index], str, history, index))
-		{
-			event_not_found(command);
-			return (0);
-		}
+		event_not_found(command);
+		return (0);
 	}
 	else
 		get_last_command(&command[*index], str, history, index);
@@ -129,11 +122,7 @@ int			get_last_command(char *command, char **str, t_control **history,
 	}
 	if (!get_last_command_2(tmp, history, str))
 		return (0);
-	a = 0;
-	while (command && command[a] && command[a] != ' ')
-		a++;
-	(*index) += a;
-	ft_strdel(&tmp);
+	get_last_command_3(command, index, &tmp);
 	return (1);
 }
 

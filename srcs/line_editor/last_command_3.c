@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/03 14:28:49 by mameyer           #+#    #+#             */
-/*   Updated: 2017/10/25 17:02:33 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/25 17:21:01 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,4 +98,15 @@ void		get_line_again(char *command, int *index, char **str,
 	while (command[a] && command[a] != ' ')
 		a++;
 	(*index) += a;
+}
+
+void		get_last_command_3(char *str, int *index, char **tmp)
+{
+	int		a;
+
+	a = 0;
+	while (str && str[a] && str[a] != ' ')
+		a++;
+	(*index) += a;
+	ft_strdel(tmp);
 }
