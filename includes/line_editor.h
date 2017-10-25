@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 16:36:09 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/25 17:00:42 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/25 17:19:14 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,6 +156,7 @@ int					get_last_command(char *command, char **str,
 					t_control **history, int *index);
 int					get_last_command_2(char *tmp, t_control **history,
 					char **str);
+void				get_last_command_3(char *str, int *index, char **tmp);
 void				get_line_again(char *command, int *index, char **str,
 					t_control **history);
 int					get_n_first(char *command, char **str, t_control **history,
