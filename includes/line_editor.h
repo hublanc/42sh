@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 16:36:09 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/23 15:42:17 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/24 13:10:50 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ void				enter_hub(t_cmd *cmd, t_control **history, char ***env);
 **	History search
 */
 
-char				*history_search(t_control **history);
+int					history_search(t_control **history, char **str);
 t_lst				*history_search_2(t_control **history, char *search);
 t_lst				*while_handler(char *buf, char **search,
 					t_control **history, t_lst *tmp);
@@ -144,7 +144,8 @@ t_lst				*move_in_hist(t_lst *pos, char *buf, t_control **history);
 void				set_search_prompt(char *search, t_lst *tmp, int type);
 t_lst				*while_handler(char *buf, char **search,
 					t_control **history, t_lst *tmp);
-char				*return_handler(t_lst *tmp, char *buf, char **search);
+int					return_handler(t_lst *tmp, char *buf, char **search,
+					char **str);
 void				init_hist_search(char **search, t_lst **tmp);
 
 /*
