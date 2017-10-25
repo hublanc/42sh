@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 16:36:09 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/25 16:03:37 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/25 17:00:42 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,7 @@ void				modify_quotes(int *sq, int *dq, char c);
 char				*wd_designator(char *command, t_control **history);
 int					wd_designator_2(char *command, int *index, char **str,
 					t_control **history);
-void				get_d_bang(char *command, char **str, t_control **history,
+int					get_d_bang(char *command, char **str, t_control **history,
 					int *index);
 int					get_last_command(char *command, char **str,
 					t_control **history, int *index);

@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/11 14:30:26 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/25 15:54:02 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/25 17:03:03 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ void		enter_handler(t_cmd *cmd, t_control **history, char ***env)
 		prompt_cmdandor(cmd, history, 0);
 	if (!checkstr_pipe(cmd->str))
 		prompt_pipe(cmd, history, 0);
-	if (cmd->str && cmd->str[0] != '!')
+//	if (cmd->str && cmd->str[0] != '!')
+	if (!(ft_strchr(cmd->str, '!')))
 		add_hist_or_not(history, cmd->str);
 	routine(cmd->str, env, history);
 	if (!is_sigint(0))
