@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 12:22:12 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/23 10:45:35 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/25 16:28:01 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int			*add_io(int *fds, t_node *tree, int io)
 char		**add_w(char **tab, t_node *tree, int cut)
 {
 	char	**new;
-	int		i;
+	size_t	i;
 
 	i = 0;
 	if (!tab)
