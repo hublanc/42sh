@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 17:27:30 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/24 16:05:23 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/25 15:27:50 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ char				**ft_cmdsplit(char *str);
 /*
 **	Extra_exec.c
 */
-void				add_quote_content(char *str, char *new, int *i, int *j);
+void				add_quote_content(char *str, char *new, int *i, int *j, int len);
 int					*singleton_status(void);
 
 /*
