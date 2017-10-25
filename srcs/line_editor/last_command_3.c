@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/03 14:28:49 by mameyer           #+#    #+#             */
-/*   Updated: 2017/10/25 13:54:13 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/25 16:30:24 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int			get_n_last(char *command, char **str, t_control **history,
 	tmp = NULL;
 	if (*history && (*history)->begin)
 		tmp = (*history)->begin;
-	while (tmp != NULL && a <= b)
+	while (tmp != NULL && a < b)
 	{
 		tmp = tmp->next;
 		a++;
