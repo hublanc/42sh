@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 13:56:16 by mameyer           #+#    #+#             */
-/*   Updated: 2017/10/25 13:53:59 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/25 16:30:02 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ int			wd_designator_2(char *command, int *index, char **str,
 	}
 	else if (command[*index + 1] && command[*index + 1] == '-')
 	{
-		ft_putendl("00000");
 		if (!get_n_last(&command[*index], str, history, index))
 		{
 			event_not_found(command);
