@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/11 14:30:26 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/25 16:29:32 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/25 16:55:11 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ void		enter_handler(t_cmd *cmd, t_control **history, char ***env)
 {
 	char	c;
 
-	ft_putstr("In enter_handler(), last command == ");
-	ft_putendl((*history)->begin->name);
 	set_selected_null(history);
 	ft_putchar('\n');
 	if (!cmd->str)
