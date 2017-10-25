@@ -6,7 +6,7 @@
 #    By: hublanc <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/07/24 15:04:09 by hublanc           #+#    #+#              #
-#    Updated: 2017/10/25 10:37:22 by amazurie         ###   ########.fr        #
+#    Updated: 2017/10/25 16:01:54 by mameyer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,6 @@ SRC		=	main.c\
 			line_editor/keys.c\
 			line_editor/cmd.c\
 			line_editor/quote.c\
-			line_editor/history.c\
 			line_editor/cmdandor.c\
 			line_editor/line_edit.c\
 			line_editor/load_history.c\
