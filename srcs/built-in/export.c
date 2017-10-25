@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/05 16:40:44 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/17 11:21:43 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/25 13:17:58 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,16 +53,68 @@ static int	do_export(char *name, char ***env)
 	return (do_export_sub(env, loc, tab, name));
 }
 
+static void	exported_display(char **env)
+{
+	int		i;
+
+	i = 0;
+	while (env && env[i])
+	{
+		if (ft_strchr(env[i], '='))
+		{
+			ft_putstr("export ");
+			ft_putstr(env[i]);
+			ft_putstr("\n");
+		}
+		else
+		{
+			ft_putstr("export ");
+			ft_putstr(env[i]);
+			ft_putstr("\n");
+		}
+		i++;
+	}
+}
+
+static int	export_parse(char **tab, char *opt)
+{
+	int		j;
+	int		i;
+
+	i = 0;
+	while (tab[++i] && tab[i][0] == '-')
+	{
+		j = 0;
+		while (tab[i][++j])
+		{
+			if (tab[i][j] == 'p')
+				*opt = 'p';
+			else if (tab[i][j] != 'p')
+			{
+				ft_putstr_fd("42sh: export: -", 2);
+				ft_putchar_fd(tab[i][j], 2);
+				ft_putstr_fd("\nexport name[=word] or export -p\n", 2);
+				return (-1);
+			}
+		 }
+	}
+	return (i);
+}
+
 int			export(char **tab, char ***env)
 {
+	char	opt;
 	int		i;
 	int		status;
 
-	if (!tab || !tab[0] || (tab[0] && !tab[1]) || !env || !*env)
+	if (!tab || !tab[0] || !env || !*env)
 		return (0);
-	i = 0;
+	if ((i = export_parse(tab, &opt)) == -1)
+		return (1);
+	if ((opt == 'p' && !tab[i]) || !tab[1])
+		exported_display(*env);
 	status = 1;
-	while (tab[++i])
-		status = do_export(tab[1], env);
+	while (tab[i])
+		status = do_export(tab[i++], env);
 	return (status);
 }
