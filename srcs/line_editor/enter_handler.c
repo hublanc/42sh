@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/11 14:30:26 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/23 12:44:06 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/25 14:41:53 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,9 @@ void		enter_handler_heredoc(t_cmd *cmd)
 
 void		enter_hub(t_cmd *cmd, t_control **history, char ***env)
 {
-	if (!ft_strcmp(cmd->prompt, "dquote> ")
+	if (!cmd->prompt)
+		enter_handler(cmd, history, env);
+	else if (!ft_strcmp(cmd->prompt, "dquote> ")
 	|| !ft_strcmp(cmd->prompt, "quote> "))
 		enter_handler_quote(cmd, history);
 	else if (!ft_strcmp(cmd->prompt, "> "))
