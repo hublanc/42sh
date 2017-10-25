@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/03 14:28:49 by mameyer           #+#    #+#             */
-/*   Updated: 2017/10/19 14:00:59 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/25 13:54:13 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,17 @@ int			get_n_last(char *command, char **str, t_control **history,
 	tmp = NULL;
 	if (*history && (*history)->begin)
 		tmp = (*history)->begin;
-	while (tmp != NULL && a < b)
+	while (tmp != NULL && a <= b)
 	{
 		tmp = tmp->next;
 		a++;
 	}
 	if (tmp)
 		get_n_2(tmp->name, str);
-	while (command[*index] && command[*index] != ' ')
-		(*index)++;
+	a = 0;
+	while (command[a] && command[a] != ' ')
+		a++;
+	(*index) += a;
 	return (1);
 }
 
@@ -73,8 +75,10 @@ int			get_n_first(char *command, char **str, t_control **history,
 	}
 	if (tmp)
 		get_n_2(tmp->name, str);
-	while (command[*index] && command[*index] != ' ')
-		(*index)++;
+	a = 0;
+	while (command[a] && command[a] != ' ')
+		a++;
+	(*index) += a;
 	return (1);
 }
 
@@ -90,6 +94,8 @@ void		get_line_again(char *command, int *index, char **str,
 		a++;
 	}
 	(void)history;
-	while (command[*index] && command[*index] != ' ')
-		(*index)++;
+	a = 0;
+	while (command[a] && command[a] != ' ')
+		a++;
+	(*index) += a;
 }
