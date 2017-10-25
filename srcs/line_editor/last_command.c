@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 13:56:16 by mameyer           #+#    #+#             */
-/*   Updated: 2017/10/25 17:21:11 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/25 17:30:52 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,6 @@ int			get_last_command_2(char *tmp, t_control **history, char **str)
 			*str = ft_str_chr_cat(*str, lst->name[a]);
 			a++;
 		}
-		*str = ft_str_chr_cat(*str, ' ');
 		return (1);
 	}
 	return (0);
