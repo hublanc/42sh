@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 13:56:16 by mameyer           #+#    #+#             */
-/*   Updated: 2017/10/25 16:12:20 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/25 17:02:53 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,13 @@ int			wd_designator_2(char *command, int *index, char **str,
 	if (*index - 1 >= 0 && command[*index - 1] && command[*index - 1] == '\\')
 		*str = ft_str_chr_cat(*str, '!');
 	else if (command[*index + 1] && command[*index + 1] == '!')
-		get_d_bang(&command[*index], str, history, index);
+	{
+		if (!(get_d_bang(&command[*index], str, history, index)))
+		{
+			event_not_found(command);
+			return (0);
+		}
+	}
 	else if (command[*index + 1] && ft_isdigit(command[*index + 1]))
 	{
 		if (!get_n_first(&command[*index], str, history, index))
@@ -87,7 +93,6 @@ int			wd_designator_2(char *command, int *index, char **str,
 	}
 	else if (command[*index + 1] && command[*index + 1] == '-')
 	{
-		ft_putendl("00000");
 		if (!get_n_last(&command[*index], str, history, index))
 		{
 			event_not_found(command);
