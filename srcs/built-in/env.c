@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/25 19:21:36 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/23 10:23:28 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/25 12:34:00 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,9 +104,11 @@ static int	ft_env2(char **lstav, char ***envcpy, char **env)
 		if (built_env(lstav, envcpy, i) == 1)
 			return (error_env(i));
 		!lstav[i[0]][1] && lstav[i[0]][0] == '-' ? del_tabstr(envcpy) : 0;
-		if (!i[3] && ft_strchr(lstav[i[0]], '=')
-			&& (env_set(lstav[i[0]], envcpy)) == 1)
-			return (error_env(i));
+		if (!i[3] && ft_strchr(lstav[i[0]], '='))
+		{
+			if (env_set(lstav[i[0]], envcpy) == 1)
+				return (error_env(i));
+		}
 		else if (i[4] == 1 && lstav[i[0]] && lstav[i[0]][0] != '-'
 				&& (!ft_strchr(lstav[i[0] - 1], 'u')
 				|| lstav[i[0] - 1][ft_strlen_chr(lstav[i[0] - 1], 'u') + 1]))
@@ -131,7 +133,6 @@ int			ft_env(char **lstav, char **env, t_control **hist)
 		if ((envcpy = get_env(env, 1)) == NULL)
 			return (print_alloc_error("allocation error"));
 		status = ft_env2(lstav, &envcpy, env);
-		chdir(get_elem(&env, "PWD"));
 		del_tabstr(&envcpy);
 	}
 	return (status);
