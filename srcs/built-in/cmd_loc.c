@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/05 13:46:33 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/16 19:29:16 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/25 15:35:53 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,16 @@ int			endloc(char *cmmd)
 		i++;
 	while (cmmd[i] && cmmd[i + 1] && cmmd[i] == '\\')
 		i += 2;
-	while (cmmd[i] && cmmd[i] != '=')
+	while (cmmd && cmmd[i] && cmmd[i] != '=')
 	{
 		if (cmmd[i] == '\'' || (i > 0 && (cmmd[i] == '"' || cmmd[i] == 32)))
 			return (0);
 		while (cmmd[i] && cmmd[i + 1] && cmmd[i] == '\\')
+		{
 			i += 2;
+			if (!cmmd[i - 2] || cmmd[i - 1] || cmmd[i])
+				return (0);
+		}
 		i++;
 	}
 	if (!cmmd[i])

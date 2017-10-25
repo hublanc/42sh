@@ -6,11 +6,10 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/03 10:30:24 by hublanc           #+#    #+#             */
-/*   Updated: 2017/01/25 15:05:08 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/25 15:32:43 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "libft.h"
 
 char	*ft_strdup(const char *s1)
@@ -23,7 +22,7 @@ char	*ft_strdup(const char *s1)
 	if (!s1)
 		return (NULL);
 	str = (char*)s1;
-	if (!(copy = (char*)malloc(sizeof(char) * (ft_strlen(str) + 1))))
+	if (!(copy = (char*)ft_memalloc(sizeof(char) * (ft_strlen(str) + 1))))
 		return (NULL);
 	while (str[i] != '\0')
 	{
