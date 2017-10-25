@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 11:41:39 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/25 15:47:10 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/25 15:51:49 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ static void	handle_key2(t_cmd *cmd, t_control **history, char ***env, char *buf)
 	}
 	else if (buf[0] == -30 || buf[0] == -61)
 		copy_cut_paste_handler(cmd, buf);
-/*
 	else if (buf[0] == 18 && 1 == 0)
 	{
 		ft_strdel(&cmd->str);
@@ -72,7 +71,7 @@ static void	handle_key2(t_cmd *cmd, t_control **history, char ***env, char *buf)
 		if (history_search(history, &cmd->str) == 1)
 			enter_hub(cmd, history, env);
 		return ;
-	}*/
+	}
 	else
 		add_line(cmd, buf);
 }
