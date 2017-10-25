@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 13:56:16 by mameyer           #+#    #+#             */
-/*   Updated: 2017/10/24 17:03:58 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/25 13:53:59 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,12 @@ char		*wd_designator(char *command, t_control **history)
 	dq = 0;
 	if (!init_wd_des(&str, command, &a, &sq))
 		return (str);
-	while (command[a])
+	while (a <= (int)ft_strlen(command) && command[a])
 	{
 		if (command[a] == '\'' || command[a] == '"')
 			modify_quotes(&sq, &dq, command[a]);
-		if (((command[a] == '!' && (command[a - 1] != ' '
-						|| !command[a - 1])) && sq == 0 && dq == 0)
+		if ((command[a] == '!' && command[a + 1] && command[a + 1] != ' '
+					&& sq == 0 && dq == 0)
 				&& !wd_designator_2(command, &a, &str, history))
 			return (NULL);
 		else if (command[a])
@@ -73,7 +73,7 @@ char		*wd_designator(char *command, t_control **history)
 int			wd_designator_2(char *command, int *index, char **str,
 			t_control **history)
 {
-	if (command[*index - 1] && command[*index - 1] == '\\')
+	if (*index - 1 >= 0 && command[*index - 1] && command[*index - 1] == '\\')
 		*str = ft_str_chr_cat(*str, '!');
 	else if (command[*index + 1] && command[*index + 1] == '!')
 		get_d_bang(&command[*index], str, history, index);
@@ -87,6 +87,7 @@ int			wd_designator_2(char *command, int *index, char **str,
 	}
 	else if (command[*index + 1] && command[*index + 1] == '-')
 	{
+		ft_putendl("00000");
 		if (!get_n_last(&command[*index], str, history, index))
 		{
 			event_not_found(command);
@@ -123,8 +124,10 @@ int			get_last_command(char *command, char **str, t_control **history,
 	}
 	if (!get_last_command_2(tmp, history, str))
 		return (0);
-	while (command[*index] && command[*index] != ' ')
-		(*index)++;
+	a = 0;
+	while (command[a] && command[a] != ' ')
+		a++;
+	(*index) += a;
 	ft_strdel(&tmp);
 	return (1);
 }

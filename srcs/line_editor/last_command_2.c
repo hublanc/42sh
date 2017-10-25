@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/03 14:27:32 by mameyer           #+#    #+#             */
-/*   Updated: 2017/10/03 14:27:33 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/25 13:36:27 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,19 @@ void		get_d_bang(char *command, char **str, t_control **history,
 	int		a;
 
 	a = 0;
-	if (!((*history)->begin->name))
+	if (!((*history)->begin && (*history)->begin->next
+				&& (*history)->begin->next->name))
 		return ;
-	while ((*history)->begin->name[a])
+	while ((*history)->begin->next->name[a])
 	{
-		*str = ft_str_chr_cat(*str, (*history)->begin->name[a]);
+		*str = ft_str_chr_cat(*str, (*history)->begin->next->name[a]);
 		a++;
 	}
 	*str = ft_str_chr_cat(*str, ' ');
-	while (command[*index] && command[*index] != ' ')
-		(*index)++;
+	a = 0;
+	while (command && command[a] && command[a] != ' ')
+		a++;
+	(*index) += a;
 }
 
 void		modify_quotes(int *sq, int *dq, char c)
