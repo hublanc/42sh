@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 16:36:09 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/24 13:10:50 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/25 16:03:37 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ typedef struct		s_cmd
 	int				sc_row;
 	int				stop;
 }					t_cmd;
-
+/*
 typedef struct		s_hist
 {
 	char			*cmd;
@@ -39,7 +39,7 @@ typedef struct		s_hist
 	int				current;
 	struct s_hist	*next;
 }					t_hist;
-
+*/
 /*
 **	Keys.c
 */
@@ -66,15 +66,6 @@ t_cmd				init_cmd(char *prompt);
 void				clear_cmd(t_cmd *cmd);
 void				init_screen(t_cmd *cmd);
 t_cmd				*save_cmd(t_cmd *cmd);
-
-/*
-**	History.c
-*/
-t_hist				*new_history(char *cmd);
-void				add_begin(t_hist **list, t_hist *new);
-void				delone_history(t_hist **list);
-void				del_history(t_hist **list);
-void				del_current(t_hist **list);
 
 /*
 **	Quote.c
