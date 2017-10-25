@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/17 11:10:52 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/24 16:03:19 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/25 16:23:34 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,16 +100,12 @@ void		routine(char *cmd, char ***env, t_control **history)
 	if (new_command == NULL)
 		return ;
 	list = tokenizer(new_command);
-//	list = tokenizer(cmd);
 	display_token(list);
-//	ft_putendl("End of display_token");
-//	expand(&list, history, env);
 	ft_putendl("TRI");
 	list = sort_token(list, history);
-//	expand(&list, history, env);
 	if (!list)
 	{
-//		ft_strdel(&new_command);
+		ft_strdel(&new_command);
 		return ;
 	}
 	display_token(list);
@@ -122,5 +118,5 @@ void		routine(char *cmd, char ***env, t_control **history)
 	set_terminal();
 	del_token(&list);
 	destroy_tree(tree);
-//	free(new_command);
+	ft_strdel(&new_command);
 }
