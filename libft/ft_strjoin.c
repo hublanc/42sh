@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 10:51:37 by hublanc           #+#    #+#             */
-/*   Updated: 2016/11/14 12:28:54 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/25 16:48:23 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static	char	*concat(char *str1, char *str2, size_t len)
 	char	*str;
 
 	i = 0;
-	if (!(str = (char*)malloc(sizeof(char) * len + 1)))
+	if (!(str = (char*)ft_memalloc(sizeof(char) * len + 1)))
 		return (0);
 	while (*str1)
 	{

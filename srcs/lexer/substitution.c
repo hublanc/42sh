@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/10 15:49:56 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/23 10:32:47 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/25 16:47:28 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ static int	substitute(char **cmmd, int i, int j, int is_redir)
 {
 	char	*tmp2;
 
+	if (j - i - 1 <= 0)
+		return (0);
 	tmp2 = ft_strndup(*cmmd + i + 1, j - i - 1);
 	if (!do_substitue(cmmd, i, j, &tmp2))
 	{
@@ -98,7 +100,7 @@ static int	quote_substitution(char **cmmd, int *i, int *j, int is_redir)
 			if (substitute(cmmd, *i, *j, is_redir) == -1)
 				return (-1);
 	}
-	return (1);
+	return (0);
 }
 
 int			substitution(char **cmmd, int is_redir)
@@ -109,7 +111,7 @@ int			substitution(char **cmmd, int is_redir)
 	if (!cmmd || !*cmmd)
 		return (0);
 	i = -1;
-	while ((*cmmd)[++i])
+	while (cmmd && *cmmd && (*cmmd)[++i])
 	{
 		if ((*cmmd)[i] == '\'')
 			while ((*cmmd)[i] && (*cmmd)[++i] != '\'')
@@ -124,8 +126,12 @@ int			substitution(char **cmmd, int is_redir)
 				&& (*cmmd)[j] != '\n' && (*cmmd)[j] != '"'
 				&& (*cmmd)[j] != '$' && (*cmmd)[j] != '\\')
 				j++;
-		if (j > i + 1 && substitute(cmmd, i, j, is_redir) == -1)
-			return (-1);
+		if (j > i + 1)
+		{
+			if (substitute(cmmd, i, j, is_redir) == -1)
+				return (-1);
+			i = -1;
+		}
 	}
 	return (1);
 }
