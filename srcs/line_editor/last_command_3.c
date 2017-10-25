@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/03 14:28:49 by mameyer           #+#    #+#             */
-/*   Updated: 2017/10/19 14:00:59 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/25 15:38:34 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,8 @@ int			get_n_first(char *command, char **str, t_control **history,
 	}
 	if (tmp)
 		get_n_2(tmp->name, str);
-	while (command[*index] && command[*index] != ' ')
+	a = ft_strlen(command);
+	while (command && *index < a && command[*index] && command[*index] != ' ')
 		(*index)++;
 	return (1);
 }

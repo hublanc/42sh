@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/06 15:56:19 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/12 18:09:09 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/25 15:39:43 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int			countword(char *str)
 	{
 		while (str[i] && str[i] == ' ')
 			i++;
-		while (str[i] && str[i] != ' ')
+		while (i < (int) - 1 && str[i] && str[i] != ' ')
 		{
 			if (str[i] == '\'' || str[i] == '"')
 				i += spend_quote(str, i);
@@ -91,10 +91,10 @@ static char			*cmdsub(char *str, int *i, int len)
 	j = 0;
 	if (!str || !(new = (char*)malloc(sizeof(char) * len + 1)))
 		return (NULL);
-	while (str[*i] && str[*i] != ' ')
+	while (str[*i] && str[*i] != ' ' && j < len)
 	{
 		if (str[*i] == '\'' || str[*i] == '"')
-			add_quote_content(str, new, i, &j);
+			add_quote_content(str, new, i, &j, len);
 		else if (str[*i] == '\\')
 			new[j++] = str[((*i)++) + 1];
 		else

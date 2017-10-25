@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 13:56:16 by mameyer           #+#    #+#             */
-/*   Updated: 2017/10/24 17:03:58 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/25 15:41:37 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,11 @@ char		*wd_designator(char *command, t_control **history)
 	dq = 0;
 	if (!init_wd_des(&str, command, &a, &sq))
 		return (str);
-	while (command[a])
+	while (command && command[a])
 	{
 		if (command[a] == '\'' || command[a] == '"')
 			modify_quotes(&sq, &dq, command[a]);
-		if (((command[a] == '!' && (command[a - 1] != ' '
+		if (command && ((command[a] == '!' && (command[a - 1] != ' '
 						|| !command[a - 1])) && sq == 0 && dq == 0)
 				&& !wd_designator_2(command, &a, &str, history))
 			return (NULL);
@@ -62,7 +62,7 @@ char		*wd_designator(char *command, t_control **history)
 			str = ft_str_chr_cat(str, command[a]);
 		a++;
 	}
-	if (str[ft_strlen(str) - 1] == ' ')
+	if (str && str[ft_strlen(str) - 1] == ' ')
 		str[ft_strlen(str) - 1] = '\0';
 	add_hist_or_not(history, str);
 	ft_putstr("Returning ");
@@ -123,7 +123,8 @@ int			get_last_command(char *command, char **str, t_control **history,
 	}
 	if (!get_last_command_2(tmp, history, str))
 		return (0);
-	while (command[*index] && command[*index] != ' ')
+	while (command && *index < (int) - 1 &&  command[*index]
+			&& command[*index] != ' ')
 		(*index)++;
 	ft_strdel(&tmp);
 	return (1);
