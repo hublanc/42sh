@@ -6,11 +6,8 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 11:41:39 by hublanc           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2017/10/25 10:28:39 by amazurie         ###   ########.fr       */
-=======
+/*   Updated: 2017/10/25 10:32:02 by amazurie         ###   ########.fr       */
 /*   Updated: 2017/10/24 13:09:36 by mameyer          ###   ########.fr       */
->>>>>>> b1238cb... Update - Ctrl + c and ctrl + d fully done, need check for multiple Ctrl + r in history search
 /*                                                                            */
 /* ************************************************************************** */
 
