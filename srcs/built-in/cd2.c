@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 11:16:27 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/24 16:59:21 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/26 11:32:00 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,10 @@ static char	*check_path(char *path, char ***env, char opt)
 {
 	char		*tmp;
 	char		*tmp2;
+	char		pwd[256];
 
+	getcwd(pwd, 256);
+	printf("pwd = [%s]\n", pwd);
 	if (path[0] != '/' && opt != 'P' && get_elem(env, "PWD="))
 	{
 		tmp2 = NULL;
