@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 17:27:30 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/25 15:27:50 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/26 17:39:37 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ typedef struct		s_node
 	int				redir_r;
 	int				redir_l;
 	int				heredoc;
+	int				hd;
+	int				hd_io;
 	int				aggre;
 	int				*aggre_in_nb;
 	char			**aggre_in_w;
@@ -94,6 +96,9 @@ char				**ft_cmdsplit(char *str);
 */
 void				add_quote_content(char *str, char *new, int *i, int *j, int len);
 int					*singleton_status(void);
+void				reset_var(int *input, int *fd1, int *fd2);
+int					*singleton_fail(void);
+int					get_fail(void);
 
 /*
 **	Builtin.c

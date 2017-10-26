@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/20 18:02:23 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/20 18:07:26 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/26 16:58:49 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,15 @@ void		pipe_flag(t_node *tree)
 	t_node	*tmp;
 
 	tmp = tree->left;
-	if (tmp->value == 1)
+	if (tmp->value == 1
+	|| (tmp->value == 3 && tmp->left == NULL))
 		tmp->pipe = 1;
 	else if (tmp->value == 3)
 	{
 		while (tmp->left && tmp->value != 1)
 			tmp = tmp->left;
-		if (tmp->value == 1)
+		if (tmp->value == 1
+		|| (tmp->value == 3 && tmp->left == NULL))
 			tmp->pipe = 1;
 	}
 }
@@ -67,13 +69,15 @@ void		end_flag(t_node *tree)
 	t_node	*tmp;
 
 	tmp = tree->right;
-	if (tmp->value == 1)
+	if (tmp->value == 1
+	|| (tmp->value == 3 && tmp->left == NULL))
 		tmp->end_pipe = 1;
 	else if (tmp->value == 3)
 	{
 		while (tmp->left && tmp->value != 1)
 			tmp = tmp->left;
-		if (tmp->value == 1)
+		if (tmp->value == 1
+		|| (tmp->value == 3 && tmp->left == NULL))
 			tmp->end_pipe = 1;
 	}
 }
