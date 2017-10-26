@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/05 16:40:44 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/26 15:07:47 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/26 15:20:58 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	do_export_sub(char ***env, t_loc *loc, char **tab, char *name)
 		tab2[2] = NULL;
 	else
 		tab2[2] = (tab && tab[0] && tab[1]) ? tab[1] : ft_strdup(loc->value);
-	tab2[3] = 0;
+	tab2[3] = NULL;
 	ft_setenv(tab2, env);
 	suppr_loc(tab2[1]);
 	(tab2[0]) ? free(tab2[0]) : 0;
@@ -53,7 +53,11 @@ static int	do_export(char *name, char ***env)
 		(tab) ? free(tab) : 0;
 		return (1);
 	}
-	return (do_export_sub(env, loc, tab, name));
+	do_export_sub(env, loc, tab, name);
+	(tab && tab[0] && tab[1]) ? free(tab[2]) : 0;
+	(tab && tab[0]) ? free(tab[1]) : 0;
+	(tab) ? free(tab) : 0;
+	return (0);
 }
 
 static void	exported_display(char **env)
