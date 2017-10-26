@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/11 20:35:41 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/26 14:49:07 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/26 16:59:15 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void		left_handler(t_cmd *cmd, int *swap, int start)
 		print_charev(cmd);
 	}
 	else if (*swap == 2 && (cmd->str)[(cmd->col - 1) - cmd->prlen] != '\0')
-		ft_putchar((cmd->str)[(cmd->col - 1) - cmd->prlen]);
+		isatty(0) ? ft_putchar((cmd->str)[(cmd->col - 1) - cmd->prlen]) : 0;
 	if ((cmd->str)[(cmd->col - 1) - cmd->prlen] != '\0'
 			&& cmd->col % cmd->sc_col != 0)
 		isatty(0) ? tputs(tgetstr("le", NULL), 1, tputchar) : 0;
@@ -76,7 +76,7 @@ void		right_handler(t_cmd *cmd, int *swap, int start)
 		print_charev(cmd);
 	}
 	else
-		ft_putchar((cmd->str)[(cmd->col - 1) - cmd->prlen]);
+		isatty(0) ? ft_putchar((cmd->str)[(cmd->col - 1) - cmd->prlen]) : 0;
 	if (cmd->col % cmd->sc_col == 0)
 	{
 		isatty(0) ? tputs(tgetstr("cr", NULL), 1, tputchar) : 0;

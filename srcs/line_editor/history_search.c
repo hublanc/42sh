@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/18 15:09:47 by mameyer           #+#    #+#             */
-/*   Updated: 2017/10/26 16:15:27 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/26 16:56:19 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,25 +88,28 @@ void		set_search_prompt(char *search, t_lst *tmp, int type)
 	if (type == 0)
 	{
 		go_begin(0, 0);
-		tputs(tgetstr("cd", NULL), 1, tputchar);
-		ft_putstr("(reverse-i-search)`': ");
+		isatty(0) ? tputs(tgetstr("cd", NULL), 1, tputchar) : 0;
+		isatty(0) ? ft_putstr("(reverse-i-search)`': ") : 0;
 		return ;
 	}
 	go_begin(0, 0);
-	tputs(tgetstr("cd", NULL), 1, tputchar);
-	ft_putstr("(reverse-i-search)`");
-	ft_putstr(search);
-	ft_putstr("': ");
-	if (tmp)
-		ft_putstr(tmp->name);
-	else
+	if (isatty(0))
 	{
-		go_begin(0, 0);
 		tputs(tgetstr("cd", NULL), 1, tputchar);
-		ft_putstr("failing reverse-i-search: ");
+		ft_putstr("(reverse-i-search)`");
 		ft_putstr(search);
-		ft_putchar('_');
+		ft_putstr("': ");
 	}
+	(tmp && isatty(0)) ? ft_putstr(tmp->name) : 0;
+	if (tmp)
+		return ;
+	go_begin(0, 0);
+	if (!isatty(0))
+		return ;
+	tputs(tgetstr("cd", NULL), 1, tputchar);
+	ft_putstr("failing reverse-i-search: ");
+	ft_putstr(search);
+	ft_putchar('_');
 }
 
 t_lst		*history_search_2(t_control **history, char *search)
