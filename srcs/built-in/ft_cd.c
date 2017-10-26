@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 12:02:15 by lbopp             #+#    #+#             */
-/*   Updated: 2017/10/26 17:02:30 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/26 17:22:58 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,30 @@ static void	check_dotdot(char **tmp)
 		(*tmp)[0] = '/';
 }
 
+void	check_dotslash(char **tmp)
+{
+	int		i;
+	char	*new;
+	char	*del;
+
+	i = 0;
+	while ((*tmp)[i])
+	{
+		if ((*tmp)[i] == '.' && i > 0 && (*tmp)[i - 1] == '/'
+				&& (((*tmp)[i + 1] && (*tmp)[i + 1] == '/') || !((*tmp)[i + 1])))
+		{
+			printf("ON ENTRE\n");
+			new = ft_strsub(*tmp, 0, i - 1);
+			del = ft_strsub(*tmp, i + 1, ft_strlen(*tmp));
+			new = ft_strapp(new, del);
+			ft_strdel(&(*tmp));
+			*tmp = new;
+			ft_strdel(&del);
+		}
+		i++;
+	}
+}
+
 int		exec_cd_default(char *curpath, char ***env)
 {
 	char	*pwd;
@@ -130,6 +154,9 @@ int		exec_cd_default(char *curpath, char ***env)
 	add_slash(&pwd);
 	pwd = ft_strapp(pwd, curpath);
 	check_dotdot(&pwd);
+	printf("AVANT = [%s]\n", pwd);
+	check_dotslash(&pwd);
+	printf("APRES = [%s]\n", pwd);
 	if (!(oldpwd = get_elem(env, "PWD=")))
 		if (get_loc("PWD"))
 			oldpwd = get_loc("PWD")->value;
