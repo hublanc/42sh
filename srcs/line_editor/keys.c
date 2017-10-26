@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 11:41:39 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/26 14:54:11 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/26 15:00:15 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ char		*save_buf(char *buf)
 			if (!(s_buf = (char*)ft_memalloc(6)))
 			{
 				s_buf = NULL;
-				ft_strcat(s_buf, buf);
 			}
+			ft_strcat(s_buf, buf);
 		}
 		else
 			s_buf = ft_strdup(buf);
