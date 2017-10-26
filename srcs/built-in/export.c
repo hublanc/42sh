@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/05 16:40:44 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/26 15:20:58 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/26 17:18:52 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ static int	export_parse(char **tab, char *opt)
 				ft_putstr_fd("\nexport name[=word] or export -p\n", 2);
 				return (-1);
 			}
-		 }
+		}
 	}
 	return (i);
 }

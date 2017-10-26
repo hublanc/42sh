@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/25 19:21:36 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/26 15:23:53 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/26 17:21:20 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,12 +89,10 @@ static int	env_set(char *name_value, char ***env)
 	return (stat);
 }
 
-static int	ft_env2(char **lstav, char ***envcpy, char **env)
+static int	ft_env2(char **lstav, char ***envcpy, char **env, int status)
 {
 	size_t		*i;
-	int			status;
 
-	status = 0;
 	if ((i = (size_t *)ft_memalloc(sizeof(size_t) * 6)) == NULL)
 		return (1);
 	i[0] = 0;
@@ -134,7 +132,7 @@ int			ft_env(char **lstav, char **env, t_control **hist)
 	{
 		if ((envcpy = get_env(env, 1)) == NULL)
 			return (print_alloc_error("allocation error"));
-		status = ft_env2(lstav, &envcpy, env);
+		status = ft_env2(lstav, &envcpy, env, 1);
 		del_tabstr(&envcpy);
 	}
 	return (status);
