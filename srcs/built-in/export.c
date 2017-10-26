@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/05 16:40:44 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/26 14:58:10 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/26 15:07:47 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@ static int	do_export_sub(char ***env, t_loc *loc, char **tab, char *name)
 		return (1);
 	tab2[0] = ft_strdup("setenv");
 	tab2[1] = (tab && tab[0]) ? tab[0] : ft_strdup(name);
-	tab2[2] = (tab && tab[1]) ? tab[1] : ft_strdup(loc->value);
+	if ((tab && tab[0] && !tab[1]) && (!loc || !loc->value))
+		tab2[2] = NULL;
+	else
+		tab2[2] = (tab && tab[0] && tab[1]) ? tab[1] : ft_strdup(loc->value);
 	tab2[3] = 0;
 	ft_setenv(tab2, env);
 	suppr_loc(tab2[1]);
@@ -43,10 +46,10 @@ static int	do_export(char *name, char ***env)
 		if (!(tab = ft_strsplit(name, '=')))
 			return (1);
 	if (!(loc = (tab) ? get_loc(tab[0]) : get_loc(name))
-			&& (!tab || !tab[0] || !tab[1]))
+			&& (!tab || !tab[0]))
 	{
-		(tab && tab[1] && tab[2]) ? free(tab[2]) : 0;
-		(tab && tab[1]) ? free(tab[1]) : 0;
+		(tab && tab[0] && tab[1]) ? free(tab[2]) : 0;
+		(tab && tab[0]) ? free(tab[1]) : 0;
 		(tab) ? free(tab) : 0;
 		return (1);
 	}
