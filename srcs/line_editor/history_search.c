@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/18 15:09:47 by mameyer           #+#    #+#             */
-/*   Updated: 2017/10/26 15:56:28 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/26 16:09:07 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int			return_handler(t_lst *tmp, char *buf, char **search, char **str)
 		return (1);
 	}
 	else if (!ft_isprint(buf[0]) && !ft_isprint(buf[1]) && !ft_isprint(buf[2])
-			&& ft_strlen(*search) == 0)
+			&& ft_strlen(*search) == 0 && buf[0] != 10)
 		exit(0);
 	else
 	{

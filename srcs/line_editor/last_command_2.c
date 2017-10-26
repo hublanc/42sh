@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/03 14:27:32 by mameyer           #+#    #+#             */
-/*   Updated: 2017/10/25 17:00:23 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/26 16:03:17 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,11 @@ int			get_d_bang(char *command, char **str, t_control **history,
 
 	a = 0;
 	if (!(*history) || (*history)->length <= 0
-			|| (!((*history)->begin && (*history)->begin->next
-					&& (*history)->begin->next->name)))
+			|| (!((*history)->begin && (*history)->begin->name)))
 		return (0);
-	while ((*history)->begin->next->name[a])
+	while ((*history)->begin->name[a])
 	{
-		*str = ft_str_chr_cat(*str, (*history)->begin->next->name[a]);
+		*str = ft_str_chr_cat(*str, (*history)->begin->name[a]);
 		a++;
 	}
 	*str = ft_str_chr_cat(*str, ' ');
