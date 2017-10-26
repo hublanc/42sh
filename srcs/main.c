@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/24 16:37:30 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/25 14:13:46 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/26 11:52:56 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ int			main(int ac, char **av, char **env)
 	t_cmd		cmd;
 	t_control	*history;
 	char		**cp_env;
-	int			status;
 
 	cp_env = NULL;
 	if (ac != 1)
@@ -75,11 +74,6 @@ int			main(int ac, char **av, char **env)
 	signal(SIGKILL, SIG_IGN);
 	signal(SIGTERM, SIG_IGN);
 	set_terminal();
-
-	 /*test
-	//FIN TEST*/
-
-	status = 0;
 	print_prompt();
 	cmd = init_cmd(return_prompt());
 	save_cmd(&cmd);
