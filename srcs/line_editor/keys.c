@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 11:41:39 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/26 15:00:15 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/26 15:35:58 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static void	handle_key2(t_cmd *cmd, t_control **history, char ***env, char *buf)
 	}
 	else if (buf[0] == -30 || buf[0] == -61)
 		copy_cut_paste_handler(cmd, buf);
-	else if (buf[0] == 18 && 1 == 0)
+	else if (buf[0] == 18)
 	{
 		ft_strdel(&cmd->str);
 		cmd->col = cmd->prlen + 1;
