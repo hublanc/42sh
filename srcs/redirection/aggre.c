@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/01 14:07:57 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/23 14:14:09 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/26 11:20:02 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int			exec_aggre(t_node *tree)
 			close(tree->aggre_out_nb[i]);
 		else if (ft_strfullnb(tree->aggre_out_w[i])
 				&& exec_dup(tree->aggre_out_w[i], tree->aggre_out_nb[i]) == -1)
-				return (-1);
+			return (-1);
 		else
 			dup_file(tree, i);
 		i++;
