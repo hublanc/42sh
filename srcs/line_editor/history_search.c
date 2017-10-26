@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/18 15:09:47 by mameyer           #+#    #+#             */
-/*   Updated: 2017/10/24 13:12:36 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/26 15:56:28 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int			history_search(t_control **history, char **str)
 	ft_strclr(buf);
 	while (read(1, &buf, 3))
 	{
+//		printf("[0] = %c | [1] = %c | [2] = %c\n", buf[0], buf[1], buf[2]);
 		if (is_sigint(0))
 		{
 			can_sigint(1);
@@ -53,7 +54,14 @@ int			return_handler(t_lst *tmp, char *buf, char **search, char **str)
 		*str = ft_strdup(tmp->name);
 		return (1);
 	}
-	return (1);
+	else if (!ft_isprint(buf[0]) && !ft_isprint(buf[1]) && !ft_isprint(buf[2])
+			&& ft_strlen(*search) == 0)
+		exit(0);
+	else
+	{
+		ft_strdel(search);
+		return (1);
+	}
 }
 
 t_lst		*while_handler(char *buf, char **search, t_control **history,
