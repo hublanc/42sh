@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 09:54:57 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/23 11:50:52 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/26 11:23:11 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void		compl_addline(t_cmd *cmd, t_compl *compl)
 {
-
 	int		i;
 
 	i = ft_strlen(compl->arg);
