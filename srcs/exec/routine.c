@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/17 11:10:52 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/24 21:39:23 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/26 17:08:02 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ void		check_status(int status)
 		ft_putchar('\n');
 }
 
-void		exec_cmd(t_node *tree, char ***env, t_control **hist)
+void		exec_cmd(t_node *tree, char ***env, t_control **hist, int ghost)
 {
-	static int		input  = 0;
+	static int		input = 0;
 	static int		fd[2] = {0, 1};
 	int				*signal;
 
@@ -39,8 +39,11 @@ void		exec_cmd(t_node *tree, char ***env, t_control **hist)
 	tree->in = input;
 	tree->out = fd[1];
 	tree->in_pipe = fd[0];
-	get_cmd(tree, env, signal, hist);
-	check_status(*signal);
+	if (!ghost)
+	{
+		get_cmd(tree, env, signal, hist);
+		check_status(*signal);
+	}
 	fd[1] != 1 ? close(fd[1]) : 0;
 	input != 0 ? close(input) : 0;
 	if (tree->pipe)
@@ -55,7 +58,7 @@ int			hub(t_node *tree, char ***env, t_control **hist)
 
 	fail = singleton_fail();
 	if (tree->value == 1)
-		exec_cmd(tree, env, hist);
+		exec_cmd(tree, env, hist, 0);
 	if (tree->wait)
 		wait_allpid();
 	if (tree->value == 4 && tree->right)
@@ -70,6 +73,8 @@ int			hub(t_node *tree, char ***env, t_control **hist)
 		*fail = 1;
 		return (-1);
 	}
+	if (tree->value == 3 && tree->left == NULL)
+		exec_cmd(tree, env, hist, 1);
 	return (1);
 }
 
