@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 11:41:39 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/26 15:35:58 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/26 17:08:35 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ void		key_handler(t_cmd *cmd, t_control **history, char ***env)
 		reset_cmdsiginted(cmd);
 		save_buf(buf);
 		can_sigint(1);
-		free(buf);
+		(buf) ? free(buf) : 0;
 		return ;
 	}
 	handle_key(cmd, history, env, buf);
