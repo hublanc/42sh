@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 17:36:47 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/23 15:10:53 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/26 13:58:36 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void		go_down(void)
 {
+	if (!isatty(0))
+		return ;
 	tputs(tgetstr("cr", NULL), 1, tputchar);
 	tputs(tgetstr("do", NULL), 1, tputchar);
 }
@@ -24,7 +26,7 @@ void		choose_prompt(t_cmd *cmd)
 			|| !ft_strcmp(cmd->prompt, "quote> ")
 	|| !ft_strcmp(cmd->prompt, "heredoc> ") || !ft_strcmp(cmd->prompt, "pipe> ")
 	|| !ft_strcmp(cmd->prompt, "> ") || !ft_strcmp(cmd->prompt, "cmdandor> "))
-		ft_putstr(cmd->prompt);
+		isatty(0) ? ft_putstr(cmd->prompt) : 0;
 	else
 		print_prompt();
 }
@@ -39,7 +41,7 @@ void		pass_prompt(t_cmd *cmd)
 		if (i == cmd->sc_col)
 			go_down();
 		else
-			tputs(tgetstr("nd", NULL), 1, tputchar);
+			isatty(0) ? tputs(tgetstr("nd", NULL), 1, tputchar) : 0;
 		i++;
 	}
 }
@@ -48,6 +50,8 @@ void		print_line(t_cmd *cmd)
 {
 	int		len;
 
+	if (!isatty(0))
+		return ;
 	len = cmd->prlen + (int)ft_strlen(cmd->str);
 	len += len % cmd->sc_col == 0 ? 0 : 1;
 	go_begin(cmd->col, cmd->sc_col);
@@ -96,7 +100,7 @@ void		add_line(t_cmd *cmd, char *buf)
 		}
 	}
 	print_line(cmd);
-	while (k--)
+	while (isatty(0) && k--)
 		go_right(cmd);
 	if (i > 0 && buf[i])
 	{

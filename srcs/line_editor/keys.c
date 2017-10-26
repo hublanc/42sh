@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 11:41:39 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/25 16:37:11 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/26 14:23:25 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ static int	check_sigint(t_cmd *cmd, char **buf)
 	else if (i)
 	{
 		(*buf) ? free(*buf) : 0;
-		*buf = save_buf(NULL);
+		if (!(*buf = save_buf(NULL)))
+			return (1);
 		return (0);
 	}
 	return (1);
@@ -99,7 +100,7 @@ static void	handle_key(t_cmd *cmd, t_control **history, char ***env, char *buf)
 	}
 	else if (buf[0] == 12 && !buf[1])
 	{
-		tputs(tgetstr("cl", NULL), 1, tputchar);
+		isatty(0) ? tputs(tgetstr("cl", NULL), 1, tputchar): 0;
 		print_prompt();
 		print_line(cmd);
 	}
@@ -122,8 +123,16 @@ void		key_handler(t_cmd *cmd, t_control **history, char ***env)
 			return ;
 		if (!read(0, buf, 999))
 		{
-			reset_term();
-			(return_status() == 256) ? exit(1) : exit(0);
+			can_sigint(1);
+			while (buf && buf[0])
+			{
+				save_buf(buf);
+				key_handler(cmd, history, env);
+				buf = save_buf(NULL);
+			}
+			if (cmd->str)
+				enter_hub(cmd, history, env);
+			stop_shell(env, NULL, history);
 		}
 	}
 	else if (i == -1)
