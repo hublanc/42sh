@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 17:27:30 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/24 15:07:53 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/26 15:01:20 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ typedef struct		s_node
 	int				redir_r;
 	int				redir_l;
 	int				heredoc;
+	int				hd;
+	int				hd_io;
 	int				aggre;
 	int				*aggre_in_nb;
 	char			**aggre_in_w;

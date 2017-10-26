@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/29 12:56:32 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/24 23:00:47 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/26 17:08:23 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,30 +21,27 @@ int		*singleton_ioheredoc(void)
 
 void	heredoc_input(t_node *tree)
 {
-	int		fd[2];
-	int		*io;
-
-	io = singleton_ioheredoc();
-	pipe(fd);
-	ft_putcolor("IO : ");
-	ft_putnbrel(*io);
-	if (*io == 0)
-		*io = tree->in;
-	exec_dup(fd[0], *io);
-	ft_putstr_fd(tree->heredoc_str, fd[1]);
-	close(fd[1]);
-	close(fd[0]);
+	exec_dup(tree->hd, tree->hd_io);
+	close(tree->hd);
 }
 
 void	manage_heredoc(t_node *tree, t_node *tmp)
 {
 	int		i;
+	int		fd[2];
+	int		*io;
 
 	i = len_io(tree->token);
+	io = singleton_ioheredoc();
+	pipe(fd);
 	if (tmp->heredoc_str)
 		ft_strdel(&(tmp->heredoc_str));
 	tmp->heredoc_str = ft_strsub(tree->token, i + 3,
 			ft_strlen(tree->token) - (i + 3));
+	ft_putstr_fd(tmp->heredoc_str, fd[1]);
+	close(fd[1]);
+	tmp->hd = fd[0];
+	tmp->hd_io = *io;
 }
 
 char	*eof_quote(char *str, int i)
