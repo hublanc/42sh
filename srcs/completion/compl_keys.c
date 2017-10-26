@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/20 13:00:36 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/19 15:19:48 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/26 17:22:59 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,17 +55,8 @@ static int	get_onscreen(t_compl *compl, t_cmd *cmd)
 	return (0);
 }
 
-int			compl_keys(t_compl *compl, t_cmd *cmd, char **buf)
+static int	check_keys(t_compl *compl, t_cmd *cmd, char **buf)
 {
-	int	i;
-
-	ft_bzero(*buf, ft_strlen(*buf));
-	read(0, *buf, 999);
-	if ((i = is_sigint(0)) == 2)
-		return (0);
-	(i == 1) ? is_sigint(1) : 0;
-	if (i == 1)
-		return (0);
 	if ((*buf)[0] == 27 && !(*buf)[1])
 		return (-1);
 	else if ((*buf)[0] == 27 && compl_arrow(compl, cmd, *buf))
@@ -87,4 +78,18 @@ int			compl_keys(t_compl *compl, t_cmd *cmd, char **buf)
 		return (0);
 	}
 	return (1);
+}
+
+int			compl_keys(t_compl *compl, t_cmd *cmd, char **buf)
+{
+	int	i;
+
+	ft_bzero(*buf, ft_strlen(*buf));
+	read(0, *buf, 999);
+	if ((i = is_sigint(0)) == 2)
+		return (0);
+	(i == 1) ? is_sigint(1) : 0;
+	if (i == 1)
+		return (0);
+	return (check_keys(compl, cmd, buf));
 }

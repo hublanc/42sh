@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/05 16:40:44 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/19 16:34:30 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/26 17:18:03 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,32 +17,28 @@ static int	argunset(char *name, char ***env)
 	char	**new;
 	int		i;
 
-	if (!get_loc(name) && env && *env)
+	if ((i = 0) == 0 && get_loc(name) && env && *env)
 	{
-		i = 0;
-		while ((*env)[i] && ft_strncmp((*env)[i], name,
-					ft_strlen_chr((*env)[i], '=') - 1))
-			i++;
-		if (!(*env)[i] || ft_strncmp((*env)[i], name,
-					ft_strlen_chr((*env)[i], '=') - 1))
-			return (1);
-		else
-		{
-			new = delonenv(name, *env);
-			del_tabstr(env);
-			*env = new;
-			i = 0;
-			while ((*env)[i] && ft_strncmp((*env)[i], name,
-					ft_strlen_chr((*env)[i], '=') - 1))
-				i++;
-			if (!(*env)[i] || ft_strncmp((*env)[i], name,
-					ft_strlen_chr((*env)[i], '=') - 1))
-				return (0);
-			return (1);
-		}
+		suppr_loc(name);
+		return (0);
 	}
-	suppr_loc(name);
-	return (0);
+	while ((*env)[i] && ft_strncmp((*env)[i], name,
+				ft_strlen_chr((*env)[i], '=') - 1))
+		i++;
+	if (!(*env)[i] || ft_strncmp((*env)[i], name,
+				ft_strlen_chr((*env)[i], '=') - 1))
+		return (1);
+	new = delonenv(name, *env);
+	del_tabstr(env);
+	*env = new;
+	i = 0;
+	while ((*env)[i] && ft_strncmp((*env)[i], name,
+				ft_strlen_chr((*env)[i], '=') - 1))
+		i++;
+	if (!(*env)[i] || ft_strncmp((*env)[i], name,
+				ft_strlen_chr((*env)[i], '=') - 1))
+		return (0);
+	return (1);
 }
 
 int			unset(char **tab, char ***env)
