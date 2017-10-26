@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/10 15:49:56 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/25 16:47:28 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/26 11:16:28 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ static int	substitute(char **cmmd, int i, int j, int is_redir)
 
 static int	quote_substitution(char **cmmd, int *i, int *j, int is_redir)
 {
-	while ((*cmmd)[*i] && (*cmmd)[++(*i)] != '"')
+	while ((*cmmd)[*i] && (*cmmd)[++*i] && (*cmmd)[*i] != '"')
 	{
 		*j = *i + 1;
 		*i += (*cmmd)[*i] == '\\' ? 1 : 0;
@@ -114,24 +114,24 @@ int			substitution(char **cmmd, int is_redir)
 	while (cmmd && *cmmd && (*cmmd)[++i])
 	{
 		if ((*cmmd)[i] == '\'')
-			while ((*cmmd)[i] && (*cmmd)[++i] != '\'')
+			while ((*cmmd)[++i] && (*cmmd)[i] != '\'')
 				;
 		if ((*cmmd)[i] == '"')
 			if (quote_substitution(cmmd, &i, &j, is_redir) == -1)
 				return (-1);
 		j = i + 1;
 		i += (*cmmd)[i] == '\\' ? 1 : 0;
-		if ((*cmmd)[i] == '$')
+		if ((*cmmd)[i] && (*cmmd)[i] == '$')
 			while ((*cmmd)[j] && (*cmmd)[j] != 32 && (*cmmd)[j] != 9
 				&& (*cmmd)[j] != '\n' && (*cmmd)[j] != '"'
 				&& (*cmmd)[j] != '$' && (*cmmd)[j] != '\\')
 				j++;
-		if (j > i + 1)
+		if (j > i + 1 || !(*cmmd)[i])
 		{
-			if (substitute(cmmd, i, j, is_redir) == -1)
+			if (!(*cmmd)[i] || substitute(cmmd, i, j, is_redir) == -1)
 				return (-1);
 			i = -1;
 		}
 	}
-	return (1);
+	return (0);
 }
