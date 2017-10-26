@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/25 19:21:36 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/25 12:34:00 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/26 15:23:53 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,9 @@ static int	envexec(char **lstav, char ***envcpy, size_t *i, char **env)
 		if ((tmp[k++] = ft_strdup(lstav[i[0]++])) == NULL)
 			return (print_alloc_error("allocation error"));
 	k = check_envcmd(tmp, *envcpy, env);
-	free(tmp[1]);
+	j = -1;
+	while (tmp[++j])
+		free(tmp[j]);
 	free(tmp);
 	i[2] = 0;
 	i[0]--;
