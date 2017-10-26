@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 19:28:26 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/26 13:54:13 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/26 14:48:18 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void		control_arrow(char *str, t_cmd *cmd)
 			while (cmd->col != cmd->prlen + 1)
 				go_right(cmd);
 		}
-		tputs(tgetstr("up", NULL), 1, tputchar);
+		isatty(0) ? tputs(tgetstr("up", NULL), 1, tputchar) : 0;
 	}
 	if (str[3] == 66 && (int)ft_strlen(cmd->str) + cmd->prlen + 1 > cmd->sc_col)
 	{

@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/11 20:42:22 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/11 20:43:08 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/26 14:50:06 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,17 @@
 
 void		print_charev(t_cmd *cmd)
 {
-	tputs(tgetstr("mr", NULL), 1, tputchar);
+	isatty(0) ? tputs(tgetstr("mr", NULL), 1, tputchar) : 0;
 	ft_putchar((cmd->str)[(cmd->col - 1) - cmd->prlen]);
-	tputs(tgetstr("me", NULL), 1, tputchar);
+	isatty(0) ? tputs(tgetstr("me", NULL), 1, tputchar) : 0;
 }
 
 void		print_up(int nb, int n)
 {
-	tputs(tgetstr("sc", NULL), 1, tputchar);
-	tputs(tgetstr("ho", NULL), 1, tputchar);
+	isatty(0) ? tputs(tgetstr("sc", NULL), 1, tputchar) : 0;
+	isatty(0) ? tputs(tgetstr("ho", NULL), 1, tputchar) : 0;
 	ft_putnbr(nb);
-	tputs(tgetstr("do", NULL), 1, tputchar);
+	isatty(0) ? tputs(tgetstr("do", NULL), 1, tputchar) : 0;
 	ft_putnbr(n);
-	tputs(tgetstr("rc", NULL), 1, tputchar);
+	isatty(0) ? tputs(tgetstr("rc", NULL), 1, tputchar) : 0;
 }

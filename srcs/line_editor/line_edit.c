@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 17:36:47 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/26 13:58:36 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/26 14:47:31 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void		add_line(t_cmd *cmd, char *buf)
 		}
 	}
 	print_line(cmd);
-	while (isatty(0) && k--)
+	while (k--)
 		go_right(cmd);
 	if (i > 0 && buf[i])
 	{
