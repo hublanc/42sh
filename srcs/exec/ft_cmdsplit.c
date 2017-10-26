@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/06 15:56:19 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/25 16:50:58 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/26 11:13:25 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ static char			*cmdsub(char *str, int *i, int len)
 			new[j++] = str[((*i)++) + 1];
 		else
 			new[j++] = str[*i];
-		(*i)++;
+		str[*i] ? ++*i : 0;
 	}
 	new[j] = '\0';
 	return (new);
