@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/01 14:07:57 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/26 17:45:18 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/26 19:30:18 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int			*add_fd_aggre(int *fds, int fd)
 
 	if ((i = 0) == 0 && !fds)
 	{
-		if (!(new = (int*)ft_memalloc(sizeof(int) * 1)))
+		if (!(new = (int*)ft_memalloc(sizeof(int) * 2)))
 			return (NULL);
 		new[0] = fd;
 		new[1] = -1;
@@ -44,7 +44,7 @@ int			*add_fd_aggre(int *fds, int fd)
 	}
 	while (fds[i] != -1)
 		i++;
-	if (!(new = (int*)ft_memalloc(sizeof(int) * (i + 1))))
+	if (!(new = (int*)ft_memalloc(sizeof(int) * (i + 2))))
 		return (NULL);
 	i = 0;
 	while (fds[i] != -1)
