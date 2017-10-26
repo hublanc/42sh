@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/05 16:40:44 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/26 10:58:27 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/26 14:58:10 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ static int	do_export(char *name, char ***env)
 	if (!(loc = (tab) ? get_loc(tab[0]) : get_loc(name))
 			&& (!tab || !tab[0] || !tab[1]))
 	{
+		(tab && tab[1] && tab[2]) ? free(tab[2]) : 0;
 		(tab && tab[1]) ? free(tab[1]) : 0;
-		(tab && tab[2]) ? free(tab[2]) : 0;
 		(tab) ? free(tab) : 0;
 		return (1);
 	}
