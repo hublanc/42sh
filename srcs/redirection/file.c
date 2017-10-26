@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/03 19:10:40 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/17 13:53:19 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/23 16:07:03 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char		*get_file(t_node *tree)
 
 	substitution(&tree->token, 0);
 	file = NULL;
-	i = ft_isdigit((tree->token)[0]) ? 1 : 0;
+	i = len_io(tree->token);
 	if ((tree->token)[i] == '>' && (tree->token)[i + 1] == '>')
 		file = ft_strsub(tree->token, i + 3, ft_strlen(tree->token) - (i + 3));
 	else if ((tree->token)[i] == '>')
@@ -50,7 +50,7 @@ char		*check_file(char *file, t_node *tree)
 	int		i;
 
 	error = 0;
-	i = ft_isdigit((tree->token)[0]) ? 1 : 0;
+	i = len_io(tree->token);
 	if (file && access(file, F_OK) != -1)
 	{
 		if (((tree->token)[i] == '>') && access(file, W_OK) == -1)
@@ -79,7 +79,7 @@ int			open_file(t_node *tree)
 	int		fd;
 	int		i;
 
-	i = ft_isdigit((tree->token)[0]) ? 1 : 0;
+	i = len_io(tree->token);
 	file = get_file(tree);
 	file = check_file(file, tree);
 	fd = -1;

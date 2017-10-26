@@ -6,7 +6,7 @@
 #    By: hublanc <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/07/24 15:04:09 by hublanc           #+#    #+#              #
-#    Updated: 2017/10/26 15:17:31 by amazurie         ###   ########.fr        #
+#    Updated: 2017/10/26 17:40:11 by hublanc          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,6 +58,7 @@ SRC		=	main.c\
 			redirection/pipe.c\
 			redirection/heredoc.c\
 			redirection/aggre.c\
+			redirection/extra_redir.c\
 			tools/error.c\
 			tools/signals.c\
 			tools/tools.c\
