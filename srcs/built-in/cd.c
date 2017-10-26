@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/28 15:13:41 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/24 16:59:43 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/26 11:45:47 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ int			cd(char **path, char ***env)
 		if (tmp)
 			if (change_pwd(tmp, env, opt) && path[i]
 					&& !ft_strcmp(path[i], "-"))
-				ft_putendl(get_elem(env, "OLDPWD="));
+				ft_putendl(get_elem(env, "PWD="));
 		free(tmp);
 	}
 	return (0);
