@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 13:56:16 by mameyer           #+#    #+#             */
-/*   Updated: 2017/10/26 16:03:52 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/26 16:57:05 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ char		*wd_designator(char *command, t_control **history)
 	if (str && str[ft_strlen(str) - 1] == ' ')
 		str[ft_strlen(str) - 1] = '\0';
 	add_hist_or_not(history, str);
-	ft_putendl(str);
+	isatty(0) ? ft_putendl(str) : 0;
 	return (str);
 }
 

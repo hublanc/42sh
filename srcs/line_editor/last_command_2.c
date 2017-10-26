@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/03 14:27:32 by mameyer           #+#    #+#             */
-/*   Updated: 2017/10/26 16:03:17 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/26 16:58:11 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,13 @@ void		set_error(int a, char *command)
 
 	b = 0;
 	if (a == 1)
-	{
-		ft_putendl("shell: syntax error near unexpected token `newline'");
-	}
+		ft_putendl_fd("shell: syntax error near unexpected token `newline'", 2);
 	else if (a == 2)
 	{
-		ft_putstr("shell : s:");
+		isatty(0) ? ft_putstr("shell : s:") : 0;
 		while (command[b] && command[b] != ' ')
-		{
-			ft_putchar(command[b]);
-			b++;
-		}
-		ft_putendl(": substitution failed");
+			isatty(0) ? ft_putchar(command[b++]) : 0;
+		ft_putendl_fd(": substitution failed", 2);
 	}
 }
 
