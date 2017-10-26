@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/05 16:40:44 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/25 13:17:58 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/26 10:58:27 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,18 +60,9 @@ static void	exported_display(char **env)
 	i = 0;
 	while (env && env[i])
 	{
-		if (ft_strchr(env[i], '='))
-		{
-			ft_putstr("export ");
-			ft_putstr(env[i]);
-			ft_putstr("\n");
-		}
-		else
-		{
-			ft_putstr("export ");
-			ft_putstr(env[i]);
-			ft_putstr("\n");
-		}
+		ft_putstr("export ");
+		ft_putstr(env[i]);
+		ft_putstr("\n");
 		i++;
 	}
 }
