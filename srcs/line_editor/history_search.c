@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/18 15:09:47 by mameyer           #+#    #+#             */
-/*   Updated: 2017/10/26 16:09:07 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/26 16:15:27 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int			history_search(t_control **history, char **str)
 		return (0);
 	init_hist_search(&search, &tmp);
 	ft_strclr(buf);
-	while (read(1, &buf, 3))
+	while (read(0, &buf, 3))
 	{
 //		printf("[0] = %c | [1] = %c | [2] = %c\n", buf[0], buf[1], buf[2]);
 		if (is_sigint(0))
