@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/26 11:28:19 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/19 18:55:03 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/26 14:24:05 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void		stop_shell(char ***env, char **tab, t_control **history)
 	if (*history)
 		*history = dll_clear_list(*history);
 	reset_term();
-	ft_putendl_fd("exit", 2);
+	isatty(0) ? ft_putendl("exit") : 0;
 	if (return_status() == 256)
 		exit(1);
 	exit(return_status());
