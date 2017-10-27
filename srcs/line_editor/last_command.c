@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 13:56:16 by mameyer           #+#    #+#             */
-/*   Updated: 2017/10/26 16:57:05 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/27 12:02:44 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ int			init_wd_des(char **str, char *command, int *a, int *sq)
 		z++;
 	z++;
 	if (command[z] && command[z] != '-' && !ft_isdigit(command[z])
-			&& command[z] != '!' && (!(command[z] >= 'a' && command[z] <= 'z')))
+			&& command[z] != '!' && (!(command[z] >= 'a' && command[z] <= 'z'))
+			&& command[z] != ' ')
 	{
 		if (!(*str = ft_strdup(command)))
 			return (-1);
@@ -54,8 +55,7 @@ char		*wd_designator(char *command, t_control **history)
 	{
 		if (command[a] == '\'' || command[a] == '"')
 			modify_quotes(&sq, &dq, command[a]);
-		if ((command[a] == '!' && command[a + 1] && command[a + 1] != ' '
-					&& sq == 0 && dq == 0)
+		if ((command[a] == '!' && sq == 0 && dq == 0)
 				&& !wd_designator_2(command, &a, &str, history))
 			return (NULL);
 		else if (command[a])
@@ -74,6 +74,10 @@ int			wd_designator_2(char *command, int *index, char **str,
 {
 	if (*index - 1 >= 0 && command[*index - 1] && command[*index - 1] == '\\')
 		*str = ft_str_chr_cat(*str, '!');
+	else if (*index + 2 <= (int)ft_strlen(command) && command[*index + 1]
+			&& command[*index + 1] == ' '
+			&& ft_isalnum(command[*index + 2]))
+		(*index) += 2;
 	else if ((*index + 1 <= (int)ft_strlen(command) && command[*index + 1]
 			&& command[*index + 1] == '!'
 			&& !(get_d_bang(&command[*index], str, history, index)))
@@ -82,7 +86,9 @@ int			wd_designator_2(char *command, int *index, char **str,
 			&& !(get_n_first(&command[*index], str, history, index))))
 			|| ((*index + 1 <= (int)ft_strlen(command) && command[*index + 1]
 			&& command[*index + 1] == '-'
-			&& !(get_n_last(&command[*index], str, history, index)))))
+			&& !(get_n_last(&command[*index], str, history, index))))
+			|| !(*index + 2 <= (int)ft_strlen(command) && command[*index + 2]
+			&& ft_isascii(command[*index + 2])))
 	{
 		event_not_found(command);
 		return (0);
