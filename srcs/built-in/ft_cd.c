@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 12:02:15 by lbopp             #+#    #+#             */
-/*   Updated: 2017/10/27 13:40:05 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/27 15:09:16 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,48 +195,12 @@ int		exec_cd_P(char *curpath, char ***env)
 	return (0);
 }
 
-int		cd_oldpath(char ***env)
-{
-	char	*curpath;
-	int		ok;
-
-	ok = 0;
-	curpath = NULL;
-	if (!(curpath = ft_strdup(get_elem(env, "OLDPWD="))))
-	{
-		if (get_loc("OLDPWD"))
-		{
-			curpath = ft_strdup(get_loc("OLDPWD")->value);
-			ok = 1;
-		}
-	}
-	else
-		ok = 1;
-	if (!ok)
-	{
-		ft_putendl_fd("42sh: cd: OLDPWD not set", 2);
-		return (1);
-	}
-	else
-	{
-		if (chdir(curpath) != 1)
-			ft_putendl(curpath);
-		else
-		{
-			ft_putstr_fd("42sh: cd: ", 2);
-			ft_putstr_fd(curpath, 2);
-			ft_putendl_fd("No such file or directory", 2);
-			return (1);
-		}
-	}
-	return (0);
-}
-
 void	change_env(char ***env, char *pwd)
 {
 	char	*oldpwd;
 	char	**tmp;
 
+	//printf("APRES pwd = [%s]\n", pwd);
 	if (!(oldpwd = get_elem(env, "PWD=")) && get_loc("PWD"))
 		oldpwd = get_loc("PWD")->value;
 	oldpwd = ft_strdup(oldpwd);
@@ -259,7 +223,7 @@ void	change_env(char ***env, char *pwd)
 	ft_strdel(&oldpwd);
 }
 
-void	change_env_L(char ***env)
+void	change_home_env_L(char ***env)
 {
 	char	*home;
 	char	*pwd;
@@ -281,6 +245,28 @@ void	change_env_L(char ***env)
 	ft_strdel(&pwd);
 }
 
+void	change_oldpwd_env_L(char ***env)
+{
+	char	*oldpwd;
+	char	*pwd;
+
+	if (!(oldpwd = get_elem(env, "OLDPWD=")) && get_loc("OLDPWD"))
+		oldpwd = get_loc("OLDPWD")->value;
+	if (oldpwd[0] == '/')
+		pwd = ft_strdup(oldpwd);
+	else
+	{
+		if (!(pwd = get_elem(env, "PWD=")) && get_loc("PWD"))
+			pwd = get_loc("PWD")->value;
+		pwd = ft_strdup(pwd);
+		if (pwd && pwd[0])
+			add_slash(&pwd);
+		pwd = ft_strapp(pwd, oldpwd);
+	}
+	change_env(env, pwd);
+	ft_strdel(&pwd);
+}
+
 int		cd_home(char ***env, char opt)
 {
 	t_loc	*loc;
@@ -294,8 +280,8 @@ int		cd_home(char ***env, char opt)
 		return (1);
 	}
 	(!home && loc) ? home = loc->value : 0;
-	if ((home && home[0] && opt == 'P' && chdir(home) == -1)
-			|| (opt == 'L' && chdir(home) == -1))
+	if ((opt == 'P' && chdir(home) == -1)
+			|| (home[0] && chdir(home) == -1))
 	{
 		ft_putstr_fd("42sh: cd: ", 2);
 		ft_putstr_fd(home, 2);
@@ -308,7 +294,39 @@ int		cd_home(char ***env, char opt)
 		change_env(env, pwd);
 	}
 	else
-		change_env_L(env);
+		change_home_env_L(env);
+	return (0);
+}
+
+int		cd_oldpwd(char ***env, char opt)
+{
+	t_loc	*loc;
+	char	*oldpwd;
+	char	pwd[256];
+
+	loc = NULL;
+	if (!(oldpwd = get_elem(env, "OLDPWD=")) && !(loc = get_loc("OLDPWD")))
+	{
+		ft_putendl_fd("42sh: cd: OLDPWD not set", 2);
+		return (1);
+	}
+	(!oldpwd && loc) ? oldpwd = loc->value : 0;
+	if ((opt == 'P' && chdir(oldpwd) == -1)
+			|| (oldpwd[0] && chdir(oldpwd) == -1))
+	{
+		ft_putstr_fd("42sh: cd: ", 2);
+		ft_putstr_fd(oldpwd, 2);
+		ft_putendl_fd(": No such file or directory", 2);
+		return (1);
+	}
+	ft_putendl(oldpwd);
+	if (opt == 'P')
+	{
+		getcwd(pwd, 256);
+		change_env(env, pwd);
+	}
+	else
+		change_oldpwd_env_L(env);
 	return (0);
 }
 
@@ -326,8 +344,9 @@ int		ft_cd(char **tab, char ***env)
 		return (1);
 	if (!tab[g_optind])
 		return (cd_home(env, opt));
-	/*else if (tab[g_optind] && tab[g_optind] == '-')
-		return (cd_oldpwd(env));
+	else if (tab[g_optind] && !ft_strcmp(tab[g_optind],"-"))
+		return (cd_oldpwd(env, opt));
+	/*
 	if (!tab[g_optind] && !get_elem(env, "HOME=") && !get_loc("HOME"))
 	{
 		ft_putendl_fd("42sh: cd: HOME not set", 2);
