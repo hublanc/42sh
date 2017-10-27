@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/25 19:21:36 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/26 17:21:20 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/27 14:59:25 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static int	env_set(char *name_value, char ***env)
 	{
 		ft_putstr_fd("env: setenv: ", 2);
 		ft_putstr_fd(name_value, 2);
-		ft_putstr_fd(" Invalid argument", 2);
+		ft_putstr_fd(" Invalid argument\n", 2);
 		return (1);
 	}
 	name = ft_strsub(name_value, 0, ft_strchr(name_value, '=') - name_value);

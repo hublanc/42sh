@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 17:36:47 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/26 14:47:31 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/27 13:25:05 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,15 @@ void		pass_prompt(t_cmd *cmd)
 {
 	int		i;
 
+	if (!isatty(0))
+		return ;
 	i = 0;
 	while (i < cmd->prlen)
 	{
 		if (i == cmd->sc_col)
 			go_down();
 		else
-			isatty(0) ? tputs(tgetstr("nd", NULL), 1, tputchar) : 0;
+			tputs(tgetstr("nd", NULL), 1, tputchar);
 		i++;
 	}
 }
