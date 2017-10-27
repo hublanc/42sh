@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 12:02:15 by lbopp             #+#    #+#             */
-/*   Updated: 2017/10/27 11:45:34 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/27 13:40:05 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -239,6 +239,7 @@ void	change_env(char ***env, char *pwd)
 
 	if (!(oldpwd = get_elem(env, "PWD=")) && get_loc("PWD"))
 		oldpwd = get_loc("PWD")->value;
+	oldpwd = ft_strdup(oldpwd);
 	if (get_elem(env, "PWD=") || get_loc("PWD"))
 		add_loc("PWD", pwd);
 	else
@@ -255,6 +256,29 @@ void	change_env(char ***env, char *pwd)
 		ft_setenv(tmp, env);
 		//FREE tmp
 	}
+	ft_strdel(&oldpwd);
+}
+
+void	change_env_L(char ***env)
+{
+	char	*home;
+	char	*pwd;
+
+	if (!(home = get_elem(env, "HOME=")) && get_loc("HOME"))
+		home = get_loc("HOME")->value;
+	if (home[0] == '/')
+		pwd = ft_strdup(home);
+	else
+	{
+		if (!(pwd = get_elem(env, "PWD=")) && get_loc("PWD"))
+			pwd = get_loc("PWD")->value;
+		pwd = ft_strdup(pwd);
+		if (pwd && pwd[0])
+			add_slash(&pwd);
+		pwd = ft_strapp(pwd, home);
+	}
+	change_env(env, pwd);
+	ft_strdel(&pwd);
 }
 
 int		cd_home(char ***env, char opt)
@@ -263,14 +287,15 @@ int		cd_home(char ***env, char opt)
 	char	*home;
 	char	pwd[256];
 
-	if (!(home = get_elem(env, "HOME=")) && (!(loc = get_loc("HOME"))))
+	loc = NULL;
+	if (!(home = get_elem(env, "HOME=")) && !(loc = get_loc("HOME")))
 	{
 		ft_putendl_fd("42sh: cd: HOME not set", 2);
 		return (1);
 	}
 	(!home && loc) ? home = loc->value : 0;
-	//chdir vide result ?
-	if (chdir(home) == -1)
+	if ((home && home[0] && opt == 'P' && chdir(home) == -1)
+			|| (opt == 'L' && chdir(home) == -1))
 	{
 		ft_putstr_fd("42sh: cd: ", 2);
 		ft_putstr_fd(home, 2);
@@ -282,7 +307,8 @@ int		cd_home(char ***env, char opt)
 		getcwd(pwd, 256);
 		change_env(env, pwd);
 	}
-	//CHANGE ENV FOR -L
+	else
+		change_env_L(env);
 	return (0);
 }
 
