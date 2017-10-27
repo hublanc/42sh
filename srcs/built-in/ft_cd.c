@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 12:02:15 by lbopp             #+#    #+#             */
-/*   Updated: 2017/10/26 17:22:58 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/27 11:45:34 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@ char	*treat_without_cdpath(char *arg, char ***env)
 	char	*curpath;
 	char	*pwd;
 
-	if (!(pwd = get_elem(env, "HOME=")))
-		if (get_loc("HOME"))
-			pwd = get_loc("HOME")->value;
+	if (!(pwd = get_elem(env, "PWD=")))
+		if (get_loc("PWD"))
+			pwd = get_loc("PWD")->value;
 	curpath = ft_strdup(pwd);
 	add_slash(&curpath);
 	curpath = ft_strapp(curpath, arg);
@@ -154,16 +154,16 @@ int		exec_cd_default(char *curpath, char ***env)
 	add_slash(&pwd);
 	pwd = ft_strapp(pwd, curpath);
 	check_dotdot(&pwd);
-	printf("AVANT = [%s]\n", pwd);
 	check_dotslash(&pwd);
-	printf("APRES = [%s]\n", pwd);
 	if (!(oldpwd = get_elem(env, "PWD=")))
 		if (get_loc("PWD"))
 			oldpwd = get_loc("PWD")->value;
 	if (oldpwd)
 		add_loc("OLDPWD", oldpwd);
 	if (!get_elem(env, "PWD=") && get_loc("PWD"))
+	{
 		add_loc("PWD", pwd);
+	}
 	else
 	{
 		tab_setenv = prep_setenv("PWD", pwd);
@@ -195,17 +195,113 @@ int		exec_cd_P(char *curpath, char ***env)
 	return (0);
 }
 
+int		cd_oldpath(char ***env)
+{
+	char	*curpath;
+	int		ok;
+
+	ok = 0;
+	curpath = NULL;
+	if (!(curpath = ft_strdup(get_elem(env, "OLDPWD="))))
+	{
+		if (get_loc("OLDPWD"))
+		{
+			curpath = ft_strdup(get_loc("OLDPWD")->value);
+			ok = 1;
+		}
+	}
+	else
+		ok = 1;
+	if (!ok)
+	{
+		ft_putendl_fd("42sh: cd: OLDPWD not set", 2);
+		return (1);
+	}
+	else
+	{
+		if (chdir(curpath) != 1)
+			ft_putendl(curpath);
+		else
+		{
+			ft_putstr_fd("42sh: cd: ", 2);
+			ft_putstr_fd(curpath, 2);
+			ft_putendl_fd("No such file or directory", 2);
+			return (1);
+		}
+	}
+	return (0);
+}
+
+void	change_env(char ***env, char *pwd)
+{
+	char	*oldpwd;
+	char	**tmp;
+
+	if (!(oldpwd = get_elem(env, "PWD=")) && get_loc("PWD"))
+		oldpwd = get_loc("PWD")->value;
+	if (get_elem(env, "PWD=") || get_loc("PWD"))
+		add_loc("PWD", pwd);
+	else
+	{
+		tmp = prep_setenv("PWD", pwd);
+		ft_setenv(tmp, env);
+		//FREE tmp
+	}
+	if (get_elem(env, "OLDPWD=") || get_loc("OLDPWD"))
+		add_loc("OLDPWD", oldpwd);
+	else
+	{
+		tmp = prep_setenv("OLDPWD", oldpwd);
+		ft_setenv(tmp, env);
+		//FREE tmp
+	}
+}
+
+int		cd_home(char ***env, char opt)
+{
+	t_loc	*loc;
+	char	*home;
+	char	pwd[256];
+
+	if (!(home = get_elem(env, "HOME=")) && (!(loc = get_loc("HOME"))))
+	{
+		ft_putendl_fd("42sh: cd: HOME not set", 2);
+		return (1);
+	}
+	(!home && loc) ? home = loc->value : 0;
+	//chdir vide result ?
+	if (chdir(home) == -1)
+	{
+		ft_putstr_fd("42sh: cd: ", 2);
+		ft_putstr_fd(home, 2);
+		ft_putendl_fd(": No such file or directory", 2);
+		return (1);
+	}
+	if (opt == 'P')
+	{
+		getcwd(pwd, 256);
+		change_env(env, pwd);
+	}
+	//CHANGE ENV FOR -L
+	return (0);
+}
+
 int		ft_cd(char **tab, char ***env)
 {
-	char	*home;
+	/*char	*home;
 	char	*curpath;
-	char	*cdpath;
+	char	*cdpath;*/
 	char	opt;
 
+	opt = 'L';
 	check_cdopt(tab, &opt);
-	curpath = NULL;
+	//curpath = NULL;
 	if (g_optind == -1)
 		return (1);
+	if (!tab[g_optind])
+		return (cd_home(env, opt));
+	/*else if (tab[g_optind] && tab[g_optind] == '-')
+		return (cd_oldpwd(env));
 	if (!tab[g_optind] && !get_elem(env, "HOME=") && !get_loc("HOME"))
 	{
 		ft_putendl_fd("42sh: cd: HOME not set", 2);
@@ -215,6 +311,8 @@ int		ft_cd(char **tab, char ***env)
 				|| (get_loc("HOME")
 					&& (home = get_loc("HOME")->value))) && home[0])
 		curpath = ft_strdup(home);
+	else if (tab[g_optind] && tab[g_optind][0] == '-')
+		cd_oldpath(env);
 	else if (tab[g_optind] && tab[g_optind][0] == '/')
 	{
 		if (opt == 'P')
@@ -224,15 +322,15 @@ int		ft_cd(char **tab, char ***env)
 	}
 	else if (tab[g_optind] && tab[g_optind][0] == '.')
 		curpath = ft_strdup(tab[g_optind]);
-	else if (tab[g_optind] && ((cdpath = get_elem(env, "HOME="))
-			|| (get_loc("HOME") && (cdpath = get_loc("HOME")->value))))
+	else if (tab[g_optind] && ((cdpath = get_elem(env, "CDPATH="))
+			|| (get_loc("CDPATH") && (cdpath = get_loc("CDPATH")->value))))
 		curpath = treat_cd_path(cdpath, tab[g_optind]);
 	else if (tab[g_optind])
 		curpath = treat_without_cdpath(tab[g_optind], env);
-	printf("curpath = [%s]\n", curpath);
 	if (opt == 'P' && curpath)
 		return (exec_cd_P(curpath, env));
 	else if (curpath)
 		return (exec_cd_default(curpath, env));
+		*/
 	return (0);
 }
