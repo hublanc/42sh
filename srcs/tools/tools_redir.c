@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 12:22:12 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/26 19:20:20 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/27 16:24:15 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,7 @@ int			*add_io(int *fds, t_node *tree, int io)
 		return (NULL);
 	i = 0;
 	while (fds[i] != -1)
-	{
-		new[i] = fds[i];
-		i++;
-	}
+		new[i] = fds[i++];
 	new[i++] = ft_isdigit((tree->token[0])) ? ft_atoi(tree->token) : io;
 	new[i] = -1;
 	ft_memdel((void**)&fds);
