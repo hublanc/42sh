@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 17:36:47 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/27 13:25:05 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/27 16:23:21 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,8 @@ void		print_line(t_cmd *cmd)
 	tputs(tgetstr("cd", NULL), 1, tputchar);
 	ft_putstr(cmd->str);
 	if (len > cmd->col)
-	{
 		while (len-- != cmd->col)
 			tputs(tgetstr("le", NULL), 1, tputchar);
-	}
 	else if (len < cmd->col)
 	{
 		while (len != cmd->col)
@@ -96,18 +94,13 @@ void		add_line(t_cmd *cmd, char *buf)
 		if (buf[i] == 9)
 			buf[i] = ' ';
 		while (++j < 4)
-		{
 			cmd->str = ft_strappone(cmd->str, buf[i],
 					(cmd->col + k++ - 1) - cmd->prlen);
-		}
 	}
 	print_line(cmd);
 	while (k--)
 		go_right(cmd);
-	if (i > 0 && buf[i])
-	{
-		save_buf(buf + i);
-		can_sigint(1);
-	}
+	i > 0 && buf[i] ? save_buf(buf + i) : 0;
+	i > 0 && buf[i] ? can_sigint(1) : 0;
 	signal(SIGINT, &get_signal);
 }
