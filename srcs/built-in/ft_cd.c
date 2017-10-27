@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 12:02:15 by lbopp             #+#    #+#             */
-/*   Updated: 2017/10/27 16:18:38 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/27 17:27:13 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,45 @@ void	check_cdopt(char **path, char *opt)
 
 static void	check_dotdot(char **tmp)
 {
+	int		i;
+	char	*new;
+	int		j;
+
+	i = 0;
+	printf("PWD = [%s]\n", *tmp);
+	new = ft_strnew(0);
+	while ((*tmp)[i])
+	{
+		if ((*tmp)[i] == '/')
+		{
+			new = ft_strapp(new, "/");
+			while ((*tmp)[i] && (*tmp)[i] == '/')
+				i++;
+		}
+		if ()
+		i++;
+	}
+	/*while ((*tmp)[i])
+	{
+		if ((*tmp)[i] == '.' && (*tmp)[i + 1] && (*tmp)[i + 1] == '.'
+			&& (((*tmp)[i + 2] && (*tmp)[i + 2] == '/') || !(*tmp)[i + 2]))
+		{
+			j = (*tmp) ? i : i - 1;
+			i--;
+			while ((*tmp)[i] == '/' && i > 1)
+				i--;
+			while ((*tmp)[i] != '/' && i > 1)
+				i--;
+			new = ft_strsub(*tmp, 0, i);
+			new2 = ft_strsub(*tmp, j + 2, ft_strlen(*tmp) - 1);
+			printf("new = [%s]\nnew2 = [%s]\n", new, new2);
+			ft_strdel(&(*tmp));
+			*tmp = ft_strapp(new, new2);
+			ft_strdel(&new2);
+		}
+		i++;
+	}*/
+	/*TEST AU DESSU
 	size_t	i;
 
 	if (!*tmp)
@@ -108,7 +147,7 @@ static void	check_dotdot(char **tmp)
 	}
 	(*tmp)[ft_strlen(*tmp) - 1] == '/' ? (*tmp)[ft_strlen(*tmp) - 1] = 0 : 0;
 	if (!(*tmp)[0])
-		(*tmp)[0] = '/';
+		(*tmp)[0] = '/';*/
 }
 
 void	check_dotslash(char **tmp)
