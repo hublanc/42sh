@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/05 14:47:20 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/12 19:15:50 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/27 11:50:06 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int		add_locenv(char *name, char *val)
 		return (0);
 	free((*env)[i]);
 	tmp = ft_strjoin(name, "=");
-	(*env)[i] = ft_strjoin(tmp, val);
+	(*env)[i] = (val) ? ft_strjoin(tmp, val) : ft_strdup(tmp);
 	free(tmp);
 	return (1);
 }
