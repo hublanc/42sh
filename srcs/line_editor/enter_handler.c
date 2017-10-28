@@ -54,7 +54,7 @@ void		enter_handler_quote(t_cmd *cmd, t_control **history)
 	else if ((c == '"' && !ft_strcmp("dquote> ", cmd->prompt))
 	|| (c == '\'' && !ft_strcmp("quote> ", cmd->prompt)))
 	{
-		isatty(0) ? ft_putstr(cmd->prompt) : 0;
+		isatty(0) && isatty(2) ? ft_putstr_fd(cmd->prompt, 2) : 0;
 		cmd->col = cmd->prlen + 1;
 		cmd->str_quote = ft_strapp(cmd->str_quote, "\n");
 	}
@@ -81,7 +81,7 @@ void		enter_handler_backslash(t_cmd *cmd, t_control **history)
 		cmd->end_bs = 1;
 	else if (c == '\\')
 	{
-		isatty(0) ? ft_putstr(cmd->prompt) : 0;
+		isatty(0) && isatty(2) ? ft_putstr_fd(cmd->prompt, 2) : 0;
 		cmd->col = cmd->prlen + 1;
 		cmd->str_quote = ft_strdelone(cmd->str_quote,
 		(int)ft_strlen(cmd->str_quote));
@@ -103,7 +103,7 @@ void		enter_handler_heredoc(t_cmd *cmd)
 		return ;
 	}
 	cmd->str_quote = ft_strapp(cmd->str_quote, cmd->str);
-	isatty(0) ? ft_putstr(cmd->prompt) : 0;
+	isatty(0) &&isatty(2) ? ft_putstr_fd(cmd->prompt, 2) : 0;
 	cmd->col = cmd->prlen + 1;
 	cmd->str_quote = ft_str_chr_cat(cmd->str_quote, '\n');
 	ft_strdel(&(cmd->str));

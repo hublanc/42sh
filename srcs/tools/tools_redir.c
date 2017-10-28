@@ -73,9 +73,9 @@ int			*add_io(int *fds, t_node *tree, int io)
 		i++;
 	if (!(new = (int*)ft_memalloc(sizeof(int) * (i + 2))))
 		return (NULL);
-	i = 0;
-	while (fds[i] != -1)
-		new[i] = fds[i++];
+	i = -1;
+	while (fds[++i] != -1)
+		new[i] = fds[i];
 	new[i++] = ft_isdigit((tree->token[0])) ? ft_atoi(tree->token) : io;
 	new[i] = -1;
 	ft_memdel((void**)&fds);
