@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 12:02:15 by lbopp             #+#    #+#             */
-/*   Updated: 2017/10/27 17:27:13 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/29 14:57:52 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,31 @@
 
 void	add_slash(char **content)
 {
-	if ((*content)[ft_strlen(*content)] != '/')
+	if ((*content)[ft_strlen(*content) - 1] != '/')
 		*content = ft_strapp(*content, "/");
 }
 
 void	change_dir(char *path)
 {
 	chdir(path);
+}
+
+void	add_pwd_to_cdpath(char **cdpath, char ***env)
+{
+	char	*pwd;
+
+	if ((*cdpath)[0] != '/')
+	{
+		printf("OK\n");
+		if (!(pwd = get_elem(env, "PWD=")))
+			if (get_loc("PWD"))
+				pwd = get_loc("PWD")->value;
+		pwd = ft_strdup(pwd);
+		add_slash(&pwd);
+		pwd = ft_strapp(pwd, *cdpath);
+		ft_strdel(cdpath);
+		*cdpath = pwd;
+	}
 }
 
 char	*treat_cd_path(char *cdpath, char *arg)
@@ -32,17 +50,16 @@ char	*treat_cd_path(char *cdpath, char *arg)
 
 	i = 0;
 	split_cdpath = ft_strsplit(cdpath, ':');
-	path = NULL;
 	while (split_cdpath && split_cdpath[i])
 	{
 		add_slash(&split_cdpath[i]);
 		split_cdpath[i] = ft_strapp(split_cdpath[i], arg);
 		if (lstat(split_cdpath[i], &s) != -1)
 		{
-			if (s.st_mode == S_IFDIR)
+			if (S_ISDIR(s.st_mode))
 			{
 				path = ft_strdup(split_cdpath[i]);
-				//FREE SPLIT
+				del_tabstr(&split_cdpath);
 				return (path);
 			}
 		}
@@ -86,68 +103,36 @@ void	check_cdopt(char **path, char *opt)
 static void	check_dotdot(char **tmp)
 {
 	int		i;
-	char	*new;
-	int		j;
+	char	*temp;
+	char	**split;
 
 	i = 0;
-	printf("PWD = [%s]\n", *tmp);
-	new = ft_strnew(0);
-	while ((*tmp)[i])
+	if (*tmp && (*tmp)[0] == '/')
 	{
-		if ((*tmp)[i] == '/')
+		split = ft_strsplit(*tmp, '/');
+		ft_strdel(&(*tmp));
+		*tmp = ft_strdup("/");
+		while (split[i])
 		{
-			new = ft_strapp(new, "/");
-			while ((*tmp)[i] && (*tmp)[i] == '/')
-				i++;
+			if (!ft_strcmp(split[i], ".."))
+			{
+				if (ft_strcmp(*tmp, "/"))
+				{
+					temp = ft_strrchr(*tmp, '/');
+					if (!ft_strcmp(temp, *tmp))
+						temp[1] = '\0';
+					else
+						temp[0] = '\0';
+				}
+			}
+			else if (ft_strcmp(split[i], "."))
+			{
+				add_slash(&(*tmp));
+				*tmp = ft_strapp(*tmp, split[i]);
+			}
+			i++;
 		}
-		if ()
-		i++;
 	}
-	/*while ((*tmp)[i])
-	{
-		if ((*tmp)[i] == '.' && (*tmp)[i + 1] && (*tmp)[i + 1] == '.'
-			&& (((*tmp)[i + 2] && (*tmp)[i + 2] == '/') || !(*tmp)[i + 2]))
-		{
-			j = (*tmp) ? i : i - 1;
-			i--;
-			while ((*tmp)[i] == '/' && i > 1)
-				i--;
-			while ((*tmp)[i] != '/' && i > 1)
-				i--;
-			new = ft_strsub(*tmp, 0, i);
-			new2 = ft_strsub(*tmp, j + 2, ft_strlen(*tmp) - 1);
-			printf("new = [%s]\nnew2 = [%s]\n", new, new2);
-			ft_strdel(&(*tmp));
-			*tmp = ft_strapp(new, new2);
-			ft_strdel(&new2);
-		}
-		i++;
-	}*/
-	/*TEST AU DESSU
-	size_t	i;
-
-	if (!*tmp)
-		return ;
-	while ((i = ft_strschr_len(*tmp, "..")))
-	{
-		while (i == ft_strschr_len(*tmp + i, "..."))
-		{
-			while ((*tmp)[i] == '.')
-				i++;
-			if (!ft_strschr_len(*tmp + i, ".."))
-				return ;
-		}
-		while ((*tmp)[i] && (*tmp)[i] != '/')
-			ssupprchr(tmp, i);
-		ssupprchr(tmp, i--);
-		ssupprchr(tmp, i--);
-		if (ft_strschr_len(*tmp, "/") <= i)
-			while ((*tmp)[i] && (*tmp)[i] != '/')
-				ssupprchr(tmp, i--);
-	}
-	(*tmp)[ft_strlen(*tmp) - 1] == '/' ? (*tmp)[ft_strlen(*tmp) - 1] = 0 : 0;
-	if (!(*tmp)[0])
-		(*tmp)[0] = '/';*/
 }
 
 void	check_dotslash(char **tmp)
@@ -187,7 +172,7 @@ void	change_env(char ***env, char *pwd)
 	{
 		tmp = prep_setenv("PWD", pwd);
 		ft_setenv(tmp, env);
-		//FREE tmp
+		del_tabstr(&tmp);
 	}
 	if (get_elem(env, "OLDPWD=") || get_loc("OLDPWD"))
 		add_loc("OLDPWD", oldpwd);
@@ -195,7 +180,7 @@ void	change_env(char ***env, char *pwd)
 	{
 		tmp = prep_setenv("OLDPWD", oldpwd);
 		ft_setenv(tmp, env);
-		//FREE tmp
+		del_tabstr(&tmp);
 	}
 	ft_strdel(&oldpwd);
 }
@@ -204,14 +189,7 @@ int		exec_cd_default(char *curpath, char ***env, char *arg)
 {
 	char	*pwd;
 
-	if (chdir(curpath) == -1)
-	{
-		ft_putstr_fd("42sh: cd: ", 2);
-		ft_putstr_fd(arg, 2);
-		ft_putendl_fd(": No such file or directory", 2);
-		return (1);
-	}
-	if (curpath[0] != '/')
+	if (arg[0] != '/')
 	{
 		if (!(pwd = get_elem(env, "PWD=")))
 			if (get_loc("PWD"))
@@ -220,10 +198,16 @@ int		exec_cd_default(char *curpath, char ***env, char *arg)
 		add_slash(&pwd);
 		pwd = ft_strapp(pwd, curpath);
 		check_dotdot(&pwd);
-		check_dotslash(&pwd);
 	}
 	else
 		pwd = ft_strdup(curpath);
+	if (chdir(pwd) == -1)
+	{
+		ft_putstr_fd("42sh: cd: ", 2);
+		ft_putstr_fd(arg, 2);
+		ft_putendl_fd(": No such file or directory", 2);
+		return (1);
+	}
 	change_env(env, pwd);
 	ft_strdel(&pwd);
 	return (0);
@@ -303,7 +287,7 @@ int		cd_home(char ***env, char opt)
 	}
 	(!home && loc) ? home = loc->value : 0;
 	if ((opt == 'P' && chdir(home) == -1)
-			|| (home[0] && chdir(home) == -1))
+			|| (home[0] && chdir("home") == -1))
 	{
 		ft_putstr_fd("42sh: cd: ", 2);
 		ft_putstr_fd(home, 2);
@@ -352,12 +336,66 @@ int		cd_oldpwd(char ***env, char opt)
 	return (0);
 }
 
+int		exec_cd_default_cdpath(char *curpath, char ***env, char *arg)
+{
+	char	*pwd;
+
+	if (arg[0] != '/')
+	{
+		if (!(pwd = get_elem(env, "PWD=")))
+			if (get_loc("PWD"))
+				pwd = get_loc("PWD")->value;
+		pwd = ft_strdup(pwd);
+		add_slash(&pwd);
+		pwd = ft_strapp(pwd, curpath);
+		check_dotdot(&pwd);
+	}
+	else
+		pwd = ft_strdup(curpath);
+	if (chdir(pwd) == -1)
+	{
+		ft_putstr_fd("42sh: cd: ", 2);
+		ft_putstr_fd(arg, 2);
+		ft_putendl_fd(": No such file or directory", 2);
+		return (1);
+	}
+	ft_putendl(pwd);
+	change_env(env, pwd);
+	ft_strdel(&pwd);
+	return (0);
+}
+
+int		exec_cd_P_cdpath(char *curpath, char ***env, char *arg)
+{
+	char	pwd[256];
+
+	if (chdir(curpath) == -1)
+	{
+		ft_putstr_fd("42sh: cd: ", 2);
+		ft_putstr_fd(arg, 2);
+		ft_putendl_fd(": No such file or directory", 2);
+		return (1);
+	}
+	ft_putendl(arg);
+	getcwd(pwd, 256);
+	change_env(env, pwd);
+	return (0);
+}
+
 int		cd_treat_path(char *path, char opt, char ***env, char *arg)
 {
 		if (opt == 'P')
 			return (exec_cd_P(path, env, arg));
 		else
 			return (exec_cd_default(path, env, arg));
+}
+
+int		cd_treat_path_cdpath(char *path, char opt, char ***env, char *arg)
+{
+		if (opt == 'P')
+			return (exec_cd_P_cdpath(path, env, arg));
+		else
+			return (exec_cd_default_cdpath(path, env, arg));
 }
 
 int		cd_exec(char ***env, char **tab, char opt)
@@ -369,12 +407,15 @@ int		cd_exec(char ***env, char **tab, char opt)
 	if (tab[g_optind] && tab[g_optind][0] == '/')
 		return (cd_treat_path(tab[g_optind], opt, env, tab[g_optind]));
 	else if (tab[g_optind] && tab[g_optind][0] == '.')
-		curpath = ft_strdup(tab[g_optind]);
+		return (cd_treat_path(tab[g_optind], opt, env, tab[g_optind]));
 	else if (tab[g_optind] && ((cdpath = get_elem(env, "CDPATH="))
 			|| (get_loc("CDPATH") && (cdpath = get_loc("CDPATH")->value))))
+	{
 		curpath = treat_cd_path(cdpath, tab[g_optind]);
-	else if (tab[g_optind])
-		curpath = treat_without_cdpath(tab[g_optind], env);
+		return (cd_treat_path(curpath, opt, env, tab[g_optind]));
+	}
+	else if (tab[g_optind]) // PROBLEM
+		return (cd_treat_path(tab[g_optind], opt, env, tab[g_optind]));
 	return (cd_treat_path(curpath, opt, env, tab[g_optind]));
 }
 
