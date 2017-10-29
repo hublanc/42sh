@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 12:02:15 by lbopp             #+#    #+#             */
-/*   Updated: 2017/10/29 15:04:00 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/29 16:44:09 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	*treat_cd_path(char *cdpath, char *arg)
 		}
 		i++;
 	}
-	//MAYBE PRINT ERROR
+	del_tabstr(&split_cdpath);
 	return (NULL);
 }
 
@@ -115,6 +115,7 @@ static void	check_dotdot(char **tmp)
 			i++;
 		}
 	}
+	del_tabstr(&split);
 }
 
 void	check_dotslash(char **tmp)
@@ -169,15 +170,17 @@ void	change_env(char ***env, char *pwd)
 
 int		exec_cd_default(char *curpath, char ***env, char *arg)
 {
-	char	*pwd;
+	char		*pwd;
+	struct stat	s;
 
-	if (chdir(curpath) == -1)
+	// THINK IS USELESS
+	/*if (chdir(curpath) == -1)
 	{
 		ft_putstr_fd("42sh: cd: ", 2);
 		ft_putstr_fd(arg, 2);
 		ft_putendl_fd(": No such file or directory", 2);
 		return (1);
-	}
+	}*/
 	if (curpath[0] != '/')
 	{
 		if (!(pwd = get_elem(env, "PWD=")))
@@ -192,9 +195,19 @@ int		exec_cd_default(char *curpath, char ***env, char *arg)
 		pwd = ft_strdup(curpath);
 	if (chdir(pwd) == -1)
 	{
-		ft_putstr_fd("42sh: cd: ", 2);
-		ft_putstr_fd(arg, 2);
-		ft_putendl_fd(": No such file or directory", 2);
+		if (lstat(pwd, &s) == -1 || !(s.st_mode & S_IXUSR))
+		{
+			ft_putstr_fd("42sh: cd: ", 2);
+			ft_putstr_fd(arg, 2);
+			ft_putendl_fd(": Permission denied", 2);
+		}
+		else
+		{
+			ft_putstr_fd("42sh: cd: ", 2);
+			ft_putstr_fd(arg, 2);
+			ft_putendl_fd(": No such file or directory", 2);
+		}
+		ft_strdel(&pwd);
 		return (1);
 	}
 	change_env(env, pwd);
@@ -204,13 +217,23 @@ int		exec_cd_default(char *curpath, char ***env, char *arg)
 
 int		exec_cd_P(char *curpath, char ***env, char *arg)
 {
-	char	pwd[256];
+	char		pwd[256];
+	struct stat	s;
 
 	if (chdir(curpath) == -1)
 	{
-		ft_putstr_fd("42sh: cd: ", 2);
-		ft_putstr_fd(arg, 2);
-		ft_putendl_fd(": No such file or directory", 2);
+		if (lstat(curpath, &s) == -1 || !(s.st_mode & S_IXUSR))
+		{
+			ft_putstr_fd("42sh: cd: ", 2);
+			ft_putstr_fd(arg, 2);
+			ft_putendl_fd(": Permission denied", 2);
+		}
+		else
+		{
+			ft_putstr_fd("42sh: cd: ", 2);
+			ft_putstr_fd(arg, 2);
+			ft_putendl_fd(": No such file or directory", 2);
+		}
 		return (1);
 	}
 	getcwd(pwd, 256);
@@ -325,7 +348,7 @@ int		cd_oldpwd(char ***env, char opt)
 	return (0);
 }
 
-int		exec_cd_default_cdpath(char *curpath, char ***env, char *arg)
+int		exec_cd_default_cdpath(char **curpath, char ***env, char *arg)
 {
 	char	*pwd;
 
@@ -336,35 +359,40 @@ int		exec_cd_default_cdpath(char *curpath, char ***env, char *arg)
 				pwd = get_loc("PWD")->value;
 		pwd = ft_strdup(pwd);
 		add_slash(&pwd);
-		pwd = ft_strapp(pwd, curpath);
+		pwd = ft_strapp(pwd, *curpath);
 		check_dotdot(&pwd);
 	}
 	else
-		pwd = ft_strdup(curpath);
-	if (chdir(pwd) == -1)
+		pwd = ft_strdup(*curpath);
+	if (!(*curpath) || chdir(pwd) == -1)
 	{
 		ft_putstr_fd("42sh: cd: ", 2);
 		ft_putstr_fd(arg, 2);
 		ft_putendl_fd(": No such file or directory", 2);
+		ft_strdel(&pwd);
+		ft_strdel(curpath);
 		return (1);
 	}
+	ft_strdel(curpath);
 	ft_putendl(pwd);
 	change_env(env, pwd);
 	ft_strdel(&pwd);
 	return (0);
 }
 
-int		exec_cd_P_cdpath(char *curpath, char ***env, char *arg)
+int		exec_cd_P_cdpath(char **curpath, char ***env, char *arg)
 {
 	char	pwd[256];
 
-	if (chdir(curpath) == -1)
+	if (chdir(*curpath) == -1)
 	{
 		ft_putstr_fd("42sh: cd: ", 2);
 		ft_putstr_fd(arg, 2);
 		ft_putendl_fd(": No such file or directory", 2);
+		ft_strdel(curpath);
 		return (1);
 	}
+	ft_strdel(curpath);
 	ft_putendl(arg);
 	getcwd(pwd, 256);
 	change_env(env, pwd);
@@ -379,7 +407,7 @@ int		cd_treat_path(char *path, char opt, char ***env, char *arg)
 			return (exec_cd_default(path, env, arg));
 }
 
-int		cd_treat_path_cdpath(char *path, char opt, char ***env, char *arg)
+int		cd_treat_path_cdpath(char **path, char opt, char ***env, char *arg)
 {
 		if (opt == 'P')
 			return (exec_cd_P_cdpath(path, env, arg));
@@ -401,11 +429,11 @@ int		cd_exec(char ***env, char **tab, char opt)
 			|| (get_loc("CDPATH") && (cdpath = get_loc("CDPATH")->value))))
 	{
 		curpath = treat_cd_path(cdpath, tab[g_optind]);
-		return (cd_treat_path_cdpath(curpath, opt, env, tab[g_optind]));
+		return (cd_treat_path_cdpath(&curpath, opt, env, tab[g_optind]));
 	}
-	else if (tab[g_optind]) // PROBLEM
+	else if (tab[g_optind])
 		return (cd_treat_path(tab[g_optind], opt, env, tab[g_optind]));
-	return (cd_treat_path(curpath, opt, env, tab[g_optind]));
+	return (1);
 }
 
 int		ft_cd(char **tab, char ***env)
