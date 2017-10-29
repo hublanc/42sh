@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 12:02:15 by lbopp             #+#    #+#             */
-/*   Updated: 2017/10/29 14:57:52 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/29 15:04:00 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,24 +21,6 @@ void	add_slash(char **content)
 void	change_dir(char *path)
 {
 	chdir(path);
-}
-
-void	add_pwd_to_cdpath(char **cdpath, char ***env)
-{
-	char	*pwd;
-
-	if ((*cdpath)[0] != '/')
-	{
-		printf("OK\n");
-		if (!(pwd = get_elem(env, "PWD=")))
-			if (get_loc("PWD"))
-				pwd = get_loc("PWD")->value;
-		pwd = ft_strdup(pwd);
-		add_slash(&pwd);
-		pwd = ft_strapp(pwd, *cdpath);
-		ft_strdel(cdpath);
-		*cdpath = pwd;
-	}
 }
 
 char	*treat_cd_path(char *cdpath, char *arg)
@@ -189,7 +171,14 @@ int		exec_cd_default(char *curpath, char ***env, char *arg)
 {
 	char	*pwd;
 
-	if (arg[0] != '/')
+	if (chdir(curpath) == -1)
+	{
+		ft_putstr_fd("42sh: cd: ", 2);
+		ft_putstr_fd(arg, 2);
+		ft_putendl_fd(": No such file or directory", 2);
+		return (1);
+	}
+	if (curpath[0] != '/')
 	{
 		if (!(pwd = get_elem(env, "PWD=")))
 			if (get_loc("PWD"))
@@ -287,7 +276,7 @@ int		cd_home(char ***env, char opt)
 	}
 	(!home && loc) ? home = loc->value : 0;
 	if ((opt == 'P' && chdir(home) == -1)
-			|| (home[0] && chdir("home") == -1))
+			|| (home[0] && chdir(home) == -1))
 	{
 		ft_putstr_fd("42sh: cd: ", 2);
 		ft_putstr_fd(home, 2);
@@ -412,7 +401,7 @@ int		cd_exec(char ***env, char **tab, char opt)
 			|| (get_loc("CDPATH") && (cdpath = get_loc("CDPATH")->value))))
 	{
 		curpath = treat_cd_path(cdpath, tab[g_optind]);
-		return (cd_treat_path(curpath, opt, env, tab[g_optind]));
+		return (cd_treat_path_cdpath(curpath, opt, env, tab[g_optind]));
 	}
 	else if (tab[g_optind]) // PROBLEM
 		return (cd_treat_path(tab[g_optind], opt, env, tab[g_optind]));
