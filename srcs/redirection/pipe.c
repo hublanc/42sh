@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/02 17:55:21 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/12 17:45:41 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/26 13:34:08 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	enter_handler_pipe(t_cmd *cmd, t_control **history)
 
 	cmd->str_quote = ft_strapp(cmd->str_quote, cmd->str);
 	ft_strdel(&(cmd->str));
-	ft_putchar('\n');
+	isatty(0) ? ft_putchar('\n') : 0;
 	c = check_quote(cmd->str_quote);
 	if (c == '\\')
 		prompt_backslash(cmd, history, 1);
@@ -65,7 +65,7 @@ void	enter_handler_pipe(t_cmd *cmd, t_control **history)
 		prompt_cmdandor(cmd, history, 1);
 	if (!checkstr_pipe(cmd->str_quote))
 	{
-		ft_putstr(cmd->prompt);
+		isatty(0) ? ft_putstr(cmd->prompt) : 0;
 		cmd->col = cmd->prlen + 1;
 		cmd->str_quote = ft_strapp(cmd->str_quote, " ");
 	}
@@ -76,7 +76,7 @@ void	prompt_pipe(t_cmd *cmd, t_control **history, int mod)
 	t_cmd		cmd_p;
 
 	cmd_p = init_cmd("pipe> ");
-	ft_putstr("pipe> ");
+	isatty(0) ? ft_putstr("pipe> ") : 0;
 	if (!mod)
 		cmd_p.str_quote = ft_strapp(cmd_p.str_quote, cmd->str);
 	else if (mod)

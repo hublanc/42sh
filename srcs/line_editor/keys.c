@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 11:41:39 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/23 16:31:29 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/30 11:28:25 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,18 @@ char		*save_buf(char *buf)
 	static char *s_buf = NULL;
 
 	if (buf)
-		s_buf = ft_strdup(buf);
+	{
+		if (ft_strlen(buf) <= 5)
+		{
+			if (!(s_buf = (char*)ft_memalloc(6)))
+			{
+				s_buf = NULL;
+			}
+			ft_strcat(s_buf, buf);
+		}
+		else
+			s_buf = ft_strdup(buf);
+	}
 	return (s_buf);
 }
 
@@ -47,7 +58,8 @@ static int	check_sigint(t_cmd *cmd, char **buf)
 	else if (i)
 	{
 		(*buf) ? free(*buf) : 0;
-		*buf = save_buf(NULL);
+		if (!(*buf = save_buf(NULL)))
+			return (1);
 		return (0);
 	}
 	return (1);
@@ -67,8 +79,8 @@ static void	handle_key2(t_cmd *cmd, t_control **history, char ***env, char *buf)
 	{
 		ft_strdel(&cmd->str);
 		cmd->col = cmd->prlen + 1;
-		cmd->str = history_search(history);
-		enter_hub(cmd, history, env);
+		if (history_search(history, &cmd->str) == 1)
+			enter_hub(cmd, history, env);
 		return ;
 	}
 	else
@@ -87,7 +99,7 @@ static void	handle_key(t_cmd *cmd, t_control **history, char ***env, char *buf)
 	}
 	else if (buf[0] == 12 && !buf[1])
 	{
-		tputs(tgetstr("cl", NULL), 1, tputchar);
+		isatty(0) ? tputs(tgetstr("cl", NULL), 1, tputchar): 0;
 		print_prompt();
 		print_line(cmd);
 	}
@@ -110,8 +122,16 @@ void		key_handler(t_cmd *cmd, t_control **history, char ***env)
 			return ;
 		if (!read(0, buf, 999))
 		{
-			reset_term();
-			(return_status() == 256) ? exit(1) : exit(0);
+			can_sigint(1);
+			while (buf && buf[0])
+			{
+				save_buf(buf);
+				key_handler(cmd, history, env);
+				buf = save_buf(NULL);
+			}
+			if (cmd->str)
+				enter_hub(cmd, history, env);
+			stop_shell(env, NULL, history);
 		}
 	}
 	else if (i == -1)
@@ -126,7 +146,7 @@ void		key_handler(t_cmd *cmd, t_control **history, char ***env)
 		reset_cmdsiginted(cmd);
 		save_buf(buf);
 		can_sigint(1);
-		free(buf);
+		(buf) ? free(buf) : 0;
 		return ;
 	}
 	handle_key(cmd, history, env, buf);

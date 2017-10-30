@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/09 15:57:56 by mameyer           #+#    #+#             */
-/*   Updated: 2017/10/23 11:20:28 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/27 16:20:21 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,12 @@ void		add_hist_or_not(t_control **history, char *str)
 
 	i = 0;
 	cpy = NULL;
+	if (!str)
+		return ;
 	cpy = ft_strdup(str);
 	while (ft_strchr(cpy, '\n'))
 	{
 		i = ft_strchr(cpy, '\n') - cpy;
-		ft_putendl(cpy);
 		cpy[i] = ' ';
 	}
 	if (*history && (*history)->begin && (*history)->begin->name

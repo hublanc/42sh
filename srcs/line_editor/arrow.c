@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 19:28:26 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/19 15:56:22 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/26 14:48:18 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void		control_arrow(char *str, t_cmd *cmd)
 			while (cmd->col != cmd->prlen + 1)
 				go_right(cmd);
 		}
-		tputs(tgetstr("up", NULL), 1, tputchar);
+		isatty(0) ? tputs(tgetstr("up", NULL), 1, tputchar) : 0;
 	}
 	if (str[3] == 66 && (int)ft_strlen(cmd->str) + cmd->prlen + 1 > cmd->sc_col)
 	{
@@ -62,9 +62,9 @@ void		control_homend(char *str, t_cmd *cmd)
 
 void		arrow_handler(char *str, t_cmd *cmd, t_control **hist)
 {
-	if (str[2] == 68 && cmd->col > cmd->prlen + 1)
+	if (str[2] == 68 && cmd && cmd->col > cmd->prlen + 1)
 		go_left(cmd);
-	else if (str[2] == 67
+	else if (str[2] == 67 && cmd
 			&& cmd->col < (int)ft_strlen(cmd->str) + cmd->prlen + 1)
 		go_right(cmd);
 	else if (str[2] == 65)

@@ -6,7 +6,8 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 18:15:34 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/23 14:04:15 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/30 11:32:05 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/26 17:39:28 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +38,7 @@ int			exec_aggre(t_node *tree);
 */
 int			prompt_heredoc(char *eof, t_token *redir, t_control **history);
 void		heredoc_input(t_node *tree);
+void		manage_heredoc(t_node *tree, t_node *tmp);
 
 /*
 **	Pipe.c
@@ -44,5 +46,12 @@ void		heredoc_input(t_node *tree);
 void		prompt_pipe(t_cmd *cmd, t_control **history, int mod);
 void		enter_handler_pipe(t_cmd *cmd, t_control **history);
 int			checkstr_pipe(char *cmd);
+
+/*
+**	Extra_redir.c
+*/
+int			do_redir(t_node *tree);
+int			exec_dup(int fd1, int fd2);
+int			len_io(char *str);
 
 #endif

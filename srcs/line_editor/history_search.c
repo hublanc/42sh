@@ -6,49 +6,62 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/18 15:09:47 by mameyer           #+#    #+#             */
-/*   Updated: 2017/10/23 16:28:46 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/30 11:29:19 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-char		*history_search(t_control **history)
+/*
+**		Change history_search return from char * to int
+*/
+
+int			history_search(t_control **history, char **str)
 {
 	char		buf[3];
 	char		*search;
 	t_lst		*tmp;
 
 	if (!(*history) || (*history && (*history)->length < 1))
-		return (NULL);
+		return (0);
 	init_hist_search(&search, &tmp);
 	ft_strclr(buf);
-	while (read(1, &buf, 3))
+	while (read(0, &buf, 3))
 	{
+//		printf("[0] = %c | [1] = %c | [2] = %c\n", buf[0], buf[1], buf[2]);
 		if (is_sigint(0))
 		{
 			can_sigint(1);
 			is_sigint(1);
 			save_buf(buf);
-			return (NULL);
+			return (0);
 		}
 		if (ft_isprint(buf[0]) || (buf[0] == 127)
 			|| (buf[0] == 27 && tmp))
 			tmp = while_handler(buf, &search, history, tmp);
-		else
+		else if (buf[0] != 18)
 			break ;
 		ft_strclr(buf);
 	}
-	return (return_handler(tmp, buf, &search));
+	return (return_handler(tmp, buf, &search, str));
 }
 
-char		*return_handler(t_lst *tmp, char *buf, char **search)
+int			return_handler(t_lst *tmp, char *buf, char **search, char **str)
 {
 	if (tmp && buf[0] == 10)
 	{
 		ft_strdel(search);
-		return (ft_strdup(tmp->name));
+		*str = ft_strdup(tmp->name);
+		return (1);
 	}
-	return (NULL);
+	else if (!ft_isprint(buf[0]) && !ft_isprint(buf[1]) && !ft_isprint(buf[2])
+			&& ft_strlen(*search) == 0 && buf[0] != 10)
+		exit(0);
+	else
+	{
+		ft_strdel(search);
+		return (1);
+	}
 }
 
 t_lst		*while_handler(char *buf, char **search, t_control **history,
@@ -75,25 +88,28 @@ void		set_search_prompt(char *search, t_lst *tmp, int type)
 	if (type == 0)
 	{
 		go_begin(0, 0);
-		tputs(tgetstr("cd", NULL), 1, tputchar);
-		ft_putstr("(reverse-i-search)`': ");
+		isatty(0) ? tputs(tgetstr("cd", NULL), 1, tputchar) : 0;
+		isatty(0) ? ft_putstr("(reverse-i-search)`': ") : 0;
 		return ;
 	}
 	go_begin(0, 0);
-	tputs(tgetstr("cd", NULL), 1, tputchar);
-	ft_putstr("(reverse-i-search)`");
-	ft_putstr(search);
-	ft_putstr("': ");
-	if (tmp)
-		ft_putstr(tmp->name);
-	else
+	if (isatty(0))
 	{
-		go_begin(0, 0);
 		tputs(tgetstr("cd", NULL), 1, tputchar);
-		ft_putstr("failing reverse-i-search: ");
+		ft_putstr("(reverse-i-search)`");
 		ft_putstr(search);
-		ft_putchar('_');
+		ft_putstr("': ");
 	}
+	(tmp && isatty(0)) ? ft_putstr(tmp->name) : 0;
+	if (tmp)
+		return ;
+	go_begin(0, 0);
+	if (!isatty(0))
+		return ;
+	tputs(tgetstr("cd", NULL), 1, tputchar);
+	ft_putstr("failing reverse-i-search: ");
+	ft_putstr(search);
+	ft_putchar('_');
 }
 
 t_lst		*history_search_2(t_control **history, char *search)

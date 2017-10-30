@@ -1,24 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memalloc.c                                      :+:      :+:    :+:   */
+/*   tools_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/07 11:17:36 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/25 16:24:26 by amazurie         ###   ########.fr       */
+/*   Created: 2017/10/26 11:19:13 by mameyer           #+#    #+#             */
+/*   Updated: 2017/10/26 11:19:16 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include "libft.h"
+#include "shell.h"
 
-void	*ft_memalloc(size_t size)
+int			print_alloc_error(char *str)
 {
-	void	*zone;
+	ft_putendl_fd(str, 2);
+	return (1);
+}
 
-	if (!(zone = malloc(size)))
-		return (0);
-	ft_memset(zone, 0, size);
-	return (zone);
+int			error_env(size_t *i)
+{
+	free(i);
+	return (1);
+}
+
+void		end_ft_env(size_t *i, char **env)
+{
+	if (i[2])
+		env_tab(env);
+	free(i);
 }

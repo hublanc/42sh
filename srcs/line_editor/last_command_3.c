@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/03 14:28:49 by mameyer           #+#    #+#             */
-/*   Updated: 2017/10/19 14:00:59 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/26 13:11:33 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,10 @@ int			get_n_last(char *command, char **str, t_control **history,
 	}
 	if (tmp)
 		get_n_2(tmp->name, str);
-	while (command[*index] && command[*index] != ' ')
-		(*index)++;
+	a = 0;
+	while (command[a] && command[a] != ' ')
+		a++;
+	(*index) += a;
 	return (1);
 }
 
@@ -73,8 +75,10 @@ int			get_n_first(char *command, char **str, t_control **history,
 	}
 	if (tmp)
 		get_n_2(tmp->name, str);
-	while (command[*index] && command[*index] != ' ')
-		(*index)++;
+	a = 0;
+	while (command && command[a] && command[a] != ' ')
+		a++;
+	(*index) += a;
 	return (1);
 }
 
@@ -90,6 +94,19 @@ void		get_line_again(char *command, int *index, char **str,
 		a++;
 	}
 	(void)history;
-	while (command[*index] && command[*index] != ' ')
-		(*index)++;
+	a = 0;
+	while (command[a] && command[a] != ' ')
+		a++;
+	(*index) += a;
+}
+
+void		get_last_command_3(char *str, int *index, char **tmp)
+{
+	int		a;
+
+	a = 0;
+	while (str && str[a] && str[a] != ' ')
+		a++;
+	(*index) += a;
+	ft_strdel(tmp);
 }

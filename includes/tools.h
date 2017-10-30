@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 18:24:56 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/23 11:09:23 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/26 17:39:17 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ int			check_number(t_token **list, char *cmd);
 int			*add_fd(int *fds, t_node *tree);
 int			*add_io(int *fds, t_node *tree, int io);
 char		**add_w(char **tab, t_node *tree, int cut);
+int			type_redir(char *str);
 
 /*
 **	Tools_routine.c
@@ -110,5 +111,12 @@ void		ssupprchr(char **s, int pos);
 void		saddchr(char **s, char c, int pos);
 char		*get_elem(char ***env, char *elem);
 void		check_isenvpwd(char ***env);
+
+/*
+** tools_env.c
+*/
+int			print_alloc_error(char *str);
+int			error_env(size_t *i);
+void		end_ft_env(size_t *i, char **env);
 
 #endif

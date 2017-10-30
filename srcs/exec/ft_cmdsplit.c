@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/06 15:56:19 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/12 18:09:09 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/26 11:13:25 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,17 @@ static int			countword(char *str)
 	i = 0;
 	isw = 0;
 	nb_w = 0;
-	while (str[i])
+	while (i < INT_MAX - 1 && str[i])
 	{
-		while (str[i] && str[i] == ' ')
+		while (i < INT_MAX - 1 && str[i] && str[i] == ' ')
 			i++;
-		while (str[i] && str[i] != ' ')
+		while (i < INT_MAX - 1 && str[i] && str[i] != ' ')
 		{
 			if (str[i] == '\'' || str[i] == '"')
 				i += spend_quote(str, i);
 			else if (str[i] == '\\')
 				i++;
-			i++;
+			(str[i]) ? i++ : 0;
 			isw = 1;
 		}
 		nb_w += isw == 1 ? 1 : 0;
@@ -91,15 +91,15 @@ static char			*cmdsub(char *str, int *i, int len)
 	j = 0;
 	if (!str || !(new = (char*)malloc(sizeof(char) * len + 1)))
 		return (NULL);
-	while (str[*i] && str[*i] != ' ')
+	while (str[*i] && str[*i] != ' ' && j < len)
 	{
 		if (str[*i] == '\'' || str[*i] == '"')
-			add_quote_content(str, new, i, &j);
+			add_quote_content(str, new, i, &j, len);
 		else if (str[*i] == '\\')
 			new[j++] = str[((*i)++) + 1];
 		else
 			new[j++] = str[*i];
-		(*i)++;
+		str[*i] ? ++*i : 0;
 	}
 	new[j] = '\0';
 	return (new);

@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 12:22:12 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/23 10:45:35 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/30 09:45:19 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,11 @@ static int	*add_fd2(t_node *tree)
 
 	if (!(new = (int*)ft_memalloc(sizeof(int) * 2)))
 		return (NULL);
-	new[0] = open_file(tree);
+	if ((new[0] = open_file(tree)) == -1)
+	{
+		free(new);
+		return (NULL);
+	}
 	new[1] = -1;
 	return (new);
 }
@@ -69,12 +73,9 @@ int			*add_io(int *fds, t_node *tree, int io)
 		i++;
 	if (!(new = (int*)ft_memalloc(sizeof(int) * (i + 2))))
 		return (NULL);
-	i = 0;
-	while (fds[i] != -1)
-	{
+	i = -1;
+	while (fds[++i] != -1)
 		new[i] = fds[i];
-		i++;
-	}
 	new[i++] = ft_isdigit((tree->token[0])) ? ft_atoi(tree->token) : io;
 	new[i] = -1;
 	ft_memdel((void**)&fds);
@@ -85,7 +86,7 @@ int			*add_io(int *fds, t_node *tree, int io)
 char		**add_w(char **tab, t_node *tree, int cut)
 {
 	char	**new;
-	int		i;
+	size_t	i;
 
 	i = 0;
 	if (!tab)
@@ -96,11 +97,11 @@ char		**add_w(char **tab, t_node *tree, int cut)
 		new[1] = NULL;
 		return (new);
 	}
-	if (!(new = (char**)ft_memalloc(sizeof(char*) * (len_array(tab) + 1))))
+	if (!(new = (char**)ft_memalloc(sizeof(char*) * (len_array(tab) + 2))))
 		return (NULL);
 	while (tab[i])
 	{
-		new[i] = tab[i];
+		new[i] = ft_strdup(tab[i]);
 		i++;
 	}
 	new[i++] = ft_strsub(tree->token, cut, ft_strlen(tree->token) - cut);

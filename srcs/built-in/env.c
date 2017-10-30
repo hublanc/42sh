@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/25 19:21:36 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/23 10:23:28 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/27 14:59:25 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,29 +36,29 @@ static int	built_env(char **lstav, char ***envcpy, size_t *i)
 	return (0);
 }
 
-static int	envexec(char **lstav, char ***envcpy, t_control **hist, size_t *i)
+static int	envexec(char **lstav, char ***envcpy, size_t *i, char **env)
 {
 	char	**tmp;
+	size_t	j;
+	int		k;
 
-	if ((tmp = (char **)ft_memalloc(sizeof(char *) * 3)) == NULL)
+	j = i[0];
+	while (lstav[j])
+		j++;
+	if ((tmp = (char **)ft_memalloc(sizeof(char *) * j)) == NULL)
 		return (print_alloc_error("allocation error"));
-	if ((tmp[1] = ft_strdup(lstav[i[0]++])) == NULL)
-		return (print_alloc_error("allocation error"));
+	k = 0;
 	while (lstav[i[0]])
-	{
-		if ((tmp[0] = ft_strjoin(tmp[1], " ")) == NULL)
+		if ((tmp[k++] = ft_strdup(lstav[i[0]++])) == NULL)
 			return (print_alloc_error("allocation error"));
-		free(tmp[1]);
-		if ((tmp[1] = ft_strjoin(tmp[0], lstav[i[0]++])) == NULL)
-			return (print_alloc_error("allocation error"));
-		free(tmp[0]);
-	}
-	routine(tmp[1], envcpy, hist);
-	free(tmp[1]);
+	k = check_envcmd(tmp, *envcpy, env);
+	j = -1;
+	while (tmp[++j])
+		free(tmp[j]);
 	free(tmp);
 	i[2] = 0;
 	i[0]--;
-	return (return_status());
+	return (k);
 }
 
 static int	env_set(char *name_value, char ***env)
@@ -73,7 +73,7 @@ static int	env_set(char *name_value, char ***env)
 	{
 		ft_putstr_fd("env: setenv: ", 2);
 		ft_putstr_fd(name_value, 2);
-		ft_putstr_fd(" Invalid argument", 2);
+		ft_putstr_fd(" Invalid argument\n", 2);
 		return (1);
 	}
 	name = ft_strsub(name_value, 0, ft_strchr(name_value, '=') - name_value);
@@ -89,12 +89,10 @@ static int	env_set(char *name_value, char ***env)
 	return (stat);
 }
 
-static int	ft_env2(char **lstav, char ***envcpy, t_control **hist)
+static int	ft_env2(char **lstav, char ***envcpy, char **env, int status)
 {
 	size_t		*i;
-	int			status;
 
-	status = 0;
 	if ((i = (size_t *)ft_memalloc(sizeof(size_t) * 6)) == NULL)
 		return (1);
 	i[0] = 0;
@@ -106,13 +104,15 @@ static int	ft_env2(char **lstav, char ***envcpy, t_control **hist)
 		if (built_env(lstav, envcpy, i) == 1)
 			return (error_env(i));
 		!lstav[i[0]][1] && lstav[i[0]][0] == '-' ? del_tabstr(envcpy) : 0;
-		if (!i[3] && ft_strchr(lstav[i[0]], '=')
-			&& (env_set(lstav[i[0]], envcpy)) == 1)
-			return (error_env(i));
+		if (!i[3] && ft_strchr(lstav[i[0]], '='))
+		{
+			if (env_set(lstav[i[0]], envcpy) == 1)
+				return (error_env(i));
+		}
 		else if (i[4] == 1 && lstav[i[0]] && lstav[i[0]][0] != '-'
 				&& (!ft_strchr(lstav[i[0] - 1], 'u')
 				|| lstav[i[0] - 1][ft_strlen_chr(lstav[i[0] - 1], 'u') + 1]))
-			status = envexec(lstav, envcpy, hist, i);
+			status = envexec(lstav, envcpy, i, env);
 	}
 	end_ft_env(i, *envcpy);
 	return (status);
@@ -123,6 +123,8 @@ int			ft_env(char **lstav, char **env, t_control **hist)
 	char		**envcpy;
 	int			status;
 
+	if (hist)
+		;
 	envcpy = NULL;
 	if (!lstav[1])
 		return (env_tab(env));
@@ -130,8 +132,7 @@ int			ft_env(char **lstav, char **env, t_control **hist)
 	{
 		if ((envcpy = get_env(env, 1)) == NULL)
 			return (print_alloc_error("allocation error"));
-		status = ft_env2(lstav, &envcpy, hist);
-		chdir(get_elem(&env, "PWD"));
+		status = ft_env2(lstav, &envcpy, env, 1);
 		del_tabstr(&envcpy);
 	}
 	return (status);

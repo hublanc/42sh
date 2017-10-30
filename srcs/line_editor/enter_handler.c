@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/11 14:30:26 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/23 12:44:06 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/30 09:46:32 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void		enter_handler(t_cmd *cmd, t_control **history, char ***env)
 	char	c;
 
 	set_selected_null(history);
-	ft_putchar('\n');
+	isatty(0) ? ft_putchar('\n') : 0;
 	if (!cmd->str)
 		return (choose_prompt(cmd));
 	c = check_quote(cmd->str);
@@ -29,13 +29,10 @@ void		enter_handler(t_cmd *cmd, t_control **history, char ***env)
 		prompt_cmdandor(cmd, history, 0);
 	if (!checkstr_pipe(cmd->str))
 		prompt_pipe(cmd, history, 0);
-	if (cmd->str && cmd->str[0] != '!')
+	if (!(ft_strchr(cmd->str, '!')))
 		add_hist_or_not(history, cmd->str);
 	routine(cmd->str, env, history);
-	if (!is_sigint(0))
-		print_prompt();
-	else
-		is_sigint(1);
+	!is_sigint(0) ? print_prompt() : is_sigint(1);
 	clear_cmd(cmd);
 	*cmd = init_cmd(return_prompt());
 }
@@ -46,7 +43,7 @@ void		enter_handler_quote(t_cmd *cmd, t_control **history)
 
 	cmd->str_quote = ft_strapp(cmd->str_quote, cmd->str);
 	ft_strdel(&(cmd->str));
-	ft_putchar('\n');
+	isatty(0) ? ft_putchar('\n') : 0;
 	if (!check_cmdandor(cmd->str_quote))
 		prompt_cmdandor(cmd, history, 1);
 	if (!checkstr_pipe(cmd->str_quote))
@@ -57,7 +54,7 @@ void		enter_handler_quote(t_cmd *cmd, t_control **history)
 	else if ((c == '"' && !ft_strcmp("dquote> ", cmd->prompt))
 	|| (c == '\'' && !ft_strcmp("quote> ", cmd->prompt)))
 	{
-		ft_putstr(cmd->prompt);
+		isatty(0) && isatty(2) ? ft_putstr_fd(cmd->prompt, 2) : 0;
 		cmd->col = cmd->prlen + 1;
 		cmd->str_quote = ft_strapp(cmd->str_quote, "\n");
 	}
@@ -74,7 +71,7 @@ void		enter_handler_backslash(t_cmd *cmd, t_control **history)
 
 	cmd->str_quote = ft_strapp(cmd->str_quote, cmd->str);
 	ft_strdel(&(cmd->str));
-	ft_putchar('\n');
+	isatty(0) ? ft_putchar('\n') : 0;
 	c = check_quote(cmd->str_quote);
 	if (!check_cmdandor(cmd->str_quote))
 		prompt_cmdandor(cmd, history, 1);
@@ -84,7 +81,7 @@ void		enter_handler_backslash(t_cmd *cmd, t_control **history)
 		cmd->end_bs = 1;
 	else if (c == '\\')
 	{
-		ft_putstr(cmd->prompt);
+		isatty(0) && isatty(2) ? ft_putstr_fd(cmd->prompt, 2) : 0;
 		cmd->col = cmd->prlen + 1;
 		cmd->str_quote = ft_strdelone(cmd->str_quote,
 		(int)ft_strlen(cmd->str_quote));
@@ -98,7 +95,7 @@ void		enter_handler_backslash(t_cmd *cmd, t_control **history)
 
 void		enter_handler_heredoc(t_cmd *cmd)
 {
-	ft_putchar('\n');
+	isatty(0) ? ft_putchar('\n') : 0;
 	if (cmd->str && !ft_strcmp(cmd->str, cmd->eof))
 	{
 		ft_strdel(&(cmd->str));
@@ -106,7 +103,7 @@ void		enter_handler_heredoc(t_cmd *cmd)
 		return ;
 	}
 	cmd->str_quote = ft_strapp(cmd->str_quote, cmd->str);
-	ft_putstr(cmd->prompt);
+	isatty(0) &&isatty(2) ? ft_putstr_fd(cmd->prompt, 2) : 0;
 	cmd->col = cmd->prlen + 1;
 	cmd->str_quote = ft_str_chr_cat(cmd->str_quote, '\n');
 	ft_strdel(&(cmd->str));
@@ -114,7 +111,9 @@ void		enter_handler_heredoc(t_cmd *cmd)
 
 void		enter_hub(t_cmd *cmd, t_control **history, char ***env)
 {
-	if (!ft_strcmp(cmd->prompt, "dquote> ")
+	if (!cmd->prompt)
+		enter_handler(cmd, history, env);
+	else if (!ft_strcmp(cmd->prompt, "dquote> ")
 	|| !ft_strcmp(cmd->prompt, "quote> "))
 		enter_handler_quote(cmd, history);
 	else if (!ft_strcmp(cmd->prompt, "> "))

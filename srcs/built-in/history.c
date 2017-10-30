@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/18 18:08:42 by mameyer           #+#    #+#             */
-/*   Updated: 2017/10/23 10:59:17 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/27 16:20:25 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,9 @@ char		*get_history_file(char ***env)
 	char	*home_value;
 
 	home_value = NULL;
-	get_home(env, &home_value);
+	if (!env)
+		return (NULL);
+	get_home(*env, &home_value);
 	if (home_value == NULL)
 		return (NULL);
 	home_value = ft_strapp(home_value, "/");
@@ -100,18 +102,18 @@ char		*get_history_file(char ***env)
 	return (home_value);
 }
 
-void		get_home(char ***env, char **home)
+void		get_home(char **env, char **home)
 {
 	char	*value;
 	int		a;
 
 	value = NULL;
 	a = 0;
-	while ((*env)[a])
+	while (env[a])
 	{
-		if (ft_strncmp((*env)[a], "HOME=", ft_strlen("HOME=")) == 0)
+		if (ft_strncmp(env[a], "HOME=", ft_strlen("HOME=")) == 0)
 		{
-			value = ft_strdup((*env)[a]);
+			value = ft_strdup(env[a]);
 			break ;
 		}
 		a++;
