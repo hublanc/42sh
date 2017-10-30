@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/30 13:53:30 by mameyer           #+#    #+#             */
-/*   Updated: 2017/10/30 16:09:12 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/30 16:26:12 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,7 @@ char		*wd_designator(char *command, t_control **history)
 			result = ft_str_chr_cat(result, command[a]);
 			a++;
 		}
-		ft_putstr("Back in initial while, a == ");
-		ft_putnbr(a);
-		ft_putchar('\n');
 	}
-	ft_putendl("99999");
 	add_hist_or_not(history, result);
 	isatty(0) ? ft_putendl(result) : 0;
 	return (result);
@@ -52,39 +48,29 @@ char		*wd_designator(char *command, t_control **history)
 int			wd_designator_2(char *command, int *a, char **result,
 			t_control **history)
 {
-	ft_putendl("00000");
 	if (*a - 1 >= 0 && command[*a - 1] && command[*a - 1] == '\\')
 	{
-		ft_putendl("11111");
 		*result = ft_str_chr_cat(*result, '!');
 		(*a)++;
 	}
 	else if (*a + 1 <= (int)ft_strlen(command) && command[*a + 1]
 			&& command[*a + 1] == '!')
 	{
-		ft_putendl("22222");
 		if (!(get_d_bang(command, a, result, history)))
 		{
 			event_not_found(command);
 			return (0);
 		}
-//		ft_putstr("After get_d_bang(), a == ");
-//		ft_putnbr(*a);
-//		ft_putstr("\ncommand[a] == ");
-//		ft_putchar(command[*a]);
-//		ft_putchar('\n');
 		return (1);
 	}
 	else if (*a + 2 <= (int)ft_strlen(command) && command[*a + 1]
 			&& command[*a + 1] == ' ' && ft_isalnum(command[*a + 2]))
 	{
-		ft_putendl("33333");
 		(*a) += 2;
 	}
 	else if (*a + 1 <= (int)ft_strlen(command) && command[*a + 1]
 			&& ft_isdigit(command[*a + 1]))
 	{
-		ft_putendl("44444");
 		if (!(get_n_first(command, a, result, history)))
 		{
 			event_not_found(command);
@@ -94,7 +80,6 @@ int			wd_designator_2(char *command, int *a, char **result,
 	else if (*a + 1 <= (int)ft_strlen(command) && command[*a + 1]
 			&& command[*a + 1] == '-')
 	{
-		ft_putendl("55555");
 		if (!(get_n_last(command, a, result, history)))
 		{
 			event_not_found(command);
@@ -104,7 +89,6 @@ int			wd_designator_2(char *command, int *a, char **result,
 	else if (*a + 1 <= (int)ft_strlen(command) && command[*a + 1]
 			&& ft_isalnum(command[*a + 1]) && command[*a + 1] != '!')
 	{
-		ft_putendl("66666");
 		if (!(get_c_first(command, a, result, history)))
 		{
 			event_not_found(command);
@@ -114,7 +98,6 @@ int			wd_designator_2(char *command, int *a, char **result,
 	}
 	else
 	{
-		ft_putendl("77777");
 		event_not_found(command);
 		return (0);
 	}
@@ -126,7 +109,6 @@ int			get_d_bang(char *command, int *a, char **result,
 {
 	int		b;
 
-	ft_putendl("In get_d_bang");
 	(void)command;
 	b = 0;
 	if (!(*history) || (*history)->length <= 0
