@@ -6,7 +6,7 @@
 #    By: hublanc <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/07/24 15:04:09 by hublanc           #+#    #+#              #
-#    Updated: 2017/10/27 13:40:13 by lbopp            ###   ########.fr        #
+#    Updated: 2017/10/30 11:33:59 by lbopp            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,6 @@ SRC		=	main.c\
 			line_editor/keys.c\
 			line_editor/cmd.c\
 			line_editor/quote.c\
-			line_editor/history.c\
 			line_editor/cmdandor.c\
 			line_editor/line_edit.c\
 			line_editor/load_history.c\
@@ -59,6 +58,7 @@ SRC		=	main.c\
 			redirection/pipe.c\
 			redirection/heredoc.c\
 			redirection/aggre.c\
+			redirection/extra_redir.c\
 			tools/error.c\
 			tools/signals.c\
 			tools/tools.c\
@@ -72,6 +72,7 @@ SRC		=	main.c\
 			tools/tools_routine.c\
 			tools/tools_compl.c\
 			tools/tools_cd.c\
+			tools/tools_env.c\
 			built-in/echo.c\
 			built-in/env.c\
 			built-in/env2.c\

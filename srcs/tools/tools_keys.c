@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 14:47:27 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/13 19:45:22 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/27 11:03:57 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void		go_begin(int pos, int col)
 {
+	if (!isatty(0))
+		return ;
 	while (pos > col)
 	{
 		tputs(tgetstr("up", NULL), 1, tputchar);
@@ -24,6 +26,11 @@ void		go_begin(int pos, int col)
 
 void		go_right(t_cmd *cmd)
 {
+	if (!isatty(0))
+	{
+		cmd->col++;
+		return ;
+	}
 	if (cmd->col % cmd->sc_col == 0)
 	{
 		tputs(tgetstr("cr", NULL), 1, tputchar);

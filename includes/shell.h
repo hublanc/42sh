@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 11:50:54 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/26 12:04:04 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/30 11:36:05 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int					ft_history_2(char **tab, t_control **history, char *file,
 int					ft_history_3(char **tab, t_control **history, char *file,
 					t_hist_flags flags);
 char				*get_history_file(char ***env);
-void				get_home(char ***env, char **home);
+void				get_home(char **env, char **home);
 int					ft_cd(char **path, char ***env);
 
 char				**delonenv(char *name, char **env);
@@ -90,6 +90,7 @@ char				**env_app(char *name, char *value, char ***env, int *status);
 int					print_alloc_error(char *str);
 int					error_env(size_t *i);
 void				end_ft_env(size_t *i, char **env);
+int					check_envcmd(char **tab, char **env, char **originenv);
 
 /*
 **	terminal

@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 13:13:22 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/23 14:05:46 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/30 11:25:36 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,21 +20,14 @@ t_node		*mark_fd(t_node *tree)
 	tmp = tree;
 	if (!tree)
 		return (tree);
-	if ((tree->token)[0] == '<' && (tree->token)[1] != '<')
-		type = 2;
-	else if ((tree->token)[0] == '<' && (tree->token)[1] == '<')
-		type = 3;
-	else if (ft_strchr(tree->token, '&'))
-		type = 4;
-	else
-		type = 1;
+	type = type_redir(tree->token);
 	while (tmp->left && tmp->value != 1)
 		tmp = tmp->left;
 	if (type == 2)
 		tmp->redir_l = 1;
 	else if (type == 3)
 		tmp->heredoc = 1;
-	else if (type == 4)
+	else if (type == 4 || type == 5)
 		tmp->aggre = 1;
 	else
 		tmp->redir_r = 1;
@@ -63,32 +56,13 @@ void		close_fd(t_node *tree)
 
 int			prep_fd(t_node *tree)
 {
-	int		i;
-
-	i = 0;
-	if (tree->redir_r && tree->fd_out)
-	{
-		while ((tree->fd_out)[i] != -1)
-			i++;
-		dup2((tree->fd_out)[i - 1], (tree->fd_out_io)[i - 1]);
-	}
-	else
-		dup2(tree->out, 1);
-	i = 0;
+	if (do_redir(tree) == -1)
+		return (-1);
 	if (tree->heredoc)
 		heredoc_input(tree);
-	if (tree->aggre)
-		if (exec_aggre(tree) == -1)
-			return (-1);
-	if (tree->redir_l && tree->fd_in)
-	{
-		while ((tree->fd_in)[i] != -1)
-			i++;
-		dup2((tree->fd_in)[i - 1], (tree->fd_in_io)[i - 1]);
-	}
-	else
-		dup2(tree->in, 0);
-	return (0);
+	if (tree->aggre && exec_aggre(tree) == -1)
+		return (-1);
+	return (1);
 }
 
 int			manage_fd(t_node *tree)
@@ -98,24 +72,23 @@ int			manage_fd(t_node *tree)
 
 	if (substitution(&tree->token, 1) == -1)
 		return (-1);
-	i = ft_isdigit((tree->token)[0]) ? 1 : 0;
+	i = len_io(tree->token);
 	tmp = mark_fd(tree);
-	if (ft_strchr(tree->token, '&'))
+	if (type_redir(tree->token) == 4 || type_redir(tree->token) == 5)
 		manage_aggre(tmp, tree);
-	else if ((tree->token)[i] == '>')
+	else if (type_redir(tree->token) == 1)
 	{
 		if (!(tmp->fd_out = add_fd(tmp->fd_out, tree)))
 			return (-1);
 		tmp->fd_out_io = add_io(tmp->fd_out_io, tree, 1);
 	}
-	else if ((tree->token)[i] == '<' && (tree->token)[i + 1] != '<')
+	else if (type_redir(tree->token) == 2)
 	{
 		if (!(tmp->fd_in = add_fd(tmp->fd_in, tree)))
 			return (-1);
 		tmp->fd_in_io = add_io(tmp->fd_in_io, tree, 0);
 	}
-	else if ((tree->token)[i] == '<' && (tree->token)[i + 1] == '<')
-		tmp->heredoc_str = ft_strsub(tree->token, i + 3,
-				ft_strlen(tree->token) - (i + 3));
+	else if (type_redir(tree->token) == 3)
+		manage_heredoc(tree, tmp);
 	return (1);
 }

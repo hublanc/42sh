@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 16:36:09 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/23 15:42:17 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/30 11:33:40 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ typedef struct		s_cmd
 	int				sc_row;
 	int				stop;
 }					t_cmd;
-
+/*
 typedef struct		s_hist
 {
 	char			*cmd;
@@ -39,7 +39,7 @@ typedef struct		s_hist
 	int				current;
 	struct s_hist	*next;
 }					t_hist;
-
+*/
 /*
 **	Keys.c
 */
@@ -66,15 +66,6 @@ t_cmd				init_cmd(char *prompt);
 void				clear_cmd(t_cmd *cmd);
 void				init_screen(t_cmd *cmd);
 t_cmd				*save_cmd(t_cmd *cmd);
-
-/*
-**	History.c
-*/
-t_hist				*new_history(char *cmd);
-void				add_begin(t_hist **list, t_hist *new);
-void				delone_history(t_hist **list);
-void				del_history(t_hist **list);
-void				del_current(t_hist **list);
 
 /*
 **	Quote.c
@@ -135,7 +126,7 @@ void				enter_hub(t_cmd *cmd, t_control **history, char ***env);
 **	History search
 */
 
-char				*history_search(t_control **history);
+int					history_search(t_control **history, char **str);
 t_lst				*history_search_2(t_control **history, char *search);
 t_lst				*while_handler(char *buf, char **search,
 					t_control **history, t_lst *tmp);
@@ -144,7 +135,8 @@ t_lst				*move_in_hist(t_lst *pos, char *buf, t_control **history);
 void				set_search_prompt(char *search, t_lst *tmp, int type);
 t_lst				*while_handler(char *buf, char **search,
 					t_control **history, t_lst *tmp);
-char				*return_handler(t_lst *tmp, char *buf, char **search);
+int					return_handler(t_lst *tmp, char *buf, char **search,
+					char **str);
 void				init_hist_search(char **search, t_lst **tmp);
 
 /*
@@ -158,12 +150,13 @@ void				modify_quotes(int *sq, int *dq, char c);
 char				*wd_designator(char *command, t_control **history);
 int					wd_designator_2(char *command, int *index, char **str,
 					t_control **history);
-void				get_d_bang(char *command, char **str, t_control **history,
+int					get_d_bang(char *command, char **str, t_control **history,
 					int *index);
 int					get_last_command(char *command, char **str,
 					t_control **history, int *index);
 int					get_last_command_2(char *tmp, t_control **history,
 					char **str);
+void				get_last_command_3(char *str, int *index, char **tmp);
 void				get_line_again(char *command, int *index, char **str,
 					t_control **history);
 int					get_n_first(char *command, char **str, t_control **history,

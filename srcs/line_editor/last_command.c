@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 13:56:16 by mameyer           #+#    #+#             */
-/*   Updated: 2017/10/23 10:42:19 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/27 12:02:44 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ int			init_wd_des(char **str, char *command, int *a, int *sq)
 		z++;
 	z++;
 	if (command[z] && command[z] != '-' && !ft_isdigit(command[z])
-			&& command[z] != '!' && (!(command[z] >= 'a' && command[z] <= 'z')))
+			&& command[z] != '!' && (!(command[z] >= 'a' && command[z] <= 'z'))
+			&& command[z] != ' ')
 	{
 		if (!(*str = ft_strdup(command)))
 			return (-1);
@@ -50,50 +51,49 @@ char		*wd_designator(char *command, t_control **history)
 	dq = 0;
 	if (!init_wd_des(&str, command, &a, &sq))
 		return (str);
-	while (command[a])
+	while (command && a <= (int)ft_strlen(command) && command[a])
 	{
 		if (command[a] == '\'' || command[a] == '"')
 			modify_quotes(&sq, &dq, command[a]);
-		else if (((command[a] == '!' && (command[a - 1] != ' '
-						|| !command[a - 1])) && sq == 0 && dq == 0)
+		if ((command[a] == '!' && sq == 0 && dq == 0)
 				&& !wd_designator_2(command, &a, &str, history))
 			return (NULL);
-		else
+		else if (command[a])
 			str = ft_str_chr_cat(str, command[a]);
 		a++;
 	}
-	if (str[ft_strlen(str) - 1] == ' ')
+	if (str && str[ft_strlen(str) - 1] == ' ')
 		str[ft_strlen(str) - 1] = '\0';
 	add_hist_or_not(history, str);
-	ft_putstr("Returning ");
-	ft_putendl(str);
+	isatty(0) ? ft_putendl(str) : 0;
 	return (str);
 }
 
 int			wd_designator_2(char *command, int *index, char **str,
 			t_control **history)
 {
-	if (command[*index - 1] && command[*index - 1] == '\\')
+	if (*index - 1 >= 0 && command[*index - 1] && command[*index - 1] == '\\')
 		*str = ft_str_chr_cat(*str, '!');
-	else if (command[*index + 1] && command[*index + 1] == '!')
-		get_d_bang(&command[*index], str, history, index);
-	else if (command[*index + 1] && ft_isdigit(command[*index + 1]))
+	else if (*index + 2 <= (int)ft_strlen(command) && command[*index + 1]
+			&& command[*index + 1] == ' '
+			&& ft_isalnum(command[*index + 2]))
+		(*index) += 2;
+	else if ((*index + 1 <= (int)ft_strlen(command) && command[*index + 1]
+			&& command[*index + 1] == '!'
+			&& !(get_d_bang(&command[*index], str, history, index)))
+			|| ((*index + 1 <= (int)ft_strlen(command) && command[*index + 1]
+			&& ft_isdigit(command[*index + 1])
+			&& !(get_n_first(&command[*index], str, history, index))))
+			|| ((*index + 1 <= (int)ft_strlen(command) && command[*index + 1]
+			&& command[*index + 1] == '-'
+			&& !(get_n_last(&command[*index], str, history, index))))
+			|| !(*index + 2 <= (int)ft_strlen(command) && command[*index + 2]
+			&& ft_isascii(command[*index + 2])))
 	{
-		if (!get_n_first(&command[*index], str, history, index))
-		{
-			event_not_found(command);
-			return (0);
-		}
+		event_not_found(command);
+		return (0);
 	}
-	else if (command[*index + 1] && command[*index + 1] == '-')
-	{
-		if (!get_n_last(&command[*index], str, history, index))
-		{
-			event_not_found(command);
-			return (0);
-		}
-	}
-	else
+	else if (command[*index])
 		get_last_command(&command[*index], str, history, index);
 	return (1);
 }
@@ -104,7 +104,7 @@ int			get_last_command(char *command, char **str, t_control **history,
 	int		a;
 	char	*tmp;
 
-	if (!command[1])
+	if (!command || !command[1])
 	{
 		set_error(1, NULL);
 		return (-1);
@@ -123,9 +123,7 @@ int			get_last_command(char *command, char **str, t_control **history,
 	}
 	if (!get_last_command_2(tmp, history, str))
 		return (0);
-	while (command[*index] && command[*index] != ' ')
-		(*index)++;
-	ft_strdel(&tmp);
+	get_last_command_3(command, index, &tmp);
 	return (1);
 }
 
@@ -151,7 +149,6 @@ int			get_last_command_2(char *tmp, t_control **history, char **str)
 			*str = ft_str_chr_cat(*str, lst->name[a]);
 			a++;
 		}
-		*str = ft_str_chr_cat(*str, ' ');
 		return (1);
 	}
 	return (0);

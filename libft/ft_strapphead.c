@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memalloc.c                                      :+:      :+:    :+:   */
+/*   ft_strapphead.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/07 11:17:36 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/25 16:24:26 by amazurie         ###   ########.fr       */
+/*   Created: 2017/10/20 21:24:04 by hublanc           #+#    #+#             */
+/*   Updated: 2017/10/20 21:31:09 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "libft.h"
 
-void	*ft_memalloc(size_t size)
+char		*ft_strapphead(char *str1, char *str2)
 {
-	void	*zone;
+	char		*new;
 
-	if (!(zone = malloc(size)))
-		return (0);
-	ft_memset(zone, 0, size);
-	return (zone);
+	new = NULL;
+	new = ft_strapp(new, str2);
+	new = ft_strapp(new, str1);
+	ft_strdel(&str1);
+	return (new);
 }

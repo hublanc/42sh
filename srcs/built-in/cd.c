@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/28 15:13:41 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/26 11:45:47 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/30 11:31:27 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,10 @@ static int	check_cdopt(char **path, char *opt)
 	}
 	return (g_optind);
 }
+
+/*
+**	zsh ignore les options si elles l'une est fausse
+*/
 
 int			cd(char **path, char ***env)
 {
