@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 12:02:15 by lbopp             #+#    #+#             */
-/*   Updated: 2017/10/29 16:44:09 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/30 11:10:40 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,23 @@ void	check_cdopt(char **path, char *opt)
 	}
 }
 
+void		check_isdotdot(char **tmp)
+{
+	char	*temp;
+
+	if (ft_strcmp(*tmp, "/"))
+	{
+		temp = ft_strrchr(*tmp, '/');
+		if (!ft_strcmp(temp, *tmp))
+			temp[1] = '\0';
+		else
+			temp[0] = '\0';
+	}
+}
+
 static void	check_dotdot(char **tmp)
 {
 	int		i;
-	char	*temp;
 	char	**split;
 
 	i = 0;
@@ -97,16 +110,7 @@ static void	check_dotdot(char **tmp)
 		while (split[i])
 		{
 			if (!ft_strcmp(split[i], ".."))
-			{
-				if (ft_strcmp(*tmp, "/"))
-				{
-					temp = ft_strrchr(*tmp, '/');
-					if (!ft_strcmp(temp, *tmp))
-						temp[1] = '\0';
-					else
-						temp[0] = '\0';
-				}
-			}
+				check_isdotdot(tmp);
 			else if (ft_strcmp(split[i], "."))
 			{
 				add_slash(&(*tmp));
@@ -118,7 +122,9 @@ static void	check_dotdot(char **tmp)
 	del_tabstr(&split);
 }
 
-void	check_dotslash(char **tmp)
+// Check_dotslash is useless I think
+
+/*void	check_dotslash(char **tmp)
 {
 	int		i;
 	char	*new;
@@ -139,7 +145,7 @@ void	check_dotslash(char **tmp)
 		}
 		i++;
 	}
-}
+}*/
 
 void	change_env(char ***env, char *pwd)
 {
@@ -168,10 +174,34 @@ void	change_env(char ***env, char *pwd)
 	ft_strdel(&oldpwd);
 }
 
+/*
+**	free_pwd is used to know if pwd was malloced (= 1) or not (= 0)
+*/
+
+int		error_chdir(char **pwd, char *arg, int free_pwd)
+{
+	struct stat	s;
+
+	if (lstat(*pwd, &s) == -1 || !(s.st_mode & S_IXUSR))
+	{
+		ft_putstr_fd("42sh: cd: ", 2);
+		ft_putstr_fd(arg, 2);
+		ft_putendl_fd(": Permission denied", 2);
+	}
+	else
+	{
+		ft_putstr_fd("42sh: cd: ", 2);
+		ft_putstr_fd(arg, 2);
+		ft_putendl_fd(": No such file or directory", 2);
+	}
+	if (free_pwd)
+		ft_strdel(pwd);
+	return (1);
+}
+
 int		exec_cd_default(char *curpath, char ***env, char *arg)
 {
-	char		*pwd;
-	struct stat	s;
+	char	*pwd;
 
 	// THINK IS USELESS
 	/*if (chdir(curpath) == -1)
@@ -194,54 +224,24 @@ int		exec_cd_default(char *curpath, char ***env, char *arg)
 	else
 		pwd = ft_strdup(curpath);
 	if (chdir(pwd) == -1)
-	{
-		if (lstat(pwd, &s) == -1 || !(s.st_mode & S_IXUSR))
-		{
-			ft_putstr_fd("42sh: cd: ", 2);
-			ft_putstr_fd(arg, 2);
-			ft_putendl_fd(": Permission denied", 2);
-		}
-		else
-		{
-			ft_putstr_fd("42sh: cd: ", 2);
-			ft_putstr_fd(arg, 2);
-			ft_putendl_fd(": No such file or directory", 2);
-		}
-		ft_strdel(&pwd);
-		return (1);
-	}
+		return (error_chdir(&pwd, arg, 1));
 	change_env(env, pwd);
 	ft_strdel(&pwd);
 	return (0);
 }
 
-int		exec_cd_P(char *curpath, char ***env, char *arg)
+int		exec_cd_p(char *curpath, char ***env, char *arg)
 {
-	char		pwd[256];
-	struct stat	s;
+	char	pwd[256];
 
 	if (chdir(curpath) == -1)
-	{
-		if (lstat(curpath, &s) == -1 || !(s.st_mode & S_IXUSR))
-		{
-			ft_putstr_fd("42sh: cd: ", 2);
-			ft_putstr_fd(arg, 2);
-			ft_putendl_fd(": Permission denied", 2);
-		}
-		else
-		{
-			ft_putstr_fd("42sh: cd: ", 2);
-			ft_putstr_fd(arg, 2);
-			ft_putendl_fd(": No such file or directory", 2);
-		}
-		return (1);
-	}
+		return (error_chdir(&curpath, arg, 0));
 	getcwd(pwd, 256);
 	change_env(env, pwd);
 	return (0);
 }
 
-void	change_home_env_L(char ***env)
+void	change_home_env_l(char ***env)
 {
 	char	*home;
 	char	*pwd;
@@ -263,7 +263,7 @@ void	change_home_env_L(char ***env)
 	ft_strdel(&pwd);
 }
 
-void	change_oldpwd_env_L(char ***env)
+void	change_oldpwd_env_l(char ***env)
 {
 	char	*oldpwd;
 	char	*pwd;
@@ -292,7 +292,8 @@ int		cd_home(char ***env, char opt)
 	char	pwd[256];
 
 	loc = NULL;
-	if (!(home = get_elem(env, "HOME=")) && !(loc = get_loc("HOME")))
+	if (!(home = get_elem(env, "HOME="))
+			&& !(loc = get_loc("HOME")))
 	{
 		ft_putendl_fd("42sh: cd: HOME not set", 2);
 		return (1);
@@ -300,19 +301,14 @@ int		cd_home(char ***env, char opt)
 	(!home && loc) ? home = loc->value : 0;
 	if ((opt == 'P' && chdir(home) == -1)
 			|| (home[0] && chdir(home) == -1))
-	{
-		ft_putstr_fd("42sh: cd: ", 2);
-		ft_putstr_fd(home, 2);
-		ft_putendl_fd(": No such file or directory", 2);
-		return (1);
-	}
+		return (error_chdir(&home, home, 0));
 	if (opt == 'P')
 	{
 		getcwd(pwd, 256);
 		change_env(env, pwd);
 	}
 	else
-		change_home_env_L(env);
+		change_home_env_l(env);
 	return (0);
 }
 
@@ -323,7 +319,8 @@ int		cd_oldpwd(char ***env, char opt)
 	char	pwd[256];
 
 	loc = NULL;
-	if (!(oldpwd = get_elem(env, "OLDPWD=")) && !(loc = get_loc("OLDPWD")))
+	if (!(oldpwd = get_elem(env, "OLDPWD="))
+			&& !(loc = get_loc("OLDPWD")))
 	{
 		ft_putendl_fd("42sh: cd: OLDPWD not set", 2);
 		return (1);
@@ -331,12 +328,7 @@ int		cd_oldpwd(char ***env, char opt)
 	(!oldpwd && loc) ? oldpwd = loc->value : 0;
 	if ((opt == 'P' && chdir(oldpwd) == -1)
 			|| (oldpwd[0] && chdir(oldpwd) == -1))
-	{
-		ft_putstr_fd("42sh: cd: ", 2);
-		ft_putstr_fd(oldpwd, 2);
-		ft_putendl_fd(": No such file or directory", 2);
-		return (1);
-	}
+		return (error_chdir(&oldpwd, oldpwd, 0));
 	ft_putendl(oldpwd);
 	if (opt == 'P')
 	{
@@ -344,7 +336,7 @@ int		cd_oldpwd(char ***env, char opt)
 		change_env(env, pwd);
 	}
 	else
-		change_oldpwd_env_L(env);
+		change_oldpwd_env_l(env);
 	return (0);
 }
 
@@ -366,12 +358,8 @@ int		exec_cd_default_cdpath(char **curpath, char ***env, char *arg)
 		pwd = ft_strdup(*curpath);
 	if (!(*curpath) || chdir(pwd) == -1)
 	{
-		ft_putstr_fd("42sh: cd: ", 2);
-		ft_putstr_fd(arg, 2);
-		ft_putendl_fd(": No such file or directory", 2);
-		ft_strdel(&pwd);
 		ft_strdel(curpath);
-		return (1);
+		return (error_chdir(&pwd, arg, 1));
 	}
 	ft_strdel(curpath);
 	ft_putendl(pwd);
@@ -380,18 +368,12 @@ int		exec_cd_default_cdpath(char **curpath, char ***env, char *arg)
 	return (0);
 }
 
-int		exec_cd_P_cdpath(char **curpath, char ***env, char *arg)
+int		exec_cd_p_cdpath(char **curpath, char ***env, char *arg)
 {
 	char	pwd[256];
 
-	if (chdir(*curpath) == -1)
-	{
-		ft_putstr_fd("42sh: cd: ", 2);
-		ft_putstr_fd(arg, 2);
-		ft_putendl_fd(": No such file or directory", 2);
-		ft_strdel(curpath);
-		return (1);
-	}
+	if (!(*curpath) || chdir(*curpath) == -1)
+		return (error_chdir(curpath, arg, 1));
 	ft_strdel(curpath);
 	ft_putendl(arg);
 	getcwd(pwd, 256);
@@ -401,18 +383,18 @@ int		exec_cd_P_cdpath(char **curpath, char ***env, char *arg)
 
 int		cd_treat_path(char *path, char opt, char ***env, char *arg)
 {
-		if (opt == 'P')
-			return (exec_cd_P(path, env, arg));
-		else
-			return (exec_cd_default(path, env, arg));
+	if (opt == 'P')
+		return (exec_cd_p(path, env, arg));
+	else
+		return (exec_cd_default(path, env, arg));
 }
 
 int		cd_treat_path_cdpath(char **path, char opt, char ***env, char *arg)
 {
-		if (opt == 'P')
-			return (exec_cd_P_cdpath(path, env, arg));
-		else
-			return (exec_cd_default_cdpath(path, env, arg));
+	if (opt == 'P')
+		return (exec_cd_p_cdpath(path, env, arg));
+	else
+		return (exec_cd_default_cdpath(path, env, arg));
 }
 
 int		cd_exec(char ***env, char **tab, char opt)
@@ -446,7 +428,7 @@ int		ft_cd(char **tab, char ***env)
 		return (1);
 	if (!tab[g_optind])
 		return (cd_home(env, opt));
-	else if (tab[g_optind] && !ft_strcmp(tab[g_optind],"-"))
+	else if (tab[g_optind] && !ft_strcmp(tab[g_optind], "-"))
 		return (cd_oldpwd(env, opt));
 	else
 		return (cd_exec(env, tab, opt));
