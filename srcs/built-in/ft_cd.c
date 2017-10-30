@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 12:02:15 by lbopp             #+#    #+#             */
-/*   Updated: 2017/10/30 13:48:02 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/30 13:55:33 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,12 +181,19 @@ void	change_env(char ***env, char *pwd)
 int		error_chdir(char **pwd, char *arg, int free_pwd)
 {
 	struct stat	s;
+	int			ret;
 
-	if (lstat(*pwd, &s) != -1 && S_ISDIR(s.st_mode) && !(s.st_mode & S_IXUSR))
+	if ((ret = lstat(*pwd, &s)) != -1 && S_ISDIR(s.st_mode) && !(s.st_mode & S_IXUSR))
 	{
 		ft_putstr_fd("42sh: cd: ", 2);
 		ft_putstr_fd(arg, 2);
 		ft_putendl_fd(": Permission denied", 2);
+	}
+	else if (ret != -1 && !S_ISDIR(s.st_mode))
+	{
+		ft_putstr_fd("42sh: cd: ", 2);
+		ft_putstr_fd(arg, 2);
+		ft_putendl_fd(": Not a directory", 2);
 	}
 	else
 	{
