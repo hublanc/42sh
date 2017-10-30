@@ -6,7 +6,7 @@
 #    By: hublanc <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/07/24 15:04:09 by hublanc           #+#    #+#              #
-#    Updated: 2017/10/30 16:27:52 by mameyer          ###   ########.fr        #
+#    Updated: 2017/10/30 17:36:01 by lbopp            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,7 +74,13 @@ SRC		=	main.c\
 			built-in/echo.c\
 			built-in/env.c\
 			built-in/env2.c\
-			built-in/ft_cd.c\
+			built-in/cd/cd_cdpath.c\
+			built-in/cd/cd_home.c\
+			built-in/cd/cd_oldpwd.c\
+			built-in/cd/cd_no_cdpath.c\
+			built-in/cd/check_dotdot.c\
+			built-in/cd/error_chdir.c\
+			built-in/cd/ft_cd.c\
 			built-in/set_env.c\
 			built-in/unsetenv.c\
 			built-in/history.c\
@@ -130,7 +136,7 @@ $(NAME): $(LIB) $(OBJS)
 	@echo "\n${CYN}PROCESSING DONE !${NC}"
 
 $(OBJDIR):
-	@mkdir -p objs objs/built-in objs/tools objs/exec objs/lexer objs/redirection objs/line_editor objs/completion objs/prompt_statement objs/built-in/read
+	@mkdir -p objs objs/built-in objs/tools objs/exec objs/lexer objs/redirection objs/line_editor objs/completion objs/prompt_statement objs/built-in/read objs/built-in/cd
 
 $(LIB):
 	@echo "${CYN}Processing ${NC}./libft/objs ${CYN}[${NC}...${CYN}]${NC}"
