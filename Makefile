@@ -6,7 +6,7 @@
 #    By: hublanc <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/07/24 15:04:09 by hublanc           #+#    #+#              #
-#    Updated: 2017/10/27 16:24:57 by amazurie         ###   ########.fr        #
+#    Updated: 2017/10/30 15:05:47 by mameyer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,9 +35,7 @@ SRC		=	main.c\
 			line_editor/cut_copy_paste3.c\
 			line_editor/history_search.c\
 			line_editor/history_search_2.c\
-			line_editor/last_command.c\
-			line_editor/last_command_2.c\
-			line_editor/last_command_3.c\
+			line_editor/word_designators.c\
 			exec/exec.c\
 			exec/check_binary.c\
 			exec/ft_cmdsplit.c\
