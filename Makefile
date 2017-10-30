@@ -6,13 +6,13 @@
 #    By: hublanc <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/07/24 15:04:09 by hublanc           #+#    #+#              #
-#    Updated: 2017/10/30 15:05:47 by mameyer          ###   ########.fr        #
+#    Updated: 2017/10/30 16:27:52 by mameyer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= shell
 CC		= gcc
-FLAGS	= -Wall -Wextra -Werror -g -fsanitize=address
+FLAGS	= -Wall -Wextra -Werror -g #-fsanitize=address
 DFLAGS	= -MMD
 LIB		= libft/libft.a
 HEADER	= includes/
@@ -74,8 +74,7 @@ SRC		=	main.c\
 			built-in/echo.c\
 			built-in/env.c\
 			built-in/env2.c\
-			built-in/cd.c\
-			built-in/cd2.c\
+			built-in/ft_cd.c\
 			built-in/set_env.c\
 			built-in/unsetenv.c\
 			built-in/history.c\
