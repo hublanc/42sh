@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/05 16:40:44 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/26 17:18:52 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/30 13:30:55 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,18 @@ static int	do_export(char *name, char ***env)
 {
 	t_loc	*loc;
 	char	**tab;
+	int		i;
 
-	tab = NULL;
-	if (ft_strchr(name, '='))
-		if (!(tab = ft_strsplit(name, '=')))
-			return (1);
+	i = -1;
+	while (name && (name[++i] == ' ' || name[i] == '='))
+		if (name[i] == '=')
+		{
+			ft_putstr_fd(name, 2);
+			ft_putstr_fd(" not a valid identifier\n", 2);
+			return (0);
+		}
+	if (!(tab = NULL) && ft_strchr(name, '=') && !(tab = ft_strsplit(name, '=')))
+		return (1);
 	if (!(loc = (tab) ? get_loc(tab[0]) : get_loc(name))
 			&& (!tab || !tab[0]))
 	{
@@ -54,9 +61,7 @@ static int	do_export(char *name, char ***env)
 		return (1);
 	}
 	do_export_sub(env, loc, tab, name);
-	(tab && tab[0] && tab[1]) ? free(tab[2]) : 0;
-	(tab && tab[0]) ? free(tab[1]) : 0;
-	(tab) ? free(tab) : 0;
+	free(tab);
 	return (0);
 }
 
