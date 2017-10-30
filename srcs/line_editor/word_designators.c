@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/30 13:53:30 by mameyer           #+#    #+#             */
-/*   Updated: 2017/10/30 16:26:12 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/30 18:16:31 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int			wd_designator_2(char *command, int *a, char **result,
 	{
 		*result = ft_str_chr_cat(*result, '!');
 		(*a)++;
+		return (1);
 	}
 	else if (*a + 1 <= (int)ft_strlen(command) && command[*a + 1]
 			&& command[*a + 1] == '!')
@@ -67,6 +68,7 @@ int			wd_designator_2(char *command, int *a, char **result,
 			&& command[*a + 1] == ' ' && ft_isalnum(command[*a + 2]))
 	{
 		(*a) += 2;
+		return (1);
 	}
 	else if (*a + 1 <= (int)ft_strlen(command) && command[*a + 1]
 			&& ft_isdigit(command[*a + 1]))
@@ -76,6 +78,7 @@ int			wd_designator_2(char *command, int *a, char **result,
 			event_not_found(command);
 			return (0);
 		}
+		return (1);
 	}
 	else if (*a + 1 <= (int)ft_strlen(command) && command[*a + 1]
 			&& command[*a + 1] == '-')
@@ -85,6 +88,7 @@ int			wd_designator_2(char *command, int *a, char **result,
 			event_not_found(command);
 			return (0);
 		}
+		return (1);
 	}
 	else if (*a + 1 <= (int)ft_strlen(command) && command[*a + 1]
 			&& ft_isalnum(command[*a + 1]) && command[*a + 1] != '!')
@@ -95,6 +99,11 @@ int			wd_designator_2(char *command, int *a, char **result,
 			return (0);
 		}
 		return (1);
+	}
+	else if (*a + 1 >= (int)ft_strlen(command))
+	{
+		set_error(1, command);
+		return (0);
 	}
 	else
 	{
@@ -209,9 +218,9 @@ int			get_c_first(char *command, int *a, char **result,
 		return (0);
 	tmp = NULL;
 	b = 1;
-	while (command[b] && command[b] != '!' && command[b] != ' ')
+	while (command[*a + b] && command[*a + b] != '!' && command[*a + b] != ' ')
 	{
-		test = ft_str_chr_cat(test, command[b]);
+		test = ft_str_chr_cat(test, command[*a + b]);
 		b++;
 	}
 	if (!(*history) || !((*history)->begin))
@@ -263,4 +272,20 @@ void		modify_quotes(int *sq, int *dq, char c, int *a)
 			(*dq)++;
 	}
 	(*a)++;
+}
+
+void		set_error(int a, char *command)
+{
+	int		b;
+
+	b = 0;
+	if (a == 1)
+		ft_putendl_fd("shell: syntax error near unexpected token `newline'", 2);
+	else if (a == 2)
+	{
+		isatty(0) ? ft_putstr("shell : s:") : 0;
+		while (command[b] && command[b] != ' ')
+			isatty(0) ? ft_putchar(command[b++]) : 0;
+		ft_putendl_fd(": substitution failed", 2);
+	}
 }
