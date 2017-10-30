@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/10 15:49:56 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/26 11:16:28 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/30 16:25:27 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,8 @@ int			substitution(char **cmmd, int is_redir)
 		if ((*cmmd)[i] && (*cmmd)[i] == '$')
 			while ((*cmmd)[j] && (*cmmd)[j] != 32 && (*cmmd)[j] != 9
 				&& (*cmmd)[j] != '\n' && (*cmmd)[j] != '"'
-				&& (*cmmd)[j] != '$' && (*cmmd)[j] != '\\')
+				&& (*cmmd)[j] != '$' && (*cmmd)[j] != '\\' && (*cmmd)[j] != '/'
+				&& (*cmmd)[j] != ':' && (*cmmd)[j] != '@')
 				j++;
 		if (j > i + 1 || !(*cmmd)[i])
 		{
