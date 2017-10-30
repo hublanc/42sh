@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 09:54:57 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/26 11:23:11 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/30 13:45:29 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ static char	*get_path(t_cmd *cmd)
 
 	if (!cmd->str)
 		return (NULL);
+	word = NULL;
 	i = cmd->col - 1 - cmd->prlen;
 	while (cmd->str[i] && cmd->str[i] != '"' && cmd->str[i] != '\''
 			&& cmd->str[i] != '\'' && cmd->str[i] != ' ' && (++i) > 0)

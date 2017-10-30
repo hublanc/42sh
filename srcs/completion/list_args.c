@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 10:48:34 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/19 15:04:08 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/30 13:50:26 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,7 @@ static void	compl_cmp(t_compl *compl, char **word)
 		*word = NULL;
 	}
 	else if (!compl->isdot && i > 0 && (compl->isslash = 1) > 0)
-	{
 		ft_memmove(*word, (*word + i), ft_strlen((*word + i)));
-		ft_bzero((*word + ft_strlen((*word + i))), ft_strlen((*word + i)));
-	}
 }
 
 void		list_content(t_compl *compl, t_cmd *cmd)
