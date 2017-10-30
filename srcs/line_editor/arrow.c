@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 19:28:26 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/26 14:48:18 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/30 13:01:53 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,11 @@ void		arrow_handler(char *str, t_cmd *cmd, t_control **hist)
 		seek_next(hist, cmd);
 	else if (str[2] == 66)
 		seek_prev(hist, cmd);
-	else if (str[1] == 0)
+	else if (str[1] == 91 && str[2] == 51 && str[3] == 126 && cmd
+			&& (size_t)cmd->col - cmd->prlen - 1 < ft_strlen(cmd->str))
 	{
-		reset_term();
-		exit(EXIT_SUCCESS);
+		cmd->str = ft_strdelone(cmd->str, cmd->col - cmd->prlen);
+		print_line(cmd);
 	}
 	if (str[1] == 27 && str[2] == 91)
 		control_arrow(str, cmd);
