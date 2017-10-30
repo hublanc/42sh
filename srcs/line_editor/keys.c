@@ -6,7 +6,8 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 11:41:39 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/30 12:54:52 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/30 16:55:29 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/30 16:53:30 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +68,10 @@ static int	check_sigint(t_cmd *cmd, char **buf)
 
 static void	handle_key2(t_cmd *cmd, t_control **history, char ***env, char *buf)
 {
+	struct winsize		z;
+
+	if (ioctl(0, TIOCGWINSZ, &z) == -1)
+		return ;
 	if (buf[0] == 10)
 	{
 		(buf[1]) ? save_buf(buf + 1) : 0;
@@ -77,6 +82,8 @@ static void	handle_key2(t_cmd *cmd, t_control **history, char ***env, char *buf)
 		copy_cut_paste_handler(cmd, buf);
 	else if (buf[0] == 18)
 	{
+		go_begin((ft_strlen(cmd->str) + ft_strlen(cmd->prompt)), z.ws_col);
+		isatty(0) ? tputs(tgetstr("cd", NULL), 1, tputchar) : 0;
 		ft_strdel(&cmd->str);
 		cmd->col = cmd->prlen + 1;
 		if (history_search(history, &cmd->str) == 1)
