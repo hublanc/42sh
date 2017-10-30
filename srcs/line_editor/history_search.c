@@ -6,15 +6,11 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/18 15:09:47 by mameyer           #+#    #+#             */
-/*   Updated: 2017/10/26 16:56:19 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/30 12:34:11 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
-
-/*
-**		Change history_search return from char * to int
-*/
 
 int			history_search(t_control **history, char **str)
 {
@@ -92,6 +88,8 @@ void		set_search_prompt(char *search, t_lst *tmp, int type)
 		isatty(0) ? ft_putstr("(reverse-i-search)`': ") : 0;
 		return ;
 	}
+	// go_begin(taille de la ligne + taille du prompt, nbr col dans la fenetre);
+	// use ioctl();
 	go_begin(0, 0);
 	if (isatty(0))
 	{
