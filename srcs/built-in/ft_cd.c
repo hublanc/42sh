@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 12:02:15 by lbopp             #+#    #+#             */
-/*   Updated: 2017/10/30 13:16:22 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/30 13:48:02 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -344,7 +344,7 @@ int		exec_cd_default_cdpath(char **curpath, char ***env, char *arg)
 {
 	char	*pwd;
 
-	if (arg[0] != '/')
+	if (*curpath && (*curpath)[0] != '/')
 	{
 		if (!(pwd = get_elem(env, "PWD=")))
 			if (get_loc("PWD"))
