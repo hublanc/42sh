@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 12:02:15 by lbopp             #+#    #+#             */
-/*   Updated: 2017/10/30 11:10:40 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/30 11:55:38 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,7 +182,7 @@ int		error_chdir(char **pwd, char *arg, int free_pwd)
 {
 	struct stat	s;
 
-	if (lstat(*pwd, &s) == -1 || !(s.st_mode & S_IXUSR))
+	if (lstat(*pwd, &s) != -1 && !(s.st_mode & S_IXUSR))
 	{
 		ft_putstr_fd("42sh: cd: ", 2);
 		ft_putstr_fd(arg, 2);
