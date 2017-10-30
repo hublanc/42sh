@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 17:36:47 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/27 16:23:21 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/30 09:46:14 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void		choose_prompt(t_cmd *cmd)
 			|| !ft_strcmp(cmd->prompt, "quote> ")
 	|| !ft_strcmp(cmd->prompt, "heredoc> ") || !ft_strcmp(cmd->prompt, "pipe> ")
 	|| !ft_strcmp(cmd->prompt, "> ") || !ft_strcmp(cmd->prompt, "cmdandor> "))
-		isatty(0) ? ft_putstr(cmd->prompt) : 0;
+		isatty(0) && isatty(2) ? ft_putstr_fd(cmd->prompt, 2) : 0;
 	else
 		print_prompt();
 }
@@ -35,7 +35,7 @@ void		pass_prompt(t_cmd *cmd)
 {
 	int		i;
 
-	if (!isatty(0))
+	if (!isatty(0) || !isatty(2))
 		return ;
 	i = 0;
 	while (i < cmd->prlen)
