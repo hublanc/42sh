@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/14 15:40:59 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/30 15:07:18 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/30 16:02:17 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_token			*check_redirection(t_token *list,
 	else if (!prompt_heredoc(tmp->next->token, tmp, history))
 		del_token(&list);
 	(list) ? list = destroy_one(list, tmp->next) : 0;
-	(list && tmp && tmp->next) ? *cur = tmp->next : 0;
+	*cur = tmp->next;
 	return (list);
 }
 
