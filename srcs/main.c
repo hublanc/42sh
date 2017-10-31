@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/24 16:37:30 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/26 11:52:56 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/31 12:57:00 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,15 @@ void		add_startenv(char ***env)
 	ft_setenv(tab, env);
 }
 
+static void	init_signal(void)
+{
+	signal(SIGINT, get_signal);
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGTSTP, SIG_IGN);
+	signal(SIGKILL, SIG_IGN);
+	signal(SIGTERM, SIG_IGN);
+}
+
 int			main(int ac, char **av, char **env)
 {
 	t_cmd		cmd;
@@ -68,11 +77,7 @@ int			main(int ac, char **av, char **env)
 		return (-1);
 	add_startenv(&cp_env);
 	save_env(&cp_env);
-	signal(SIGINT, get_signal);
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGTSTP, SIG_IGN);
-	signal(SIGKILL, SIG_IGN);
-	signal(SIGTERM, SIG_IGN);
+	init_signal();
 	set_terminal();
 	print_prompt();
 	cmd = init_cmd(return_prompt());

@@ -3,11 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keys.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/02 11:41:39 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/30 16:55:29 by mameyer          ###   ########.fr       */
-/*   Updated: 2017/10/30 16:53:30 by mameyer          ###   ########.fr       */
+/*   Created: 2017/10/31 12:52:57 by lbopp             #+#    #+#             */
+/*   Updated: 2017/10/31 12:54:25 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +105,7 @@ static void	handle_key(t_cmd *cmd, t_control **history, char ***env, char *buf)
 	}
 	else if (buf[0] == 12 && !buf[1])
 	{
-		isatty(0) ? tputs(tgetstr("cl", NULL), 1, tputchar): 0;
+		isatty(0) ? tputs(tgetstr("cl", NULL), 1, tputchar) : 0;
 		print_prompt();
 		print_line(cmd);
 	}
