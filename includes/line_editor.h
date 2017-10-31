@@ -161,8 +161,17 @@ int					get_n_first_2(char *command, int *a, char **str,
 					char **result);
 int					get_n_last(char *command, int *a, char **result,
 					t_control **history);
+int					get_n_last_2(char *command, int *a, char **str,
+					char **result);
+int					get_n_last_3(int nb, int *a, char **str);
 int					get_c_first(char *command, int *a, char **result,
 					t_control **history);
+int					get_tmp_cfirst(t_lst **tmp, char *test, char **str);
+int					get_c_first_2(char *command, int *a, char **str,
+					char **result);
+void				get_c_first_3(char **test, char *command, int *a, int b);
+int					get_c_first_check_history(t_control **history, char **str,
+					char **test);
 
 void				modify_quotes(int *sq, char c, int *a);
 void				d_dots_found(char *command, char **str, int b);
@@ -193,4 +202,5 @@ int					get_n_first(char *command, char **str, t_control **history,
 int					get_n_last(char *command, char **str, t_control **history,
 					int *index);
 */
+
 #endif
