@@ -6,7 +6,7 @@
 #    By: hublanc <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/07/24 15:04:09 by hublanc           #+#    #+#              #
-#    Updated: 2017/10/31 16:47:45 by amazurie         ###   ########.fr        #
+#    Updated: 2017/10/31 21:46:12 by hublanc          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,6 +48,8 @@ SRC		=	main.c\
 			exec/extra_exec.c\
 			exec/manage_pid.c\
 			exec/pid_pipe.c\
+			exec/hash.c\
+			exec/extra_hash.c\
 			lexer/token.c\
 			lexer/lexer.c\
 			lexer/sort_token.c\
@@ -100,6 +102,8 @@ SRC		=	main.c\
 			built-in/cmd_loc.c\
 			built-in/unset.c\
 			built-in/export.c\
+			built-in/hash_builtin.c\
+			built-in/ft_exit.c\
 			prompt_statement/before_curr_after.c\
 			prompt_statement/main_prompt_statement.c\
 			prompt_statement/prompt_backslash.c\
