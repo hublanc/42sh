@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 11:50:54 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/30 17:29:46 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/31 09:58:20 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,8 @@ char				**delonenv(char *name, char **env);
 char				**prep_setenv(char *name, char *value);
 int					change_pwd(char *path, char ***env, char opt);
 char				***save_env(char ***env);
-char				**env_app(char *name, char *value, char ***env, int *status);
+char				**env_app(char *name,
+					char *value, char ***env, int *status);
 int					print_alloc_error(char *str);
 int					error_env(size_t *i);
 void				end_ft_env(size_t *i, char **env);
@@ -128,7 +129,8 @@ void				add_slash(char **content);
 int					cd_home(char ***env, char opt);
 int					cd_oldpwd(char ***env, char opt);
 int					cd_treat_path(char *path, char opt, char ***env, char *arg);
-int					cd_treat_path_cdpath(char **path, char opt, char ***env, char *arg);
+int					cd_treat_path_cdpath(char **path,
+					char opt, char ***env, char *arg);
 void				change_env(char ***env, char *pwd);
 void				check_dotdot(char **tmp);
 int					error_chdir(char **pwd, char *arg, int free_pwd);
