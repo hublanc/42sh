@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/31 10:49:23 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/31 13:03:43 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/31 13:14:10 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ static void	get_complenv(t_compl *compl, t_coargs **args, char **env, int *id)
 
 static void	get_complloc(t_compl *compl, t_coargs **args, t_loc *loc, int *id)
 {
-
 	while (loc)
 	{
 		if (!compl->arg || !check_lname(compl->arg +
