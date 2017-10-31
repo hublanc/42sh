@@ -157,6 +157,8 @@ int					get_d_bang(char *command, int *a, char **result,
 					t_control **history);
 int					get_n_first(char *command, int *a, char **result,
 					t_control **history);
+int					get_n_first_2(char *command, int *a, char **str,
+					char **result);
 int					get_n_last(char *command, int *a, char **result,
 					t_control **history);
 int					get_c_first(char *command, int *a, char **result,
@@ -165,6 +167,7 @@ int					get_c_first(char *command, int *a, char **result,
 void				modify_quotes(int *sq, char c, int *a);
 void				d_dots_found(char *command, char **str, int b);
 void				append_str(char *to_cpy, char **str);
+int					get_tmp_lst(t_lst **tmp, int b, int nb, char **str);
 
 /*
 **	last_command.c			TO DELETE
