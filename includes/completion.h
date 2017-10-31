@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 09:50:30 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/31 11:14:03 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/31 17:12:10 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ void				compl_addline(t_cmd *cmd, t_compl *compl);
 /*
 ** list_args.c
 */
-void				list_compl(t_compl *compl, t_cmd *cmd, char ***env);
+void				list_compl(t_compl *compl, t_cmd *cmd, char ***env,
+					char *path);
 
 /*
 ** get_binaries.c

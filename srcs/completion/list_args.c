@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 10:48:34 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/31 11:33:54 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/31 17:12:28 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,7 @@ void		list_content(t_compl *compl, t_cmd *cmd)
 		compl->arg = NULL;
 		add_line(cmd, "/");
 	}
-	if (compl->arg && compl->arg[0] == '.')
-		compl->isdot = 1;
+	(compl->arg && compl->arg[0] == '.') ? compl->isdot = 1 : 0;
 	if (compl->arg && !ft_strcmp(compl->arg, "*"))
 	{
 		free(compl->arg);
@@ -121,10 +120,9 @@ static int	check_command(t_cmd *cmd)
 	return (1);
 }
 
-void		list_compl(t_compl *compl, t_cmd *cmd, char ***env)
+void		list_compl(t_compl *compl, t_cmd *cmd, char ***env, char *path)
 {
 	t_coargs	*ar;
-	char		*path;
 	char		**paths;
 
 	paths = NULL;
@@ -139,6 +137,7 @@ void		list_compl(t_compl *compl, t_cmd *cmd, char ***env)
 		compl->isstar = 3;
 	(compl->isstar == 3) ? compl->arg[ft_strlen(compl->arg) - 1] = 0 : 0;
 	list_content(compl, cmd);
+	get_locenv(compl);
 	if (!check_command(cmd) && !compl->isstar && !compl->bi && (path =
 		get_envpath(env)) && (paths = ft_strsplit(path + 5, ':')) && paths[0])
 		get_args(compl, paths);
