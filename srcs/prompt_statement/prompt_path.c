@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/10 11:55:10 by lbopp             #+#    #+#             */
-/*   Updated: 2017/10/30 13:03:21 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/31 15:17:10 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,19 @@ static char	*get_pwd_prompt(void)
 	return (path);
 }
 
+static void	clear_last_slash(char **path)
+{
+	char	*tmp;
+	size_t	i;
+
+	tmp = *path;
+	i = ft_strlen(*path);
+	while (i > 0 && tmp[i - 1] == '/')
+		i--;
+	*path = ft_strsub(*path, 0, i);
+	ft_strdel(&tmp);
+}
+
 void		prompt_path(char **line, int *i, int mode)
 {
 	char	*path;
@@ -36,6 +49,7 @@ void		prompt_path(char **line, int *i, int mode)
 	char	*after;
 
 	path = get_pwd_prompt();
+	clear_last_slash(&path);
 	if (mode == 2)
 		final_path = ft_strrchr(path, '/');
 	else
