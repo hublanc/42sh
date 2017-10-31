@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/21 22:22:29 by mameyer           #+#    #+#             */
-/*   Updated: 2017/10/31 14:06:38 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/31 15:33:50 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void		get_cd_flags(t_hist_flags *flags, char **tab, int *args_pos)
 	while (tab[i] && tab[i][0] == '-')
 	{
 		j = 0;
-		if (tab[i][j] && tab[i][j] == '-')
+		if (tab[i][j] && tab[i][j] == '-' && tab[i][j + 1])
 		{
 			j++;
 			while (tab[i] && tab[i][j])
@@ -31,6 +31,8 @@ void		get_cd_flags(t_hist_flags *flags, char **tab, int *args_pos)
 				j++;
 			}
 		}
+		else if (tab[i][j] && tab[i][j] == '-' && !(tab[i][j + 1]))
+			ft_putendl("shell: history: -: numeric argument required");
 		i++;
 	}
 	*args_pos = i;
