@@ -12,8 +12,6 @@
 
 #include "shell.h"
 
-// NEED CHECK
-
 void		modify_quotes(int *sq, char c, int *a)
 {
 	if (c == '\'')

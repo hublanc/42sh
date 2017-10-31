@@ -12,11 +12,6 @@
 
 #include "shell.h"
 
-// Need to protec return ; if return == -1, bullshit with malloc, return NULL
-// Need to protec return of cmdsplit too
-// When returning an error, free everything
-// Need to find $ func
-
 int			get_n_first(char *command, int *a, char **result,
 			t_control **history)
 {
@@ -128,4 +123,3 @@ int			get_n_last_3(int nb, int *a, char **str)
 	ft_strdel(str);
 	return (1);
 }
-
