@@ -6,7 +6,7 @@
 #    By: hublanc <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/07/24 15:04:09 by hublanc           #+#    #+#              #
-#    Updated: 2017/10/31 16:58:28 by lbopp            ###   ########.fr        #
+#    Updated: 2017/10/31 16:59:34 by lbopp            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -134,7 +134,13 @@ all: $(OBJDIR) $(NAME)
 
 $(NAME): $(LIB) $(OBJS)
 	@$(CC) $(FLAGS) -L./$(LIBSRC) -lft -ltermcap -o $(NAME) $(OBJS)
-	@echo "\n${CYN}PROCESSING DONE !${NC}"
+	@echo "\r\c"
+	@tput cd
+	@echo "${GRN}$(NAME) created${NC}"
+	@echo "${CYN}PROCESSING DONE !${NC}"
+	@echo "${CYN}"
+	@cat starting/name
+	@echo "${NC}"
 
 $(OBJDIR):
 	@mkdir -p objs objs/built-in objs/tools objs/exec objs/lexer objs/redirection objs/line_editor objs/completion objs/prompt_statement objs/built-in/read objs/built-in/cd
@@ -145,7 +151,9 @@ $(LIB):
 	@echo "\n${CYN}Processing ${NC}./objs ${CYN}[${NC}...${CYN}]${NC}"
 
 $(OBJDIR)%.o: $(SRCDIR)%.c $(HEADER)$(NAME).h
-	@echo "${GRN}Compiling${NC} $@"
+	@echo "\r\c"
+	@tput cd
+	@echo "${GRN}Compiling${NC} $@\c"
 	@$(CC) $(FLAGS) $(DFLAGS) -c -o $@ $< -I $(HEADER)
 
 clean:
