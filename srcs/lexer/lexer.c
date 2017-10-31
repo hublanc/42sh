@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/10 17:54:51 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/27 16:21:19 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/31 14:13:17 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,10 @@ void			check_type(char **cmd, t_token **list)
 		i += add_pipe_or_word(*cmd, list);
 	else if (**cmd == '&')
 	{
-		(!*(*cmd + 1) || *(*cmd + 1) != '&') ?
-			*list = abort_sort(*list, "&") :
+		if (*(*cmd + 1) && *(*cmd + 1) == '&')
 			add_token(list, new_token("&&", 7));
+		else
+			*list = abort_lexer(*list, cmd, "&");
 		i++;
 	}
 	else if (**cmd == '<' || **cmd == '>')
@@ -86,7 +87,7 @@ void			check_type(char **cmd, t_token **list)
 		i += check_number(list, *cmd);
 	else
 		i += add_word(*cmd, list);
-	while (i-- > 0 && **cmd)
+	while (i-- > 0 && *cmd && **cmd)
 		(*cmd)++;
 }
 
@@ -97,7 +98,7 @@ t_token			*tokenizer(char *cmd)
 	list = NULL;
 	if (!cmd)
 		return (NULL);
-	while (*cmd)
+	while (cmd && *cmd)
 	{
 		while (*cmd && *cmd == 32)
 			cmd++;

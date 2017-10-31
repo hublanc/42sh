@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 16:36:09 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/31 09:57:46 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/31 14:42:25 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,6 +156,7 @@ int					get_c_first(char *command, int *a, char **result,
 					t_control **history);
 
 void				modify_quotes(int *sq, int *dq, char c, int *a);
+void				set_error(int a, char *command);
 
 /*
 **	last_command.c			TO DELETE
