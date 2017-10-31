@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 12:18:48 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/31 13:17:00 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/31 17:06:07 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,5 +98,4 @@ void		get_args(t_compl *compl, char **paths)
 			closedir(dirp);
 		}
 	}
-	get_locenv(compl);
 }
