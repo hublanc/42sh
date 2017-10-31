@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/27 16:56:43 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/23 12:55:50 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/31 15:33:32 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,4 +100,17 @@ void		add_argtoline(t_compl *compl, t_cmd *cmd)
 		add_line(cmd, args->arg);
 	if (args && args->color && ft_strcmp("\e[1;36m", args->color))
 		add_line(cmd, " ");
+}
+
+void		compl_addline(t_cmd *cmd, t_compl *compl)
+{
+	int	i;
+
+	i = ft_strlen(compl->arg);
+	while (i-- && cmd->col > cmd->prlen + 1)
+	{
+		cmd->str = ft_strdelone(cmd->str, (cmd->col - 1) - cmd->prlen);
+		go_left(cmd);
+	}
+	add_line(cmd, compl->args.arg);
 }
