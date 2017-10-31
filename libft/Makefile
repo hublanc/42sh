@@ -6,7 +6,7 @@
 #    By: hublanc <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/04 12:07:21 by hublanc           #+#    #+#              #
-#    Updated: 2017/10/20 21:27:25 by hublanc          ###   ########.fr        #
+#    Updated: 2017/10/31 16:46:33 by amazurie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,11 +44,15 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	@ar rc $(NAME) $(OBJ)
+	@echo "\r\c"
+	@tput cd
 	@echo $(GREEN)"libft.a created"$(RESET)
 
 %.o: %.c $(LIBINC)
 	@$(CC) -o $@ -c $< $(FLAGS) -I $(LIBINC)
-	@echo $(YELLOW)$@" done"$(RESET)
+	@echo "\r\c"
+	@tput cd
+	@echo $(YELLOW)$@" done"$(RESET)"\c"
 
 clean:
 	@rm -f $(OBJ)
