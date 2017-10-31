@@ -223,8 +223,23 @@ void		d_dots_found(char *command, char **str, int b)
 	}
 }
 
+int			get_tmp_lst(t_lst **tmp, int b, int nb, char **str)
+{
+	while ((*tmp) != NULL && b < nb)
+	{
+		(*tmp) = (*tmp)->prev;
+		b++;
+	}
+	if (tmp)
+		append_str((*tmp)->name, str);
+	else
+		return (0);
+	return (1);
+}
+
 // Need to protec return ; if return == -1, bullshit with malloc, return NULL
 // Need to protec return of cmdsplit too
+// When returning an error, free everything
 
 int			get_n_first(char *command, int *a, char **result,
 			t_control **history)
@@ -232,45 +247,48 @@ int			get_n_first(char *command, int *a, char **result,
 	int		b;
 	int		nb;
 	t_lst	*tmp;
-	char	*test;
 	char	*str;
 
 	b = 1;
-	nb = 0;
-	if (!(str = ft_memalloc(1)))
-		return (-1);
 	nb = modified_atoi(&command[1]);
 	if ((*history) == NULL || nb > (*history)->length || (*history)->length < 1)
 		return (0);
+	if (!(str = ft_memalloc(1)))
+		return (-1);
 	tmp = NULL;
 	if (*history && (*history)->end)
 		tmp = (*history)->end;
-	while (tmp != NULL && b < nb)
+	if (!(get_tmp_lst(&tmp, b, nb, &str)))
 	{
-		tmp = tmp->prev;
-		b++;
-	}
-	if (tmp)
-		append_str(tmp->name, &str);
-	else
+		ft_strdel(&str);
 		return (0);
-	if (find_d_dots(command, *a))
+	}
+	if (get_n_first_2(command, a, &str, result) == 2)
+		return (2);
+	str = ft_itoa(nb);
+	(*a) += ft_strlen(str);
+	ft_strdel(&str);
+	return (1);
+}
+
+int			get_n_first_2(char *command, int *a, char **str, char **result)
+{
+	int		b;
+
+	if ((b = find_d_dots(command, *a)) && b != 0)
 	{
-		b = find_d_dots(command, *a);
 		(*a) += (b - *a);
 		if (b + 1 <= (int)ft_strlen(command) && ft_isdigit(command[b + 1]))
-		{
-			d_dots_found(command, &str, b);
-			(*a) += 1;
-		}
+			d_dots_found(command, str, b);
 		else if (!(ft_isdigit(command[b + 1])))
+		{
+			ft_strdel(str);
 			return (return_error(command, b, 2));
+		}
+		(*a) += 1;
 	}
-	append_str(str, result);
-	ft_strdel(&str);
-	test = ft_itoa(nb);
-	(*a) += ft_strlen(test);
-	free(test);
+	append_str(*str, result);
+	ft_strdel(str);
 	return (1);
 }
 
