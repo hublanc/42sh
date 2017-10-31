@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/25 18:26:10 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/26 13:06:51 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/31 21:05:12 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int			do_built_in(char **tab, char ***env, t_control **his)
 
 	status = 0;
 	if (ft_strcmp(tab[0], "exit") == 0)
-		stop_shell(env, tab, his);
+		status = stop_shell(env, tab, his);
 	else if (ft_strcmp(tab[0], "echo") == 0)
 		status = ft_echo(tab);
 	else if (ft_strcmp(tab[0], "setenv") == 0)
@@ -37,6 +37,7 @@ int			do_built_in(char **tab, char ***env, t_control **his)
 		status = unset(tab, env);
 	else if (ft_strcmp(tab[0], "export") == 0)
 		status = export(tab, env);
+	status = (!ft_strcmp(tab[0], "hash")) ? hash_built(tab, *env) : status;
 	return (status);
 }
 
@@ -98,7 +99,8 @@ int			builtin_tab(char **tab)
 	|| !ft_strcmp(tab[0], "setenv") || !ft_strcmp(tab[0], "unsetenv")
 	|| !ft_strcmp(tab[0], "env") || !ft_strcmp(tab[0], "cd")
 	|| !ft_strcmp(tab[0], "history") || !ft_strcmp(tab[0], "unset")
-	|| !ft_strcmp(tab[0], "export") || !ft_strcmp(tab[0], "read"))
+	|| !ft_strcmp(tab[0], "export") || !ft_strcmp(tab[0], "read")
+	|| !ft_strcmp(tab[0], "hash"))
 		return (1);
 	else
 		return (0);

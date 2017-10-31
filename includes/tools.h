@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 18:24:56 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/26 17:39:17 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/31 21:04:26 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void		event_not_found(char *str);
 void		del_tabstr(char ***str);
 void		disp_tab(char **str);
 int			len_array(char **str);
-void		stop_shell(char ***env, char **tab, t_control **history);
+int			stop_shell(char ***env, char **tab, t_control **history);
 char		**get_env(char **env, int add);
 
 /*
