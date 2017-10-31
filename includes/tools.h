@@ -119,4 +119,14 @@ int			print_alloc_error(char *str);
 int			error_env(size_t *i);
 void		end_ft_env(size_t *i, char **env);
 
+/*
+**	tools_wd_designators.c
+*/
+
+int			find_d_dots(char *command, int a);
+int			tablen(char **str);
+int			modified_atoi(char *str);
+void		set_error(int a, char *command);
+int			return_error(char *command, int index, int type);
+
 #endif

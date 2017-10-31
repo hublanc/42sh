@@ -146,6 +146,13 @@ void				init_hist_search(char **search, t_lst **tmp);
 char				*wd_designator(char *command, t_control **history);
 int					wd_designator_2(char *command, int *a, char **result,
 					t_control **history);
+int					wd_designator_3(char *command, int *a, char **result,
+					t_control **history);
+int					wd_designator_4(char *command, int *a, char **result,
+					t_control **history);
+int					wd_designator_5(char *command, int *a, char **result,
+					t_control **history);
+int					wd_designator_6(char *command);
 int					get_d_bang(char *command, int *a, char **result,
 					t_control **history);
 int					get_n_first(char *command, int *a, char **result,
@@ -155,8 +162,9 @@ int					get_n_last(char *command, int *a, char **result,
 int					get_c_first(char *command, int *a, char **result,
 					t_control **history);
 
-void				modify_quotes(int *sq, int *dq, char c, int *a);
-void				set_error(int a, char *command);
+void				modify_quotes(int *sq, char c, int *a);
+void				d_dots_found(char *command, char **str, int b);
+void				append_str(char *to_cpy, char **str);
 
 /*
 **	last_command.c			TO DELETE

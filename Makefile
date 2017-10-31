@@ -71,6 +71,7 @@ SRC		=	main.c\
 			tools/tools_compl.c\
 			tools/tools_cd.c\
 			tools/tools_env.c\
+			tools/tools_wd_designators.c\
 			built-in/echo.c\
 			built-in/env.c\
 			built-in/env2.c\
