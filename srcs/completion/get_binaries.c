@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 12:18:48 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/31 11:13:54 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/31 13:14:00 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int			get_files(t_compl *compl, DIR *dirp, t_coargs **args, int *idcount)
 	return (get_files(compl, dirp, args, idcount) == 0);
 }
 
-int		new_complarg(t_coargs **args)
+int			new_complarg(t_coargs **args)
 {
 	int	id;
 

@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 09:54:57 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/31 13:01:26 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/31 13:13:39 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static char	*get_path(t_cmd *cmd)
 				|| cmd->str[i] == ' '))
 		i--;
 	while (i > 0 && cmd->str[i] != '"' && cmd->str[i] != '\''
-			&& cmd->str[i] != ' ')
+			&& (cmd->str[i] != ' ' || (i > 1 && cmd->str[i - 1] == '\\')))
 		i--;
 	if (cmd->str[i] == '"' || cmd->str[i] == '\'' || cmd->str[i] == ' ')
 		i++;
@@ -69,7 +69,13 @@ static char	*get_path(t_cmd *cmd)
 
 static void	init_compl(t_compl *compl, t_cmd *cmd)
 {
+	int	i;
+
 	compl->path = get_path(cmd);
+	i = -1;
+	while (compl->path[++i])
+		if (compl->path[i] == '\\')
+			ssupprchr(&(compl->path), i++);
 	compl->arg = ft_strdup(compl->path);
 	compl->args.next = NULL;
 	compl->args.arg = NULL;
