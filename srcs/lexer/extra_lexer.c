@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/11 20:08:10 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/11 20:26:44 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/31 14:10:11 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,13 @@ void		display_token(t_token *list)
 		ft_putendl(tmp->token);
 		tmp = tmp->next;
 	}
+}
+
+t_token		*abort_lexer(t_token *list, char **cmd, char *error)
+{
+	ft_putstr_fd("parse error near ", 2);
+	ft_putendl_fd(error, 2);
+	del_token(&list);
+	*cmd = NULL;
+	return (list);
 }
