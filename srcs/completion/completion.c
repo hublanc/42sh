@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 09:54:57 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/31 13:13:39 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/31 13:28:47 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static void	init_compl(t_compl *compl, t_cmd *cmd)
 
 	compl->path = get_path(cmd);
 	i = -1;
-	while (compl->path[++i])
+	while (compl->path && compl->path[++i])
 		if (compl->path[i] == '\\')
 			ssupprchr(&(compl->path), i++);
 	compl->arg = ft_strdup(compl->path);
