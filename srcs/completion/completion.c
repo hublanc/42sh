@@ -6,24 +6,11 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 09:54:57 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/31 13:28:47 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/31 17:11:24 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
-
-void		compl_addline(t_cmd *cmd, t_compl *compl)
-{
-	int		i;
-
-	i = ft_strlen(compl->arg);
-	while (i-- && cmd->col > cmd->prlen + 1)
-	{
-		cmd->str = ft_strdelone(cmd->str, (cmd->col - 1) - cmd->prlen);
-		go_left(cmd);
-	}
-	add_line(cmd, compl->args.arg);
-}
 
 static void	compl_issigint(int n)
 {
@@ -70,11 +57,19 @@ static char	*get_path(t_cmd *cmd)
 static void	init_compl(t_compl *compl, t_cmd *cmd)
 {
 	int	i;
+	int	j;
 
 	compl->path = get_path(cmd);
 	i = -1;
-	while (compl->path && compl->path[++i])
-		if (compl->path[i] == '\\')
+	if (cmd->str && cmd->str[cmd->col - 2 - cmd->prlen] == '\\')
+	{
+		cmd->str = ft_strdelone(cmd->str, (cmd->col - 1) - cmd->prlen);
+		print_line(cmd);
+		go_left(cmd);
+	}
+	j = ft_strlen(compl->path);
+	while (compl->path && i < j && compl->path[++i])
+		if (compl->path[i] == '\\' && i < j)
 			ssupprchr(&(compl->path), i++);
 	compl->arg = ft_strdup(compl->path);
 	compl->args.next = NULL;
@@ -91,20 +86,33 @@ static void	init_compl(t_compl *compl, t_cmd *cmd)
 	signal(SIGINT, &compl_issigint);
 }
 
+static void	reslash(t_compl *compl)
+{
+	char	*tmp;
+
+	if (!compl || !compl->arg)
+		return ;
+	tmp = (compl->path && compl->path[ft_strlen(compl->path)] == '\\') ?
+		ft_strjoin(add_handspace(compl->arg), "\\") : add_handspace(compl->arg);
+	free(compl->arg);
+	compl->arg = tmp;
+}
+
 void		completion(t_cmd *cmd, char ***env, char **buf)
 {
 	t_compl	compl;
 	int		i;
 
 	init_compl(&compl, cmd);
-	list_compl(&compl, cmd, env);
+	list_compl(&compl, cmd, env, NULL);
+	reslash(&compl);
 	if (!compl.args.arg || compl_star(&compl, cmd))
 	{
 		ft_bzero(*buf, ft_strlen(*buf));
 		return (compl_free(&compl));
 	}
 	(!compl.isslash && compl.path && compl.path[0]) ? add_line(cmd, "/") : 0;
-	if (!compl.args.next && compl.args.arg)
+	if ((i = 1) && !compl.args.next && compl.args.arg)
 	{
 		compl_addline(cmd, &compl);
 		ft_bzero(*buf, ft_strlen(*buf));
@@ -113,7 +121,6 @@ void		completion(t_cmd *cmd, char ***env, char **buf)
 		return (compl_free(&compl));
 	}
 	display_args(&compl, cmd);
-	i = 1;
 	while (i > 0)
 		if ((i = compl_keys(&compl, cmd, buf)) == -1)
 			ft_bzero(*buf, ft_strlen(*buf));

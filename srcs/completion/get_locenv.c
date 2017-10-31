@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/31 10:49:23 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/31 13:29:29 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/31 17:05:44 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ static void	get_complenv(t_compl *compl, t_coargs **args, char **env, int *id)
 	i = -1;
 	while (env[++i])
 	{
-		if (!compl->arg || (ft_strlen(compl->arg) - (compl->arg[0] == '$' ?
+		if (!compl->arg || (compl->arg[0] == '$' && !compl->arg[1])
+				|| (ft_strlen(compl->arg) - (compl->arg[0] == '$' ?
 					1 : 0) < (size_t)ft_strlen_chr(env[i], '=')
 				&& !check_lname(compl->arg + (compl->arg[0] == '$' ? 1 : 0),
 					env[i], ft_strlen(compl->arg)
@@ -61,9 +62,9 @@ static void	get_complloc(t_compl *compl, t_coargs **args, t_loc *loc, int *id)
 {
 	while (loc)
 	{
-		if (!compl->arg || !check_lname(compl->arg +
-					(compl->arg[0] == '$' ? 1 : 0), loc->name,
-					ft_strlen(compl->arg) - (compl->arg[0] == '$' ? 1 : 0)))
+		if (!compl->arg || (compl->arg[0] == '$' && !compl->arg[1])
+			|| !check_lname(compl->arg + (compl->arg[0] == '$' ? 1 : 0),
+			loc->name, ft_strlen(compl->arg) - (compl->arg[0] == '$' ? 1 : 0)))
 			new_coarg(compl, args, loc->name, (*id)++);
 		loc = loc->next;
 	}
