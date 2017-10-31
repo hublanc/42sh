@@ -6,13 +6,13 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/10 15:49:56 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/30 16:25:27 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/31 11:14:25 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-static char	*add_handspace(const char *name)
+char		*add_handspace(const char *name)
 {
 	char	*s;
 	int		i;

@@ -6,7 +6,7 @@
 #    By: hublanc <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/07/24 15:04:09 by hublanc           #+#    #+#              #
-#    Updated: 2017/10/30 15:20:40 by hublanc          ###   ########.fr        #
+#    Updated: 2017/10/31 11:15:43 by amazurie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -107,6 +107,7 @@ SRC		=	main.c\
 			completion/completion.c\
 			completion/list_args.c\
 			completion/get_binaries.c\
+			completion/get_locenv.c\
 			completion/display_args.c\
 			completion/compl_keys.c\
 			completion/compl_arrow.c\
