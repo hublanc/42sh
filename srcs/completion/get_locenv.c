@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/31 10:49:23 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/31 12:57:12 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/31 13:03:43 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,22 +59,13 @@ static void	get_complenv(t_compl *compl, t_coargs **args, char **env, int *id)
 
 static void	get_complloc(t_compl *compl, t_coargs **args, t_loc *loc, int *id)
 {
-	char		*nametmp;
 
 	while (loc)
 	{
-		if (!compl->arg || (ft_strlen(compl->arg) - (compl->arg[0] == '$' ?
-					1 : 0) < ft_strlen(loc->name)
-				&& !check_lname(compl->arg + (compl->arg[0] == '$' ? 1 : 0),
-					loc->name, ft_strlen(compl->arg)
-					- (compl->arg[0] == '$' ? 1 : 0))))
-		{
-			if (!(nametmp = ft_strndup(loc->name,
-				ft_strlen_chr(loc->name, '='))))
-				return ;
-			new_coarg(compl, args, nametmp, (*id)++);
-			free(nametmp);
-		}
+		if (!compl->arg || !check_lname(compl->arg +
+					(compl->arg[0] == '$' ? 1 : 0), loc->name,
+					ft_strlen(compl->arg) - (compl->arg[0] == '$' ? 1 : 0)))
+			new_coarg(compl, args, loc->name, (*id)++);
 		loc = loc->next;
 	}
 }
