@@ -17,6 +17,7 @@ cat
 ls;ls
 ls ; ls -a;
 ls;;ls
+ls; ;ls
 ;
 ls;ls;ls;ls
 
@@ -26,6 +27,7 @@ ls;ls;ls;ls
 ls |
 ls | cat
 ls | wc -l
+ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls
 base64 /dev/urandom | head -c 1000 | grep 'AUCUNECHANCEQUECETTESTRINGSOITTROUVEELOOOL'
 
 #redirections
