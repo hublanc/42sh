@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 12:18:48 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/31 13:14:00 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/31 13:17:00 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	add_arg(t_compl *compl, struct dirent *dirc, t_coargs **args)
 {
-	char			*t;
+	char	*t;
 
 	(*args)->arg = add_handspace(dirc->d_name);
 	compl_addcolor(args, compl->path);
