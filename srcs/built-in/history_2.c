@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/21 21:12:49 by mameyer           #+#    #+#             */
-/*   Updated: 2017/09/21 21:12:51 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/31 15:14:55 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ int			rewrite_hist_file(t_control **history, char *file_name)
 	int		fd;
 	t_lst	*tmp;
 
+	if ((*history) == NULL)
+		return (0);
 	fd = open(file_name,
 		O_RDWR | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IROTH);
 	if (fd == -1)
