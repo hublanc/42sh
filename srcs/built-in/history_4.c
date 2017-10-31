@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/21 22:22:29 by mameyer           #+#    #+#             */
-/*   Updated: 2017/09/21 22:22:30 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/31 14:06:38 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,10 @@ void		set_usage(char c, int type)
 {
 	if (type == 2)
 	{
-		ft_putendl("shell: history: too many arguments");
+		ft_putendl("42sh: history: too many arguments");
 		return ;
 	}
-	ft_putstr("shell: history: -");
+	ft_putstr("42sh: history: -");
 	ft_putchar(c);
 	if (type == 0)
 		ft_putstr(": invalid option\n");
