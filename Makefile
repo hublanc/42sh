@@ -6,7 +6,7 @@
 #    By: hublanc <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/07/24 15:04:09 by hublanc           #+#    #+#              #
-#    Updated: 2017/10/31 11:15:43 by amazurie         ###   ########.fr        #
+#    Updated: 2017/10/31 12:56:31 by amazurie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,9 +35,7 @@ SRC		=	main.c\
 			line_editor/cut_copy_paste3.c\
 			line_editor/history_search.c\
 			line_editor/history_search_2.c\
-			line_editor/last_command.c\
-			line_editor/last_command_2.c\
-			line_editor/last_command_3.c\
+			line_editor/word_designators.c\
 			exec/exec.c\
 			exec/check_binary.c\
 			exec/ft_cmdsplit.c\
@@ -76,7 +74,13 @@ SRC		=	main.c\
 			built-in/echo.c\
 			built-in/env.c\
 			built-in/env2.c\
-			built-in/ft_cd.c\
+			built-in/cd/cd_cdpath.c\
+			built-in/cd/cd_home.c\
+			built-in/cd/cd_oldpwd.c\
+			built-in/cd/cd_no_cdpath.c\
+			built-in/cd/check_dotdot.c\
+			built-in/cd/error_chdir.c\
+			built-in/cd/ft_cd.c\
 			built-in/set_env.c\
 			built-in/unsetenv.c\
 			built-in/history.c\
@@ -133,7 +137,7 @@ $(NAME): $(LIB) $(OBJS)
 	@echo "\n${CYN}PROCESSING DONE !${NC}"
 
 $(OBJDIR):
-	@mkdir -p objs objs/built-in objs/tools objs/exec objs/lexer objs/redirection objs/line_editor objs/completion objs/prompt_statement objs/built-in/read
+	@mkdir -p objs objs/built-in objs/tools objs/exec objs/lexer objs/redirection objs/line_editor objs/completion objs/prompt_statement objs/built-in/read objs/built-in/cd
 
 $(LIB):
 	@echo "${CYN}Processing ${NC}./libft/objs ${CYN}[${NC}...${CYN}]${NC}"

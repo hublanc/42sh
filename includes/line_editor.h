@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 16:36:09 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/30 11:33:40 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/31 09:57:46 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,8 +140,25 @@ int					return_handler(t_lst *tmp, char *buf, char **search,
 void				init_hist_search(char **search, t_lst **tmp);
 
 /*
-**	last_command.c
+**	word_designators.c
 */
+
+char				*wd_designator(char *command, t_control **history);
+int					wd_designator_2(char *command, int *a, char **result,
+					t_control **history);
+int					get_d_bang(char *command, int *a, char **result,
+					t_control **history);
+int					get_n_first(char *command, int *a, char **result,
+					t_control **history);
+int					get_n_last(char *command, int *a, char **result,
+					t_control **history);
+int					get_c_first(char *command, int *a, char **result,
+					t_control **history);
+
+void				modify_quotes(int *sq, int *dq, char c, int *a);
+
+/*
+**	last_command.c			TO DELETE
 
 char				*last_command(char *command, t_control **history);
 
@@ -163,5 +180,5 @@ int					get_n_first(char *command, char **str, t_control **history,
 					int *index);
 int					get_n_last(char *command, char **str, t_control **history,
 					int *index);
-
+*/
 #endif

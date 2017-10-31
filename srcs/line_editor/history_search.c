@@ -6,15 +6,11 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/18 15:09:47 by mameyer           #+#    #+#             */
-/*   Updated: 2017/10/30 11:29:19 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/30 16:55:46 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
-
-/*
-**		Change history_search return from char * to int
-*/
 
 int			history_search(t_control **history, char **str)
 {
@@ -85,14 +81,24 @@ t_lst		*while_handler(char *buf, char **search, t_control **history,
 
 void		set_search_prompt(char *search, t_lst *tmp, int type)
 {
+	struct winsize		z;
+
+	if (ioctl(0, TIOCGWINSZ, &z) == -1)
+		return ;
+//	ft_putendl("00000");
 	if (type == 0)
 	{
-		go_begin(0, 0);
+//		go_begin(0, 0);
+		go_begin((ft_strlen(search) + 22), z.ws_col);
 		isatty(0) ? tputs(tgetstr("cd", NULL), 1, tputchar) : 0;
 		isatty(0) ? ft_putstr("(reverse-i-search)`': ") : 0;
 		return ;
 	}
-	go_begin(0, 0);
+	// go_begin(taille de la ligne + taille du prompt, nbr col dans la fenetre);
+	// use ioctl();
+//	ft_putendl("11111");
+	go_begin((ft_strlen(search) + 22), z.ws_col);
+//	go_begin(0, 0);
 	if (isatty(0))
 	{
 		tputs(tgetstr("cd", NULL), 1, tputchar);
@@ -103,7 +109,8 @@ void		set_search_prompt(char *search, t_lst *tmp, int type)
 	(tmp && isatty(0)) ? ft_putstr(tmp->name) : 0;
 	if (tmp)
 		return ;
-	go_begin(0, 0);
+//	go_begin(0, 0);
+	go_begin((ft_strlen(search) + 26), z.ws_col);
 	if (!isatty(0))
 		return ;
 	tputs(tgetstr("cd", NULL), 1, tputchar);
