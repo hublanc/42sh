@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 09:54:57 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/31 15:56:49 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/31 16:14:30 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static void	init_compl(t_compl *compl, t_cmd *cmd)
 
 	compl->path = get_path(cmd);
 	i = -1;
-	if (cmd->str[cmd->col - 2 - cmd->prlen] == '\\')
+	if (cmd->str && cmd->str[cmd->col - 2 - cmd->prlen] == '\\')
 	{
 		cmd->str = ft_strdelone(cmd->str, (cmd->col - 1) - cmd->prlen);
 		print_line(cmd);
