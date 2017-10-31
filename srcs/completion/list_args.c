@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 10:48:34 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/31 11:33:54 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/31 15:26:01 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,7 @@ void		list_content(t_compl *compl, t_cmd *cmd)
 		compl->arg = NULL;
 		add_line(cmd, "/");
 	}
-	if (compl->arg && compl->arg[0] == '.')
-		compl->isdot = 1;
+	(compl->arg && compl->arg[0] == '.') ? compl->isdot = 1 : 0;
 	if (compl->arg && !ft_strcmp(compl->arg, "*"))
 	{
 		free(compl->arg);
