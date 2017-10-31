@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/06 15:56:19 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/26 11:13:25 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/30 18:23:51 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ static int			spend_quote(char *str, int j)
 	i = 1;
 	while (str[j + i] && str[j + i] != c)
 	{
-		if (str[j + i] == '\\' && str[j + i + 1]
-			&& str[j + i + 1] == '"')
+		if (str[j + i] == '\\' && str[j + i + 1] && c == '"'
+			&& (str[j + i + 1] == '"' || str[j + i + 1] == '$'))
 			i++;
 		i++;
 	}
@@ -63,22 +63,25 @@ static int			getlen(char *str)
 	char	c;
 
 	len = 0;
-	if (*str == '\'' || *str == '"')
+	while (str && *str && *str != ' ')
 	{
-		c = *str;
-		str++;
-		while (*str && *str != c)
+		if (*str == '\'' || *str == '"')
 		{
-			if (*str == '\\' && *(str + 1) && *(str + 1) == '"')
-				str++;
-			len++;
+			c = *str;
 			str++;
+			while (*str && *str != c)
+			{
+				if (*str == '\\' && *(str + 1) && c == '"'
+					&& (*(str + 1) == '"' || *(str + 1) == '$'))
+					str++;
+				len++;
+				str++;
+			}
 		}
-	}
-	while (*str && *str != ' ')
-	{
+		else if (*str == '\\')
+			str++;
 		len++;
-		str++;
+		*str ? str++ : 0;
 	}
 	return (len);
 }

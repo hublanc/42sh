@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/31 10:49:23 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/31 12:55:19 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/31 12:57:12 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ static void	get_complenv(t_compl *compl, t_coargs **args, char **env, int *id)
 		{
 			if (!(nametmp = ft_strndup(env[i], ft_strlen_chr(env[i], '='))))
 				return ;
+			new_coarg(compl, args, nametmp, (*id)++);
 			free(nametmp);
 		}
 	}

@@ -6,26 +6,29 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/05 16:40:44 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/30 13:30:55 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/31 12:40:57 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-static int	do_export_sub(char ***env, t_loc *loc, char **tab, char *name)
+static int	do_export_sub(char ***env, t_loc *loc, char ***tab, char *name)
 {
 	char	**tab2;
 
-	ft_putendl("OK:");
-	disp_tab(tab);
+	disp_tab(*tab);
 	if (!(tab2 = (char **)ft_memalloc(sizeof(char *) * 4)))
+	{
+		free(*tab);
 		return (1);
+	}
 	tab2[0] = ft_strdup("setenv");
-	tab2[1] = (tab && tab[0]) ? tab[0] : ft_strdup(name);
-	if ((tab && tab[0] && !tab[1]) && (!loc || !loc->value))
+	tab2[1] = (*tab && (*tab)[0]) ? (*tab)[0] : ft_strdup(name);
+	if ((*tab && (*tab)[0] && !(*tab)[1]) && (!loc || !loc->value))
 		tab2[2] = NULL;
 	else
-		tab2[2] = (tab && tab[0] && tab[1]) ? tab[1] : ft_strdup(loc->value);
+		tab2[2] = (*tab && (*tab)[0] && (*tab)[1]) ?
+			(*tab)[1] : ft_strdup(loc->value);
 	tab2[3] = NULL;
 	ft_setenv(tab2, env);
 	suppr_loc(tab2[1]);
@@ -33,6 +36,7 @@ static int	do_export_sub(char ***env, t_loc *loc, char **tab, char *name)
 	(tab2[1]) ? free(tab2[1]) : 0;
 	(tab2[2]) ? free(tab2[2]) : 0;
 	free(tab2);
+	free(*tab);
 	return (0);
 }
 
@@ -50,7 +54,8 @@ static int	do_export(char *name, char ***env)
 			ft_putstr_fd(" not a valid identifier\n", 2);
 			return (0);
 		}
-	if (!(tab = NULL) && ft_strchr(name, '=') && !(tab = ft_strsplit(name, '=')))
+	if (!(tab = NULL) && ft_strchr(name, '=') &&
+			!(tab = ft_strsplit(name, '=')))
 		return (1);
 	if (!(loc = (tab) ? get_loc(tab[0]) : get_loc(name))
 			&& (!tab || !tab[0]))
@@ -60,8 +65,7 @@ static int	do_export(char *name, char ***env)
 		(tab) ? free(tab) : 0;
 		return (1);
 	}
-	do_export_sub(env, loc, tab, name);
-	free(tab);
+	do_export_sub(env, loc, &tab, name);
 	return (0);
 }
 

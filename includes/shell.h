@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 11:50:54 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/30 11:36:05 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/31 09:58:20 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,13 +80,13 @@ int					ft_history_3(char **tab, t_control **history, char *file,
 					t_hist_flags flags);
 char				*get_history_file(char ***env);
 void				get_home(char **env, char **home);
-int					ft_cd(char **path, char ***env);
 
 char				**delonenv(char *name, char **env);
 char				**prep_setenv(char *name, char *value);
 int					change_pwd(char *path, char ***env, char opt);
 char				***save_env(char ***env);
-char				**env_app(char *name, char *value, char ***env, int *status);
+char				**env_app(char *name,
+					char *value, char ***env, int *status);
 int					print_alloc_error(char *str);
 int					error_env(size_t *i);
 void				end_ft_env(size_t *i, char **env);
@@ -120,5 +120,22 @@ int					rewrite_hist_file(t_control **history, char *file_name);
 void				nflag(t_control **history, char *file);
 void				print_last_elem(t_control **history, int last);
 void				delete_list_content(t_control **history);
+
+/*
+**	Cd_builtin
+*/
+
+void				add_slash(char **content);
+int					cd_home(char ***env, char opt);
+int					cd_oldpwd(char ***env, char opt);
+int					cd_treat_path(char *path, char opt, char ***env, char *arg);
+int					cd_treat_path_cdpath(char **path,
+					char opt, char ***env, char *arg);
+void				change_env(char ***env, char *pwd);
+void				check_dotdot(char **tmp);
+int					error_chdir(char **pwd, char *arg, int free_pwd);
+int					ft_cd(char **path, char ***env);
+char				*treat_cd_path(char *cdpath, char *arg);
+char				*treat_without_cdpath(char *arg, char ***env);
 
 #endif
