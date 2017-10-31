@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 17:08:55 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/31 11:14:53 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/31 14:11:28 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void		node_print(t_node *this, int current_level, int max_level);
 t_token		*get_prev(t_token *list, t_token *cur);
 void		display_token(t_token *list);
 void		extra_check_word(t_token *list, t_token *tmp, t_token **next);
+t_token		*abort_lexer(t_token *list, char **cmd, char *error);
 
 /*
 **	substitution.c
