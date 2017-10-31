@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 09:54:57 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/31 15:32:21 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/31 15:56:49 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,19 @@ static char	*get_path(t_cmd *cmd)
 static void	init_compl(t_compl *compl, t_cmd *cmd)
 {
 	int	i;
+	int	j;
 
 	compl->path = get_path(cmd);
 	i = -1;
-	while (compl->path && compl->path[++i])
-		if (compl->path[i] == '\\')
+	if (cmd->str[cmd->col - 2 - cmd->prlen] == '\\')
+	{
+		cmd->str = ft_strdelone(cmd->str, (cmd->col - 1) - cmd->prlen);
+		print_line(cmd);
+		go_left(cmd);
+	}
+	j = ft_strlen(compl->path);
+	while (compl->path && i < j && compl->path[++i])
+		if (compl->path[i] == '\\' && i < j)
 			ssupprchr(&(compl->path), i++);
 	compl->arg = ft_strdup(compl->path);
 	compl->args.next = NULL;
@@ -78,15 +86,16 @@ static void	init_compl(t_compl *compl, t_cmd *cmd)
 	signal(SIGINT, &compl_issigint);
 }
 
-static void	reslash(char **s)
+static void	reslash(t_compl *compl)
 {
 	char	*tmp;
 
-	if (!s || !*s)
+	if (!compl || !compl->arg)
 		return ;
-	tmp = add_handspace(*s);
-	free(*s);
-	*s = tmp;
+	tmp = (compl->path && compl->path[ft_strlen(compl->path)] == '\\') ?
+		ft_strjoin(add_handspace(compl->arg), "\\") : add_handspace(compl->arg);
+	free(compl->arg);
+	compl->arg = tmp;
 }
 
 void		completion(t_cmd *cmd, char ***env, char **buf)
@@ -96,7 +105,7 @@ void		completion(t_cmd *cmd, char ***env, char **buf)
 
 	init_compl(&compl, cmd);
 	list_compl(&compl, cmd, env);
-	reslash(&(compl.arg));
+	reslash(&compl);
 	if (!compl.args.arg || compl_star(&compl, cmd))
 	{
 		ft_bzero(*buf, ft_strlen(*buf));
