@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/26 16:13:08 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/30 11:30:32 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/30 16:37:10 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,11 @@ void		get_cmd(t_node *tree, char ***env, int *status, t_control **his)
 	substitution(&tree->token, 0);
 	if (gest_loc(&tree->token))
 		return ;
+	ft_putcolor("b4 split : ");
+	ft_putendl(tree->token);
 	tab = ft_cmdsplit(tree->token);
+	ft_putcolor("b4 split : ");
+	disp_tab(tab);
 	if (!tree->token || *(tree->token) == '\0' || !tab || !*tab)
 		return (del_tabstr(&tab));
 	if (builtin_tab(tab))
