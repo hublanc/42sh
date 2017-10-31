@@ -17,7 +17,7 @@ int			get_tmp_cfirst(t_lst **tmp, char *test, char **str)
 	while ((*tmp) != NULL)
 	{
 		if (ft_strncmp((*tmp)->name, test, ft_strlen(test)) == 0)
-			break;
+			break ;
 		(*tmp) = (*tmp)->next;
 	}
 	if (tmp)
