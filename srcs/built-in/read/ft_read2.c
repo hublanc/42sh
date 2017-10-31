@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/16 14:42:39 by lbopp             #+#    #+#             */
-/*   Updated: 2017/10/16 17:28:10 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/31 14:06:56 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int		valid_local_var(char **cmd)
 		{
 			if (!ft_isalnum(cmd[i][j]) && cmd[i][j] != '_')
 			{
-				ft_putstr("\nshell: read: `");
+				ft_putstr("\n42sh: read: `");
 				ft_putstr(cmd[i]);
 				ft_putendl("': not a valid identifier");
 				return (0);
