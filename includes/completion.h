@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 09:50:30 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/23 11:27:10 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/31 11:14:03 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,12 @@ void				list_compl(t_compl *compl, t_cmd *cmd, char ***env);
 void				get_args(t_compl *compl, char **paths);
 int					get_files(t_compl *compl, DIR *dirp,
 					t_coargs **ar, int *fd);
+int					new_complarg(t_coargs **args);
+
+/*
+**	get_locenv.c
+*/
+void				get_locenv(t_compl *compl);
 
 /*
 ** display_args.c
