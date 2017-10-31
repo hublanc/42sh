@@ -6,32 +6,11 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 12:18:48 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/30 14:25:00 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/31 11:13:54 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
-
-static char	*add_handspace(const char *name)
-{
-	char	*s;
-	int		i;
-	int		j;
-
-	i = -1;
-	j = 0;
-	while (name[++i])
-		if (name[i] == 32)
-			j++;
-	if (!(s = (char *)ft_memalloc(ft_strlen(name) + j + 1)))
-		return (NULL);
-	ft_strcat(s, name);
-	i = -1;
-	while (s[++i])
-		if (s[i] == 32)
-			saddchr(&s, '\\', i++);
-	return (s);
-}
 
 static void	add_arg(t_compl *compl, struct dirent *dirc, t_coargs **args)
 {
@@ -56,11 +35,9 @@ static void	add_arg(t_compl *compl, struct dirent *dirc, t_coargs **args)
 int			get_files(t_compl *compl, DIR *dirp, t_coargs **args, int *idcount)
 {
 	struct dirent	*dirc;
-	t_coargs		*tmp;
 
 	if (!(dirc = readdir(dirp)))
 		return (1);
-	tmp = *args;
 	if ((compl->arg && check_lname(compl->arg, dirc->d_name,
 		ft_strlen(compl->arg))) || (dirc->d_name[0] == '.'
 		&& (!compl->isdot || (dirc->d_name[1] && dirc->d_name[1] == '.'))))
@@ -78,7 +55,7 @@ int			get_files(t_compl *compl, DIR *dirp, t_coargs **args, int *idcount)
 	return (get_files(compl, dirp, args, idcount) == 0);
 }
 
-static int	new_complarg(t_coargs **args)
+int		new_complarg(t_coargs **args)
 {
 	int	id;
 
@@ -121,4 +98,5 @@ void		get_args(t_compl *compl, char **paths)
 			closedir(dirp);
 		}
 	}
+	get_locenv(compl);
 }
