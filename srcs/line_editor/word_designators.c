@@ -6,13 +6,13 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/30 13:53:30 by mameyer           #+#    #+#             */
-/*   Updated: 2017/10/31 14:41:07 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/11/01 16:16:26 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-char		*wd_designator(char *command, t_control **history)
+static char	*wd_designator(char *command, t_control **history)
 {
 	int		a;
 	int		sq;
@@ -40,7 +40,7 @@ char		*wd_designator(char *command, t_control **history)
 	return (result);
 }
 
-int			wd_designator_2(char *command, int *a, char **result,
+static int	wd_designator_2(char *command, int *a, char **result,
 			t_control **history)
 {
 	int		returnint;
@@ -69,7 +69,7 @@ int			wd_designator_2(char *command, int *a, char **result,
 		return (wd_designator_3(command, a, result, history));
 }
 
-int			wd_designator_3(char *command, int *a, char **result,
+static int	wd_designator_3(char *command, int *a, char **result,
 			t_control **history)
 {
 	int		returnint;
@@ -98,7 +98,7 @@ int			wd_designator_3(char *command, int *a, char **result,
 		return (wd_designator_4(command, a, result, history));
 }
 
-int			wd_designator_4(char *command, int *a, char **result,
+static int	wd_designator_4(char *command, int *a, char **result,
 			t_control **history)
 {
 	int		returnint;
@@ -121,7 +121,7 @@ int			wd_designator_4(char *command, int *a, char **result,
 		return (wd_designator_5(command, a, result, history));
 }
 
-int			wd_designator_5(char *command, int *a, char **result,
+static int	wd_designator_5(char *command, int *a, char **result,
 			t_control **history)
 {
 	int		returnint;

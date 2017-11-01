@@ -6,13 +6,13 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 19:28:26 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/30 13:01:53 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/01 15:58:16 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-void		control_arrow(char *str, t_cmd *cmd)
+static void	control_arrow(char *str, t_cmd *cmd)
 {
 	int		save;
 
@@ -39,7 +39,7 @@ void		control_arrow(char *str, t_cmd *cmd)
 		seek_rword(cmd);
 }
 
-void		control_homend(char *str, t_cmd *cmd)
+static void	control_homend(char *str, t_cmd *cmd)
 {
 	int		i;
 

@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/22 15:21:04 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/30 09:45:39 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/01 16:14:34 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void		prompt_quote(t_cmd *cmd, t_control **history, char c, int mod)
 	save_cmd(cmd);
 }
 
-void		prompt_backslash(t_cmd *cmd, t_control **history, int mod)
+static void	prompt_backslash(t_cmd *cmd, t_control **history, int mod)
 {
 	t_cmd		cmd_b;
 

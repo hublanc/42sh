@@ -6,13 +6,13 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/01 15:46:37 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/11 20:45:46 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/01 16:01:35 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-void			core_handler(t_cmd *cmd, char *buf, int *swap, int start)
+static void		core_handler(t_cmd *cmd, char *buf, int *swap, int start)
 {
 	if (buf[0] == 27 && buf[1] == 91 && buf[2] == 68
 			&& cmd->col > cmd->prlen + 1)
@@ -22,7 +22,7 @@ void			core_handler(t_cmd *cmd, char *buf, int *swap, int start)
 		right_handler(cmd, swap, start);
 }
 
-void			cut_handler(t_cmd *cmd)
+static void		cut_handler(t_cmd *cmd)
 {
 	char		buf[6];
 	int			swap;
@@ -67,7 +67,7 @@ void			paste_handler(t_cmd *cmd)
 		go_right(cmd);
 }
 
-void			copy_handler(t_cmd *cmd)
+static void		copy_handler(t_cmd *cmd)
 {
 	char		buf[6];
 	int			swap;

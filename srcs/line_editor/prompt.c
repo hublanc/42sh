@@ -6,13 +6,13 @@
 /*   By: nbouchin <nbouchin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 11:46:11 by nbouchin          #+#    #+#             */
-/*   Updated: 2017/10/30 09:46:00 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/01 16:12:53 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-char	*split_prompt(char *str)
+static char	*split_prompt(char *str)
 {
 	int		i;
 	int		count_slash;
