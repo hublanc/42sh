@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 11:50:54 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/31 09:58:20 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/31 21:45:34 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,9 @@ int					ft_history_3(char **tab, t_control **history, char *file,
 					t_hist_flags flags);
 char				*get_history_file(char ***env);
 void				get_home(char **env, char **home);
+int					ft_cd(char **path, char ***env);
+int					hash_built(char **tab, char **env);
+int					ft_exit(char **tab);
 
 char				**delonenv(char *name, char **env);
 char				**prep_setenv(char *name, char *value);

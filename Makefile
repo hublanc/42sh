@@ -6,13 +6,13 @@
 #    By: hublanc <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/07/24 15:04:09 by hublanc           #+#    #+#              #
-#    Updated: 2017/10/31 16:59:34 by lbopp            ###   ########.fr        #
+#    Updated: 2017/11/01 09:45:31 by lbopp            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= shell
 CC		= gcc
-FLAGS	= -Wall -Wextra -Werror -g -fsanitize=address
+FLAGS	= -Wall -Wextra -Werror -g# -fsanitize=address
 DFLAGS	= -MMD
 LIB		= libft/libft.a
 HEADER	= includes/
@@ -36,6 +36,10 @@ SRC		=	main.c\
 			line_editor/history_search.c\
 			line_editor/history_search_2.c\
 			line_editor/word_designators.c\
+			line_editor/word_designators_2.c\
+			line_editor/word_designators_3.c\
+			line_editor/word_designators_4.c\
+			line_editor/word_designators_5.c\
 			exec/exec.c\
 			exec/check_binary.c\
 			exec/ft_cmdsplit.c\
@@ -44,6 +48,8 @@ SRC		=	main.c\
 			exec/extra_exec.c\
 			exec/manage_pid.c\
 			exec/pid_pipe.c\
+			exec/hash.c\
+			exec/extra_hash.c\
 			lexer/token.c\
 			lexer/lexer.c\
 			lexer/sort_token.c\
@@ -71,6 +77,7 @@ SRC		=	main.c\
 			tools/tools_compl.c\
 			tools/tools_cd.c\
 			tools/tools_env.c\
+			tools/tools_wd_designators.c\
 			built-in/echo.c\
 			built-in/env.c\
 			built-in/env2.c\
@@ -95,6 +102,8 @@ SRC		=	main.c\
 			built-in/cmd_loc.c\
 			built-in/unset.c\
 			built-in/export.c\
+			built-in/hash_builtin.c\
+			built-in/ft_exit.c\
 			prompt_statement/before_curr_after.c\
 			prompt_statement/main_prompt_statement.c\
 			prompt_statement/prompt_backslash.c\
