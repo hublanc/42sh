@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/31 09:56:58 by lbopp             #+#    #+#             */
-/*   Updated: 2017/10/31 09:57:01 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/01 17:13:25 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,6 @@ int			checkstr_pipe(char *cmd);
 int			do_redir(t_node *tree);
 int			exec_dup(int fd1, int fd2);
 int			len_io(char *str);
+int			type_redir(char *str);
 
 #endif
