@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/11 14:30:26 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/31 12:52:44 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/01 16:04:16 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void		enter_handler(t_cmd *cmd, t_control **history, char ***env)
 	*cmd = init_cmd(return_prompt());
 }
 
-void		enter_handler_quote(t_cmd *cmd, t_control **history)
+static void	enter_handler_quote(t_cmd *cmd, t_control **history)
 {
 	char		c;
 
@@ -65,7 +65,7 @@ void		enter_handler_quote(t_cmd *cmd, t_control **history)
 		prompt_backslash(cmd, history, 1);
 }
 
-void		enter_handler_backslash(t_cmd *cmd, t_control **history)
+static void	enter_handler_backslash(t_cmd *cmd, t_control **history)
 {
 	char		c;
 
@@ -93,7 +93,7 @@ void		enter_handler_backslash(t_cmd *cmd, t_control **history)
 	}
 }
 
-void		enter_handler_heredoc(t_cmd *cmd)
+static void	enter_handler_heredoc(t_cmd *cmd)
 {
 	isatty(0) ? ft_putchar('\n') : 0;
 	if (cmd->str && !ft_strcmp(cmd->str, cmd->eof))

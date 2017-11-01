@@ -6,13 +6,13 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 17:36:47 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/30 11:27:18 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/01 16:10:03 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-void		go_down(void)
+static void	go_down(void)
 {
 	if (!isatty(0))
 		return ;
@@ -31,7 +31,7 @@ void		choose_prompt(t_cmd *cmd)
 		print_prompt();
 }
 
-void		pass_prompt(t_cmd *cmd)
+static void	pass_prompt(t_cmd *cmd)
 {
 	int		i;
 
