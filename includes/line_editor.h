@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 16:36:09 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/31 14:42:25 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/11/01 10:46:18 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,7 @@ typedef struct		s_cmd
 	int				sc_row;
 	int				stop;
 }					t_cmd;
-/*
-typedef struct		s_hist
-{
-	char			*cmd;
-	int				selected;
-	int				current;
-	struct s_hist	*next;
-}					t_hist;
-*/
+
 /*
 **	Keys.c
 */
@@ -177,30 +169,5 @@ void				modify_quotes(int *sq, char c, int *a);
 void				d_dots_found(char *command, char **str, int b);
 void				append_str(char *to_cpy, char **str);
 int					get_tmp_lst(t_lst **tmp, int b, int nb, char **str);
-
-/*
-**	last_command.c			TO DELETE
-
-char				*last_command(char *command, t_control **history);
-
-void				set_error(int a, char *command);
-void				modify_quotes(int *sq, int *dq, char c);
-char				*wd_designator(char *command, t_control **history);
-int					wd_designator_2(char *command, int *index, char **str,
-					t_control **history);
-int					get_d_bang(char *command, char **str, t_control **history,
-					int *index);
-int					get_last_command(char *command, char **str,
-					t_control **history, int *index);
-int					get_last_command_2(char *tmp, t_control **history,
-					char **str);
-void				get_last_command_3(char *str, int *index, char **tmp);
-void				get_line_again(char *command, int *index, char **str,
-					t_control **history);
-int					get_n_first(char *command, char **str, t_control **history,
-					int *index);
-int					get_n_last(char *command, char **str, t_control **history,
-					int *index);
-*/
 
 #endif
