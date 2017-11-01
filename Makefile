@@ -6,7 +6,7 @@
 #    By: hublanc <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/07/24 15:04:09 by hublanc           #+#    #+#              #
-#    Updated: 2017/11/01 10:43:05 by lbopp            ###   ########.fr        #
+#    Updated: 2017/11/01 10:54:06 by lbopp            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ SRC		=	main.c\
 			line_editor/prompt.c\
 			line_editor/arrow.c\
 			line_editor/keys.c\
+			line_editor/save_buf.c\
 			line_editor/cmd.c\
 			line_editor/quote.c\
 			line_editor/cmdandor.c\
