@@ -186,9 +186,33 @@ int			get_n_first(t_bang **bang, t_control **history, int a)
 
 int			get_n_last(t_bang **bang, t_control **history, int a)
 {
-	(void)bang;
-	(void)history;
-	(void)a;
+	int		digit;
+	char	*test;
+	t_lst	*tmp;
+
+	((*bang)->index)++;
+	test = ft_memalloc(1);
+	while ((*bang)->index < (*bang)->len && (*bang)->command[(*bang)->index]
+		&& (*bang)->command[(*bang)->index] != ' '
+		&& (*bang)->command[(*bang)->index] != ':')
+	{
+		test = ft_str_chr_cat(test, (*bang)->command[(*bang)->index]);
+		((*bang)->index)++;
+	}
+	digit = ft_atoi(test);
+	ft_strdel(&test);
+	if ((*history) == NULL || ((*history) && (*history)->length < digit))
+		return (hist_event_not_found(bang, a));
+	tmp = (*history)->begin;
+	while (tmp != NULL && digit > 1)
+	{
+		tmp = tmp->next;
+		digit--;
+	}
+	if (tmp)
+		(*bang)->to_append = ft_strdup(tmp->name);
+	else
+		return (0);
 	return (1);
 }
 
