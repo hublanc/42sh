@@ -184,6 +184,7 @@ int			get_n_first(t_bang **bang, t_control **history, int a)
 	return (1);
 }
 
+//			SET TO NORME
 int			get_n_last(t_bang **bang, t_control **history, int a)
 {
 	int		digit;
@@ -218,9 +219,30 @@ int			get_n_last(t_bang **bang, t_control **history, int a)
 
 int			get_c_last(t_bang **bang, t_control **history, int a)
 {
-	(void)bang;
-	(void)history;
-	(void)a;
+	char	*test;
+	t_lst	*tmp;
+
+	test = ft_memalloc(1);
+	while ((*bang)->index < (*bang)->len && (*bang)->command[(*bang)->index]
+		&& (*bang)->command[(*bang)->index] != ' '
+		&& (*bang)->command[(*bang)->index] != ':')
+	{
+		test = ft_str_chr_cat(test, (*bang)->command[(*bang)->index]);
+		((*bang)->index)++;
+	}
+	if ((*history) == NULL || ((*history) && (*history)->length < 1))
+		return (hist_event_not_found(bang, a));
+	tmp = (*history)->begin;		// R u sur about dat ?
+	while (tmp != NULL)
+	{
+		if (ft_strncmp(test, tmp->name, ft_strlen(test)) == 0)
+			break ;
+		tmp = tmp->next;
+	}
+	if (tmp)
+		(*bang)->to_append = ft_strdup(tmp->name);
+	else
+		return (hist_event_not_found(bang, a));
 	return (1);
 }
 
