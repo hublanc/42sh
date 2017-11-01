@@ -110,6 +110,7 @@ void		routine(char *cmd, char ***env, t_control **history)
 
 	if (!cmd)
 		return ;
+	new_command = NULL;
 //	new_command = wd_designator(cmd, history);
 	new_command = bang_events(cmd, history);
 	if (new_command == NULL)
