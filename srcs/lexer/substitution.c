@@ -6,32 +6,11 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/10 15:49:56 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/31 11:14:25 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/01 10:42:10 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
-
-char		*add_handspace(const char *name)
-{
-	char	*s;
-	int		i;
-	int		j;
-
-	i = -1;
-	j = 0;
-	while (name[++i])
-		if (name[i] == 32)
-			j++;
-	if (!(s = (char *)ft_memalloc(ft_strlen(name) + j + 1)))
-		return (NULL);
-	ft_strcat(s, name);
-	i = -1;
-	while (s[++i])
-		if (s[i] == 32)
-			saddchr(&s, '\\', i++);
-	return (s);
-}
 
 static int	do_substitue(char **cmmd, int i, int j, char **tmp2)
 {
@@ -103,6 +82,16 @@ static int	quote_substitution(char **cmmd, int *i, int *j, int is_redir)
 	return (0);
 }
 
+static void	substitution2(char *cmmd, int i, int *j)
+{
+	if (cmmd[i] && cmmd[i] == '$')
+		while (cmmd[*j] && cmmd[*j] != 32 && cmmd[*j] != 9
+			&& cmmd[*j] != '\n' && cmmd[*j] != '"'
+			&& cmmd[*j] != '$' && cmmd[*j] != '\\' && cmmd[*j] != '/'
+			&& cmmd[*j] != ':' && cmmd[*j] != '@')
+			*j += 1;
+}
+
 int			substitution(char **cmmd, int is_redir)
 {
 	int		i;
@@ -121,12 +110,7 @@ int			substitution(char **cmmd, int is_redir)
 				return (-1);
 		j = i + 1;
 		i += (*cmmd)[i] == '\\' ? 1 : 0;
-		if ((*cmmd)[i] && (*cmmd)[i] == '$')
-			while ((*cmmd)[j] && (*cmmd)[j] != 32 && (*cmmd)[j] != 9
-				&& (*cmmd)[j] != '\n' && (*cmmd)[j] != '"'
-				&& (*cmmd)[j] != '$' && (*cmmd)[j] != '\\' && (*cmmd)[j] != '/'
-				&& (*cmmd)[j] != ':' && (*cmmd)[j] != '@')
-				j++;
+		substitution2(*cmmd, i, &j);
 		if (j > i + 1 || !(*cmmd)[i])
 		{
 			if (!(*cmmd)[i] || substitute(cmmd, i, j, is_redir) == -1)
