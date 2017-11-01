@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/29 12:56:32 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/01 17:10:10 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/01 17:33:47 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int		*singleton_ioheredoc(void)
 	return (&s_iohere);
 }
 
-void	heredoc_input(t_node *tree)
+void			heredoc_input(t_node *tree)
 {
 	exec_dup(tree->hd, tree->hd_io);
 	close(tree->hd);

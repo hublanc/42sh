@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/02 17:55:21 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/01 17:10:44 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/01 17:34:03 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int				checkstr_pipe(char *cmd)
 	return (1);
 }
 
-void	enter_handler_pipe(t_cmd *cmd, t_control **history)
+void			enter_handler_pipe(t_cmd *cmd, t_control **history)
 {
 	char	c;
 
@@ -71,7 +71,7 @@ void	enter_handler_pipe(t_cmd *cmd, t_control **history)
 	}
 }
 
-void	prompt_pipe(t_cmd *cmd, t_control **history, int mod)
+void			prompt_pipe(t_cmd *cmd, t_control **history, int mod)
 {
 	t_cmd		cmd_p;
 
