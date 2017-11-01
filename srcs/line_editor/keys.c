@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/31 12:52:57 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/01 10:58:24 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/01 12:26:45 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,23 +106,7 @@ void		key_handler(t_cmd *cmd, t_control **history, char ***env)
 	init_screen(cmd);
 	buf = NULL;
 	if ((i = check_sigint(cmd, &buf)))
-	{
-		if (!(buf = (char *)ft_memalloc(1000)))
-			return ;
-		if (!read(0, buf, 999))
-		{
-			can_sigint(1);
-			while (buf && buf[0])
-			{
-				save_buf(buf);
-				key_handler(cmd, history, env);
-				buf = save_buf(NULL);
-			}
-			if (cmd->str)
-				enter_hub(cmd, history, env);
-			stop_shell(env, NULL, history);
-		}
-	}
+		key_handler_sigint(cmd, history, env, &buf);
 	else if (i == -1)
 		return ;
 	if (buf[0] == 9 && !buf[1] && is_sigint(0) == 0)
