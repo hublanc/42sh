@@ -78,7 +78,7 @@ void		get_locenv(t_compl *compl)
 	int			id;
 
 	args = &compl->args;
-	if (!compl->arg || compl->arg[0] == '$')
+	if (compl->arg && compl->arg[0] == '$')
 	{
 		if ((id = new_complarg(&args)) == -1)
 			return ;
