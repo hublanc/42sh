@@ -19,7 +19,6 @@ char		*bang_events(char *command, t_control **history)
 
 	if (!(ft_strchr(command, '!')))
 		return (ft_strdup(command));
-	ft_putendl("A");
 	if (!(malloc_struct_bang(&bang, command)))
 		return (NULL);
 	if (!(bang_events_2(&bang, history)))
@@ -30,7 +29,6 @@ char		*bang_events(char *command, t_control **history)
 	}
 	result = ft_strdup(bang->result);
 	free_struct_bang(&bang);
-	ft_strdel(&command);
 	return (result);
 }
 
@@ -47,6 +45,8 @@ int			bang_events_2(t_bang **bang, t_control **history)
 		{
 			if (!(bang_events_3(bang, history)))
 				return (0);
+			if ((*bang)->result != NULL)
+				(*bang)->result = ft_strdup((*bang)->to_append);
 		}
 		else if ((*bang)->index < (*bang)->len && (*bang)->command[(*bang)->index])
 		{
@@ -54,8 +54,7 @@ int			bang_events_2(t_bang **bang, t_control **history)
 			((*bang)->index)++;
 		}
 	}
-	if ((*bang)->result == NULL)
-		(*bang)->result = ft_strdup((*bang)->to_append);
+	// Need to add in history
 	return (1);
 }
 
@@ -130,7 +129,6 @@ int			get_elem_hist_2(t_bang **bang, t_control **history, int a)
 
 int			get_double_bang(t_bang **bang, t_control **history, int a)
 {
-	ft_putendl("99999");
 	(void)a;
 	if ((*history) == NULL || ((*history) && (*history)->length < 1))
 		return (0);
@@ -207,6 +205,6 @@ void		free_struct_bang(t_bang **bang)
 	ft_strdel(&(*bang)->result);
 	ft_strdel(&(*bang)->to_append);
 	ft_strdel(&(*bang)->command);
-	free(bang);
+	free(*bang);
 	bang = NULL;
 }
