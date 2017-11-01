@@ -82,6 +82,15 @@ int			bang_events_3(t_bang **bang, t_control **history)
 	return (1);
 }
 
+int			hist_event_not_found(t_bang **bang, int a)
+{
+	ft_putstr("shell: ");
+	while ((*bang)->command[a])
+		ft_putchar((*bang)->command[a++]);
+	ft_putendl(": event_not_found");
+	return (0);
+}
+
 int			get_elem_hist(t_bang **bang, t_control **history)
 {
 	int		a;
@@ -131,13 +140,7 @@ int			get_double_bang(t_bang **bang, t_control **history, int a)
 {
 	(void)a;
 	if ((*history) == NULL || ((*history) && (*history)->length < 1))
-	{
-		ft_putstr("shell: ");
-		while ((*bang)->command[a])
-			ft_putchar((*bang)->command[a++]);
-		ft_putendl(": event_not_found");
-		return (0);
-	}
+		return (hist_event_not_found(bang, a));
 	if ((*history) && (*history)->begin && (*history)->begin->name)
 		(*bang)->to_append = ft_strdup((*history)->begin->name);
 	if ((*bang)->to_append == NULL)
@@ -149,11 +152,35 @@ int			get_double_bang(t_bang **bang, t_control **history, int a)
 	return (1);
 }
 
+//			SET TO NORME
 int			get_n_first(t_bang **bang, t_control **history, int a)
 {
-	(void)bang;
-	(void)history;
-	(void)a;
+	int		digit;
+	char	*test;
+	t_lst	*tmp;
+
+	test = ft_memalloc(1);
+	while ((*bang)->index < (*bang)->len && (*bang)->command[(*bang)->index]
+		&& (*bang)->command[(*bang)->index] != ' '
+		&& (*bang)->command[(*bang)->index] != ':')
+	{
+		test = ft_str_chr_cat(test, (*bang)->command[(*bang)->index]);
+		((*bang)->index)++;
+	}
+	digit = ft_atoi(test);
+	ft_strdel(&test);
+	if ((*history) == NULL || ((*history) && (*history)->length < digit))
+		return (hist_event_not_found(bang, a));
+	tmp = (*history)->end;
+	while (tmp != NULL && digit > 1)
+	{
+		tmp = tmp->prev;
+		digit--;
+	}
+	if (tmp)
+		(*bang)->to_append = ft_strdup(tmp->name);
+	else
+		return (0);
 	return (1);
 }
 

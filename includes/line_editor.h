@@ -63,6 +63,7 @@ int					get_elem_arg(t_bang **bang, t_control **history, int a);
 int					malloc_struct_bang(t_bang **bang, char *command);
 void				free_struct_bang(t_bang **bang);
 void				is_quote(t_bang **bang);
+int					hist_event_not_found(t_bang **bang, int a);
 
 /*
 **	Keys.c
