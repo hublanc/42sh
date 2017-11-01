@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/05 16:40:44 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/31 12:40:57 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/01 15:55:13 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ static int	do_export_sub(char ***env, t_loc *loc, char ***tab, char *name)
 {
 	char	**tab2;
 
-	disp_tab(*tab);
 	if (!(tab2 = (char **)ft_memalloc(sizeof(char *) * 4)))
 	{
 		free(*tab);
@@ -114,6 +113,7 @@ int			export(char **tab, char ***env)
 	int		i;
 	int		status;
 
+	opt = 0;
 	if (!tab || !tab[0] || !env || !*env)
 		return (0);
 	if ((i = export_parse(tab, &opt)) == -1)
