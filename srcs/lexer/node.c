@@ -6,14 +6,14 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 15:20:15 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/23 10:31:03 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/11/01 15:43:33 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 #include <stdio.h>
 
-void			destroy_leaf(t_node *leaf)
+static void		destroy_leaf(t_node *leaf)
 {
 	if (leaf->token)
 		ft_strdel(&(leaf->token));

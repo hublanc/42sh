@@ -6,13 +6,13 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/16 18:21:51 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/11 18:04:49 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/01 15:46:21 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-t_node			*stock_separator(t_token *list, t_node *tree)
+static t_node	*stock_separator(t_token *list, t_node *tree)
 {
 	while (list)
 	{
@@ -24,7 +24,7 @@ t_node			*stock_separator(t_token *list, t_node *tree)
 	return (tree);
 }
 
-t_node			*stock_pipe(t_token *list, t_node *tree)
+static t_node	*stock_pipe(t_token *list, t_node *tree)
 {
 	int		depth;
 
@@ -41,7 +41,7 @@ t_node			*stock_pipe(t_token *list, t_node *tree)
 	return (tree);
 }
 
-t_node			*stock_token(t_token *list, t_node *tree, int word)
+static t_node	*stock_token(t_token *list, t_node *tree, int word)
 {
 	int			depth;
 	int			pipe;
