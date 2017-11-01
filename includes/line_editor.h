@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 16:36:09 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/01 12:07:31 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/01 12:27:18 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ typedef struct		s_cmd
 **	Keys.c
 */
 void				key_handler(t_cmd *cmd, t_control **history, char ***env);
+void				key_handler_sigint(t_cmd *cmd,
+					t_control **history, char ***env, char **buf);
 char				*save_buf(char *buf);
 
 /*
