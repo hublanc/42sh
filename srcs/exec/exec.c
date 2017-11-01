@@ -6,13 +6,13 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/26 16:13:08 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/31 21:48:52 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/01 15:23:23 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-void		ft_exec(char *cmd, char **args, char **env)
+static void	ft_exec(char *cmd, char **args, char **env)
 {
 	int			i;
 
