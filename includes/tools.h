@@ -122,10 +122,14 @@ void		end_ft_env(size_t *i, char **env);
 **	tools_wd_designators.c
 */
 
-int			find_d_dots(char *command, int a);
-int			tablen(char **str);
-int			modified_atoi(char *str);
-void		set_error(int a, char *command);
-int			return_error(char *command, int index, int type);
+int		malloc_struct_bang(t_bang **bang, char *command);
+void	free_struct_bang(t_bang **bang);
+void	is_quote(t_bang **bang);
+int		hist_event_not_found(t_bang **bang, int a);
+int		error_bad_wspec(int digit, char ***splitted);
+int		error_unrecognized_hmod(t_bang **bang, char **test, int a);
+void	atoi_free(int *digit, char **test);
+int		return_cond(t_bang **bang, int a, t_lst *tmp);
+void	append_in_result(t_bang **bang, char *to_append);
 
 #endif

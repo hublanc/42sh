@@ -32,6 +32,38 @@ typedef struct		s_cmd
 	int				stop;
 }					t_cmd;
 
+typedef struct		s_bang
+{
+	char			*result;
+	char			*to_append;
+	char			*command;
+	int				index;
+	int				len;
+	int				quotes;
+}					t_bang;
+
+/*
+**	Event_designators.c
+*/
+
+char				*bang_events(char *command, t_control **history);
+int					bang_events_2(t_bang **bang, t_control **history);
+int					bang_events_3(t_bang **bang, t_control **history);
+
+int					get_elem_hist(t_bang **bang, t_control **history);
+int					get_elem_hist_2(t_bang **bang, t_control **history, int a);
+
+int					get_double_bang(t_bang **bang, t_control **history, int a);
+int					get_n_first(t_bang **bang, t_control **history, int a);
+int					get_n_last(t_bang **bang, t_control **history, int a);
+int					get_c_last(t_bang **bang, t_control **history, int a);
+
+int					get_elem_arg(t_bang **bang, int a);
+int					get_elem_arg_2(t_bang **bang, int a, int *digit);
+int					word_designator(t_bang **bang, int a);
+void				dollar_designator(t_bang **bang, char **splitted, int digit);
+void				star_designator(t_bang **bang, char **splitted);
+
 /*
 **	Keys.c
 */
@@ -134,9 +166,11 @@ int					return_handler(t_lst *tmp, char *buf, char **search,
 					char **str);
 void				init_hist_search(char **search, t_lst **tmp);
 
+
+
 /*
 **	word_designators.c
-*/
+
 
 char				*wd_designator(char *command, t_control **history);
 int					wd_designator_2(char *command, int *a, char **result,
@@ -172,5 +206,5 @@ void				modify_quotes(int *sq, char c, int *a);
 void				d_dots_found(char *command, char **str, int b);
 void				append_str(char *to_cpy, char **str);
 int					get_tmp_lst(t_lst **tmp, int b, int nb, char **str);
-
+*/
 #endif
