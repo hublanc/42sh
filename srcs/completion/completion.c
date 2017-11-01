@@ -35,7 +35,8 @@ static char	*get_path(t_cmd *cmd)
 	word = NULL;
 	i = cmd->col - 1 - cmd->prlen;
 	while (cmd->str[i] && cmd->str[i] != '"' && cmd->str[i] != '\''
-			&& cmd->str[i] != '\'' && cmd->str[i] != ' ' && (++i) > 0)
+			&& cmd->str[i] != '\'' && (cmd->str[i] != ' '
+			|| (i > 0 && cmd->str[i - 1] == '\\')) && (++i) > 0)
 		go_right(cmd);
 	i = cmd->col - 1 - cmd->prlen;
 	if (i > 0 && (cmd->str[i] == '"' || cmd->str[i] == '\''
