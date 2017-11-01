@@ -6,30 +6,30 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/31 12:52:57 by lbopp             #+#    #+#             */
-/*   Updated: 2017/10/31 12:54:25 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/01 10:58:24 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-char		*save_buf(char *buf)
+static int	check_sigint2(t_cmd *cmd, char **buf)
 {
-	static char *s_buf = NULL;
-
-	if (buf)
+	*buf = return_prompt();
+	if (ft_strcmp(cmd->prompt, *buf))
 	{
-		if (ft_strlen(buf) <= 5)
-		{
-			if (!(s_buf = (char*)ft_memalloc(6)))
-			{
-				s_buf = NULL;
-			}
-			ft_strcat(s_buf, buf);
-		}
-		else
-			s_buf = ft_strdup(buf);
+		reset_cmdsiginted(cmd);
+		can_sigint(1);
+		return (-1);
 	}
-	return (s_buf);
+	else
+	{
+		reset_cmdsiginted(cmd);
+		cmd->stop = 0;
+		is_sigint(0);
+	}
+	(*buf) ? free(*buf) : 0;
+	*buf = save_buf(NULL);
+	return (0);
 }
 
 static int	check_sigint(t_cmd *cmd, char **buf)
@@ -37,24 +37,7 @@ static int	check_sigint(t_cmd *cmd, char **buf)
 	int	i;
 
 	if ((i = can_sigint(0)) && is_sigint(0))
-	{
-		*buf = return_prompt();
-		if (ft_strcmp(cmd->prompt, *buf))
-		{
-			reset_cmdsiginted(cmd);
-			can_sigint(1);
-			return (-1);
-		}
-		else
-		{
-			reset_cmdsiginted(cmd);
-			cmd->stop = 0;
-			is_sigint(0);
-		}
-		(*buf) ? free(*buf) : 0;
-		*buf = save_buf(NULL);
-		return (0);
-	}
+		return (check_sigint2(cmd, buf));
 	else if (i)
 	{
 		(*buf) ? free(*buf) : 0;

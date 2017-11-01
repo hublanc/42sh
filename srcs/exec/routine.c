@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/17 11:10:52 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/31 21:49:47 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/01 10:48:02 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,28 +110,20 @@ void		routine(char *cmd, char ***env, t_control **history)
 
 	if (!cmd)
 		return ;
-//	ft_putcolor("cmd : ");
-//	ft_putendl(cmd);
 	new_command = wd_designator(cmd, history);
-//	ft_putcolor("new : ");
-//	ft_putendl(new_command);
 	if (new_command == NULL)
 		return ;
 	list = tokenizer(new_command);
-//	display_token(list);
-//	ft_putendl("TRI");
 	list = sort_token(list, history);
 	if (!list)
 	{
 		ft_strdel(&new_command);
 		return ;
 	}
-//	display_token(list);
 	tree = create_tree(list);
 	if (tree == NULL)
 		return ;
 	reset_term();
-//	node_print(tree, 0, 5);
 	exec_tree(tree, env, history);
 	set_terminal();
 	del_token(&list);

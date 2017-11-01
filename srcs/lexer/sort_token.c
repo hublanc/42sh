@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/14 15:40:59 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/31 13:30:51 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/01 10:51:06 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ t_token			*check_redirection(t_token *list,
 			: ft_putstr_fd("'\\n'", 2);
 		ft_putstr_fd("\n", 2);
 		del_token(&list);
-		ft_putcolor("LIST DELETED\n");
 		return (list);
 	}
 	if (prev && prev->e_type == IO_NUMBER)
