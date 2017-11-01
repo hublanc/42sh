@@ -40,18 +40,21 @@ int			bang_events_2(t_bang **bang, t_control **history)
 		if ((*bang)->index < (*bang)->len && (*bang)->command[(*bang)->index]
 			&& (*bang)->command[(*bang)->index] == '\'')
 			is_quote(bang);
-		else if ((*bang)->index < (*bang)->len && (*bang)->command[(*bang)->index]
+		else if ((*bang)->index < (*bang)->len
+			&& (*bang)->command[(*bang)->index]
 			&& (*bang)->quotes == 0 && ((*bang)->command[(*bang)->index] == '!'
 				|| (*bang)->command[(*bang)->index] == ':'))
 		{
 			if (!(bang_events_3(bang, history)))
 				return (0);
-			if ((*bang)->result != NULL)
+			if ((*bang)->result == NULL || ft_strlen((*bang)->result) < 1)
 				(*bang)->result = ft_strdup((*bang)->to_append);
 		}
-		else if ((*bang)->index < (*bang)->len && (*bang)->command[(*bang)->index])
+		else if ((*bang)->index < (*bang)->len
+			&& (*bang)->command[(*bang)->index])
 		{
-			(*bang)->result = ft_str_chr_cat((*bang)->result, (*bang)->command[(*bang)->index]);
+			(*bang)->result = ft_str_chr_cat((*bang)->result,
+				(*bang)->command[(*bang)->index]);
 			((*bang)->index)++;
 		}
 	}
@@ -60,7 +63,6 @@ int			bang_events_2(t_bang **bang, t_control **history)
 
 int			bang_events_3(t_bang **bang, t_control **history)
 {
-	// COMMAND[INDEX] == '!' || COMMAND[INDEX] == ':'
 	while ((*bang)->index < (*bang)->len && (*bang)->command[(*bang)->index]
 		&& (*bang)->command[(*bang)->index] != ' ')
 	{
@@ -72,12 +74,15 @@ int			bang_events_3(t_bang **bang, t_control **history)
 			if (!(get_elem_hist(bang, history)))
 				return (0);
 		}
-		else if ((*bang)->index < (*bang)->len && (*bang)->command[(*bang)->index]
+		else if ((*bang)->index < (*bang)->len
+			&& (*bang)->command[(*bang)->index]
 			&& (*bang)->command[(*bang)->index] == ':')
 		{
-			if (!(get_elem_arg(bang, history, (*bang)->index)))
+			if (!(get_elem_arg(bang, (*bang)->index)))
 				return (0);
 		}
+		else
+			((*bang)->index)++;
 	}
 	return (1);
 }
@@ -152,7 +157,6 @@ int			get_double_bang(t_bang **bang, t_control **history, int a)
 	return (1);
 }
 
-//			SET TO NORME
 int			get_n_first(t_bang **bang, t_control **history, int a)
 {
 	int		digit;
@@ -167,8 +171,7 @@ int			get_n_first(t_bang **bang, t_control **history, int a)
 		test = ft_str_chr_cat(test, (*bang)->command[(*bang)->index]);
 		((*bang)->index)++;
 	}
-	digit = ft_atoi(test);
-	ft_strdel(&test);
+	atoi_free(&digit, &test);
 	if ((*history) == NULL || ((*history) && (*history)->length < digit))
 		return (hist_event_not_found(bang, a));
 	tmp = (*history)->end;
@@ -177,14 +180,9 @@ int			get_n_first(t_bang **bang, t_control **history, int a)
 		tmp = tmp->prev;
 		digit--;
 	}
-	if (tmp)
-		(*bang)->to_append = ft_strdup(tmp->name);
-	else
-		return (0);
-	return (1);
+	return (return_cond(bang, a, tmp));
 }
 
-//			SET TO NORME
 int			get_n_last(t_bang **bang, t_control **history, int a)
 {
 	int		digit;
@@ -200,8 +198,7 @@ int			get_n_last(t_bang **bang, t_control **history, int a)
 		test = ft_str_chr_cat(test, (*bang)->command[(*bang)->index]);
 		((*bang)->index)++;
 	}
-	digit = ft_atoi(test);
-	ft_strdel(&test);
+	atoi_free(&digit, &test);
 	if ((*history) == NULL || ((*history) && (*history)->length < digit))
 		return (hist_event_not_found(bang, a));
 	tmp = (*history)->begin;
@@ -210,11 +207,7 @@ int			get_n_last(t_bang **bang, t_control **history, int a)
 		tmp = tmp->next;
 		digit--;
 	}
-	if (tmp)
-		(*bang)->to_append = ft_strdup(tmp->name);
-	else
-		return (0);
-	return (1);
+	return (return_cond(bang, a, tmp));
 }
 
 int			get_c_last(t_bang **bang, t_control **history, int a)
@@ -232,13 +225,18 @@ int			get_c_last(t_bang **bang, t_control **history, int a)
 	}
 	if ((*history) == NULL || ((*history) && (*history)->length < 1))
 		return (hist_event_not_found(bang, a));
-	tmp = (*history)->begin;		// R u sur about dat ?
+	tmp = (*history)->begin;
 	while (tmp != NULL)
 	{
 		if (ft_strncmp(test, tmp->name, ft_strlen(test)) == 0)
 			break ;
 		tmp = tmp->next;
 	}
+	return (return_cond(bang, a, tmp));
+}
+
+int			return_cond(t_bang **bang, int a, t_lst *tmp)
+{
 	if (tmp)
 		(*bang)->to_append = ft_strdup(tmp->name);
 	else
@@ -246,12 +244,130 @@ int			get_c_last(t_bang **bang, t_control **history, int a)
 	return (1);
 }
 
-int			get_elem_arg(t_bang **bang, t_control **history, int a)
+int			get_elem_arg(t_bang **bang, int a)
 {
-	(void)bang;
-	(void)history;
-	(void)a;
+	int		digit;
+	char	**splitted;
+	int		i;
+
+	digit = 0;
+	((*bang)->index)++;
+	if ((*bang)->index < (*bang)->len && (*bang)->command[(*bang)->index]
+		&& ((*bang)->command[(*bang)->index] == '$'
+		|| (*bang)->command[(*bang)->index] == '*'))
+		return (word_designator(bang, a));
+	else if (!(get_elem_arg_2(bang, a, &digit)))
+		return (0);
+	splitted = ft_cmdsplit((*bang)->to_append);
+	if (digit > tablen(splitted))
+		return (error_bad_wspec(digit, &splitted));
+	append_in_result(bang, splitted[digit]);
+	i = 0;
+	while (splitted[i])
+	{
+		ft_strdel(&splitted[i]);
+		i++;
+	}
+	free(splitted[i]);
 	return (1);
+}
+
+void		append_in_result(t_bang **bang, char *to_append)
+{
+	int		i;
+
+	i = 0;
+	while (to_append[i])
+	{
+		(*bang)->result = ft_str_chr_cat((*bang)->result, to_append[i]);
+		i++;
+	}
+}
+
+int			get_elem_arg_2(t_bang **bang, int a, int *digit)
+{
+	char		*test;
+
+	test = ft_memalloc(1);
+	while ((*bang)->index < (*bang)->len && (*bang)->command[(*bang)->index]
+		&& (*bang)->command[(*bang)->index] != ' ')
+	{
+		if ((*bang)->command[(*bang)->index]
+			&& ((*bang)->command[(*bang)->index] == ':'
+			|| !(ft_isdigit((*bang)->command[(*bang)->index]))))
+			return (error_unrecognized_hmod(bang, &test, a));
+		if ((*bang)->command[(*bang)->index]
+			&& ft_isdigit((*bang)->command[(*bang)->index]))
+			test = ft_str_chr_cat(test, (*bang)->command[(*bang)->index]);
+		((*bang)->index)++;
+	}
+	atoi_free(digit, &test);
+	return (1);
+}
+
+void		atoi_free(int *digit, char **test)
+{
+	(*digit) = ft_atoi(*test);
+	ft_strdel(test);
+}
+
+int			word_designator(t_bang **bang, int a)
+{
+	char	**splitted;
+	int		digit;
+	int		i;
+
+	i = 0;
+	digit = 0;
+	splitted = ft_cmdsplit((*bang)->to_append);
+	while (splitted[digit])
+		digit++;
+	if ((*bang)->command[(*bang)->index] == '$')
+		dollar_designator(bang, splitted, digit);
+	else if ((*bang)->command[(*bang)->index] == '*')
+		star_designator(bang, splitted);
+	digit = 0;
+	while (splitted[digit])
+	{
+		ft_strdel(&(splitted[digit]));
+		digit++;
+	}
+	(void)a;
+	free(splitted);
+	return (1);
+}
+
+void		dollar_designator(t_bang **bang, char **splitted, int digit)
+{
+	int		i;
+
+	i = 0;
+	while (splitted[digit - 1] && splitted[digit - 1][i])
+	{
+		(*bang)->result = ft_str_chr_cat((*bang)->result,
+			splitted[digit - 1][i]);
+		i++;
+	}
+}
+
+void		star_designator(t_bang **bang, char **splitted)
+{
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	while (splitted[j])
+	{
+		i = 0;
+		while (splitted[j] && splitted[j][i])
+		{
+			(*bang)->result = ft_str_chr_cat((*bang)->result, splitted[j][i]);
+			i++;
+		}
+		(*bang)->result = ft_str_chr_cat((*bang)->result, ' ');
+		j++;
+	}
 }
 
 void		is_quote(t_bang **bang)
@@ -261,6 +377,30 @@ void		is_quote(t_bang **bang)
 	else if ((*bang)->quotes == 1)
 		(*bang)->quotes = 0;
 	((*bang)->index)++;
+}
+
+int			error_unrecognized_hmod(t_bang **bang, char **test, int a)
+{
+	ft_putstr("shell: ");
+	ft_putstr(&(*bang)->command[a]);
+	ft_putendl(": unrecognized history modifier");
+	ft_strdel(test);
+	return (0);
+}
+
+int			error_bad_wspec(int digit, char ***splitted)
+{
+	ft_putstr("shell: :");
+	ft_putnbr(digit);
+	ft_putendl(": bad word specifier");
+	digit = 0;
+	while ((*splitted)[digit])
+	{
+		ft_strdel(&(*splitted)[digit]);
+		digit++;
+	}
+	free(*splitted);
+	return (0);
 }
 
 int			malloc_struct_bang(t_bang **bang, char *command)
