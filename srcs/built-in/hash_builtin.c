@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/31 18:48:25 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/31 19:38:10 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/01 11:26:01 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,11 @@ int			check_opt_hash(char **tab, char *opt)
 	*opt = 0;
 	while (tab && tab[i] && tab[i][0] == '-')
 	{
+		if (!ft_strcmp(tab[i], "--"))
+		{
+			i++;
+			break ;
+		}
 		if (!ft_strcmp(tab[i], "-r"))
 			*opt = 'r';
 		else
