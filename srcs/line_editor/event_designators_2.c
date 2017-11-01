@@ -95,7 +95,10 @@ int			get_c_last(t_bang **bang, t_control **history, int a)
 		((*bang)->index)++;
 	}
 	if ((*history) == NULL || ((*history) && (*history)->length < 1))
+	{
+		ft_strdel(&test);
 		return (hist_event_not_found(bang, a));
+	}
 	tmp = (*history)->begin;
 	while (tmp != NULL)
 	{
@@ -103,5 +106,6 @@ int			get_c_last(t_bang **bang, t_control **history, int a)
 			break ;
 		tmp = tmp->next;
 	}
+	ft_strdel(&test);
 	return (return_cond(bang, a, tmp));
 }
