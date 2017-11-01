@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/31 20:40:01 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/31 21:04:03 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/01 15:14:53 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int			ft_exit(char **tab)
 
 	status = return_status();
 	isatty(0) ? ft_putstr_fd("exit\n", 2) : 0;
+	if (!tab || !*tab)
+		return (status);
 	if (len_array(tab) == 1)
 		return (status);
 	if (tab[1] && ft_strfullnb(tab[1]))

@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/03 19:10:40 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/01 13:48:04 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/01 15:23:41 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ int			authorization_file(char *path, t_node *tree)
 {
 	struct stat		buf;
 
+	if (type_redir(tree->token) == 1 && path && access(path, F_OK) == -1)
+		return (0);
 	if (lstat(path, &buf) == -1)
 	{
 		ft_putstr_fd("42sh: permission denied: ", 2);
