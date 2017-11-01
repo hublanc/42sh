@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 16:36:09 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/01 10:46:18 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/01 12:07:31 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ void				enter_hub(t_cmd *cmd, t_control **history, char ***env);
 */
 
 int					history_search(t_control **history, char **str);
+void				history_isatty(char *search);
 t_lst				*history_search_2(t_control **history, char *search);
 t_lst				*while_handler(char *buf, char **search,
 					t_control **history, t_lst *tmp);
