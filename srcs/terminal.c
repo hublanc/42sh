@@ -6,13 +6,13 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 11:40:20 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/01 11:14:19 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/01 14:55:49 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-int			read_terminfo(char *tmp)
+static int		read_terminfo(char *tmp)
 {
 	struct dirent	*dirc;
 	DIR				*dirp2;
@@ -37,7 +37,7 @@ int			read_terminfo(char *tmp)
 	return (0);
 }
 
-int			get_terminfo(void)
+static int		get_terminfo(void)
 {
 	struct dirent	*dirc;
 	DIR				*dirp;

@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/05 13:46:33 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/31 14:42:42 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/01 14:57:29 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int	check_afterequal(char *cmmd, int i)
 	return (i);
 }
 
-int			endloc(char *cmmd)
+static int	endloc(char *cmmd)
 {
 	int	i;
 

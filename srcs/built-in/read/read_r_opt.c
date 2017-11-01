@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/16 14:34:59 by lbopp             #+#    #+#             */
-/*   Updated: 2017/10/19 15:50:33 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/01 15:15:15 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ static void	read_r_opt2(char **readding, char buf[6])
 	{
 		if (*readding)
 		{
-			tputs(tgetstr("le", NULL), 1, &put_my_char);
-			tputs(tgetstr("cd", NULL), 1, &put_my_char);
+			tputs(tgetstr("le", NULL), 1, &tputchar);
+			tputs(tgetstr("cd", NULL), 1, &tputchar);
 			(*readding)[ft_strlen(*readding) - 1] = '\0';
 		}
 		return ;

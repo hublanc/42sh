@@ -6,19 +6,19 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 12:02:15 by lbopp             #+#    #+#             */
-/*   Updated: 2017/10/30 17:25:15 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/01 15:11:54 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-void	add_slash(char **content)
+void		add_slash(char **content)
 {
 	if ((*content)[ft_strlen(*content) - 1] != '/')
 		*content = ft_strapp(*content, "/");
 }
 
-void	check_cdopt(char **path, char *opt)
+static void	check_cdopt(char **path, char *opt)
 {
 	int	i;
 	int	ret;
@@ -35,7 +35,7 @@ void	check_cdopt(char **path, char *opt)
 	}
 }
 
-void	change_env(char ***env, char *pwd)
+void		change_env(char ***env, char *pwd)
 {
 	char	*oldpwd;
 	char	**tmp;
@@ -62,7 +62,7 @@ void	change_env(char ***env, char *pwd)
 	ft_strdel(&oldpwd);
 }
 
-int		cd_exec(char ***env, char **tab, char opt)
+static int	cd_exec(char ***env, char **tab, char opt)
 {
 	char	*curpath;
 	char	*cdpath;
@@ -83,7 +83,7 @@ int		cd_exec(char ***env, char **tab, char opt)
 	return (1);
 }
 
-int		ft_cd(char **tab, char ***env)
+int			ft_cd(char **tab, char ***env)
 {
 	char	opt;
 

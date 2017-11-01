@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/16 14:38:52 by lbopp             #+#    #+#             */
-/*   Updated: 2017/10/19 15:49:46 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/01 15:15:55 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ static int	treatment_read_key(char buf[6], int *backslash, char **readding)
 	{
 		if (*readding)
 		{
-			tputs(tgetstr("le", NULL), 1, &put_my_char);
-			tputs(tgetstr("cd", NULL), 1, &put_my_char);
+			tputs(tgetstr("le", NULL), 1, &tputchar);
+			tputs(tgetstr("cd", NULL), 1, &tputchar);
 			(*readding)[ft_strlen(*readding) - 1] = '\0';
 		}
 	}

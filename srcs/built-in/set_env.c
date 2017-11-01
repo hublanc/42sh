@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/25 17:21:58 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/23 10:24:44 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/11/01 15:06:53 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int			in_env(char *str, char **env)
 	return (-1);
 }
 
-char		*var_app(char *name, char *value)
+static char	*var_app(char *name, char *value)
 {
 	char		*new;
 

@@ -6,13 +6,13 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/01 11:14:05 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/01 11:14:17 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/01 14:56:17 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-int			tputchar(int c)
+int	tputchar(int c)
 {
 	write(1, &c, 1);
 	return (c);

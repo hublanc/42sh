@@ -6,17 +6,11 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/16 14:42:39 by lbopp             #+#    #+#             */
-/*   Updated: 2017/10/31 14:06:56 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/01 15:14:19 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
-
-int		put_my_char(int c)
-{
-	write(1, &c, 1);
-	return (1);
-}
 
 int		read_singleton(int sig)
 {
