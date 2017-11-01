@@ -6,13 +6,13 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/03 19:10:40 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/01 15:23:41 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/01 17:09:13 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-char		*get_file(t_node *tree)
+static char		*get_file(t_node *tree)
 {
 	int		i;
 	char	*file;
@@ -29,7 +29,7 @@ char		*get_file(t_node *tree)
 	return (file);
 }
 
-void		abort_redir(t_node *tree)
+static void		abort_redir(t_node *tree)
 {
 	t_node	*tmp;
 	int		*signal;
@@ -44,7 +44,7 @@ void		abort_redir(t_node *tree)
 	close_fd(tmp);
 }
 
-int			authorization_file(char *path, t_node *tree)
+static int		authorization_file(char *path, t_node *tree)
 {
 	struct stat		buf;
 
@@ -68,7 +68,7 @@ int			authorization_file(char *path, t_node *tree)
 	return (0);
 }
 
-char		*check_file(char *file, t_node *tree)
+static char		*check_file(char *file, t_node *tree)
 {
 	int		error;
 	int		i;
@@ -97,7 +97,7 @@ char		*check_file(char *file, t_node *tree)
 	return (file);
 }
 
-int			open_file(t_node *tree)
+int				open_file(t_node *tree)
 {
 	char	*file;
 	int		fd;

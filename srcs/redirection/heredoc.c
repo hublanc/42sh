@@ -6,13 +6,13 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/29 12:56:32 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/30 11:25:18 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/01 17:10:10 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-int		*singleton_ioheredoc(void)
+static int		*singleton_ioheredoc(void)
 {
 	static int		s_iohere = 0;
 
@@ -25,7 +25,7 @@ void	heredoc_input(t_node *tree)
 	close(tree->hd);
 }
 
-void	manage_heredoc(t_node *tree, t_node *tmp)
+void			manage_heredoc(t_node *tree, t_node *tmp)
 {
 	int		i;
 	int		fd[2];
@@ -44,7 +44,7 @@ void	manage_heredoc(t_node *tree, t_node *tmp)
 	tmp->hd_io = *io;
 }
 
-char	*eof_quote(char *str, int i)
+static char		*eof_quote(char *str, int i)
 {
 	char	*new;
 	char	c;
@@ -72,7 +72,7 @@ char	*eof_quote(char *str, int i)
 	return (new);
 }
 
-int		prompt_heredoc(char *eof, t_token *redir, t_control **history)
+int				prompt_heredoc(char *eof, t_token *redir, t_control **history)
 {
 	t_cmd		cmd_hd;
 	int			*io;
