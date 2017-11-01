@@ -43,7 +43,7 @@ typedef struct		s_bang
 }					t_bang;
 
 /*
-**	event_designators.c
+**	Event_designators.c
 */
 
 char				*bang_events(char *command, t_control **history);
@@ -63,16 +63,6 @@ int					get_elem_arg_2(t_bang **bang, int a, int *digit);
 int					word_designator(t_bang **bang, int a);
 void				dollar_designator(t_bang **bang, char **splitted, int digit);
 void				star_designator(t_bang **bang, char **splitted);
-
-int					malloc_struct_bang(t_bang **bang, char *command);
-void				free_struct_bang(t_bang **bang);
-void				is_quote(t_bang **bang);
-int					hist_event_not_found(t_bang **bang, int a);
-int					error_bad_wspec(int digit, char ***splitted);
-int					error_unrecognized_hmod(t_bang **bang, char **test, int a);
-void				atoi_free(int *digit, char **test);
-int					return_cond(t_bang **bang, int a, t_lst *tmp);
-void				append_in_result(t_bang **bang, char *to_append);
 
 /*
 **	Keys.c
