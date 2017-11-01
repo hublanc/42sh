@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/26 10:47:21 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/19 16:11:57 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/01 15:08:05 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char		**delonenv(char *name, char **env)
 	return (new);
 }
 
-int			sub_unsetenv(char **tab, char ***env)
+static int	sub_unsetenv(char **tab, char ***env)
 {
 	int			i;
 	int			pos;

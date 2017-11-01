@@ -6,13 +6,13 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/02 14:08:53 by lbopp             #+#    #+#             */
-/*   Updated: 2017/10/23 10:23:18 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/11/01 15:14:44 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-char	**prep_setenv(char *name, char *value)
+char		**prep_setenv(char *name, char *value)
 {
 	char	**tab;
 
@@ -27,7 +27,7 @@ char	**prep_setenv(char *name, char *value)
 	return (tab);
 }
 
-int		read_put_in_var(char **cmd, char *readding)
+static int	read_put_in_var(char **cmd, char *readding)
 {
 	char	**split;
 	char	*tmp;
@@ -56,7 +56,7 @@ int		read_put_in_var(char **cmd, char *readding)
 	return (0);
 }
 
-char	**default_mod(void)
+static char	**default_mod(void)
 {
 	char	**new_cmd;
 

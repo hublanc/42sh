@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/24 16:37:30 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/31 12:57:00 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/01 14:53:17 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char		***save_env(char ***env)
 	return (s_env);
 }
 
-char		**init_env(void)
+static char	**init_env(void)
 {
 	char		**new;
 	char		*pwd;
@@ -41,7 +41,7 @@ char		**init_env(void)
 	return (new);
 }
 
-void		add_startenv(char ***env)
+static void	add_startenv(char ***env)
 {
 	char	*tab[4];
 

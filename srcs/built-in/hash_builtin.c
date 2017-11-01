@@ -6,13 +6,13 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/31 18:48:25 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/01 11:26:01 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/01 15:00:14 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-int			check_opt_hash(char **tab, char *opt)
+static int	check_opt_hash(char **tab, char *opt)
 {
 	int		i;
 
@@ -38,7 +38,7 @@ int			check_opt_hash(char **tab, char *opt)
 	return (i);
 }
 
-int			try_addht(char *value, char **env)
+static int	try_addht(char *value, char **env)
 {
 	char		**bin;
 	int			i;
@@ -65,7 +65,7 @@ int			try_addht(char *value, char **env)
 	return (1);
 }
 
-int			disp_hash(void)
+static int	disp_hash(void)
 {
 	t_hash		**hash;
 	t_hash		*tmp;
