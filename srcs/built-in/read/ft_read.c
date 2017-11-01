@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/02 14:08:53 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/01 15:52:01 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/01 17:33:10 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static char	**default_mod(void)
 	return (new_cmd);
 }
 
-int		ft_read(char **cmd)
+int			ft_read(char **cmd)
 {
 	int		opt;
 	int		default_read;
