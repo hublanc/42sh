@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/26 11:28:19 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/31 15:11:10 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/10/31 21:43:55 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,16 @@ int			len_array(char **str)
 	return (len);
 }
 
-void		stop_shell(char ***env, char **tab, t_control **history)
+int			stop_shell(char ***env, char **tab, t_control **history)
 {
 	char	*hist_file;
+	t_hash	**hash_table;
+	int		status;
 
+	if ((status = ft_exit(tab)) == -1)
+		return (1);
+	hash_table = singleton_hash();
+	del_hash(hash_table);
 	hist_file = get_history_file(env);
 	if (tab)
 		del_tabstr(&tab);
@@ -64,10 +70,7 @@ void		stop_shell(char ***env, char **tab, t_control **history)
 	if (*history)
 		*history = dll_clear_list(*history);
 	reset_term();
-	isatty(0) ? ft_putendl("exit") : 0;
-	if (return_status() == 256)
-		exit(1);
-	exit(return_status());
+	exit(status > 255 ? status - 255 : status);
 }
 
 char		**get_env(char **env, int add)

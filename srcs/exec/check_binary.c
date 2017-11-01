@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/28 15:49:45 by hublanc           #+#    #+#             */
-/*   Updated: 2017/09/28 18:48:12 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/10/31 16:55:39 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ int			find_binary(char **args, char **env, char **cmd)
 	i = 0;
 	if (ft_strchr(args[0], '/'))
 		return (check_access(args[0]));
+	else if (is_in_htable(args[0], cmd))
+		return (check_access(*cmd));
 	bin = get_bin(env, in_env("PATH", env));
 	while (bin && bin[i] && access != -2 && access != 1)
 	{
@@ -67,10 +69,13 @@ int			check_binary(char **args, char **env, char **cmd)
 			print_error(2, args[0]);
 		else if (ret == -2)
 			print_error(4, args[0]);
+		ret == 0 ? err_nofordir(args[0]) : 0;
 	}
-	if (ret == -1)
+	if (ret == -1 || ret == 0)
 		return (127);
 	else if (ret == -2)
 		return (126);
+	else if (ret == 1)
+		add_hash_table(*cmd, args[0]);
 	return (0);
 }

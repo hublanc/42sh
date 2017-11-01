@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 09:54:57 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/31 16:14:30 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/10/31 17:11:24 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void		completion(t_cmd *cmd, char ***env, char **buf)
 	int		i;
 
 	init_compl(&compl, cmd);
-	list_compl(&compl, cmd, env);
+	list_compl(&compl, cmd, env, NULL);
 	reslash(&compl);
 	if (!compl.args.arg || compl_star(&compl, cmd))
 	{

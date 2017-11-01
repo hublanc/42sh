@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 17:27:30 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/31 09:55:59 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/10/31 21:45:49 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,14 @@
 # define EXEC_H
 
 # include "line_editor.h"
+
+typedef struct		s_hash
+{
+	char			*value;
+	char			*path;
+	int				key;
+	struct s_hash	*next;
+}					t_hash;
 
 typedef struct		s_token
 {
@@ -85,6 +93,7 @@ void				get_cmd(t_node *tree, char ***env, int *status,
 **	Check_binary
 */
 int					check_binary(char **args, char **env, char **cmd);
+char				**get_bin(char **env, int pos);
 
 /*
 **	Ft_cmdsplit.c
@@ -122,5 +131,22 @@ t_pidp				*new_pid(pid_t pid);
 void				add_pid(t_pidp **list, t_pidp *new);
 void				delone_pid(t_pidp **list);
 void				del_pid(t_pidp **list);
+
+/*
+**	Hash.c
+*/
+t_hash				*new_hash(char *value, char *path, int key);
+t_hash				*add_hash(t_hash *list, t_hash *new);
+void				delone_hash(t_hash **list);
+void				del_hash(t_hash **list);
+
+/*
+**	Extra_hash.c
+*/
+int					is_in_htable(char *value, char **cmd);
+t_hash				*seek_value(char *value);
+void				add_hash_table(char *path, char *value);
+int					get_key(char *value);
+t_hash				**singleton_hash(void);
 
 #endif
