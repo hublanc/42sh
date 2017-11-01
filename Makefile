@@ -6,7 +6,7 @@
 #    By: hublanc <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/07/24 15:04:09 by hublanc           #+#    #+#              #
-#    Updated: 2017/11/01 11:14:47 by lbopp            ###   ########.fr        #
+#    Updated: 2017/11/01 12:08:10 by lbopp            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,7 @@ SRC		=	main.c\
 			line_editor/cut_copy_paste3.c\
 			line_editor/history_search.c\
 			line_editor/history_search_2.c\
+			line_editor/history_isatty.c\
 			line_editor/word_designators.c\
 			line_editor/word_designators_2.c\
 			line_editor/word_designators_3.c\
