@@ -6,7 +6,7 @@
 #    By: hublanc <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/07/24 15:04:09 by hublanc           #+#    #+#              #
-#    Updated: 2017/11/01 10:54:06 by lbopp            ###   ########.fr        #
+#    Updated: 2017/11/01 11:14:47 by lbopp            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ SRCDIR	= srcs/
 OBJDIR	= objs/
 SRC		=	main.c\
 			terminal.c\
+			tputchar.c\
 			line_editor/prompt.c\
 			line_editor/arrow.c\
 			line_editor/keys.c\

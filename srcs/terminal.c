@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 11:40:20 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/23 11:05:19 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/11/01 11:14:19 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,10 +94,4 @@ void		reset_term(void)
 void		reset_disp(void)
 {
 	tputs(tgetstr("cl", NULL), 1, tputchar);
-}
-
-int			tputchar(int c)
-{
-	write(1, &c, 1);
-	return (c);
 }
