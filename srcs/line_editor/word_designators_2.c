@@ -6,13 +6,13 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/31 19:06:05 by mameyer           #+#    #+#             */
-/*   Updated: 2017/11/01 16:18:36 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/01 17:24:07 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-static int	wd_designator_6(char *command)
+int			wd_designator_6(char *command)
 {
 	event_not_found(command);
 	return (0);

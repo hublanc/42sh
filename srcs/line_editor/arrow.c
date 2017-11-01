@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 19:28:26 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/01 15:58:16 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/01 17:22:13 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	control_arrow(char *str, t_cmd *cmd)
 		seek_rword(cmd);
 }
 
-static void	control_homend(char *str, t_cmd *cmd)
+void		control_homend(char *str, t_cmd *cmd)
 {
 	int		i;
 
