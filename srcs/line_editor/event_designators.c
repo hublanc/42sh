@@ -24,10 +24,11 @@ char		*bang_events(char *command, t_control **history)
 	if (!(bang_events_2(&bang, history)))
 	{
 		free_struct_bang(&bang);
-		ft_strdel(&command);
 		return (NULL);
 	}
+	add_hist_or_not(history, bang->result);
 	result = ft_strdup(bang->result);
+	ft_putendl(result);
 	free_struct_bang(&bang);
 	return (result);
 }
@@ -54,7 +55,6 @@ int			bang_events_2(t_bang **bang, t_control **history)
 			((*bang)->index)++;
 		}
 	}
-	// Need to add in history
 	return (1);
 }
 
@@ -131,7 +131,13 @@ int			get_double_bang(t_bang **bang, t_control **history, int a)
 {
 	(void)a;
 	if ((*history) == NULL || ((*history) && (*history)->length < 1))
+	{
+		ft_putstr("shell: ");
+		while ((*bang)->command[a])
+			ft_putchar((*bang)->command[a++]);
+		ft_putendl(": event_not_found");
 		return (0);
+	}
 	if ((*history) && (*history)->begin && (*history)->begin->name)
 		(*bang)->to_append = ft_strdup((*history)->begin->name);
 	if ((*bang)->to_append == NULL)
