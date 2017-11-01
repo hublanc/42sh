@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/28 15:49:45 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/31 16:55:39 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/01 15:22:39 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char		**get_bin(char **env, int pos)
 	return (dup);
 }
 
-int			find_binary(char **args, char **env, char **cmd)
+static int	find_binary(char **args, char **env, char **cmd)
 {
 	char		**bin;
 	int			access;

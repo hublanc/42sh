@@ -6,13 +6,13 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/17 11:10:52 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/01 10:48:02 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/01 15:30:56 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-void		check_status(int status)
+static void	check_status(int status)
 {
 	if (status == 6 || status == 10 || status == 11)
 	{
@@ -23,7 +23,7 @@ void		check_status(int status)
 		ft_putchar('\n');
 }
 
-void		exec_cmd(t_node *tree, char ***env, t_control **hist, int ghost)
+static void	exec_cmd(t_node *tree, char ***env, t_control **hist, int ghost)
 {
 	static int		input = 0;
 	static int		fd[2] = {0, 1};
@@ -52,7 +52,7 @@ void		exec_cmd(t_node *tree, char ***env, t_control **hist, int ghost)
 		reset_var(&input, &fd[0], &fd[1]);
 }
 
-int			hub(t_node *tree, char ***env, t_control **hist)
+static int	hub(t_node *tree, char ***env, t_control **hist)
 {
 	int		*fail;
 
@@ -78,7 +78,7 @@ int			hub(t_node *tree, char ***env, t_control **hist)
 	return (1);
 }
 
-int			exec_tree(t_node *tree, char ***env, t_control **hist)
+static int	exec_tree(t_node *tree, char ***env, t_control **hist)
 {
 	static int		stop = 0;
 
