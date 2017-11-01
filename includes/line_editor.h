@@ -32,6 +32,33 @@ typedef struct		s_cmd
 	int				stop;
 }					t_cmd;
 
+typedef struct		s_bang
+{
+	char			*result;
+	char			*to_append;
+	char			*command;
+	int				index;
+	int				len;
+	int				quotes;
+}					t_bang;
+
+/*
+**	event_designators.c
+*/
+
+char				*bang_events(char *command, t_control **history);
+int					bang_events_2(t_bang *bang, t_control **history);
+int					bang_events_3(t_bang *bang, t_control **history);
+
+int					get_elem_hist(t_bang *bang, t_control **history);
+int					get_elem_hist_2(t_bang *bang, t_control **history, int a);
+
+int					get_elem_arg(t_bang *bang, t_control **history);
+
+int					malloc_struct_bang(t_bang *bang, char *command);
+void				free_struct_bang(t_bang *bang);
+void				is_quote(t_bang *bang);
+
 /*
 **	Keys.c
 */
@@ -133,6 +160,8 @@ t_lst				*while_handler(char *buf, char **search,
 int					return_handler(t_lst *tmp, char *buf, char **search,
 					char **str);
 void				init_hist_search(char **search, t_lst **tmp);
+
+
 
 /*
 **	word_designators.c

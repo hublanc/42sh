@@ -39,6 +39,7 @@ SRC		=	main.c\
 			line_editor/history_search.c\
 			line_editor/history_search_2.c\
 			line_editor/history_isatty.c\
+			line_editor/event_designators.c\
 			line_editor/word_designators.c\
 			line_editor/word_designators_2.c\
 			line_editor/word_designators_3.c\
