@@ -6,13 +6,13 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/14 15:40:59 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/01 10:51:06 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/01 15:44:49 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-t_token			*check_redirection(t_token *list,
+static t_token	*check_redirection(t_token *list,
 				t_token **cur, t_control **history)
 {
 	t_token		*tmp;
@@ -67,7 +67,7 @@ t_token			*check_word(t_token *list, t_token **cur, t_control **history)
 	return (list);
 }
 
-t_token			*check_pipe(t_token *list, t_token **cur)
+static t_token	*check_pipe(t_token *list, t_token **cur)
 {
 	t_token		*tmp;
 	t_token		*prev;
@@ -84,7 +84,7 @@ t_token			*check_pipe(t_token *list, t_token **cur)
 	return (list);
 }
 
-t_token			*check_sc(t_token *list, t_token **cur)
+static t_token	*check_sc(t_token *list, t_token **cur)
 {
 	t_token		*tmp;
 	t_token		*prev;

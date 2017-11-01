@@ -6,13 +6,13 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/10 17:54:51 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/31 14:13:17 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/01 15:41:01 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-int				isspecial(char c)
+static int		isspecial(char c)
 {
 	if (c == ';' || c == '|' || c == '&' || c == '<' || c == '>' || c == ' ')
 		return (0);
@@ -47,7 +47,7 @@ int				add_word(char *cmd, t_token **list)
 	return (i - 1);
 }
 
-int				add_pipe_or_word(char *cmd, t_token **list)
+static int		add_pipe_or_word(char *cmd, t_token **list)
 {
 	int		i;
 
@@ -62,7 +62,7 @@ int				add_pipe_or_word(char *cmd, t_token **list)
 	return (i);
 }
 
-void			check_type(char **cmd, t_token **list)
+static void		check_type(char **cmd, t_token **list)
 {
 	int		i;
 
