@@ -47,3 +47,13 @@ int			hist_event_not_found(t_bang **bang, int a)
 	ft_putendl(": event_not_found");
 	return (0);
 }
+
+int			tablen(char **tab)
+{
+	int		a;
+
+	a = 0;
+	while (tab[a])
+		a++;
+	return (a);
+}

@@ -131,5 +131,6 @@ int		error_unrecognized_hmod(t_bang **bang, char **test, int a);
 void	atoi_free(int *digit, char **test);
 int		return_cond(t_bang **bang, int a, t_lst *tmp);
 void	append_in_result(t_bang **bang, char *to_append);
+int		tablen(char **tab);
 
 #endif
