@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/03 19:10:40 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/23 16:07:03 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/01 13:48:04 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,35 @@ void		abort_redir(t_node *tree)
 	close_fd(tmp);
 }
 
+int			authorization_file(char *path, t_node *tree)
+{
+	struct stat		buf;
+
+	if (lstat(path, &buf) == -1)
+	{
+		ft_putstr_fd("42sh: permission denied: ", 2);
+		ft_putendl_fd(path, 2);
+		return (-2);
+	}
+	if (type_redir(tree->token) == 1)
+	{
+		if (S_ISDIR(buf.st_mode))
+		{
+			ft_putstr_fd("42sh: is a directory: ", 2);
+			ft_putendl_fd(path, 2);
+			return (-1);
+		}
+	}
+	return (0);
+}
+
 char		*check_file(char *file, t_node *tree)
 {
 	int		error;
 	int		i;
 
-	error = 0;
 	i = len_io(tree->token);
+	error = 0;
 	if (file && access(file, F_OK) != -1)
 	{
 		if (((tree->token)[i] == '>') && access(file, W_OK) == -1)
@@ -65,7 +87,7 @@ char		*check_file(char *file, t_node *tree)
 				&& access(file, R_OK) == -1)
 			error = print_error(1, file);
 	}
-	if (error == 1)
+	if (error || authorization_file(file, tree) < 0)
 	{
 		abort_redir(tree);
 		ft_strdel(&file);
@@ -90,7 +112,7 @@ int			open_file(t_node *tree)
 		O_WRONLY | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	else if ((tree->token)[i] == '>')
 		fd = open(file,
-		O_WRONLY | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+		O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	else if ((tree->token)[i] == '<' && (tree->token)[i + 1] != '<')
 		fd = open(file, O_RDONLY);
 	ft_strdel(&file);
