@@ -12,76 +12,60 @@
 
 #include "shell.h"
 
-int			find_d_dots(char *command, int a)
+void		is_quote(t_bang **bang)
 {
-	while (command && command[a] && command[a] != ' ')
-	{
-		if (command && command[a] && command[a] == ':')
-			return (a);
-		a++;
-	}
+	if ((*bang)->quotes == 0)
+		(*bang)->quotes = 1;
+	else if ((*bang)->quotes == 1)
+		(*bang)->quotes = 0;
+	((*bang)->index)++;
+}
+
+int			error_unrecognized_hmod(t_bang **bang, char **test, int a)
+{
+	ft_putstr("shell: ");
+	ft_putstr(&(*bang)->command[a]);
+	ft_putendl(": unrecognized history modifier");
+	ft_strdel(test);
 	return (0);
 }
 
-int			tablen(char **str)
+int			error_bad_wspec(int digit, char ***splitted)
 {
-	int		a;
-
-	a = 0;
-	while (str[a])
-		a++;
-	return (a);
+	ft_putstr("shell: :");
+	ft_putnbr(digit);
+	ft_putendl(": bad word specifier");
+	digit = 0;
+	while ((*splitted)[digit])
+	{
+		ft_strdel(&(*splitted)[digit]);
+		digit++;
+	}
+	free(*splitted);
+	return (0);
 }
 
-int			modified_atoi(char *str)
+int			malloc_struct_bang(t_bang **bang, char *command)
 {
-	int		a;
-	char	*tmp;
-
-	if (!(tmp = ft_memalloc(1)))
+	if (!((*bang) = ft_memalloc(sizeof(t_bang))))
 		return (0);
-	a = 0;
-	while (!(ft_isdigit(str[a])))
-		a++;
-	while (ft_isdigit(str[a]))
-	{
-		tmp = ft_str_chr_cat(tmp, str[a]);
-		a++;
-	}
-	a = ft_atoi(tmp);
-	ft_strdel(&tmp);
-	return (a);
+	if (!((*bang)->result = ft_memalloc(1)))
+		return (0);
+	if (!((*bang)->to_append = ft_memalloc(1)))
+		return (0);
+	if (((*bang)->command = ft_strdup(command)) == NULL)
+		return (0);
+	(*bang)->index = 0;
+	(*bang)->len = ft_strlen(command);
+	(*bang)->quotes = 0;
+	return (1);
 }
 
-int			return_error(char *command, int index, int type)
+void		free_struct_bang(t_bang **bang)
 {
-	if (type == 1)
-	{
-		ft_putstr("shell: ");
-		ft_putchar(command[index + 1]);
-		ft_putendl(": bad word specifier");
-	}
-	else if (type == 2)
-	{
-		ft_putstr("shell: ");
-		ft_putchar(command[index + 1]);
-		ft_putendl(": unrecognized history modifier");
-	}
-	return (2);
-}
-
-void		set_error(int a, char *command)
-{
-	int		b;
-
-	b = 0;
-	if (a == 1)
-		ft_putendl_fd("shell: syntax error near unexpected token `newline'", 2);
-	else if (a == 2)
-	{
-		isatty(0) ? ft_putstr("shell : s:") : 0;
-		while (command[b] && command[b] != ' ')
-			isatty(0) ? ft_putchar(command[b++]) : 0;
-		ft_putendl_fd(": substitution failed", 2);
-	}
+	ft_strdel(&(*bang)->result);
+	ft_strdel(&(*bang)->to_append);
+	ft_strdel(&(*bang)->command);
+	free(*bang);
+	bang = NULL;
 }
