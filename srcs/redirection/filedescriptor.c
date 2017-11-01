@@ -6,13 +6,13 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 13:13:22 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/30 11:25:36 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/01 17:08:24 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-t_node		*mark_fd(t_node *tree)
+static t_node		*mark_fd(t_node *tree)
 {
 	t_node		*tmp;
 	int			type;
@@ -34,7 +34,7 @@ t_node		*mark_fd(t_node *tree)
 	return (tmp);
 }
 
-void		close_fd(t_node *tree)
+void				close_fd(t_node *tree)
 {
 	int		i;
 
@@ -54,7 +54,7 @@ void		close_fd(t_node *tree)
 	}
 }
 
-int			prep_fd(t_node *tree)
+int					prep_fd(t_node *tree)
 {
 	if (do_redir(tree) == -1)
 		return (-1);
@@ -65,7 +65,7 @@ int			prep_fd(t_node *tree)
 	return (1);
 }
 
-int			manage_fd(t_node *tree)
+int					manage_fd(t_node *tree)
 {
 	t_node		*tmp;
 	int			i;

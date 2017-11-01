@@ -6,13 +6,13 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/02 17:55:21 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/26 13:34:08 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/01 17:10:44 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-char	*extra_checkstr_pipe(char *str)
+static char		*extra_checkstr_pipe(char *str)
 {
 	str += 2;
 	while (*str || *str == ' ' || *str == '\n' || *str == '\t')
@@ -20,7 +20,7 @@ char	*extra_checkstr_pipe(char *str)
 	return (str);
 }
 
-int		checkstr_pipe(char *cmd)
+int				checkstr_pipe(char *cmd)
 {
 	char		*str;
 
