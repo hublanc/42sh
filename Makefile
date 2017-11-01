@@ -6,7 +6,7 @@
 #    By: hublanc <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/07/24 15:04:09 by hublanc           #+#    #+#              #
-#    Updated: 2017/11/01 09:45:31 by lbopp            ###   ########.fr        #
+#    Updated: 2017/11/01 10:43:05 by lbopp            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,6 +57,7 @@ SRC		=	main.c\
 			lexer/node.c\
 			lexer/extra_lexer.c\
 			lexer/substitution.c\
+			lexer/add_handspace.c\
 			redirection/filedescriptor.c\
 			redirection/file.c\
 			redirection/pipe.c\

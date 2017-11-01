@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/10 11:55:10 by lbopp             #+#    #+#             */
-/*   Updated: 2017/10/31 15:17:10 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/01 10:03:23 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	clear_last_slash(char **path)
 
 	tmp = *path;
 	i = ft_strlen(*path);
-	while (i > 0 && tmp[i - 1] == '/')
+	while (i > 0 && tmp[i - 1] == '/' && ft_strcmp(tmp, "/"))
 		i--;
 	*path = ft_strsub(*path, 0, i);
 	ft_strdel(&tmp);
