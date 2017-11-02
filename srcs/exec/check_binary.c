@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/28 15:49:45 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/01 15:22:39 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/02 14:33:45 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,21 @@ char		**get_bin(char **env, int pos)
 	return (dup);
 }
 
+static int	check_isdir(char *str)
+{
+	struct stat		buf;
+
+	lstat(str, &buf);
+	if (S_ISDIR(buf.st_mode))
+	{
+		ft_putstr_fd("42sh: ", 2);
+		ft_putstr_fd(str, 2);
+		ft_putstr_fd(": is a directory\n", 2);
+		return (-3);
+	}
+	return (check_access(str));
+}
+
 static int	find_binary(char **args, char **env, char **cmd)
 {
 	char		**bin;
@@ -34,7 +49,7 @@ static int	find_binary(char **args, char **env, char **cmd)
 	access = 0;
 	i = 0;
 	if (ft_strchr(args[0], '/'))
-		return (check_access(args[0]));
+		return (check_isdir(args[0]));
 	else if (is_in_htable(args[0], cmd))
 		return (check_access(*cmd));
 	bin = get_bin(env, in_env("PATH", env));
@@ -73,7 +88,7 @@ int			check_binary(char **args, char **env, char **cmd)
 	}
 	if (ret == -1 || ret == 0)
 		return (127);
-	else if (ret == -2)
+	else if (ret == -2 || ret == -3)
 		return (126);
 	else if (ret == 1)
 		add_hash_table(*cmd, args[0]);
