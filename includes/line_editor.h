@@ -164,5 +164,6 @@ t_lst				*while_handler(char *buf, char **search,
 int					return_handler(t_lst *tmp, char *buf, char **search,
 					char **str);
 void				init_hist_search(char **search, t_lst **tmp);
+int					return_sigint(char **to_del, char *to_save);
 
 #endif

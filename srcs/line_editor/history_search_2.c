@@ -32,3 +32,10 @@ void		init_hist_search(char **search, t_lst **tmp)
 	ft_strclr(*search);
 	set_search_prompt(NULL, NULL, 0);
 }
+
+int			return_sigint(char **to_del, char *to_save)
+{
+	ft_strdel(to_del);
+	save_buf(to_save);
+	return (0);
+}
