@@ -80,14 +80,8 @@ int			word_designator(t_bang **bang, int a)
 		if (!(chevron_designator(bang, splitted)))
 			return (0);
 	}
-	digit = 0;
-	while (splitted[digit])
-	{
-		ft_strdel(&(splitted[digit]));
-		digit++;
-	}
+	del_tabstr(&splitted);
 	(void)a;
-	free(splitted);
 	return (1);
 }
 

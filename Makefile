@@ -43,6 +43,7 @@ SRC		=	main.c\
 			line_editor/event_designators_2.c\
 			line_editor/event_designators_3.c\
 			line_editor/event_designators_4.c\
+			line_editor/event_designators_5.c\
 			exec/exec.c\
 			exec/check_binary.c\
 			exec/ft_cmdsplit.c\

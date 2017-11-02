@@ -24,4 +24,3 @@ char		which_char_after_digit(t_bang **bang)
 		i++;
 	return ((*bang)->command[i]);
 }
-
