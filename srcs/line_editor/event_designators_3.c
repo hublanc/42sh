@@ -25,6 +25,9 @@ int			get_elem_arg(t_bang **bang, int a)
 		|| (*bang)->command[(*bang)->index] == '*'
 		|| (*bang)->command[(*bang)->index] == '^'))
 		return (word_designator(bang, a));
+	else if (which_char_after_digit(bang)
+		&& which_char_after_digit(bang) != ' ')
+		return (get_elem_arg_3(bang, a));
 	else if (!(get_elem_arg_2(bang, a, &digit)))
 		return (0);
 	splitted = ft_cmdsplit((*bang)->to_append);
