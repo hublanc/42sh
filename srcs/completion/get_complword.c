@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/02 10:12:17 by amazurie          #+#    #+#             */
-/*   Updated: 2017/11/02 10:13:42 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/02 12:08:52 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,13 +73,13 @@ void		compl_cmp(t_compl *compl, char **word)
 				ft_strlen(compl->path)) || (*word)[0] != compl->path[0])
 		return (compl_cmpdol(compl, word));
 	if ((*word)[0] == '.' && (!(*word)[1] || ((*word)[1] != '.'
-					&& (*word)[1] != '/' && !(*word)[2])))
+					&& (*word)[1] != '/')))
 		compl->isdot = 1;
 	if (compl->isdot || (*word)[ft_strlen(*word) - 1] == '/')
 		compl->isslash = 1;
 	compl->isstar = (compl->isstar == 3) ? 2 : 0;
 	i = ft_strlen(*word) - 1;
-	while (i > 0 && (*word)[i] != '/')
+	while (i > 0 && ((*word)[i] != '/' || (*word)[i] != '.' || (*word)[i - 1] == '\\'))
 		i--;
 	((*word)[i] == '/') ? i++ : 0;
 	if (!(*word)[i] || (!compl->isdot && i <= 0))

@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 09:54:57 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/31 17:11:24 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/02 12:02:59 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ static void	check_bslash(t_compl *compl, t_cmd *cmd)
 	j = ft_strlen(compl->path);
 	while (compl->path && i < j && compl->path[++i])
 		if (compl->path[i] == '\\' && (compl->path[i + 1] == ' '
-			|| compl->path[i + 1] == '\\') && i < j)
-			ssupprchr(&(compl->path), i++);
+			|| compl->path[i + 1] == '\\'))
+			ssupprchr(&(compl->path), i);
 }
 
 static void	init_compl(t_compl *compl, t_cmd *cmd)
