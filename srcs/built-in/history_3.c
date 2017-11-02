@@ -29,6 +29,12 @@ void		delete_elem_hist(int index, t_control **history)
 		free(tmp->name);
 	if (tmp)
 		free(tmp);
+	((*history)->length)--;
+	if ((*history)->length < 1)
+	{
+		free(*history);
+		(*history) = NULL;
+	}
 }
 
 void		delete_elem_hist_2(t_lst *tmp, t_control **history)

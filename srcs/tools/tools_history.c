@@ -16,16 +16,19 @@ t_lst		*seek_next_select(t_control **list)
 {
 	t_lst		*tmp;
 
+	tmp = NULL;
+	if (!(*list) || ((*list) && (*list)->length < 1))
+		return (NULL);
 	tmp = (*list)->begin;
 	while (tmp)
 	{
-		if (tmp->selected == 1 && tmp->next)
+		if (tmp && tmp->selected == 1 && tmp->next)
 		{
 			tmp->selected = 0;
 			tmp->next->selected = 1;
 			return (tmp->next);
 		}
-		else if (tmp->selected == 1 && !tmp->next)
+		else if (tmp && tmp->selected == 1 && !tmp->next)
 			return (tmp);
 		tmp = tmp->next;
 	}
