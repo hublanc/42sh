@@ -40,35 +40,6 @@ DIR			*check_open(t_compl *compl)
 	return (dirp);
 }
 
-static void	compl_cmp(t_compl *compl, char **word)
-{
-	int	i;
-
-	if (!*word || !(*word)[0] || !compl->path || ft_strncmp(compl->path, *word,
-				ft_strlen(compl->path)) || (*word)[0] != compl->path[0])
-		return ;
-	if ((*word)[0] == '.' && (!(*word)[1] || ((*word)[1] != '.'
-					&& (*word)[1] != '/' && !(*word)[2])))
-		compl->isdot = 1;
-	if (compl->isdot || (*word)[ft_strlen(*word) - 1] == '/')
-		compl->isslash = 1;
-	compl->isstar = (compl->isstar == 3) ? 2 : 0;
-	i = ft_strlen(*word) - 1;
-	while (i > 0 && (*word)[i] != '/')
-		i--;
-	((*word)[i] == '/') ? i++ : 0;
-	if (!(*word)[i] || (!compl->isdot && i <= 0))
-	{
-		free(*word);
-		*word = NULL;
-	}
-	else if (!compl->isdot && i > 0 && (compl->isslash = 1))
-	{
-		ft_memmove(*word, *word + i, ft_strlen(*word + i));
-		ft_bzero(*word + ft_strlen(*word) - i, i);
-	}
-}
-
 void		list_content(t_compl *compl, t_cmd *cmd)
 {
 	DIR			*dirp;

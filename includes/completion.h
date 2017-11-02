@@ -52,6 +52,7 @@ void				compl_addline(t_cmd *cmd, t_compl *compl);
 ** get_complword.c
 */
 char				*get_path(t_cmd *cmd);
+void				compl_cmp(t_compl *compl, char **word);
 
 /*
 ** list_args.c
@@ -66,6 +67,7 @@ void				get_args(t_compl *compl, char **paths);
 int					get_files(t_compl *compl, DIR *dirp,
 					t_coargs **ar, int *fd);
 int					new_complarg(t_coargs **args);
+char				*add_backback(char *name);
 
 /*
 **	get_locenv.c

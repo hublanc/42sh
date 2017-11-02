@@ -40,7 +40,8 @@ static void	check_bslash(t_compl *compl, t_cmd *cmd)
 	}
 	j = ft_strlen(compl->path);
 	while (compl->path && i < j && compl->path[++i])
-		if (compl->path[i] == '\\' && i < j)
+		if (compl->path[i] == '\\' && (compl->path[i + 1] == ' '
+			|| compl->path[i + 1] == '\\') && i < j)
 			ssupprchr(&(compl->path), i++);
 }
 
@@ -65,12 +66,19 @@ static void	init_compl(t_compl *compl, t_cmd *cmd)
 
 static void	reslash(t_compl *compl)
 {
+	char	*tmp2;
 	char	*tmp;
 
 	if (!compl || !compl->arg)
 		return ;
-	tmp = (compl->path && compl->path[ft_strlen(compl->path)] == '\\') ?
-		ft_strjoin(add_handspace(compl->arg), "\\") : add_handspace(compl->arg);
+	if (compl->path && compl->path[ft_strlen(compl->path)] == '\\')
+		tmp = ft_strjoin(add_handspace(compl->arg), "\\");
+	else
+	{
+		tmp2 = add_handspace(compl->arg);
+		tmp = add_backback(tmp2);
+		free(tmp2);
+	}
 	free(compl->arg);
 	compl->arg = tmp;
 }
