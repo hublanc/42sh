@@ -6,16 +6,28 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/05 14:47:20 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/27 13:04:28 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/02 13:22:17 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-static t_loc	*saved_loc(void)
+t_loc		*saved_loc(int i)
 {
 	static t_loc	*loc = NULL;
+	t_loc			*loctmp;
 
+	if (i)
+	{
+		while (loc)
+		{
+			loctmp = loc->next;
+			loc->name ? free(loc->name) : 0;
+			loc->value ? free(loc->value) : 0;
+			free(loc);
+			loc = loctmp;
+		}
+	}
 	if (!loc)
 	{
 		if (!(loc = (t_loc *)ft_memalloc(sizeof(t_loc))))
@@ -61,7 +73,7 @@ void			add_loc(char *name, char *val)
 		loc->value = ft_strdup(val);
 		return ;
 	}
-	if (!(loc = saved_loc()))
+	if (!(loc = saved_loc(0)))
 		return ;
 	while (loc->next && loc->name && ft_strcmp(loc->name, name))
 		loc = loc->next;
@@ -83,7 +95,7 @@ void			suppr_loc(char *name)
 	t_loc	*loc;
 	t_loc	*loctmp;
 
-	if (!(loc = saved_loc()) || !loc->name)
+	if (!(loc = saved_loc(0)) || !loc->name)
 		return ;
 	loctmp = NULL;
 	while (loc && loc->name && ft_strcmp(loc->name, name) && (loctmp = loc))
@@ -110,7 +122,7 @@ t_loc			*get_loc(char *name)
 {
 	t_loc	*loc;
 
-	if (!(loc = saved_loc()))
+	if (!(loc = saved_loc(0)))
 		return (NULL);
 	while (loc && loc->name && name && ft_strcmp(loc->name, name))
 		loc = loc->next;
