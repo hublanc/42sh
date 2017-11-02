@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 16:36:09 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/02 10:26:38 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/02 10:37:31 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,44 +165,4 @@ int					return_handler(t_lst *tmp, char *buf, char **search,
 					char **str);
 void				init_hist_search(char **search, t_lst **tmp);
 
-
-/*
-**	word_designators.c
-
-
-char				*wd_designator(char *command, t_control **history);
-int					wd_designator_2(char *command, int *a, char **result,
-					t_control **history);
-int					wd_designator_3(char *command, int *a, char **result,
-					t_control **history);
-int					wd_designator_4(char *command, int *a, char **result,
-					t_control **history);
-int					wd_designator_5(char *command, int *a, char **result,
-					t_control **history);
-int					wd_designator_6(char *command);
-int					get_d_bang(char *command, int *a, char **result,
-					t_control **history);
-int					get_n_first(char *command, int *a, char **result,
-					t_control **history);
-int					get_n_first_2(char *command, int *a, char **str,
-					char **result);
-int					get_n_last(char *command, int *a, char **result,
-					t_control **history);
-int					get_n_last_2(char *command, int *a, char **str,
-					char **result);
-int					get_n_last_3(int nb, int *a, char **str);
-int					get_c_first(char *command, int *a, char **result,
-					t_control **history);
-int					get_tmp_cfirst(t_lst **tmp, char *test, char **str);
-int					get_c_first_2(char *command, int *a, char **str,
-					char **result);
-void				get_c_first_3(char **test, char *command, int *a, int b);
-int					get_c_first_check_history(t_control **history, char **str,
-					char **test);
-
-void				modify_quotes(int *sq, char c, int *a);
-void				d_dots_found(char *command, char **str, int b);
-void				append_str(char *to_cpy, char **str);
-int					get_tmp_lst(t_lst **tmp, int b, int nb, char **str);
-*/
 #endif
