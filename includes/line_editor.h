@@ -71,6 +71,7 @@ void				key_handler(t_cmd *cmd, t_control **history, char ***env);
 void				key_handler_sigint(t_cmd *cmd,
 					t_control **history, char ***env, char **buf);
 char				*save_buf(char *buf);
+int					return_void(t_cmd *cmd, t_control **history, char ***env);
 
 /*
 **	line_edit.c
