@@ -34,7 +34,7 @@ int			get_n_first(t_bang **bang, t_control **history, int a)
 	char	*test;
 	t_lst	*tmp;
 
-	test = ft_memalloc(1);
+	test = NULL;
 	while ((*bang)->index < (*bang)->len && (*bang)->command[(*bang)->index]
 		&& (*bang)->command[(*bang)->index] != ' '
 		&& (*bang)->command[(*bang)->index] != ':')
@@ -61,7 +61,7 @@ int			get_n_last(t_bang **bang, t_control **history, int a)
 	t_lst	*tmp;
 
 	((*bang)->index)++;
-	test = ft_memalloc(1);
+	test = NULL;
 	while ((*bang)->index < (*bang)->len && (*bang)->command[(*bang)->index]
 		&& (*bang)->command[(*bang)->index] != ' '
 		&& (*bang)->command[(*bang)->index] != ':')
@@ -86,7 +86,7 @@ int			get_c_last(t_bang **bang, t_control **history, int a)
 	char	*test;
 	t_lst	*tmp;
 
-	test = ft_memalloc(1);
+	test = NULL;
 	while ((*bang)->index < (*bang)->len && (*bang)->command[(*bang)->index]
 		&& (*bang)->command[(*bang)->index] != ' '
 		&& (*bang)->command[(*bang)->index] != ':')
