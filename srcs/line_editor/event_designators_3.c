@@ -39,7 +39,7 @@ int			get_elem_arg_2(t_bang **bang, int a, int *digit)
 {
 	char		*test;
 
-	test = ft_memalloc(1);
+	test = NULL;
 	while ((*bang)->index < (*bang)->len && (*bang)->command[(*bang)->index]
 		&& (*bang)->command[(*bang)->index] != ' ')
 	{
