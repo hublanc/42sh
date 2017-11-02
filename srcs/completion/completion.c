@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 09:54:57 by amazurie          #+#    #+#             */
-/*   Updated: 2017/11/02 12:02:59 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/02 13:00:41 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,24 @@ static void	check_bslash(t_compl *compl, t_cmd *cmd)
 	int	i;
 	int	j;
 
-	i = -1;
-	if (cmd->str && cmd->col - 2 - cmd->prlen >= 0
-			&& cmd->str[cmd->col - 2 - cmd->prlen] == '\\')
+	if (cmd->str && cmd->col - 2 - cmd->prlen >= 0)
 	{
-		cmd->str = ft_strdelone(cmd->str, (cmd->col - 1) - cmd->prlen);
-		print_line(cmd);
-		go_left(cmd);
+		j = 0;
+		while (cmd->col - (j + 2) - cmd->prlen >= 0 &&
+				cmd->str[cmd->col - (j + 2) - cmd->prlen] == '\\')
+			j++;
+		if (j && j % 2)
+		{
+			cmd->str = ft_strdelone(cmd->str, (cmd->col - 1) - cmd->prlen);
+			print_line(cmd);
+			go_left(cmd);
+		}
 	}
+	i = -1;
 	j = ft_strlen(compl->path);
 	while (compl->path && i < j && compl->path[++i])
 		if (compl->path[i] == '\\' && (compl->path[i + 1] == ' '
-			|| compl->path[i + 1] == '\\'))
+					|| compl->path[i + 1] == '\\' || !compl->path[i + 1]))
 			ssupprchr(&(compl->path), i);
 }
 

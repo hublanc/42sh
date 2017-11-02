@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/02 10:12:17 by amazurie          #+#    #+#             */
-/*   Updated: 2017/11/02 12:08:52 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/02 12:16:21 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void		compl_cmp(t_compl *compl, char **word)
 		compl->isslash = 1;
 	compl->isstar = (compl->isstar == 3) ? 2 : 0;
 	i = ft_strlen(*word) - 1;
-	while (i > 0 && ((*word)[i] != '/' || (*word)[i] != '.' || (*word)[i - 1] == '\\'))
+	while (i > 0 && ((*word)[i] != '/' || (*word)[i - 1] == '\\'))
 		i--;
 	((*word)[i] == '/') ? i++ : 0;
 	if (!(*word)[i] || (!compl->isdot && i <= 0))
