@@ -49,7 +49,7 @@ void		change_cmd(char *new, t_cmd *cmd)
 		ft_putstr(cmd->prompt);
 	else
 		print_prompt();
-	ft_putstr(new);
+	ft_putstr_fd(new, 2);
 	cmd->col = ft_strlen(new) + cmd->prlen + 1;
 	ft_strdel(&(cmd->str));
 	cmd->str = ft_strdup(new);
