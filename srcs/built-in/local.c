@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/05 14:47:20 by amazurie          #+#    #+#             */
-/*   Updated: 2017/11/02 14:18:03 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/02 14:55:24 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void			add_loc(char *name, char *val)
 		return ;
 	if ((loc = get_loc(name)))
 	{
-		(loc->value) ? free(loc->value) : 0;
+		loc->value ? free(loc->value) : 0;
 		loc->value = ft_strdup(val);
 		return ;
 	}
@@ -103,17 +103,16 @@ void			suppr_loc(char *name)
 		return ;
 	if (!loctmp)
 	{
-		loctmp = loc;
-		(loctmp->name) ? free(loctmp->name) : 0;
-		(loctmp->value) ? free(loctmp->value) : 0;
-		loctmp->name = NULL;
-		loctmp->value = NULL;
-		(loc->next) ? loc = loc->next : 0;
+		loc->name ? free(loc->name) : 0;
+		loc->value ? free(loc->value) : 0;
+		loc->name = NULL;
+		loc->value = NULL;
+		loc->next ? loc = loc->next : 0;
 		return ;
 	}
+	loc->name ? free(loc->name) : 0;
+	loc->value ? free(loc->value) : 0;
 	loctmp->next = loc->next;
-	(loc->name) ? free(loc->name) : 0;
-	(loc->value) ? free(loc->value) : 0;
 	free(loc);
 }
 
