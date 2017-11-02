@@ -22,7 +22,8 @@ int			get_elem_arg(t_bang **bang, int a)
 	((*bang)->index)++;
 	if ((*bang)->index < (*bang)->len && (*bang)->command[(*bang)->index]
 		&& ((*bang)->command[(*bang)->index] == '$'
-		|| (*bang)->command[(*bang)->index] == '*'))
+		|| (*bang)->command[(*bang)->index] == '*'
+		|| (*bang)->command[(*bang)->index] == '^'))
 		return (word_designator(bang, a));
 	else if (!(get_elem_arg_2(bang, a, &digit)))
 		return (0);
@@ -71,6 +72,11 @@ int			word_designator(t_bang **bang, int a)
 		dollar_designator(bang, splitted, digit);
 	else if ((*bang)->command[(*bang)->index] == '*')
 		star_designator(bang, splitted);
+	else if ((*bang)->command[(*bang)->index] == '^')
+	{
+		if (!(chevron_designator(bang, splitted)))
+			return (0);
+	}
 	digit = 0;
 	while (splitted[digit])
 	{
