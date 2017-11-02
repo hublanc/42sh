@@ -24,7 +24,8 @@ int			get_double_bang(t_bang **bang, t_control **history, int a)
 	((*bang)->index)++;
 	while ((*bang)->index < (*bang)->len && (*bang)->command[(*bang)->index]
 		&& (*bang)->command[(*bang)->index] != ' '
-		&& (*bang)->command[(*bang)->index] != ':')
+		&& (*bang)->command[(*bang)->index] != ':'
+		&& (*bang)->command[(*bang)->index] != '!')
 	{
 		(*bang)->to_append = ft_str_chr_cat((*bang)->to_append,
 			(*bang)->command[(*bang)->index]);
