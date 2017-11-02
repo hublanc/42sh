@@ -40,25 +40,24 @@ int		get_elem_arg_3(t_bang **bang, int a)
 int		hyphen_designator(t_bang **bang, int a)
 {
 	int		first_digit;
-	(void)a;
 
+	(void)a;
 	first_digit = get_first_digit(bang);
 	if ((*bang)->index + 1 < (*bang)->len && (*bang)->command[(*bang)->index]
 		&& (*bang)->command[(*bang)->index + 1]
 		&& ft_isdigit((*bang)->command[(*bang)->index + 1]))
-		return (digit_hyphen_digit_designator(bang, a, first_digit));
+		return (digit_hyphen_digit_designator(bang, first_digit));
 	else
 		return (digit_dollar_designator(bang, a, first_digit));
 	return (1);
 }
 
-int		digit_hyphen_digit_designator(t_bang **bang, int a, int digit)
+int		digit_hyphen_digit_designator(t_bang **bang, int digit)
 {
 	int		second_digit;
 	char	**splitted;
 	int		j;
 
-	(void)a;
 	((*bang)->index)++;
 	second_digit = get_first_digit(bang);
 	splitted = ft_cmdsplit((*bang)->to_append);
@@ -71,7 +70,8 @@ int		digit_hyphen_digit_designator(t_bang **bang, int a, int digit)
 		j = 0;
 		while (splitted[digit][j])
 		{
-			(*bang)->result = ft_str_chr_cat((*bang)->result, splitted[digit][j]);
+			(*bang)->result = ft_str_chr_cat((*bang)->result,
+				splitted[digit][j]);
 			j++;
 		}
 		(*bang)->result = ft_str_chr_cat((*bang)->result, ' ');
@@ -96,54 +96,4 @@ int		get_first_digit(t_bang **bang)
 	digit = ft_atoi(test);
 	ft_strdel(&test);
 	return (digit);
-}
-
-int		digit_dollar_designator(t_bang **bang, int a, int digit)
-{
-	int		j;
-	char	**splitted;
-
-	(void)a;
-	splitted = ft_cmdsplit((*bang)->to_append);
-	if (digit > tablen(splitted))
-		return (error_bad_wspec(digit, &splitted));
-	while (digit < tablen(splitted) - 1 && splitted[digit])
-	{
-		j = 0;
-		while (splitted[digit][j])
-		{
-			(*bang)->result = ft_str_chr_cat((*bang)->result, splitted[digit][j]);
-			j++;
-		}
-		(*bang)->result = ft_str_chr_cat((*bang)->result, ' ');
-		digit++;
-	}
-	del_tabstr(&splitted);
-	return (1);
-}
-
-int		digit_star_designator(t_bang **bang, int a)
-{
-	int		digit;
-	int		j;
-	char	**splitted;
-
-	(void)a;
-	digit = get_first_digit(bang);
-	splitted = ft_cmdsplit((*bang)->to_append);
-	if (digit > tablen(splitted))
-		return (error_bad_wspec(digit, &splitted));
-	while (splitted[digit])
-	{
-		j = 0;
-		while (splitted[digit][j])
-		{
-			(*bang)->result = ft_str_chr_cat((*bang)->result, splitted[digit][j]);
-			j++;
-		}
-		(*bang)->result = ft_str_chr_cat((*bang)->result, ' ');
-		digit++;
-	}
-	del_tabstr(&splitted);
-	return (1);
 }

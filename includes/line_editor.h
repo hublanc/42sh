@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+f/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   line_editor.h                                      :+:      :+:    :+:   */
@@ -69,7 +69,7 @@ int					digit_star_designator(t_bang **bang, int a);
 int					get_first_digit(t_bang **bang);
 int					hyphen_designator(t_bang **bang, int a);
 int					digit_dollar_designator(t_bang **bang, int a, int digit);
-int					digit_hyphen_digit_designator(t_bang **bang, int a, int digit);
+int					digit_hyphen_digit_designator(t_bang **bang, int digit);
 
 /*
 **	Keys.c
