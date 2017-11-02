@@ -60,10 +60,16 @@ int					get_c_last(t_bang **bang, t_control **history, int a);
 
 int					get_elem_arg(t_bang **bang, int a);
 int					get_elem_arg_2(t_bang **bang, int a, int *digit);
+int					get_elem_arg_3(t_bang **bang, int a);
 int					word_designator(t_bang **bang, int a);
 void				dollar_designator(t_bang **bang, char **split, int digit);
 void				star_designator(t_bang **bang, char **splitted);
 int					chevron_designator(t_bang **bang, char **splitted);
+int					digit_star_designator(t_bang **bang, int a);
+int					get_first_digit(t_bang **bang);
+int					hyphen_designator(t_bang **bang, int a);
+int					digit_dollar_designator(t_bang **bang, int a, int digit);
+int					digit_hyphen_digit_designator(t_bang **bang, int a, int digit);
 
 /*
 **	Keys.c
