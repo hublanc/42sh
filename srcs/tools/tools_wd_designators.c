@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/31 16:19:22 by mameyer           #+#    #+#             */
-/*   Updated: 2017/11/01 11:08:48 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/02 13:32:03 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,8 @@ int			malloc_struct_bang(t_bang **bang, char *command)
 {
 	if (!((*bang) = ft_memalloc(sizeof(t_bang))))
 		return (0);
-	if (!((*bang)->result = ft_memalloc(1)))
-		return (0);
-	if (!((*bang)->to_append = ft_memalloc(1)))
-		return (0);
+	(*bang)->result = NULL;
+	(*bang)->to_append = NULL;
 	if (((*bang)->command = ft_strdup(command)) == NULL)
 		return (0);
 	(*bang)->index = 0;
