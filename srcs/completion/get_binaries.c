@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 12:18:48 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/31 17:06:07 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/02 11:20:46 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ char		*add_backback(char *name)
 	i = -1;
 	j = 0;
 	while (name[++i])
-		if (name[i] == '\\')
+		if (name[i] == '\\' && name[i + 1] != ' ')
 			j++;
 	if (!(s = (char *)ft_memalloc(ft_strlen(name) + j + 1)))
 		return (NULL);
 	ft_strcat(s, name);
 	i = -1;
 	while (s[++i])
-		if (s[i] == '\\')
+		if (s[i] == '\\' && s[i + 1] != ' ')
 			saddchr(&s, '\\', i++);
 	return (s);
 }
