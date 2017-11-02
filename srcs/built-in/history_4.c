@@ -12,7 +12,7 @@
 
 #include "shell.h"
 
-void		get_cd_flags(t_hist_flags *flags, char **tab, int *args_pos)
+int			get_cd_flags(t_hist_flags *flags, char **tab, int *args_pos)
 {
 	int		i;
 	int		j;
@@ -25,16 +25,20 @@ void		get_cd_flags(t_hist_flags *flags, char **tab, int *args_pos)
 		{
 			j++;
 			while (tab[i] && tab[i][j])
-				get_cd_flags_2(flags, tab[i][j++]);
+			{
+				if (!(get_cd_flags_2(flags, tab[i][j++])))
+					return (0);
+			}
 		}
 		else if ((tab[i][j] && tab[i][j] == '-' && !(tab[i][j + 1])))
 			ft_putendl("shell: history: -: numeric argument required");
 		i++;
 	}
 	*args_pos = i;
+	return (1);
 }
 
-void		get_cd_flags_2(t_hist_flags *flags, char c)
+int			get_cd_flags_2(t_hist_flags *flags, char c)
 {
 	if (c == 'c')
 		flags->c = 1;
@@ -53,7 +57,11 @@ void		get_cd_flags_2(t_hist_flags *flags, char c)
 	else if (c == 's')
 		flags->s = 1;
 	else
+	{
 		set_usage(c, 0);
+		return (0);
+	}
+	return (1);
 }
 
 void		set_usage(char c, int type)

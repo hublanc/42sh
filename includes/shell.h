@@ -108,9 +108,9 @@ int					tputchar(int c);
 */
 
 void				init_cd_flags(t_hist_flags *flags);
-void				get_cd_flags(t_hist_flags *flags, char **tab,
+int					get_cd_flags(t_hist_flags *flags, char **tab,
 					int *args_pos);
-void				get_cd_flags_2(t_hist_flags *flags, char c);
+int					get_cd_flags_2(t_hist_flags *flags, char c);
 void				set_usage(char c, int type);
 void				print_history(t_control **history);
 int					get_num(int size);
