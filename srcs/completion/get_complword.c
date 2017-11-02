@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   completion.c                                       :+:      :+:    :+:   */
+/*   get_complword.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/09/19 09:54:57 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/31 17:11:24 by amazurie         ###   ########.fr       */
+/*   Created: 2017/11/02 10:12:17 by amazurie          #+#    #+#             */
+/*   Updated: 2017/11/02 10:13:42 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-static char	*check_complhome(t_cmd *cmd, char **word,  int i)
+static char	*check_complhome(t_cmd *cmd, char **word, int i)
 {
 	while (cmd->str[i] == ' ')
 		i++;
@@ -51,6 +51,8 @@ static void	compl_cmpdol(t_compl *compl, char **word)
 {
 	int	i;
 
+	if (!word || !*word || !(*word)[0])
+		return ;
 	i = ft_strlen(*word) - 1;
 	while (i > 0 && ((*word)[i] != '$' || (*word)[i - 1] == '\\'))
 		i--;
