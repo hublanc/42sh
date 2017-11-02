@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/05 14:47:20 by amazurie          #+#    #+#             */
-/*   Updated: 2017/11/02 13:32:29 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/02 14:18:03 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,7 @@ void			add_loc(char *name, char *val)
 		loc->value = ft_strdup(val);
 	if (!loc->name)
 		loc->name = ft_strdup(name);
-	if (!(loc->next = (t_loc *)ft_memalloc(sizeof(t_loc)))
-				&& !(loc->next = NULL))
+	if (!loc->next && (loc->next = (t_loc *)ft_memalloc(sizeof(t_loc))))
 		return ;
 	loc = loc->next;
 	loc->next = NULL;
