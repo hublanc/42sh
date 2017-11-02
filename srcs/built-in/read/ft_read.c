@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/02 14:08:53 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/01 17:33:10 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/02 13:14:22 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,17 @@ char		**prep_setenv(char *name, char *value)
 	return (tab);
 }
 
+static void	put_in_var(char **cmd, char **split, int *i)
+{
+	while (cmd[g_optind + 1])
+	{
+		if (split[*i])
+			add_loc(cmd[g_optind++], split[(*i)++]);
+		else
+			add_loc(cmd[g_optind++], NULL);
+	}
+}
+
 static int	read_put_in_var(char **cmd, char *readding)
 {
 	char	**split;
@@ -42,8 +53,7 @@ static int	read_put_in_var(char **cmd, char *readding)
 		return (0);
 	tmp = ft_strnew(0);
 	ft_putchar('\n');
-	while (cmd[g_optind + 1] && split[i])
-		add_loc(cmd[g_optind++], split[i++]);
+	put_in_var(cmd, split, &i);
 	while (split[i])
 	{
 		tmp = ft_strapp(tmp, split[i]);
