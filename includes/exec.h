@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 17:27:30 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/02 10:40:50 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/02 15:05:18 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ void				get_cmd(t_node *tree, char ***env, int *status,
 */
 int					check_binary(char **args, char **env, char **cmd);
 char				**get_bin(char **env, int pos);
+int					reset_status(void);
 
 /*
 **	Ft_cmdsplit.c

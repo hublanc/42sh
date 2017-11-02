@@ -6,11 +6,20 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/28 15:49:45 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/02 14:33:45 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/02 15:03:03 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
+
+int			reset_status(void)
+{
+	int			*status;
+
+	status = singleton_status();
+	*status = 0;
+	return (1);
+}
 
 char		**get_bin(char **env, int pos)
 {

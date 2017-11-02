@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/05 13:46:33 by amazurie          #+#    #+#             */
-/*   Updated: 2017/11/02 13:14:22 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/02 15:31:57 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ int			gest_loc(char **cmmd)
 		if (tab[1][i] == '"' && (i < 1 || tab[1][i - 1] != '\\'))
 			ssupprchr(&tab[1], i--);
 	add_loc(tab[0], tab[1]);
+	reset_status();
 	free(tab[1]);
 	free(tab[0]);
 	free(tab);
