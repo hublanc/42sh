@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/01 13:29:01 by mameyer           #+#    #+#             */
-/*   Updated: 2017/11/02 13:47:05 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/02 14:04:38 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ int			bang_events_3(t_bang **bang, t_control **history)
 			&& (*bang)->command[(*bang)->index] == '!')
 		{
 			ft_strdel(&(*bang)->to_append);
-			(*bang)->to_append = ft_memalloc(1);
 			if (!(get_elem_hist(bang, history)))
 				return (0);
 		}
