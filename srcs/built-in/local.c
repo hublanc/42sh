@@ -6,13 +6,13 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/05 14:47:20 by amazurie          #+#    #+#             */
-/*   Updated: 2017/11/02 13:25:11 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/02 13:32:29 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-t_loc		*saved_loc(int i)
+t_loc			*saved_loc(int i)
 {
 	static t_loc	*loc = NULL;
 	t_loc			*loctmp;
