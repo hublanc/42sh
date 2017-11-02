@@ -17,6 +17,13 @@ void		delete_elem_hist(int index, t_control **history)
 	t_lst		*tmp;
 	int			a;
 
+	if (index > (*history)->length || index <= 0)
+	{
+		ft_putstr("shell: history: ");
+		ft_putnbr(index);
+		ft_putendl(": history position out of range");
+		return ;
+	}
 	tmp = (*history)->end;
 	a = 1;
 	while (a < index && tmp != NULL)
@@ -25,10 +32,7 @@ void		delete_elem_hist(int index, t_control **history)
 		a++;
 	}
 	delete_elem_hist_2(tmp, history);
-	if (tmp && tmp->name)
-		free(tmp->name);
-	if (tmp)
-		free(tmp);
+	delete_elem(&tmp);
 	((*history)->length)--;
 	if ((*history)->length < 1)
 	{
