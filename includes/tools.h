@@ -59,6 +59,7 @@ void		seek_next(t_control **list, t_cmd *cmd);
 t_lst		*seek_prev_select(t_control **list);
 void		seek_prev(t_control **list, t_cmd *cmd);
 void		set_selected_null(t_control **history);
+void		delete_elem(t_lst **tmp);
 
 /*
 **	Tools_keys.c

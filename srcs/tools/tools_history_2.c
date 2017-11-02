@@ -83,3 +83,11 @@ int			return_void(t_cmd *cmd, t_control **history, char ***env)
 		print_prompt();
 	return (1);
 }
+
+void		delete_elem(t_lst **tmp)
+{
+	if (*tmp && (*tmp)->name)
+		ft_strdel(&(*tmp)->name);
+	if (*tmp)
+		free(*tmp);
+}
