@@ -63,6 +63,7 @@ int					get_elem_arg_2(t_bang **bang, int a, int *digit);
 int					word_designator(t_bang **bang, int a);
 void				dollar_designator(t_bang **bang, char **split, int digit);
 void				star_designator(t_bang **bang, char **splitted);
+int					chevron_designator(t_bang **bang, char **splitted);
 
 /*
 **	Keys.c
