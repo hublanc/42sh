@@ -49,10 +49,8 @@ int			malloc_struct_bang(t_bang **bang, char *command)
 {
 	if (!((*bang) = ft_memalloc(sizeof(t_bang))))
 		return (0);
-	if (!((*bang)->result = ft_memalloc(1)))
-		return (0);
-	if (!((*bang)->to_append = ft_memalloc(1)))
-		return (0);
+	(*bang)->result = NULL;
+	(*bang)->to_append = NULL;
 	if (((*bang)->command = ft_strdup(command)) == NULL)
 		return (0);
 	(*bang)->index = 0;

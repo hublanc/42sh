@@ -70,7 +70,6 @@ int			bang_events_3(t_bang **bang, t_control **history)
 			&& (*bang)->command[(*bang)->index] == '!')
 		{
 			ft_strdel(&(*bang)->to_append);
-			(*bang)->to_append = ft_memalloc(1);
 			if (!(get_elem_hist(bang, history)))
 				return (0);
 		}
