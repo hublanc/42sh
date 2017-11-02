@@ -28,8 +28,7 @@ int			history_search(t_control **history, char **str)
 		{
 			can_sigint(1);
 			is_sigint(1);
-			save_buf(buf);
-			return (0);
+			return (return_sigint(&search, buf));
 		}
 		if (ft_isprint(buf[0]) || (buf[0] == 127)
 			|| (buf[0] == 27 && tmp))
