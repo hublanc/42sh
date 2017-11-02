@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 16:36:09 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/01 12:27:18 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/02 10:26:38 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int					get_c_last(t_bang **bang, t_control **history, int a);
 int					get_elem_arg(t_bang **bang, int a);
 int					get_elem_arg_2(t_bang **bang, int a, int *digit);
 int					word_designator(t_bang **bang, int a);
-void				dollar_designator(t_bang **bang, char **splitted, int digit);
+void				dollar_designator(t_bang **bang, char **split, int digit);
 void				star_designator(t_bang **bang, char **splitted);
 
 /*
@@ -157,7 +157,6 @@ void				history_isatty(char *search);
 t_lst				*history_search_2(t_control **history, char *search);
 t_lst				*while_handler(char *buf, char **search,
 					t_control **history, t_lst *tmp);
-
 t_lst				*move_in_hist(t_lst *pos, char *buf, t_control **history);
 void				set_search_prompt(char *search, t_lst *tmp, int type);
 t_lst				*while_handler(char *buf, char **search,
@@ -165,7 +164,6 @@ t_lst				*while_handler(char *buf, char **search,
 int					return_handler(t_lst *tmp, char *buf, char **search,
 					char **str);
 void				init_hist_search(char **search, t_lst **tmp);
-
 
 
 /*
