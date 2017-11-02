@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/06 15:56:19 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/30 18:23:51 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/02 10:40:22 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ static char			*cmdsub(char *str, int *i, int len)
 	while (str[*i] && str[*i] != ' ' && j < len)
 	{
 		if (str[*i] == '\'' || str[*i] == '"')
-			add_quote_content(str, new, i, &j, len);
+			add_quote_content(str, new, i, &j);
 		else if (str[*i] == '\\')
 			new[j++] = str[((*i)++) + 1];
 		else
