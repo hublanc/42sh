@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/21 22:22:29 by mameyer           #+#    #+#             */
-/*   Updated: 2017/10/31 15:33:50 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/11/02 17:35:54 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void		get_cd_flags(t_hist_flags *flags, char **tab, int *args_pos)
 			j++;
 			while (tab[i] && tab[i][j])
 			{
-				if (tab[i][j])
+				if (tab[i][j])	//Ligne inutile vu que le verifie dans le while juste avant ;)
 					get_cd_flags_2(flags, tab[i][j]);
 				j++;
 			}
