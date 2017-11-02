@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/26 11:28:19 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/31 21:43:55 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/02 13:23:28 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ int			stop_shell(char ***env, char **tab, t_control **history)
 	}
 	if (*history)
 		*history = dll_clear_list(*history);
+	saved_loc(1);
 	reset_term();
 	exit(status > 255 ? status - 255 : status);
 }

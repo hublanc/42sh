@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/05 13:48:15 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/16 19:38:20 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/11/02 13:22:43 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int					gest_loc(char **cmmd);
 /*
 **	local.c
 */
+t_loc				*saved_loc(int i);
 void				add_loc(char *name, char *val);
 void				suppr_loc(char *name);
 t_loc				*get_loc(char *name);
