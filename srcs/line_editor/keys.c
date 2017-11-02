@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/31 12:52:57 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/01 12:26:45 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/02 10:42:34 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ void		key_handler(t_cmd *cmd, t_control **history, char ***env)
 	else if (i == -1)
 		return ;
 	if (buf[0] == 9 && !buf[1] && is_sigint(0) == 0)
-		while (buf[0] == 9 && !buf[1])
+		while (isatty(0) && buf[0] == 9 && !buf[1])
 			completion(cmd, env, &buf);
 	else if (buf[0] == 9 && !buf[1])
 		is_sigint(1);

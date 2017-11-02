@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/11 19:22:31 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/26 17:39:00 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/02 10:40:36 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ int			*singleton_status(void)
 	return (&status);
 }
 
-void		add_quote_content(char *str, char *new, int *i, int *j, int len)
+void		add_quote_content(char *str, char *new, int *i, int *j)
 {
 	char	c;
 
 	c = str[(*i)++];
-	while (str[*i] && str[*i] != c && *j < len)
+	while (str[*i] && str[*i] != c)
 	{
 		if (str[*i] == '\\' && str[*i + 1] && c == '"'
 			&& (str[*i + 1] == '"' || str[*i + 1] == '$'))
