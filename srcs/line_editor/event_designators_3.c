@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/01 23:13:56 by mameyer           #+#    #+#             */
-/*   Updated: 2017/11/01 23:13:57 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/11/02 13:34:26 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,7 @@ int			get_elem_arg(t_bang **bang, int a)
 		return (error_bad_wspec(digit, &splitted));
 	append_in_result(bang, splitted[digit]);
 	i = 0;
-	while (splitted[i])
-	{
-		ft_strdel(&splitted[i]);
-		i++;
-	}
-	free(splitted[i]);
+	del_tabstr(&splitted);
 	return (1);
 }
 
@@ -44,7 +39,7 @@ int			get_elem_arg_2(t_bang **bang, int a, int *digit)
 {
 	char		*test;
 
-	test = ft_memalloc(1);
+	test = NULL;
 	while ((*bang)->index < (*bang)->len && (*bang)->command[(*bang)->index]
 		&& (*bang)->command[(*bang)->index] != ' ')
 	{
