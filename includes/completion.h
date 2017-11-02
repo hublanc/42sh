@@ -49,6 +49,11 @@ void				completion(t_cmd *cmd, char ***env, char **buf);
 void				compl_addline(t_cmd *cmd, t_compl *compl);
 
 /*
+** get_complword.c
+*/
+char				*get_path(t_cmd *cmd);
+
+/*
 ** list_args.c
 */
 void				list_compl(t_compl *compl, t_cmd *cmd, char ***env,
