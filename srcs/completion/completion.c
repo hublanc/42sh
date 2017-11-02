@@ -25,44 +25,14 @@ static void	compl_issigint(int n)
 	signal(SIGINT, &get_signal);
 }
 
-static char	*get_path(t_cmd *cmd)
-{
-	char	*word;
-	int		i;
-
-	if (!cmd->str)
-		return (NULL);
-	word = NULL;
-	i = cmd->col - 1 - cmd->prlen;
-	while (cmd->str[i] && cmd->str[i] != '"' && cmd->str[i] != '\''
-			&& cmd->str[i] != '\'' && (cmd->str[i] != ' '
-			|| (i > 0 && cmd->str[i - 1] == '\\')) && (++i) > 0)
-		go_right(cmd);
-	i = cmd->col - 1 - cmd->prlen;
-	if (i > 0 && (cmd->str[i] == '"' || cmd->str[i] == '\''
-				|| cmd->str[i] == ' '))
-		i--;
-	while (i > 0 && cmd->str[i] != '"' && cmd->str[i] != '\''
-			&& (cmd->str[i] != ' ' || (i > 1 && cmd->str[i - 1] == '\\')))
-		i--;
-	if (cmd->str[i] == '"' || cmd->str[i] == '\'' || cmd->str[i] == ' ')
-		i++;
-	while (cmd->str[i] == ' ')
-		i++;
-	if (i > cmd->col - 1 - cmd->prlen)
-		return (NULL);
-	word = ft_strndup(cmd->str + i, cmd->col - 1 - cmd->prlen - i);
-	return (word);
-}
-
-static void	init_compl(t_compl *compl, t_cmd *cmd)
+static void	check_bslash(t_compl *compl, t_cmd *cmd)
 {
 	int	i;
 	int	j;
 
-	compl->path = get_path(cmd);
 	i = -1;
-	if (cmd->str && cmd->str[cmd->col - 2 - cmd->prlen] == '\\')
+	if (cmd->str && cmd->col - 2 - cmd->prlen >= 0
+			&& cmd->str[cmd->col - 2 - cmd->prlen] == '\\')
 	{
 		cmd->str = ft_strdelone(cmd->str, (cmd->col - 1) - cmd->prlen);
 		print_line(cmd);
@@ -70,8 +40,15 @@ static void	init_compl(t_compl *compl, t_cmd *cmd)
 	}
 	j = ft_strlen(compl->path);
 	while (compl->path && i < j && compl->path[++i])
-		if (compl->path[i] == '\\' && i < j)
+		if (compl->path[i] == '\\' && (compl->path[i + 1] == ' '
+			|| compl->path[i + 1] == '\\') && i < j)
 			ssupprchr(&(compl->path), i++);
+}
+
+static void	init_compl(t_compl *compl, t_cmd *cmd)
+{
+	compl->path = get_path(cmd);
+	check_bslash(compl, cmd);
 	compl->arg = ft_strdup(compl->path);
 	compl->args.next = NULL;
 	compl->args.arg = NULL;
@@ -89,12 +66,19 @@ static void	init_compl(t_compl *compl, t_cmd *cmd)
 
 static void	reslash(t_compl *compl)
 {
+	char	*tmp2;
 	char	*tmp;
 
 	if (!compl || !compl->arg)
 		return ;
-	tmp = (compl->path && compl->path[ft_strlen(compl->path)] == '\\') ?
-		ft_strjoin(add_handspace(compl->arg), "\\") : add_handspace(compl->arg);
+	if (compl->path && compl->path[ft_strlen(compl->path)] == '\\')
+		tmp = ft_strjoin(add_handspace(compl->arg), "\\");
+	else
+	{
+		tmp2 = add_handspace(compl->arg);
+		tmp = add_backback(tmp2);
+		free(tmp2);
+	}
 	free(compl->arg);
 	compl->arg = tmp;
 }

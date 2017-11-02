@@ -122,6 +122,7 @@ SRC		=	main.c\
 			prompt_statement/prompt_version.c\
 			prompt_statement/add_escape.c\
 			completion/completion.c\
+			completion/get_complword.c\
 			completion/list_args.c\
 			completion/get_binaries.c\
 			completion/get_locenv.c\
