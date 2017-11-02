@@ -80,7 +80,9 @@ int			bang_events_3(t_bang **bang, t_control **history)
 			if (!(get_elem_arg(bang, (*bang)->index)))
 				return (0);
 		}
-		else
+		else if ((*bang)->index < (*bang)->len
+			&& (*bang)->command[(*bang)->index]
+			&& (*bang)->command[(*bang)->index] != '!')
 			((*bang)->index)++;
 	}
 	return (1);
@@ -96,6 +98,8 @@ int			get_elem_hist(t_bang **bang, t_control **history)
 		&& (*bang)->command[(*bang)->index] != ' '
 		&& (*bang)->command[(*bang)->index] != ':')
 	{
+		if ((*bang)->to_append)
+			append_in_result(bang, (*bang)->to_append);
 		if ((*bang)->index < (*bang)->len && (*bang)->command[(*bang)->index]
 			&& (*bang)->command[(*bang)->index] == '!')
 		{
