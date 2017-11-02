@@ -74,3 +74,12 @@ void		set_selected_null(t_control **history)
 		tmp = tmp->next;
 	}
 }
+
+int			return_void(t_cmd *cmd, t_control **history, char ***env)
+{
+	if (history_search(history, &cmd->str) == 1)
+		enter_hub(cmd, history, env);
+	else
+		print_prompt();
+	return (1);
+}

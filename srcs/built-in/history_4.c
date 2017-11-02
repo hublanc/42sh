@@ -25,11 +25,7 @@ void		get_cd_flags(t_hist_flags *flags, char **tab, int *args_pos)
 		{
 			j++;
 			while (tab[i] && tab[i][j])
-			{
-				if (tab[i][j])
-					get_cd_flags_2(flags, tab[i][j]);
-				j++;
-			}
+				get_cd_flags_2(flags, tab[i][j++]);
 		}
 		else if (tab[i][j] && tab[i][j] == '-' && !(tab[i][j + 1]))
 			ft_putendl("shell: history: -: numeric argument required");

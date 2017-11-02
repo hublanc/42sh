@@ -68,9 +68,8 @@ static void	handle_key2(t_cmd *cmd, t_control **history, char ***env, char *buf)
 		isatty(0) ? tputs(tgetstr("cd", NULL), 1, tputchar) : 0;
 		ft_strdel(&cmd->str);
 		cmd->col = cmd->prlen + 1;
-		if (history_search(history, &cmd->str) == 1)
-			enter_hub(cmd, history, env);
-		return ;
+		if (return_void(cmd, history, env))
+			return ;
 	}
 	else
 		add_line(cmd, buf);
