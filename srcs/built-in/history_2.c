@@ -71,6 +71,7 @@ int			append_hist_file(t_control **history, char *file_name)
 		*history = dll_add_new_elem_frnt(*history, str);
 		ft_strdel(&str);
 	}
+	ft_strdel(&str);
 	close(fd);
 	return (0);
 }

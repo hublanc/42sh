@@ -80,8 +80,10 @@ int			ft_history_3(char **tab, t_control **history, char *file,
 			set_usage('d', 1);
 	}
 	if (flags.r == 1)
+	{
 		if (append_hist_file(history, file) == -1)
 			return (-1);
+	}
 	if (flags.p == 1 && tab[2])
 		print_pflag(tab);
 	return (0);
