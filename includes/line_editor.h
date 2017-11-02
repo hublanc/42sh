@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 16:36:09 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/02 10:37:31 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/02 21:25:40 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,25 @@ typedef struct		s_bang
 	int				len;
 	int				quotes;
 }					t_bang;
+
+typedef struct		s_hublanc
+{
+	int				d_bang;
+	int				q_mark;
+	int				hash_t;
+	int				cmd_l;
+	int				dollar;
+	int				x;
+	int				y;
+	int				h;
+	int				t;
+	int				r;
+	int				e;
+	int				p;
+	int				q;
+	int				x;
+	char			*str;
+}					t_hublanc;
 
 /*
 **	Event_designators.c
