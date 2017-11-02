@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/16 14:42:39 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/01 15:52:27 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/02 14:03:46 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int		get_read_opt(char **cmd)
 	size = 0;
 	while (cmd[size])
 		size++;
+	size++;
 	while ((ret = ft_getopt(size, (const char**)cmd, "r")) != -1)
 		opt = ret;
 	return (opt);
@@ -51,9 +52,12 @@ int		valid_local_var(char **cmd)
 		{
 			if (!ft_isalnum(cmd[i][j]) && cmd[i][j] != '_')
 			{
-				ft_putstr("\n42sh: read: `");
-				ft_putstr(cmd[i]);
-				ft_putendl("': not a valid identifier");
+				if (read_singleton(-1))
+				{
+					ft_putstr("\n42sh: read: `");
+					ft_putstr(cmd[i]);
+					ft_putendl("': not a valid identifier");
+				}
 				return (0);
 			}
 			j++;
