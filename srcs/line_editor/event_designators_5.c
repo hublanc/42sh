@@ -73,8 +73,42 @@ int		check_backslash(char *command)
 		i++;
 	if (command[i] && command[i] == '!')
 	{
-		if (i > 0 && command[i - 1] && command[i - 1] == '\\')
+		if (i > 0 && command[i - 1]
+			&& (command[i - 1] == '\\' || command[i - 1] == '='))
 			return (0);
+	}
+	return (1);
+}
+
+int		check_exceptions(char *command)
+{
+	int		i;
+
+	i = 0;
+	while (command[i] && command[i] != '!')
+		i++;
+	if (command[i] && command[i] == '!')
+	{
+		if (command[i + 1] && command[i + 1] == '=')
+			return (0);
+	}
+	return (1);
+}
+
+int		check_brackets(char *command)
+{
+	int		i;
+
+	i = 0;
+	while (command[i] && command[i] != '!')
+		i++;
+	if (command[i] && command[i] == '!')
+	{
+		if (command[i + 1] && command[i + 1] == '(')
+		{
+			ft_putendl("shell: !: event not found");
+			return (0);
+		}
 	}
 	return (1);
 }
