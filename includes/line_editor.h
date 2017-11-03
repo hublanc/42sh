@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 16:36:09 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/03 17:21:24 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/03 20:06:14 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ typedef struct		s_bang
 
 typedef struct		s_bang2
 {
+	int				begin;
+	int				end;
 	char			*cmd;
 	int				d_bang;
 	int				q_mark;
@@ -198,20 +200,20 @@ char				*deal_bang(char *cmd, t_control *hist);
 /*
 **	Word_designator.c
 */
-char				*word_designator_x(char *cmd, t_bang2 *bang);
-char				*get_xdigit(char *cmd, t_bang2 *bang);
-char				*word_designator_y(char *cmd, t_bang2 *bang);
-char				*get_ydigit(char *cmd, t_bang2 *bang);
+int					word_designator_x(char *cmd, t_bang2 *bang, int i);
+int					get_xdigit(char *cmd, t_bang2 *bang, int i);
+int					word_designator_y(char *cmd, t_bang2 *bang, int i);
+int					get_ydigit(char *cmd, t_bang2 *bang, int i);
 
 /*
 **	Event_designator.c
 */
-char				*event_designator(char *cmd, t_bang2 *bang);
+int					event_designator(char *cmd, t_bang2 *bang, int i);
 
 /*
 **	Word_modifier.c
 */
-char				*word_modifier(char *cmd, t_bang2 *bang);
+int					word_modifier(char *cmd, t_bang2 *bang, int i);
 
 /*
 **	Get_line_hist.c
@@ -223,5 +225,11 @@ char				**get_line_history(t_control *hist, t_bang2 *bang
 **	Get_line_hist2.c
 */
 char				**get_nline(t_control *hist, t_bang2 *bang);
+
+/*
+**	Get_splitted.c
+*/
+char				**designator_fnc(char **hist_line, t_bang2 *bang);
+
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/24 16:37:30 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/03 17:37:21 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/03 20:36:01 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,11 +87,13 @@ int			main(int ac, char **av, char **env)
 /*
 **	TEST
 */
-	char *str = ft_strdup("!?story");
+	char *str = ft_strdup("ls !! bite !!");
 	char *new = NULL;
 	new = deal_bang(str, history);
 	return (0);
 
+	(void)new;
+	(void)str;
 	while (1)
 		key_handler(&cmd, &history, save_env(NULL));
 	saved_loc(1);
