@@ -136,6 +136,7 @@ SRC		=	main.c\
 			completion/compl_color.c\
 			completion/print_complline.c\
 			completion/compl_buff.c\
+			completion/add_backchar.c\
 			completion/compl_free.c
 
 # colors
