@@ -73,17 +73,17 @@ char		**designator_fnc(char **hist_line, t_bang2 *bang)
 
 	if (end < begin && bang->dash)
 	{
-		ft_putstr("shell: ");
+		ft_putstr_fd("shell: ", 2);
 		if (bang->x)
-			ft_putnbr(bang->x);
+			ft_putnbr_fd(bang->x, 2);
 		else if (bang->c_x)
-			ft_putchar(bang->c_x);
-		ft_putchar('-');
+			ft_putchar_fd(bang->c_x, 1);
+		ft_putchar_fd('-', 2);
 		if (bang->y)
-			ft_putnbr(bang->y);
+			ft_putnbr_fd(bang->y, 2);
 		else if (bang->c_y)
-			ft_putchar(bang->c_y);
-		ft_putendl(": bad word specifier");
+			ft_putchar_fd(bang->c_y, 2);
+		ft_putendl_fd(": bad word specifier", 2);
 		return (NULL);
 	}
 
