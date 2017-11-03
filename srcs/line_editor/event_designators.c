@@ -112,8 +112,6 @@ int			get_elem_hist(t_bang **bang, t_control **history)
 		if ((*bang)->index < (*bang)->len && (*bang)->command[(*bang)->index]
 			&& (*bang)->command[(*bang)->index] == '!')
 		{
-			ft_putendl("SHOULD GO HERE 3 TIME");
-			((*bang)->index)++;
 			if (!(get_double_bang(bang, history, a)))
 				return (0);
 		}
