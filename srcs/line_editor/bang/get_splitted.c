@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/03 15:52:19 by mameyer           #+#    #+#             */
-/*   Updated: 2017/11/03 21:01:22 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/03 22:28:11 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,9 @@ void		find_end(t_bang2 *bang, int *begin, int *end, char **hist_line)
 		*end = 1;
 	else if (bang->y == 0 && bang->c_y == '*')
 		*end = tablen(hist_line) - 1;
-	if (*end == 0)
+	if (*end == 0 && !bang->n_set)
+		*end = tablen(hist_line) - 1;
+	else if (*end == 0)
 		*end = *begin;
 }
 
@@ -101,7 +103,7 @@ char		**return_error_bad_wspec(t_bang2 *bang, char **hist_line)
 		i++;
 	}
 	free(hist_line);
-	ft_putstr_fd("shell: ", 2);
+	ft_putstr_fd("42sh: ", 2);
 	if (bang->x)
 		ft_putnbr_fd(bang->x, 2);
 	else if (bang->c_x)
