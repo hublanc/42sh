@@ -78,7 +78,8 @@ int			gest_loc(char **cmmd)
 		*cmmd = s;
 		return (0);
 	}
-	tab = ft_strsplit(*cmmd, '=');
+	if (!(tab = ft_strsplit(*cmmd, '=')) || !tab || !tab[0])
+		return (0);
 	i = -1;
 	while (tab[1] && tab[1][++i])
 		if (tab[1][i] == '"' && (i < 1 || tab[1][i - 1] != '\\'))
