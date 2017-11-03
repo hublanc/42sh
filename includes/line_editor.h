@@ -46,6 +46,7 @@ typedef struct		s_bang
 **	Event_designators.c
 */
 
+int					check_backslash(char *command);
 char				*bang_events(char *command, t_control **history);
 int					bang_events_2(t_bang **bang, t_control **history);
 int					bang_events_3(t_bang **bang, t_control **history);

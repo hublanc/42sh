@@ -63,3 +63,18 @@ int		digit_star_designator(t_bang **bang, int a)
 	del_tabstr(&splitted);
 	return (1);
 }
+
+int		check_backslash(char *command)
+{
+	int		i;
+
+	i = 0;
+	while (command[i] && command[i] != '!')
+		i++;
+	if (command[i] && command[i] == '!')
+	{
+		if (i > 0 && command[i - 1] && command[i - 1] == '\\')
+			return (0);
+	}
+	return (1);
+}
