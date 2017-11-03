@@ -40,7 +40,7 @@ t_cmd		init_cmd(char *prompt)
 		new.prompt = ft_strdup(prompt);
 	else
 		new.prompt = prompt;
-	new.prlen = strlen_prompt(prompt);
+	new.prlen = isatty(2) ? strlen_prompt(prompt) : 0;
 	new.str = NULL;
 	new.str_quote = NULL;
 	new.buffer = NULL;

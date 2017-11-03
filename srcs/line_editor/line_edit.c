@@ -55,6 +55,8 @@ void		print_line(t_cmd *cmd)
 	if (!isatty(0))
 		return ;
 	len = cmd->prlen + (int)ft_strlen(cmd->str);
+	if (!len)
+		return ;
 	len += len % cmd->sc_col == 0 ? 0 : 1;
 	go_begin(cmd->col, cmd->sc_col);
 	pass_prompt(cmd);
