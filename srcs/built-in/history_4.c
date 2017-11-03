@@ -37,6 +37,11 @@ int			get_cd_flags(t_hist_flags *flags, char **tab, int *args_pos)
 			ft_putendl("shell: history: -: numeric argument required");
 		i++;
 	}
+	if (flags->more > 1)
+	{
+		ft_putendl("shell: history: cannot use more than one of -anrw");
+		return (0);
+	}
 	*args_pos = i;
 	return (1);
 }
@@ -48,13 +53,25 @@ int			get_cd_flags_2(t_hist_flags *flags, char c)
 	else if (c == 'd')
 		flags->d = 1;
 	else if (c == 'a')
+	{
+		(flags->more)++;
 		flags->a = 1;
+	}
 	else if (c == 'n')
+	{
+		(flags->more)++;
 		flags->n = 1;
+	}
 	else if (c == 'r')
+	{
+		(flags->more)++;
 		flags->r = 1;
+	}
 	else if (c == 'w')
+	{
+		(flags->more)++;
 		flags->w = 1;
+	}
 	else if (c == 'p')
 		flags->p = 1;
 	else if (c == 's')
@@ -94,4 +111,5 @@ void		init_cd_flags(t_hist_flags *flags)
 	flags->w = 0;
 	flags->p = 0;
 	flags->s = 0;
+	flags->more = 0;
 }
