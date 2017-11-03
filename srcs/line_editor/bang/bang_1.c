@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/02 19:28:52 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/03 17:18:01 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/03 17:28:30 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@ char			*begin_bang(char *cmd, t_control *hist, char *final)
 	cmd = word_designator_x(cmd, bang);
 	cmd = word_designator_y(cmd, bang);
 	cmd = word_modifier(cmd, bang);
-	line_h_split = get_line_history(hist, bang, final);
+	if (!(line_h_split = get_line_history(hist, bang, final)))
+		return (NULL);
+	ft_putcolor("LINE : ");
+	disp_tab(line_h_split);
 	return (NULL);
 }
 
@@ -32,11 +35,6 @@ char			*deal_bang(char *cmd, t_control *hist)
 	char		*new;
 
 	c = 0;
-	ft_putcolor("BEGIN :");
-	ft_putendl(hist->begin->name);
-	ft_putcolor("END :");
-	ft_putendl(hist->end->name);
-	exit(0);
 	new = ft_strdup(cmd);
 	if (!ft_strchr(cmd, '!'))
 		return (NULL);
