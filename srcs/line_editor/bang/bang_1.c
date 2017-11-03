@@ -6,45 +6,11 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/02 19:28:52 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/03 16:05:54 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/03 17:18:01 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
-
-char			**get_htagstr(char *cmd)
-{
-	char		*new;
-	char		**tab;
-
-	new = NULL;
-	while (cmd && *cmd && *cmd != '!')
-	{
-		new = ft_str_chr_cat(new, *cmd);
-		cmd++;
-	}
-	tab = ft_cmdsplit(new);
-	ft_strdel(&new);
-	return (tab);
-}
-
-char			**get_nline(t_control *hist, t_bang2 *bang)
-{
-	t_lst		*tmp;
-
-	tmp = hist->begin;
-	ft_putendl(bang->str);
-	return (NULL);
-}
-
-char			**get_line_history(t_control *hist, t_bang2 *bang, char *final)
-{
-	if (bang->hash_t)
-		return (get_htagstr(final));
-	else if (bang->n_set || bang->d_bang)
-		return (get_nline(hist, bang));
-	return (NULL);
-}
 
 char			*begin_bang(char *cmd, t_control *hist, char *final)
 {
@@ -66,6 +32,11 @@ char			*deal_bang(char *cmd, t_control *hist)
 	char		*new;
 
 	c = 0;
+	ft_putcolor("BEGIN :");
+	ft_putendl(hist->begin->name);
+	ft_putcolor("END :");
+	ft_putendl(hist->end->name);
+	exit(0);
 	new = ft_strdup(cmd);
 	if (!ft_strchr(cmd, '!'))
 		return (NULL);
