@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 16:36:09 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/02 21:25:40 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/03 16:00:40 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,24 +42,28 @@ typedef struct		s_bang
 	int				quotes;
 }					t_bang;
 
-typedef struct		s_hublanc
+typedef struct		s_bang2
 {
+	char			*cmd;
 	int				d_bang;
 	int				q_mark;
 	int				hash_t;
 	int				cmd_l;
-	int				dollar;
+	int				n_set;
+	char			c_x;
+	char			c_y;
+	int				dash;
 	int				x;
 	int				y;
-	int				h;
-	int				t;
-	int				r;
-	int				e;
-	int				p;
-	int				q;
-	int				x;
+	int				m_h;
+	int				m_t;
+	int				m_r;
+	int				m_e;
+	int				m_p;
+	int				m_q;
+	int				m_x;
 	char			*str;
-}					t_hublanc;
+}					t_bang2;
 
 /*
 **	Event_designators.c
@@ -185,5 +189,28 @@ int					return_handler(t_lst *tmp, char *buf, char **search,
 					char **str);
 void				init_hist_search(char **search, t_lst **tmp);
 int					return_sigint(char **to_del, char *to_save);
+
+/*
+**	Bang_1.c
+*/
+char				*deal_bang(char *cmd, t_control *hist);
+
+/*
+**	Word_designator.c
+*/
+char				*word_designator_x(char *cmd, t_bang2 *bang);
+char				*get_xdigit(char *cmd, t_bang2 *bang);
+char				*word_designator_y(char *cmd, t_bang2 *bang);
+char				*get_ydigit(char *cmd, t_bang2 *bang);
+
+/*
+**	Event_designator.c
+*/
+char				*event_designator(char *cmd, t_bang2 *bang);
+
+/*
+**	Word_modifier.c
+*/
+char				*word_modifier(char *cmd, t_bang2 *bang);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: hublanc <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/07/24 15:04:09 by hublanc           #+#    #+#              #
-#    Updated: 2017/11/02 14:18:59 by amazurie         ###   ########.fr        #
+#    Updated: 2017/11/03 15:53:22 by hublanc          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,10 @@ SRC		=	main.c\
 			line_editor/event_designators.c\
 			line_editor/event_designators_2.c\
 			line_editor/event_designators_3.c\
+			line_editor/bang/bang_1.c\
+			line_editor/bang/event_designator.c\
+			line_editor/bang/word_designator.c\
+			line_editor/bang/word_modifier.c\
 			exec/exec.c\
 			exec/check_binary.c\
 			exec/ft_cmdsplit.c\
@@ -157,7 +161,7 @@ $(NAME): $(LIB) $(OBJS)
 	@echo "${NC}"
 
 $(OBJDIR):
-	@mkdir -p objs objs/built-in objs/tools objs/exec objs/lexer objs/redirection objs/line_editor objs/completion objs/prompt_statement objs/built-in/read objs/built-in/cd
+	@mkdir -p objs objs/built-in objs/tools objs/exec objs/lexer objs/redirection objs/line_editor objs/completion objs/prompt_statement objs/built-in/read objs/built-in/cd objs/line_editor/bang
 
 $(LIB):
 	@echo "${CYN}Processing ${NC}./libft/objs ${CYN}[${NC}...${CYN}]${NC}"
