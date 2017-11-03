@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/02 19:28:52 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/03 21:24:18 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/03 21:58:30 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ char			*deal_bang(char *cmd, t_control *hist)
 			i++;
 		new[i] ? i++ : 0;
 	}
+	add_hist_or_not(hist, new);
 	ft_putendl(new);
 	return (new);
 }
