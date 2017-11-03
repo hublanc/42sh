@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/03 17:11:12 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/03 17:24:09 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/03 20:42:11 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static char	**d_bangsearch(t_control *hist)
 {
 	t_lst		*tmp;
 
-	tmp = hist->end;
+	tmp = hist->begin;
 	if (!tmp)
 	{
 		ft_putstr_fd("42sh: !!: event not found\n", 2);
@@ -81,7 +81,7 @@ char		**get_line_history(t_control *hist, t_bang2 *bang,
 {
 	if (bang->hash_t)
 		return (get_htagstr(final));
-	else if (bang->n_set || bang->d_bang)
+	else if (bang->n_set)
 		return (get_nline(hist, bang));
 	else if (bang->d_bang)
 		return (d_bangsearch(hist));
