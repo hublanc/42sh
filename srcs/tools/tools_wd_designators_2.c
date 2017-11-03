@@ -44,7 +44,7 @@ int			hist_event_not_found(t_bang **bang, int a)
 	ft_putstr("shell: ");
 	while ((*bang)->command[a])
 		ft_putchar((*bang)->command[a++]);
-	ft_putendl(": event_not_found");
+	ft_putendl(": event not found");
 	return (0);
 }
 

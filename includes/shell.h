@@ -48,6 +48,7 @@ typedef struct		s_hist_flags
 	int				w;
 	int				p;
 	int				s;
+	int				more;
 }					t_hist_flags;
 
 /*
