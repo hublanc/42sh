@@ -57,6 +57,7 @@ char			*begin_bang(char *cmd, t_control *hist, char *final)
 	cmd = word_designator_y(cmd, bang);
 	cmd = word_modifier(cmd, bang);
 	line_h_split = get_line_history(hist, bang, final);
+	line_h_split = designator_fnc(line_h_split, bang);
 	return (NULL);
 }
 
