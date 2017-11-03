@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 16:36:09 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/03 16:00:40 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/03 17:21:24 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,5 +212,16 @@ char				*event_designator(char *cmd, t_bang2 *bang);
 **	Word_modifier.c
 */
 char				*word_modifier(char *cmd, t_bang2 *bang);
+
+/*
+**	Get_line_hist.c
+*/
+char				**get_line_history(t_control *hist, t_bang2 *bang
+					, char *final);
+
+/*
+**	Get_line_hist2.c
+*/
+char				**get_nline(t_control *hist, t_bang2 *bang);
 
 #endif
