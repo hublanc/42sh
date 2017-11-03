@@ -46,7 +46,8 @@ static int	endloc(char *cmmd)
 		i++;
 	while (cmmd[i] && cmmd[i + 1] && cmmd[i] == '\\')
 		i += 2;
-	while (cmmd && cmmd[i] && cmmd[i] != '=')
+	while (cmmd && cmmd[i] && (ft_isalpha(cmmd[i]) || ft_isalnum(cmmd[i])
+			|| cmmd[i] == '_'))
 	{
 		if (cmmd[i] == '\'' || (i > 0 && (cmmd[i] == '"' || cmmd[i] == 32)))
 			return (0);
@@ -60,17 +61,19 @@ static int	endloc(char *cmmd)
 	}
 	if (!cmmd[i])
 		return (0);
-	return (check_afterequal(cmmd, i));
+	return (i);
 }
 
-int			gest_loc(char **cmmd)
+static int	check_cmmd(char **cmmd)
 {
-	char	**tab;
 	char	*s;
 	int		i;
 
 	if (!(i = endloc(*cmmd)))
 		return (0);
+	if (i == 0 || (*cmmd)[i] != '=')
+		return (0);
+	if (!(i = check_afterequal(*cmmd, i)))
 	s = ((*cmmd)[i]) ? ft_strdup(*cmmd + i) : NULL;
 	if ((*cmmd)[i] == 32)
 	{
@@ -78,8 +81,21 @@ int			gest_loc(char **cmmd)
 		*cmmd = s;
 		return (0);
 	}
+	return (1);
+}
+
+int			gest_loc(char **cmmd)
+{
+	char	**tab;
+	int		i;
+
+	if (!(check_cmmd(cmmd)))
+		return (0);;
 	if (!(tab = ft_strsplit(*cmmd, '=')) || !tab || !tab[0])
+	{
+		tab ? free(tab) : 0;
 		return (0);
+	}
 	i = -1;
 	while (tab[1] && tab[1][++i])
 		if (tab[1][i] == '"' && (i < 1 || tab[1][i - 1] != '\\'))
