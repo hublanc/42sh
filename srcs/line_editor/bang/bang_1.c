@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/02 19:28:52 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/03 22:00:24 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/03 22:30:47 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ char			*replace_str(char **tab, char *final, t_bang2 *bang)
 	while (tab && tab[i])
 	{
 		new = ft_strapp(new, tab[i]);
+		if (tab[i + 1])
+			new = ft_strapp(new, " ");
 		i++;
 	}
 	tmp = ft_strsub(final, bang->end, ft_strlen(final) - 1);
@@ -55,8 +57,9 @@ int				begin_bang(t_control *hist, char **final, int i)
 	i = word_designator_y(*final, bang, i);
 	i = word_modifier(*final, bang, i);
 	bang->end = i;
-	if (!(tab = get_line_history(hist, bang, *final))
-	|| !(tab = designator_fnc(tab, bang)))
+	if (!(tab = get_line_history(hist, bang, *final)))
+		return (-1);
+	if (!(tab = designator_fnc(tab, bang)))
 		return (-1);
 	*final = replace_str(tab, *final, bang);
 	i = bang->begin;
