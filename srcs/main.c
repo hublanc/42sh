@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/24 16:37:30 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/02 13:21:38 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/03 15:49:13 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,14 @@ int			main(int ac, char **av, char **env)
 	save_cmd(&cmd);
 	history = NULL;
 	history = load_history(env);
+/*
+**	TEST
+*/
+	char *str = ft_strdup("!ls");
+	char *new = NULL;
+	new = deal_bang(str, history);
+	return (0);
+
 	while (1)
 		key_handler(&cmd, &history, save_env(NULL));
 	saved_loc(1);

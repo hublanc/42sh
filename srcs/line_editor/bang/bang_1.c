@@ -6,66 +6,58 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/02 19:28:52 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/02 21:41:56 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/03 16:05:54 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-char			*get_bang_str(char *cmd, t_hublanc *bang)
+char			**get_htagstr(char *cmd)
 {
-	while (cmd && *cmd && *cmd != ':' && *cmd != ' ' && *cmd != '!')
+	char		*new;
+	char		**tab;
+
+	new = NULL;
+	while (cmd && *cmd && *cmd != '!')
 	{
-		bang->str = ft_str_chr_cat(bang->str, *cmd);
+		new = ft_str_chr_cat(new, *cmd);
 		cmd++;
 	}
-	return (cmd);
+	tab = ft_cmdsplit(new);
+	ft_strdel(&new);
+	return (tab);
 }
 
-char			*event_designator(char *cmd, t_hublanc *bang)
+char			**get_nline(t_control *hist, t_bang2 *bang)
 {
-	cmd++;
-	if (!cmd || !*cmd)
-		return ;
-	if (*cmd == '!' && cmd++)
-		bang->cmd_l = -1;
-	else if (*cmd && ft_isdigit(*cmd))
-	{
-		bang->cmd_l = ft_atoi(cmd);
-		while (*cmd && ft_isdigit(*cmd))
-			cmd++;
-	}
-	else if (*cmd == '#' && cmd++)
-		bang->hash_t = 1;
-	else if (*cmd == '?')
-	{
-		bang->q_mark = 1;
-		cmd = get_bang_str(cmd, bang);
-	}
-	else if (*cmd)
-		cmd = get_bang_str(cmd, bang);
-	return (cmd);
+	t_lst		*tmp;
+
+	tmp = hist->begin;
+	ft_putendl(bang->str);
+	return (NULL);
 }
 
-char			*word_designator(char *cmd, t_hublanc *bang)
+char			**get_line_history(t_control *hist, t_bang2 *bang, char *final)
 {
-	if (!cmd || !*cmd || *cmd != ':')
-		return ;
-	cmd++;
-	if (*cmd == '^')
-		bang->x = 1;
-	else if (*cmd == '$')
-		bang->dollar = 1;
-
+	if (bang->hash_t)
+		return (get_htagstr(final));
+	else if (bang->n_set || bang->d_bang)
+		return (get_nline(hist, bang));
+	return (NULL);
 }
 
-char			begin_bang(char *cmd, t_control *hist)
+char			*begin_bang(char *cmd, t_control *hist, char *final)
 {
-	t_hublanc	*bang;
+	t_bang2		*bang;
+	char		**line_h_split;
 
-	t_hublanc = (t_hublanc*)ft_memalloc(sizeof(s_hublanc));
+	bang = (t_bang2*)ft_memalloc(sizeof(t_bang2));
 	cmd = event_designator(cmd, bang);
-	cmd = word_designator(cmd, bang);
+	cmd = word_designator_x(cmd, bang);
+	cmd = word_designator_y(cmd, bang);
+	cmd = word_modifier(cmd, bang);
+	line_h_split = get_line_history(hist, bang, final);
+	return (NULL);
 }
 
 char			*deal_bang(char *cmd, t_control *hist)
@@ -74,14 +66,14 @@ char			*deal_bang(char *cmd, t_control *hist)
 	char		*new;
 
 	c = 0;
-	new = NULL;
+	new = ft_strdup(cmd);
 	if (!ft_strchr(cmd, '!'))
 		return (NULL);
 	while (cmd && *cmd)
 	{
 		if (*cmd == '!' && *(cmd + 1) && *(cmd + 1) != ' ' && c != '\''
 			&& *(cmd + 1) != '\t' && *(cmd + 1) != '=' && *(cmd + 1) != '(')
-			new = begin_bang(cmd, hist);
+			new = begin_bang(cmd, hist, new);
 		if (*cmd == '\'')
 			while (*cmd && *cmd != '\'')
 				cmd++;
