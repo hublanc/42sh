@@ -16,7 +16,6 @@ int			get_elem_arg(t_bang **bang, int a)
 {
 	int		digit;
 	char	**splitted;
-	int		i;
 
 	digit = 0;
 	((*bang)->index)++;
@@ -31,10 +30,9 @@ int			get_elem_arg(t_bang **bang, int a)
 	else if (!(get_elem_arg_2(bang, a, &digit)))
 		return (0);
 	splitted = ft_cmdsplit((*bang)->to_append);
-	if (digit > tablen(splitted))
+	if (digit >= tablen(splitted))
 		return (error_bad_wspec(digit, &splitted));
 	append_in_result(bang, splitted[digit]);
-	i = 0;
 	del_tabstr(&splitted);
 	return (1);
 }
