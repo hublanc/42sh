@@ -21,6 +21,10 @@ char		*bang_events(char *command, t_control **history)
 		return (ft_strdup(command));
 	if (!(check_backslash(command)))
 		return (ft_strdup(command));
+	if (!(check_brackets(command)))
+		return (NULL);
+	if (!(check_exceptions(command)))
+		return (ft_strdup(command));
 	if (!(malloc_struct_bang(&bang, command)))
 		return (NULL);
 	if (!(bang_events_2(&bang, history)))

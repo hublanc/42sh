@@ -47,6 +47,8 @@ typedef struct		s_bang
 */
 
 int					check_backslash(char *command);
+int					check_exceptions(char *command);
+int					check_brackets(char *command);
 char				*bang_events(char *command, t_control **history);
 int					bang_events_2(t_bang **bang, t_control **history);
 int					bang_events_3(t_bang **bang, t_control **history);
