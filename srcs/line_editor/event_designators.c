@@ -99,7 +99,10 @@ int			get_elem_hist(t_bang **bang, t_control **history)
 		&& (*bang)->command[(*bang)->index] != ':')
 	{
 		if ((*bang)->to_append)
+		{
 			append_in_result(bang, (*bang)->to_append);
+			ft_strdel(&(*bang)->to_append);
+		}
 		if ((*bang)->index < (*bang)->len && (*bang)->command[(*bang)->index]
 			&& (*bang)->command[(*bang)->index] == '!')
 		{
@@ -132,5 +135,7 @@ int			get_elem_hist_2(t_bang **bang, t_control **history, int a)
 		if (!(get_c_last(bang, history, a)))
 			return (0);
 	}
+	else
+		return (hist_event_not_found(bang, a));
 	return (1);
 }
