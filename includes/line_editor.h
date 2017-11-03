@@ -218,5 +218,9 @@ char				*word_modifier(char *cmd, t_bang2 *bang);
 */
 
 char				**designator_fnc(char **hist_line, t_bang2 *bang);
+char				**return_error_bad_wspec(t_bang **bang, char **hist_line);
+char				**dup_free_return(char **hist_line, int begin, int end);
+void				find_begin(t_bang2 **bang, int *begin, int *end);
+void				find_end(t_bang2 **bang, int *begin, int *end);
 
 #endif
