@@ -44,12 +44,30 @@ static char	**init_env(void)
 static void	add_startenv(char ***env)
 {
 	char	*tab[4];
+	int		i;
 
 	tab[0] = "setenv";
 	tab[1] = "CLICOLOR";
 	tab[2] = "true";
 	tab[3] = NULL;
 	ft_setenv(tab, env);
+	if (!(tab[0] = get_elem(env, "SHLVL=")))
+	{
+		tab[0] = "setenv";
+		tab[1] = "SHLVL";
+		tab[2] = "1";
+		tab[3] = NULL;
+		ft_setenv(tab, env);
+	}
+	else
+	{
+		i = ft_atoi(tab[0]) + 1;
+		tab[0] = "setenv";
+		tab[1] = "SHLVL";
+		tab[2] = ft_itoa(i);
+		tab[3] = NULL;
+		ft_setenv(tab, env);
+	}
 }
 
 static void	init_signal(void)
