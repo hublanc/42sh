@@ -14,81 +14,62 @@
 
 char		**designator_fnc(char **hist_line, t_bang2 *bang)
 {
-	char	**result;
 	int		begin;
 	int		end;
-	int		i;
 
 	begin = 0;
 	end = 0;
-	i = 0;
-	while (hist_line[i])
-	{
-		ft_putstr(hist_line[i]);
-		ft_putchar('\t');
-		i++;
-	}
-	ft_putchar('\n');
 	if (!hist_line)
 		return (NULL);
-	result = NULL;
-	
+	find_begin(bang, &begin, &end);
+	find_end(bang, &begin, &end);
+	if (end < begin && bang->dash)
+		return (return_error_bad_wspec(bang, hist_line));
+	else
+		return (dup_free_return(hist_line, begin, end));
+}
 
-	// GET FIRST WD - SET BEGIN
+void		find_begin(t_bang2 **bang, int *begin, int *end)
+{
 	if (bang->x)
-		begin = bang->x;
+		*begin = bang->x;
 	else if (bang->x == 0 && bang->c_x == '$')
-		begin = tablen(hist_line) - 1;
+		*begin = tablen(hist_line) - 1;
 	else if (bang->x == 0 && bang->c_x == '^')
-		begin = 1;
+		*begin = 1;
 	else if (bang->x == 0 && bang->c_x == '*')
 	{
 		if (!(bang->y) && !(bang->c_y))
 		{
-			begin = 1;
-			end = tablen(hist_line) - 1;
+			*begin = 1;
+			*end = tablen(hist_line) - 1;
 		}
 	}
-	// END OF GET END
+}
 
-
-	// GET SECOND WD - SET END
+void		find_end(t_bang2 **bang, int *begin, int *end)
+{
 	if (bang->dash)
 	{
 		if (bang->y)
-			end = bang->y;
+			*end = bang->y;
 		else if (bang->y == 0 && bang->c_y == 0 && bang->dash)
-			end = tablen(hist_line) - 2;
+			*end = tablen(hist_line) - 2;
 	}
 	if (bang->y == 0 && bang->c_y == '$')
-		end = tablen(hist_line) - 1;
+		*end = tablen(hist_line) - 1;
 	else if (bang->y == 0 && bang->c_y == '^')
-		end = 1;
+		*end = 1;
 	else if (bang->y == 0 && bang->c_y == '*')
-		end = tablen(hist_line) - 1;
+		*end = tablen(hist_line) - 1;
+	if (*end == 0)
+		*end = *begin;
+}
 
-	if (end == 0)
-		end = begin;
-	// END OF GET END
+char		**dup_free_return(char **hist_line, int begin, int end)
+{
+	int		i;
 
-	if (end < begin && bang->dash)
-	{
-		ft_putstr_fd("shell: ", 2);
-		if (bang->x)
-			ft_putnbr_fd(bang->x, 2);
-		else if (bang->c_x)
-			ft_putchar_fd(bang->c_x, 1);
-		ft_putchar_fd('-', 2);
-		if (bang->y)
-			ft_putnbr_fd(bang->y, 2);
-		else if (bang->c_y)
-			ft_putchar_fd(bang->c_y, 2);
-		ft_putendl_fd(": bad word specifier", 2);
-		return (NULL);
-	}
-
-
-	// MALLOC AND DUP USEFUL
 	if (!(result = (char **)malloc(sizeof(char *) * (end - begin + 2))))
 		return (NULL);
 	i = 0;
@@ -98,20 +79,6 @@ char		**designator_fnc(char **hist_line, t_bang2 *bang)
 		i++;
 	}
 	result[i] = NULL;
-
-
-	//	TEST
-	ft_putstr("Begin == ");
-	ft_putnbr(begin);
-	ft_putstr("\nEnd == ");
-	ft_putnbr(end);
-	ft_putchar('\n');
-	i = 0;
-	while (result[i])
-	{
-		ft_putendl(result[i]);
-		i++;
-	}
 	i = 0;
 	while (hist_line[i])
 	{
@@ -119,7 +86,30 @@ char		**designator_fnc(char **hist_line, t_bang2 *bang)
 		i++;
 	}
 	free(hist_line);
-	ft_putendl("Ends here");
-	// END TEST
 	return (result);
+}
+
+char		**return_error_bad_wspec(t_bang2 **bang, char **hist_line)
+{
+	int		i;
+
+	i = 0;
+	while (hist_line[i])
+	{
+		ft_strdel(&hist_line[i]);
+		i++;
+	}
+	free(hist_line);
+	ft_putstr_fd("shell: ", 2);
+	if (bang->x)
+		ft_putnbr_fd(bang->x, 2);
+	else if (bang->c_x)
+		ft_putchar_fd(bang->c_x, 1);
+	ft_putchar_fd('-', 2);
+	if (bang->y)
+		ft_putnbr_fd(bang->y, 2);
+	else if (bang->c_y)
+		ft_putchar_fd(bang->c_y, 2);
+	ft_putendl_fd(": bad word specifier", 2);
+	return (NULL);
 }
