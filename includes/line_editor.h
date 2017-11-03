@@ -213,4 +213,10 @@ char				*event_designator(char *cmd, t_bang2 *bang);
 */
 char				*word_modifier(char *cmd, t_bang2 *bang);
 
+/*
+**	Get_splitted.c
+*/
+
+char				**designator_fnc(char **hist_line, t_bang2 *bang);
+
 #endif

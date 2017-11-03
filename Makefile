@@ -46,6 +46,7 @@ SRC		=	main.c\
 			line_editor/bang/event_designator.c\
 			line_editor/bang/word_designator.c\
 			line_editor/bang/word_modifier.c\
+			line_editor/bang/get_splitted.c\
 			exec/exec.c\
 			exec/check_binary.c\
 			exec/ft_cmdsplit.c\
