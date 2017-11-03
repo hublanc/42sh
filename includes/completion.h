@@ -120,4 +120,9 @@ size_t				buffncat(char **buff, char *s, size_t n);
 void				free_tabl(char **tab);
 void				compl_free(t_compl *compl);
 
+/*
+** add_backchar.c
+*/
+char				*add_backchar(const char *name);
+
 #endif
