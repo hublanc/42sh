@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 16:36:09 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/03 20:06:14 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/03 21:00:20 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -230,6 +230,10 @@ char				**get_nline(t_control *hist, t_bang2 *bang);
 **	Get_splitted.c
 */
 char				**designator_fnc(char **hist_line, t_bang2 *bang);
+char				**return_error_bad_wspec(t_bang2 *bang, char **hist_line);
+char				**dup_free_return(char **hist_line, int begin, int end);
+void				find_begin(t_bang2 *bang, int *begin, int *end, char **hist_line);
+void				find_end(t_bang2 *bang, int *begin, int *end, char **hist_line);
 
 
 #endif
