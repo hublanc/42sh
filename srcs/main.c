@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/24 16:37:30 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/03 15:49:13 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/03 17:37:21 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int			main(int ac, char **av, char **env)
 /*
 **	TEST
 */
-	char *str = ft_strdup("!ls");
+	char *str = ft_strdup("!?story");
 	char *new = NULL;
 	new = deal_bang(str, history);
 	return (0);
