@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/04 12:52:22 by amazurie          #+#    #+#             */
-/*   Updated: 2017/11/04 14:14:26 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/04 15:43:58 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int			spend_quote(char *str, int j)
 	while (str[j + i] && str[j + i] != c)
 	{
 		if (str[j + i] == '\\' && str[j + i + 1] && c == '"'
-			&& (str[j + i + 1] == '"' || str[j + i + 1] == '$'))
+				&& (str[j + i + 1] == '"' || str[j + i + 1] == '$'))
 			i++;
 		i++;
 	}
@@ -69,16 +69,14 @@ static int			getlen(char *str)
 		{
 			c = *str;
 			str++;
+			len++;
 			while (*str && *str != c)
 			{
-				if (*str == '\\' && *(str + 1) && c == '"'
-					&& (*(str + 1) == '"' || *(str + 1) == '$'))
-					str++;
 				len++;
 				str++;
 			}
 		}
-		else if (*str == '\\')
+		else if (*str == '\\' && ++len)
 			str++;
 		len++;
 		*str ? str++ : 0;
@@ -89,6 +87,7 @@ static int			getlen(char *str)
 static char			*cmdsub(char *str, int *i, int k, int len)
 {
 	char	*new;
+	char	c;
 	int		j;
 
 	j = 0;
@@ -99,9 +98,13 @@ static char			*cmdsub(char *str, int *i, int k, int len)
 	while (str[*i] && str[*i] != ' ' && j < len + k)
 	{
 		if (str[*i] == '\'' || str[*i] == '"')
-			add_quote_content(str, new, i, &j);
-		else if (str[*i] == '\\')
-			new[j++] = str[((*i)++) + 1];
+		{
+			c = str[(*i)];
+			new[j++] = str[(*i)++];
+			while (str[*i] && str[*i] != c)
+				new[j++] = str[(*i)++];
+			new[j++] = str[(*i)++];
+		}
 		else
 			new[j++] = str[*i];
 		str[*i] ? ++*i : 0;
@@ -134,5 +137,8 @@ char				**bang_split(char *str)
 		i++;
 	}
 	new[i] = NULL;
+	i = 0;
+	while (new[i])
+		printf("\n%s\n", new[i++]);
 	return (new);
 }

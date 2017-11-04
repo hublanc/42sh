@@ -6,7 +6,6 @@
 //celle la rm tout de la fin jusqu'a trouver un '/' (si a pas fait rien)
 void	rmpathname(char **arg)
 {
-	char	*s;
 	int		i;
 
 	if (!arg || !*arg)
@@ -16,25 +15,22 @@ void	rmpathname(char **arg)
 		return ;
 	while ((*arg)[i] != '/')
 		ssupprchr(arg, i--);
-	(*arg)[i] != '/' ? ssupprchr(arg, i) : 0;
+	(*arg)[i] == '/' ? ssupprchr(arg, i) : 0;
 }
 
 //celle la rm tout du debut de la command jusqu'a un '/' (pareil si a pas fait rien)
 void	rmpathcomp(char **arg)
 {
-	char	*s;
-	int		i;
-
 	if (!arg || !*arg)
 		return ;
 	while (ft_strchr(*arg + 1, '/'))
 		ssupprchr(arg, 0);
+	ssupprchr(arg, 0);
 }
 
 //tout de la fin jusqu'a un '.'
 void	rmsuffix(char **arg)
 {
-	char	*s;
 	int		i;
 
 	if (!arg || !*arg)
@@ -44,15 +40,12 @@ void	rmsuffix(char **arg)
 		return ;
 	while ((*arg)[i] != '.')
 		ssupprchr(arg, i--);
-	(*arg)[i] != '.' ? ssupprchr(arg, i) : 0;
+	(*arg)[i] == '.' ? ssupprchr(arg, i) : 0;
 }
 
 //debut > '.'
 void	rmallbutsuffix(char **arg)
 {
-	char	*s;
-	int		i;
-
 	if (!arg || !*arg)
 		return ;
 	while (ft_strchr(*arg + 1, '.'))
@@ -68,13 +61,13 @@ char	*quoteit(char *arg)
 	int		i;
 
 	if (!arg)
-		return (NULL);;
+		return (NULL);
 	i = ft_strlen(arg) + 3;
 	if (!(s = (char *)ft_memalloc(sizeof(char) + i)))
 		return (NULL);
 	s[0] = '\'';
 	ft_strcat(s, arg);
-	s[i - 1] = '\'';
+	ft_strcat(s, "'");
 	return (s);
 }
 
@@ -84,6 +77,7 @@ char	*quoteword(char *arg)
 	char	*s;
 	int		i;
 	int		j;
+	int		k;
 
 	if (!arg)
 		return (NULL);
@@ -97,7 +91,8 @@ char	*quoteword(char *arg)
 	}
 	if (!(s = (char *)ft_memalloc(sizeof(char) + i + j + 1)))
 		return (NULL);
-	while (i < ft_strlen(arg))
+	k = ft_strlen(arg);
+	while (i < k)
 	{
 		while (arg[i] == ' ')
 			i++;
@@ -118,6 +113,7 @@ char	*modif_substi(char *arg, char *old, char *new, int rec)
 	int		i;
 	int		j;
 	int		k;
+	int		l;
 
 	if (!arg || !old || !new)
 		return (NULL);
@@ -128,7 +124,8 @@ char	*modif_substi(char *arg, char *old, char *new, int rec)
 			j++;
 	i = 0;
 	j *= ft_strlen(old);
-	while ((i == 0 || rec > 0) && i < ft_strlen(arg)
+	l = ft_strlen(arg);
+	while ((i == 0 || rec > 0) && i < l
 			&& (i = ft_strstr_len(arg + i, old)))
 	{
 		i += ft_strlen(old);
@@ -139,7 +136,8 @@ char	*modif_substi(char *arg, char *old, char *new, int rec)
 		return (NULL);
 	i = 0;
 	j = 0;
-	while ((i == 0 || rec > 0) && i < ft_strlen(arg)
+	l = ft_strlen(arg);
+	while ((i == 0 || rec > 0) && i < l
 			&& (i = ft_strstr_len(arg + i, old)))
 	{
 		ft_strncat(s, arg + j, i);
