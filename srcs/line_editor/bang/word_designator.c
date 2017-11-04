@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/03 13:29:08 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/04 14:01:26 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/04 14:32:59 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ int			get_ydigit(char *cmd, t_bang2 *bang, int i)
 
 int			word_designator_y(char *cmd, t_bang2 *bang, int i)
 {
-	if (!cmd || !cmd[i] || cmd[i] != '-' || bang->dash == 1)
+	if (!cmd || !cmd[i] || cmd[i] != '-' || bang->dash == 1
+		|| bang->shortcut)
 		return (i);
 	bang->dash = 1;
 	if (cmd[i + 1] && cmd[i + 1] == '^' && i++)
@@ -57,7 +58,7 @@ int			get_xdigit(char *cmd, t_bang2 *bang, int i)
 
 int			word_designator_x(char *cmd, t_bang2 *bang, int i)
 {
-	if (!cmd || !cmd[i] || cmd[i] != ':')
+	if (!cmd || !cmd[i] || cmd[i] != ':' || bang->shortcut)
 		return (i);
 	if (cmd[i + 1] && (cmd[i + 1] == '^' || cmd[i + 1] == '$'
 		|| cmd[i + 1] == '*' || ft_isdigit(cmd[i + 1])))
