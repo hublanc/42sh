@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/03 15:52:19 by mameyer           #+#    #+#             */
-/*   Updated: 2017/11/04 14:58:33 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/04 16:11:27 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ char		**designator_fnc(char **hist_line, t_bang2 *bang)
 		return (NULL);
 	find_begin(bang, &begin, &end, hist_line);
 	find_end(bang, &begin, &end, hist_line);
-	if ((end < begin && bang->dash) || (end > tablen(hist_line))
-		|| (begin > tablen(hist_line)))
+	if ((end < begin && bang->dash) || (end >= tablen(hist_line))
+		|| (begin >= tablen(hist_line)))
 		return (return_error_bad_wspec(bang, hist_line));
 	else
 		return (dup_free_return(hist_line, begin, end));
@@ -34,8 +34,6 @@ void		find_begin(t_bang2 *bang, int *begin, int *end, char **hist_line)
 {
 	if (bang->x_set)
 		*begin = bang->x;
-	else if (!bang->x_set && bang->c_x == '$')
-		*begin = tablen(hist_line) - 1;
 	else if (!bang->x_set && bang->c_x == '^')
 		*begin = 1;
 	else if (!bang->x_set && bang->c_x == '*')
@@ -60,13 +58,11 @@ void		find_end(t_bang2 *bang, int *begin, int *end, char **hist_line)
 	}
 	if (!bang->y_set && bang->c_y == '$')
 		*end = tablen(hist_line) - 1;
-	else if (!bang->y_set && bang->c_y == '^')
-		*end = 1;
 	else if (!bang->y_set && bang->c_y == '*')
 		*end = tablen(hist_line) - 1;
-	if (*end == 0 && !bang->x_set && !bang->y_set)
+	if (*end == 0 && !bang->x_set && !bang->y_set && bang->c_x != '^')
 		*end = tablen(hist_line) - 1;
-	else if (!bang->y_set && *end == 0 && bang->x_set)
+	else if (!bang->y_set && *end == 0 && (bang->x_set || bang->c_x == '^'))
 		*end = *begin;
 }
 
