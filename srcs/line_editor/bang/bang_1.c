@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/02 19:28:52 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/04 15:45:33 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/04 18:21:42 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,9 @@ int				begin_bang(t_control *hist, char **final, int i)
 	if ((i = word_modifier(*final, bang, i)) == -1)
 		return (del_bang(bang));
 	bang->end = i;
-	if (!(tab = get_line_history(hist, bang, *final)))
-		return (del_bang(bang));
-	if (!(tab = designator_fnc(tab, bang)))
-	{
-		del_tabstr(&tab);
-		return (del_bang(bang));
-	}
-	if (!(tab = do_modifiers(tab, bang)))
+	if (!(tab = get_line_history(hist, bang, *final))
+			|| !(tab = designator_fnc(tab, bang))
+			|| !(tab = do_modifiers(tab, bang)))
 	{
 		del_tabstr(&tab);
 		return (del_bang(bang));
@@ -76,6 +71,12 @@ int				begin_bang(t_control *hist, char **final, int i)
 	del_tabstr(&tab);
 	del_bang(bang);
 	return (i);
+}
+
+static char		*free_str_return_null(char **str)
+{
+	ft_strdel(str);
+	return (NULL);
 }
 
 char			*deal_bang(char *cmd, t_control *hist)
@@ -94,10 +95,7 @@ char			*deal_bang(char *cmd, t_control *hist)
 		if (new[i] == '!' && new[i + 1] && new[i + 1] != ' ' && c != '\''
 			&& new[i + 1] != '\t' && new[i + 1] != '=' && new[i + 1] != '(')
 			if ((i = begin_bang(hist, &new, i)) == -1)
-			{
-				ft_strdel(&new);
-				return (NULL);
-			}
+				return (free_str_return_null(&new));
 		if (new[i] == '\'')
 			while (new[i] && new[i] != '\'')
 				i++;

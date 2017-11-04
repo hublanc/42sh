@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 16:36:09 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/04 15:46:05 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/04 19:35:41 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,8 +240,10 @@ char				**get_nline(t_control *hist, t_bang2 *bang);
 char				**designator_fnc(char **hist_line, t_bang2 *bang);
 char				**return_error_bad_wspec(t_bang2 *bang, char **hist_line);
 char				**dup_free_return(char **hist_line, int begin, int end);
-void				find_begin(t_bang2 *bang, int *begin, int *end, char **hist_line);
-void				find_end(t_bang2 *bang, int *begin, int *end, char **hist_line);
+void				find_begin(t_bang2 *bang, int *begin, int *end,
+					char **hist_line);
+void				find_end(t_bang2 *bang, int *begin, int *end,
+					char **hist_line);
 
 /*
 **	bang_split.c
@@ -256,8 +258,24 @@ void				rmpathcomp(char **arg);
 void				rmsuffix(char **arg);
 void				rmallbutsuffix(char **arg);
 char				*quoteit(char *arg);
+
+/*
+**	Modifiers_quote.c
+*/
 char				*quoteword(char *arg);
+
+/*
+**	Modif_substi.c
+*/
 char				*modif_substi(char *arg, char *old, char *new, int rec);
+
+/*
+**	Extra_modif.c
+*/
+void				init_substi1(int *i, int *k, char *old, int j);
+void				init_substi2(int *j, int *l, char *arg);
+void				init_substi3(int *i, int *j, int *l, char *arg);
+void				loop_substi(int *i, int *j, char *arg);
 
 /*
 **	do_modifiers.c
