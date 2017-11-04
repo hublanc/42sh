@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/04 12:52:22 by amazurie          #+#    #+#             */
-/*   Updated: 2017/11/04 13:17:29 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/04 14:14:26 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,10 +92,10 @@ static char			*cmdsub(char *str, int *i, int k, int len)
 	int		j;
 
 	j = 0;
-	if (!str || !(new = (char*)malloc(sizeof(char) * len + k + 1)))
+	if (!str || !(new = (char*)ft_memalloc(sizeof(char) * len + k + 1)))
 		return (NULL);
 	ft_strncat(new, str + (*i - k), k);
-	j = ft_strlen(new) - 1;
+	k ? j = ft_strlen(new) - 1 : 0;
 	while (str[*i] && str[*i] != ' ' && j < len + k)
 	{
 		if (str[*i] == '\'' || str[*i] == '"')
