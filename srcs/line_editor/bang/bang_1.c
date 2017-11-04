@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/02 19:28:52 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/04 18:21:42 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/04 23:05:14 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,10 @@ int				del_bang(t_bang2 *bang)
 		ft_strdel(&(bang->cmd));
 	if (bang->str)
 		ft_strdel(&(bang->str));
+	if (bang->new)
+		ft_strdel(&(bang->new));
+	if (bang->old)
+		ft_strdel(&(bang->old));
 	free(bang);
 	return (-1);
 }
@@ -73,7 +77,7 @@ int				begin_bang(t_control *hist, char **final, int i)
 	return (i);
 }
 
-static char		*free_str_return_null(char **str)
+char			*free_str_return_null(char **str)
 {
 	ft_strdel(str);
 	return (NULL);

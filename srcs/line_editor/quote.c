@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/22 15:21:04 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/01 17:22:38 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/04 23:45:26 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void		prompt_backslash(t_cmd *cmd, t_control **history, int mod)
 	}
 	else if (mod)
 	{
-		cmd->str ? ft_strdel(&(cmd->str_quote)) : 0;
+		cmd->str_quote ? ft_strdel(&(cmd->str_quote)) : 0;
 		cmd->str_quote = ft_strdup(cmd_b.str_quote);
 	}
 	clear_cmd(&cmd_b);

@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/04 14:19:19 by amazurie          #+#    #+#             */
-/*   Updated: 2017/11/04 18:15:12 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/04 23:47:09 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int		bang_s(char **tmp, char **tmp2, t_bang2 *bang)
 {
-	if (!ft_strstr(*tmp, bang->old))
+	if (!bang->old || !*(bang->old) || !ft_strstr(*tmp, bang->old))
 	{
 		ft_putendl("42sh: substitution failed");
 		return (0);
@@ -54,6 +54,12 @@ static int		treat_modifiers(char **tmp, char **tmp2, t_bang2 *bang)
 	return (1);
 }
 
+static char		**del_tab_null(char **tab)
+{
+	del_tabstr(&tab);
+	return (NULL);
+}
+
 char			**do_modifiers(char **tab, t_bang2 *bang)
 {
 	char	*tmp;
@@ -73,9 +79,12 @@ char			**do_modifiers(char **tab, t_bang2 *bang)
 		free(tmp2);
 	}
 	if (!treat_modifiers(&tmp, &tmp2, bang))
-		return (NULL);
+	{
+		ft_strdel(&tmp);
+		return (del_tab_null(tab));
+	}
 	del_tabstr(&tab);
 	tab = bang_split(tmp);
-	free(tmp);
+	ft_strdel(&tmp);
 	return (tab);
 }
