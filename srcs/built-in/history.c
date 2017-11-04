@@ -22,8 +22,7 @@ int			ft_history(char **tab, char ***env, t_control **history)
 	status = 0;
 	args_pos = 0;
 	init_cd_flags(&flags);
-	if (!get_cd_flags(&flags, tab, &args_pos))
-		return (status);
+	get_cd_flags(&flags, tab, &args_pos);
 	file = get_history_file(env);
 	if (!tab[1] && (*history) != NULL && (*history)->length > 0)
 		print_history(history);
@@ -77,8 +76,6 @@ int			ft_history_3(char **tab, t_control **history, char *file,
 	{
 		if (tab[2] && str_isdigit(tab[2]) && (*history))
 			delete_elem_hist(ft_atoi(tab[2]), history);
-		else if (tab[2] && str_isdigit(tab[2]) && (!(*history)))
-			return (0);
 		else
 			set_usage('d', 1);
 	}
