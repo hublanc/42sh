@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/03 13:32:42 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/03 20:36:59 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/04 13:36:46 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,9 @@ int				event_designator(char *cmd, t_bang2 *bang, int i)
 	else if (cmd[i] && (ft_isdigit(cmd[i]) || cmd[i] == '-'))
 	{
 		bang->cmd_l = ft_atoi(cmd + i);
-		bang->n_set = 1;
+		bang->n_neg = cmd[i] && cmd[i] == '-' ? 1 : 0;
 		cmd[i] && cmd[i] == '-' ? i++ : 0;
+		bang->n_set = 1;
 		while (cmd[i] && ft_isdigit(cmd[i]))
 			i++;
 	}

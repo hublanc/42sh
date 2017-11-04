@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/02 19:28:52 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/04 13:55:09 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/04 13:57:53 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,16 @@ char			*replace_str(char **tab, char *final, t_bang2 *bang)
 	return (new);
 }
 
-void			del_bang(t_bang2 *bang)
+int				del_bang(t_bang2 *bang)
 {
 	if (!bang)
-		return ;
+		return (-1);
 	if (bang->cmd)
 		ft_strdel(&(bang->cmd));
 	if (bang->str)
 		ft_strdel(&(bang->str));
 	free(bang);
+	return (-1);
 }
 
 int				begin_bang(t_control *hist, char **final, int i)
@@ -59,9 +60,12 @@ int				begin_bang(t_control *hist, char **final, int i)
 	printf("%d\n", i);
 	bang->end = i;
 	if (!(tab = get_line_history(hist, bang, *final)))
-		return (-1);
+		return (del_bang(bang));
 	if (!(tab = designator_fnc(tab, bang)))
-		return (-1);
+	{
+		del_tabstr(&tab);
+		return (del_bang(bang));
+	}
 	*final = replace_str(tab, *final, bang);
 	i = bang->begin;
 	del_tabstr(&tab);
@@ -85,7 +89,10 @@ char			*deal_bang(char *cmd, t_control *hist)
 		if (new[i] == '!' && new[i + 1] && new[i + 1] != ' ' && c != '\''
 			&& new[i + 1] != '\t' && new[i + 1] != '=' && new[i + 1] != '(')
 			if ((i = begin_bang(hist, &new, i)) == -1)
+			{
+				ft_strdel(&new);
 				return (NULL);
+			}
 		if (new[i] == '\'')
 			while (new[i] && new[i] != '\'')
 				i++;
