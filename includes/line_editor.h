@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 16:36:09 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/04 14:43:50 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/04 15:46:05 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct		s_bang2
 	int				q_mark;
 	int				hash_t;
 	int				cmd_l;
+	int				shortcut;
 	int				n_set;
 	int				n_neg;
 	char			c_x;
