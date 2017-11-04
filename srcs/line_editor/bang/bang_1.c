@@ -6,81 +6,93 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/02 19:28:52 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/03 16:05:54 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/03 22:30:47 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-char			**get_htagstr(char *cmd)
+char			*replace_str(char **tab, char *final, t_bang2 *bang)
 {
-	char		*new;
-	char		**tab;
+	char	*new;
+	char	*tmp;
+	int		i;
 
-	new = NULL;
-	while (cmd && *cmd && *cmd != '!')
+	new = ft_strsub(final, 0, bang->begin);
+	i = 0;
+	while (tab && tab[i])
 	{
-		new = ft_str_chr_cat(new, *cmd);
-		cmd++;
+		new = ft_strapp(new, tab[i]);
+		if (tab[i + 1])
+			new = ft_strapp(new, " ");
+		i++;
 	}
-	tab = ft_cmdsplit(new);
-	ft_strdel(&new);
-	return (tab);
+	tmp = ft_strsub(final, bang->end, ft_strlen(final) - 1);
+	new = ft_strapp(new, tmp);
+	ft_strdel(&tmp);
+	ft_strdel(&final);
+	return (new);
 }
 
-char			**get_nline(t_control *hist, t_bang2 *bang)
+void			del_bang(t_bang2 *bang)
 {
-	t_lst		*tmp;
-
-	tmp = hist->begin;
-	ft_putendl(bang->str);
-	return (NULL);
+	if (!bang)
+		return ;
+	if (bang->cmd)
+		ft_strdel(&(bang->cmd));
+	if (bang->str)
+		ft_strdel(&(bang->str));
+	free(bang);
 }
 
-char			**get_line_history(t_control *hist, t_bang2 *bang, char *final)
-{
-	if (bang->hash_t)
-		return (get_htagstr(final));
-	else if (bang->n_set || bang->d_bang)
-		return (get_nline(hist, bang));
-	return (NULL);
-}
-
-char			*begin_bang(char *cmd, t_control *hist, char *final)
+int				begin_bang(t_control *hist, char **final, int i)
 {
 	t_bang2		*bang;
-	char		**line_h_split;
+	char		**tab;
 
 	bang = (t_bang2*)ft_memalloc(sizeof(t_bang2));
-	cmd = event_designator(cmd, bang);
-	cmd = word_designator_x(cmd, bang);
-	cmd = word_designator_y(cmd, bang);
-	cmd = word_modifier(cmd, bang);
-	line_h_split = get_line_history(hist, bang, final);
-	line_h_split = designator_fnc(line_h_split, bang);
-	return (NULL);
+	bang->begin = i;
+	i = event_designator(*final, bang, i);
+	i = word_designator_x(*final, bang, i);
+	i = word_designator_y(*final, bang, i);
+	i = word_modifier(*final, bang, i);
+	bang->end = i;
+	if (!(tab = get_line_history(hist, bang, *final)))
+		return (-1);
+	if (!(tab = designator_fnc(tab, bang)))
+		return (-1);
+	*final = replace_str(tab, *final, bang);
+	i = bang->begin;
+	del_tabstr(&tab);
+	del_bang(bang);
+	return (i);
 }
 
 char			*deal_bang(char *cmd, t_control *hist)
 {
 	char		c;
 	char		*new;
+	int			i;
 
 	c = 0;
-	new = ft_strdup(cmd);
+	i = 0;
 	if (!ft_strchr(cmd, '!'))
-		return (NULL);
-	while (cmd && *cmd)
+		return (ft_strdup(cmd));
+	new = ft_strdup(cmd);
+	while (new && new[i])
 	{
-		if (*cmd == '!' && *(cmd + 1) && *(cmd + 1) != ' ' && c != '\''
-			&& *(cmd + 1) != '\t' && *(cmd + 1) != '=' && *(cmd + 1) != '(')
-			new = begin_bang(cmd, hist, new);
-		if (*cmd == '\'')
-			while (*cmd && *cmd != '\'')
-				cmd++;
-		if (*cmd == '\\')
-			cmd++;
-		*cmd ? cmd++ : 0;
+		if (new[i] == '!' && new[i + 1] && new[i + 1] != ' ' && c != '\''
+			&& new[i + 1] != '\t' && new[i + 1] != '=' && new[i + 1] != '(')
+			if ((i = begin_bang(hist, &new, i)) == -1)
+				return (NULL);
+		if (new[i] == '\'')
+			while (new[i] && new[i] != '\'')
+				i++;
+		if (new[i] == '\\')
+			i++;
+		new[i] ? i++ : 0;
 	}
+	add_hist_or_not(&hist, new);
+	ft_putendl(new);
 	return (new);
 }
