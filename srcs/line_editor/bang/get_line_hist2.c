@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/03 17:15:28 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/03 17:23:59 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/04 13:11:01 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static char	**endsearch_nl(t_control *hist, t_bang2 *bang)
 		ft_putstr_fd(": event not found\n", 2);
 		return (NULL);
 	}
-	return (ft_cmdsplit(tmp->name));
+	return (bang_split(tmp->name));
 }
 
 static char	**beginsearch_nl(t_control *hist, t_bang2 *bang)
@@ -47,7 +47,7 @@ static char	**beginsearch_nl(t_control *hist, t_bang2 *bang)
 		ft_putstr_fd(": event not found\n", 2);
 		return (NULL);
 	}
-	return (ft_cmdsplit(tmp->name));
+	return (bang_split(tmp->name));
 }
 
 char		**get_nline(t_control *hist, t_bang2 *bang)
