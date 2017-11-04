@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 16:36:09 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/04 19:35:41 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/04 23:05:09 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,6 +204,7 @@ int					return_sigint(char **to_del, char *to_save);
 **	Bang_1.c
 */
 char				*deal_bang(char *cmd, t_control *hist);
+char				*free_str_return_null(char **str);
 
 /*
 **	Word_designator.c
