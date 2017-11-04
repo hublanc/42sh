@@ -15,9 +15,9 @@
 void		key_handler_sigint(t_cmd *cmd,
 			t_control **history, char ***env, char **buf)
 {
-	if (!(*buf = (char *)ft_memalloc(1000)))
+	if (!(*buf = (char *)ft_memalloc(6)))
 		return ;
-	if (!read(0, *buf, 999))
+	if (!read(0, *buf, 5))
 	{
 		can_sigint(1);
 		while (*buf && (*buf)[0])
