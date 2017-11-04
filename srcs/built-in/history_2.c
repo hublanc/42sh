@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/21 21:12:49 by mameyer           #+#    #+#             */
-/*   Updated: 2017/10/31 15:14:55 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/11/04 22:13:18 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ void		nflag(t_control **history, char *file)
 	int		fd;
 	char	*str;
 
-	if (get_history_file_size(file) <= (*history)->length)
-		return ;
 	a = 0;
 	fd = open(file, O_RDWR, S_IRUSR | S_IWUSR | S_IROTH);
 	if (fd == -1)
@@ -29,11 +27,17 @@ void		nflag(t_control **history, char *file)
 		ft_strdel(&str);
 		a++;
 	}
+	if (str && *str)
+		(*history) = dll_add_new_elem_frnt(*history, str);
+	ft_strdel(&str);
 	while (get_next_line(fd, &str))
 	{
 		(*history) = dll_add_new_elem_frnt(*history, str);
 		ft_strdel(&str);
 	}
+	if (str && *str)
+		(*history) = dll_add_new_elem_frnt(*history, str);
+	ft_strdel(&str);
 	close(fd);
 }
 
