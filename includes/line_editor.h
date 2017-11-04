@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 16:36:09 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/03 16:00:40 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/03 21:00:20 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ typedef struct		s_bang
 
 typedef struct		s_bang2
 {
+	int				begin;
+	int				end;
 	char			*cmd;
 	int				d_bang;
 	int				q_mark;
@@ -198,29 +200,40 @@ char				*deal_bang(char *cmd, t_control *hist);
 /*
 **	Word_designator.c
 */
-char				*word_designator_x(char *cmd, t_bang2 *bang);
-char				*get_xdigit(char *cmd, t_bang2 *bang);
-char				*word_designator_y(char *cmd, t_bang2 *bang);
-char				*get_ydigit(char *cmd, t_bang2 *bang);
+int					word_designator_x(char *cmd, t_bang2 *bang, int i);
+int					get_xdigit(char *cmd, t_bang2 *bang, int i);
+int					word_designator_y(char *cmd, t_bang2 *bang, int i);
+int					get_ydigit(char *cmd, t_bang2 *bang, int i);
 
 /*
 **	Event_designator.c
 */
-char				*event_designator(char *cmd, t_bang2 *bang);
+int					event_designator(char *cmd, t_bang2 *bang, int i);
 
 /*
 **	Word_modifier.c
 */
-char				*word_modifier(char *cmd, t_bang2 *bang);
+int					word_modifier(char *cmd, t_bang2 *bang, int i);
+
+/*
+**	Get_line_hist.c
+*/
+char				**get_line_history(t_control *hist, t_bang2 *bang
+					, char *final);
+
+/*
+**	Get_line_hist2.c
+*/
+char				**get_nline(t_control *hist, t_bang2 *bang);
 
 /*
 **	Get_splitted.c
 */
-
 char				**designator_fnc(char **hist_line, t_bang2 *bang);
-char				**return_error_bad_wspec(t_bang **bang, char **hist_line);
+char				**return_error_bad_wspec(t_bang2 *bang, char **hist_line);
 char				**dup_free_return(char **hist_line, int begin, int end);
-void				find_begin(t_bang2 **bang, int *begin, int *end);
-void				find_end(t_bang2 **bang, int *begin, int *end);
+void				find_begin(t_bang2 *bang, int *begin, int *end, char **hist_line);
+void				find_end(t_bang2 *bang, int *begin, int *end, char **hist_line);
+
 
 #endif

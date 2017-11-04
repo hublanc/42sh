@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/24 16:37:30 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/03 15:49:13 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/03 21:04:25 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,37 +84,6 @@ int			main(int ac, char **av, char **env)
 	save_cmd(&cmd);
 	history = NULL;
 	history = load_history(env);
-/*
-**	TEST
-*/
-	char 		*str = ft_strdup("!ls:2-");
-	char 		*new = NULL;
-	char 		**bite;
-	t_bang2		*bang;
-
-	if (!(bang = malloc(sizeof(t_bang))))
-		exit(-1);
-	bang->str = ft_strdup("!ls:^-*");
-	bang->dash = 1;
-	bang->x = 0;
-	bang->y = 0;
-	bang->c_x = 0;
-	bang->c_y = '*';
-
-	if (!(bite = (char **)malloc(sizeof(char *) * 6)))
-		exit(-1);
-	bite[0] = ft_strdup("ls");
-	bite[1] = ft_strdup("-l");
-	bite[2] = ft_strdup("-a");
-	bite[3] = ft_strdup("-r");
-	bite[4] = ft_strdup("-1");
-	bite[5] = NULL;
-	designator_fnc(bite, bang);
-	//new = deal_bang(str, history);
-	return (0);
-
-	(void)new;
-	(void)str;
 	while (1)
 		key_handler(&cmd, &history, save_env(NULL));
 	saved_loc(1);

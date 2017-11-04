@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/17 11:10:52 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/02 20:23:35 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/03 21:06:12 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ void		routine(char *cmd, char ***env, t_control **history)
 
 	if (!cmd)
 		return ;
-	new_command = bang_events(cmd, history);
+	new_command = deal_bang(cmd, *history);
 	if (new_command == NULL)
 		return ;
 	list = tokenizer(new_command);

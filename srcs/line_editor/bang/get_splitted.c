@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/03 15:52:19 by mameyer           #+#    #+#             */
-/*   Updated: 2017/11/03 15:52:23 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/11/03 22:28:11 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,15 @@ char		**designator_fnc(char **hist_line, t_bang2 *bang)
 	end = 0;
 	if (!hist_line)
 		return (NULL);
-	find_begin(bang, &begin, &end);
-	find_end(bang, &begin, &end);
+	find_begin(bang, &begin, &end, hist_line);
+	find_end(bang, &begin, &end, hist_line);
 	if (end < begin && bang->dash)
 		return (return_error_bad_wspec(bang, hist_line));
 	else
 		return (dup_free_return(hist_line, begin, end));
 }
 
-void		find_begin(t_bang2 **bang, int *begin, int *end)
+void		find_begin(t_bang2 *bang, int *begin, int *end, char **hist_line)
 {
 	if (bang->x)
 		*begin = bang->x;
@@ -47,7 +47,7 @@ void		find_begin(t_bang2 **bang, int *begin, int *end)
 	}
 }
 
-void		find_end(t_bang2 **bang, int *begin, int *end)
+void		find_end(t_bang2 *bang, int *begin, int *end, char **hist_line)
 {
 	if (bang->dash)
 	{
@@ -62,13 +62,16 @@ void		find_end(t_bang2 **bang, int *begin, int *end)
 		*end = 1;
 	else if (bang->y == 0 && bang->c_y == '*')
 		*end = tablen(hist_line) - 1;
-	if (*end == 0)
+	if (*end == 0 && !bang->n_set)
+		*end = tablen(hist_line) - 1;
+	else if (*end == 0)
 		*end = *begin;
 }
 
 char		**dup_free_return(char **hist_line, int begin, int end)
 {
 	int		i;
+	char	**result;
 
 	if (!(result = (char **)malloc(sizeof(char *) * (end - begin + 2))))
 		return (NULL);
@@ -89,7 +92,7 @@ char		**dup_free_return(char **hist_line, int begin, int end)
 	return (result);
 }
 
-char		**return_error_bad_wspec(t_bang2 **bang, char **hist_line)
+char		**return_error_bad_wspec(t_bang2 *bang, char **hist_line)
 {
 	int		i;
 
@@ -100,7 +103,7 @@ char		**return_error_bad_wspec(t_bang2 **bang, char **hist_line)
 		i++;
 	}
 	free(hist_line);
-	ft_putstr_fd("shell: ", 2);
+	ft_putstr_fd("42sh: ", 2);
 	if (bang->x)
 		ft_putnbr_fd(bang->x, 2);
 	else if (bang->c_x)
