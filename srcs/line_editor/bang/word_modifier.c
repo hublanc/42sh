@@ -78,7 +78,7 @@ static int	fill_bang(char *cmd, int i, t_bang2 *bang)
 	}
 	else if (cmd[i] && cmd[i] != 'g')
 		return (error_modifier(cmd[i]));
-	return (0);
+	return (i);
 }
 
 int			word_modifier(char *cmd, t_bang2 *bang, int i)
@@ -88,7 +88,7 @@ int			word_modifier(char *cmd, t_bang2 *bang, int i)
 	while (cmd[i] && (cmd[i] == ':' || bang->m_g == 1))
 	{
 		i++;
-		if (fill_bang(cmd, i, bang) == -1)
+		if ((i = fill_bang(cmd, i, bang)) == -1)
 			return (-1);
 		if (bang->m_g == 1)
 			return (i + 1);
