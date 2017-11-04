@@ -12,11 +12,11 @@
 
 #include "shell.h"
 
-static void	modif_substi3(int *i, int *j, char *new, int rec)
+static void	modif_substi3(int *i, int *j, char *new)
 {
 	*i = -1;
 	*j = 0;
-	while (new[++(*i)] && (*j == 0 || rec > 0))
+	while (new[++(*i)])
 		if (new[*i] == '&' && (*i <= 0 || new[*i - 1] != '\\'))
 			(*j)++;
 }
@@ -48,18 +48,18 @@ char		*modif_substi(char *arg, char *old, char *new, int rec)
 
 	if (!arg || !old || !new)
 		return (NULL);
-	modif_substi3(&i, &j, new, rec);
+	modif_substi3(&i, &j, new);
 	init_substi1(&i, &k, old, j);
 	init_substi2(&j, &l, arg);
-	while ((i == 0 || rec > 0) && i < l && (i += ft_strstr_len(arg + i, old)))
+	while ((i == 0 || rec > 0) && i < l && (i += ft_strstr_len(arg + i, old)) >= 0)
 		loop_substi(&i, &j, old);
 	if (!(s = (char *)ft_memalloc(sizeof(char) + (l - j * ft_strlen(old) + k * j
 						+ j * ft_strlen(new) + 1))))
 		return (NULL);
 	init_substi3(&i, &j, &l, arg);
-	while ((i == 0 || rec > 0) && i < l && (i = ft_strstr_len(arg + j, old)))
+	while ((i == 0 || rec > 0) && i < l && ((i = ft_strstr_len(arg + j, old)) || j == 0))
 	{
-		ft_strncat(s, arg + j, i);
+		i ? ft_strncat(s, arg + j, i) : 0;
 		j += i + ft_strlen(old);
 		modif_substi2(new, &s, k, old);
 	}
