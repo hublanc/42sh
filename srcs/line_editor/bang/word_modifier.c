@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/03 13:40:21 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/03 22:36:31 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/04 13:33:02 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int			word_modifier(char *cmd, t_bang2 *bang, int i)
 {
 	if (!cmd || !cmd[i] || cmd[i] != ':')
 		return (i);
-	while (cmd[i] && cmd[i] != ':')
+	while (cmd[i] && cmd[i] == ':')
 	{
 		i++;
 		if (cmd[i] && cmd[i] == 'h')
@@ -33,8 +33,6 @@ int			word_modifier(char *cmd, t_bang2 *bang, int i)
 			bang->m_q = 1;
 		else if (cmd[i] && cmd[i] == 'x')
 			bang->m_x = 1;
-		else
-			error();
 		cmd[i] ? i++ : 0;
 	}
 	return (i);

@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/03 15:52:19 by mameyer           #+#    #+#             */
-/*   Updated: 2017/11/04 11:00:22 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/04 13:21:38 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,15 @@ char		**designator_fnc(char **hist_line, t_bang2 *bang)
 
 void		find_begin(t_bang2 *bang, int *begin, int *end, char **hist_line)
 {
-	if (bang->x)
+	if (bang->x_set)
 		*begin = bang->x;
-	else if (bang->x == 0 && bang->c_x == '$')
+	else if (!bang->x_set && bang->c_x == '$')
 		*begin = tablen(hist_line) - 1;
-	else if (bang->x == 0 && bang->c_x == '^')
+	else if (!bang->x_set && bang->c_x == '^')
 		*begin = 1;
-	else if (bang->x == 0 && bang->c_x == '*')
+	else if (!bang->x_set && bang->c_x == '*')
 	{
-		if (!(bang->y) && !(bang->c_y))
+		if (!(bang->y_set) && !(bang->c_y))
 		{
 			*begin = 1;
 			*end = tablen(hist_line) - 1;
@@ -51,20 +51,21 @@ void		find_end(t_bang2 *bang, int *begin, int *end, char **hist_line)
 {
 	if (bang->dash)
 	{
-		if (bang->y)
+		if (bang->y_set)
 			*end = bang->y;
-		else if (bang->y == 0 && bang->c_y == 0 && bang->dash)
+		else if (!bang->y_set && bang->c_y == 0 && bang->dash
+				&& bang->x_set)
 			*end = tablen(hist_line) - 2;
 	}
-	if (bang->y == 0 && bang->c_y == '$')
+	if (!bang->y_set && bang->c_y == '$')
 		*end = tablen(hist_line) - 1;
-	else if (bang->y == 0 && bang->c_y == '^')
+	else if (!bang->y_set && bang->c_y == '^')
 		*end = 1;
-	else if (bang->y == 0 && bang->c_y == '*')
+	else if (!bang->y_set && bang->c_y == '*')
 		*end = tablen(hist_line) - 1;
-	if (*end == 0 && !bang->n_set)
+	if (*end == 0 && !bang->x_set && !bang->y_set)
 		*end = tablen(hist_line) - 1;
-	else if (*end == 0)
+	else if (!bang->y_set && *end == 0 && bang->x_set)
 		*end = *begin;
 }
 
