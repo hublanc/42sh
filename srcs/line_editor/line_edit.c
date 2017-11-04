@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 17:36:47 by amazurie          #+#    #+#             */
-/*   Updated: 2017/11/04 11:38:57 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/04 20:13:50 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void		print_line(t_cmd *cmd)
 		while (len-- != cmd->col)
 			tputs(tgetstr("le", NULL), 1, tputchar);
 	else if (len < cmd->col)
-		while (len != cmd->col)
+		while (len != cmd->col && len > 0)
 		{
 			if (len % cmd->sc_col == 0)
 				go_down();

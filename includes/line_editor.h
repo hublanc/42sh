@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 16:36:09 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/02 22:20:04 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/11/04 20:15:34 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,39 @@ typedef struct		s_bang
 	int				len;
 	int				quotes;
 }					t_bang;
+
+typedef struct		s_bang2
+{
+	int				begin;
+	int				end;
+	char			*cmd;
+	int				d_bang;
+	int				q_mark;
+	int				hash_t;
+	int				cmd_l;
+	int				shortcut;
+	int				n_set;
+	int				n_neg;
+	char			c_x;
+	char			c_y;
+	int				dash;
+	int				x;
+	int				x_set;
+	int				y;
+	int				y_set;
+	int				m_h;
+	int				m_t;
+	int				m_r;
+	int				m_e;
+	int				m_p;
+	int				m_q;
+	int				m_x;
+	int				m_s;
+	int				m_g;
+	char			*old;
+	char			*new;
+	char			*str;
+}					t_bang2;
 
 /*
 **	Event_designators.c
@@ -176,5 +209,87 @@ int					return_handler(t_lst *tmp, char *buf, char **search,
 					char **str);
 void				init_hist_search(char **search, t_lst **tmp);
 int					return_sigint(char **to_del, char *to_save);
+
+/*
+**	Bang_1.c
+*/
+char				*deal_bang(char *cmd, t_control *hist);
+
+/*
+**	Word_designator.c
+*/
+int					word_designator_x(char *cmd, t_bang2 *bang, int i);
+int					get_xdigit(char *cmd, t_bang2 *bang, int i);
+int					word_designator_y(char *cmd, t_bang2 *bang, int i);
+int					get_ydigit(char *cmd, t_bang2 *bang, int i);
+
+/*
+**	Event_designator.c
+*/
+int					event_designator(char *cmd, t_bang2 *bang, int i);
+
+/*
+**	Word_modifier.c
+*/
+int					word_modifier(char *cmd, t_bang2 *bang, int i);
+
+/*
+**	Get_line_hist.c
+*/
+char				**get_line_history(t_control *hist, t_bang2 *bang
+					, char *final);
+
+/*
+**	Get_line_hist2.c
+*/
+char				**get_nline(t_control *hist, t_bang2 *bang);
+
+/*
+**	Get_splitted.c
+*/
+char				**designator_fnc(char **hist_line, t_bang2 *bang);
+char				**return_error_bad_wspec(t_bang2 *bang, char **hist_line);
+char				**dup_free_return(char **hist_line, int begin, int end);
+void				find_begin(t_bang2 *bang, int *begin, int *end,
+					char **hist_line);
+void				find_end(t_bang2 *bang, int *begin, int *end,
+					char **hist_line);
+
+/*
+**	bang_split.c
+*/
+char				**bang_split(char *str);
+
+/*
+**	modifiers.c
+*/
+void				rmpathname(char **arg);
+void				rmpathcomp(char **arg);
+void				rmsuffix(char **arg);
+void				rmallbutsuffix(char **arg);
+char				*quoteit(char *arg);
+
+/*
+**	Modifiers_quote.c
+*/
+char				*quoteword(char *arg);
+
+/*
+**	Modif_substi.c
+*/
+char				*modif_substi(char *arg, char *old, char *new, int rec);
+
+/*
+**	Extra_modif.c
+*/
+void				init_substi1(int *i, int *k, char *old, int j);
+void				init_substi2(int *j, int *l, char *arg);
+void				init_substi3(int *i, int *j, int *l, char *arg);
+void				loop_substi(int *i, int *j, char *arg);
+
+/*
+**	do_modifiers.c
+*/
+char				**do_modifiers(char **tab, t_bang2 *bang);
 
 #endif
