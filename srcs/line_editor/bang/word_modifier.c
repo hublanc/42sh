@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/03 13:40:21 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/04 14:02:35 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/04 14:41:11 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,15 @@ int			word_modifier(char *cmd, t_bang2 *bang, int i)
 			bang->m_q = 1;
 		else if (cmd[i] && cmd[i] == 'x')
 			bang->m_x = 1;
-		if (cmd[i] && cmd[i] == 's')
+		else if (cmd[i] && cmd[i] == 's')
 			check_smodif(cmd, bang, i);
+		else
+		{
+			ft_putstr("42sh: ");
+			ft_putchar(cmd[i]);
+			ft_putendl(": unrecognized history modifier");
+			return (-1);
+		}
 		if (bang->m_g == 1)
 			return (i);
 		if (cmd[i] && cmd[i] == 'g')

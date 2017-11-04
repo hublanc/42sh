@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 16:36:09 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/04 14:32:27 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/04 14:39:36 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -247,5 +247,10 @@ void				find_end(t_bang2 *bang, int *begin, int *end, char **hist_line);
 **	bang_split.c
 */
 char				**bang_split(char *str);
+
+/*
+**	do_modifiers.c
+*/
+char				**do_modifiers(char **tab, t_bang2 *bang);
 
 #endif

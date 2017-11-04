@@ -6,7 +6,7 @@
 #    By: hublanc <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/07/24 15:04:09 by hublanc           #+#    #+#              #
-#    Updated: 2017/11/04 13:59:16 by amazurie         ###   ########.fr        #
+#    Updated: 2017/11/04 14:18:51 by amazurie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,6 +50,7 @@ SRC		=	main.c\
 			line_editor/bang/get_line_hist2.c\
 			line_editor/bang/get_splitted.c\
 			line_editor/bang/bang_split.c\
+			line_editor/bang/do_modifiers.c\
 			exec/exec.c\
 			exec/check_binary.c\
 			exec/ft_cmdsplit.c\
