@@ -81,26 +81,31 @@ char	*quoteword(char *arg)
 
 	if (!arg)
 		return (NULL);
-	i = 0;
+	i = -1;
 	j = 0;
-	while (arg[i])
+	while (arg[++i])
 	{
-		(arg[i] == ' ') ? j += 2 : 0;
-		while (arg[i] == ' ')
-			i++;
+		if (arg[i] == ' ' && (i <= 0 || arg[i - 1] == ' '))
+			j += arg[i + 1] ? 3 : 2;
+		else if (arg[i] != ' ')
+			j += 2;
 	}
 	if (!(s = (char *)ft_memalloc(sizeof(char) + i + j + 1)))
 		return (NULL);
-	k = ft_strlen(arg);
-	while (i < k)
+	i = -1;
+	k = ft_strlen(arg) - 1;
+	while (++i < k)
 	{
-		while (arg[i] == ' ')
-			i++;
-		ft_strncat(s, arg, i);
-		ft_strncat(s, "'", i);
-		j = ft_strlen_chr(arg + i, ' ');
-		ft_strncat(s, arg + i, j);
-		ft_strncat(s, "'", i);
+		if (arg[i] == ' ' && (i <= 0 || arg[i - 1] == ' '))
+			arg[i + 1] ? ft_strcat(s, "'' ") : ft_strcat(s, "''");
+		else if (arg[i] != ' ' && (j = ft_strlen_chr(arg + i, ' ')))
+		{
+			ft_strcat(s, "'");
+			ft_strncat(s, arg + i, j);
+			ft_strcat(s, "'");
+			arg[i + 1] ? ft_strcat(s, " ") : 0;
+			i += j;
+		}
 	}
 	return (s);
 }
