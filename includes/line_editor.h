@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 16:36:09 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/04 14:21:17 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/04 14:43:50 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -246,6 +246,17 @@ void				find_end(t_bang2 *bang, int *begin, int *end, char **hist_line);
 **	bang_split.c
 */
 char				**bang_split(char *str);
+
+/*
+**	modifiers.c
+*/
+void				rmpathname(char **arg);
+void				rmpathcomp(char **arg);
+void				rmsuffix(char **arg);
+void				rmallbutsuffix(char **arg);
+char				*quoteit(char *arg);
+char				*quoteword(char *arg);
+char				*modif_substi(char *arg, char *old, char *new, int rec);
 
 /*
 **	do_modifiers.c
