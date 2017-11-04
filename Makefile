@@ -6,13 +6,13 @@
 #    By: hublanc <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/07/24 15:04:09 by hublanc           #+#    #+#              #
-#    Updated: 2017/11/04 19:31:21 by hublanc          ###   ########.fr        #
+#    Updated: 2017/11/04 21:44:31 by hublanc          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= shell
 CC		= gcc
-FLAGS	= -Wall -Wextra -Werror -g -fsanitize=address
+FLAGS	= -Wall -Wextra -Werror -g
 DFLAGS	= -MMD
 LIB		= libft/libft.a
 HEADER	= includes/
@@ -111,6 +111,7 @@ SRC		=	main.c\
 			built-in/history_2.c\
 			built-in/history_3.c\
 			built-in/history_4.c\
+			built-in/history_s.c\
 			built-in/read/ft_read.c\
 			built-in/read/ft_read2.c\
 			built-in/read/read_r_opt.c\
