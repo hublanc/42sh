@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/04 12:52:22 by amazurie          #+#    #+#             */
-/*   Updated: 2017/11/04 15:43:58 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/04 17:37:49 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,8 +137,5 @@ char				**bang_split(char *str)
 		i++;
 	}
 	new[i] = NULL;
-	i = 0;
-	while (new[i])
-		printf("\n%s\n", new[i++]);
 	return (new);
 }

@@ -6,32 +6,45 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/03 13:40:21 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/04 15:45:19 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/04 17:53:10 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-static void	check_smodif(char *cmd, t_bang2 *bang, int i)
+static int	arr_bangsubs()
+{
+	ft_putendl("42sh: no previous substitution");
+	return (-1);
+}
+
+static int	check_smodif(char *cmd, t_bang2 *bang, int i)
 {
 	char	t;
 	int		j;
 
+	bang->old = NULL;
+	bang->new = NULL;
 	t = cmd[++i];
 	j = 0;
-	while (cmd[i] && (cmd[i] != ' ' || cmd[i - 1] == '\\') && !bang->new)
+	bang->m_s = 1;
+	while (cmd[++i] && (cmd[i] != ' ' || cmd[i - 1] == '\\') && !bang->new)
 	{
 		if (cmd[i] == t && cmd[i - 1] != '\\' && !bang->old)
+		{
+			if (j <= 0)
+				return (arr_bangsubs());
 			bang->old = ft_strndup(cmd + (i - j), j);
-		else if (cmd[i] == t && cmd[i - 1] != '\\')
+		}
+		else if (cmd[i] == t && cmd[i - 1] != '\\' && bang->old)
 			bang->new = ft_strndup(cmd + (i - j), j);
 		if (cmd[i] == t && cmd[i - 1] != '\\')
 			j = -1;
-		i++;
 		j++;
 	}
 	if (bang->old && !bang->new)
 		bang->new = ft_strndup(cmd + (i - j), j);
+	return (i);
 }
 
 int			word_modifier(char *cmd, t_bang2 *bang, int i)
@@ -56,8 +69,11 @@ int			word_modifier(char *cmd, t_bang2 *bang, int i)
 		else if (cmd[i] && cmd[i] == 'x')
 			bang->m_x = 1;
 		else if (cmd[i] && cmd[i] == 's')
-			check_smodif(cmd, bang, i);
-		else
+		{
+			if ((i = check_smodif(cmd, bang, i)) == -1)
+				return (-1);
+		}
+		else if (cmd[i] && cmd[i] != 'g')
 		{
 			ft_putstr("42sh: ");
 			ft_putchar(cmd[i]);
@@ -68,7 +84,7 @@ int			word_modifier(char *cmd, t_bang2 *bang, int i)
 			return (i);
 		if (cmd[i] && cmd[i] == 'g')
 			bang->m_g = 1;
-		cmd[i] ? i++ : 0;
+		cmd[i] && !bang->m_s && !bang->m_g ? i++ : 0;
 	}
 	return (i);
 }
