@@ -91,10 +91,11 @@ static char			*cmdsub(char *str, int *i, int k, int len)
 	int		j;
 
 	j = 0;
-	if (!str || !(new = (char*)ft_memalloc(sizeof(char) * len + k + 1)))
+	if (!str || !(new = (char*)ft_memalloc(sizeof(char) * len + k
+					+ (*i - k != 0 ? 1 : 0) + 1)))
 		return (NULL);
 	ft_strncat(new, str + (*i - k), k);
-	k ? j = ft_strlen(new) - 1 : 0;
+	k ? j = ft_strlen(new) - (*i - k != 0 ? 1 : 0) : 0;
 	while (str[*i] && str[*i] != ' ' && j < len + k)
 	{
 		if (str[*i] == '\'' || str[*i] == '"')
@@ -103,7 +104,7 @@ static char			*cmdsub(char *str, int *i, int k, int len)
 			new[j++] = str[(*i)++];
 			while (str[*i] && str[*i] != c)
 				new[j++] = str[(*i)++];
-			new[j++] = str[(*i)++];
+			new[j++] = str[*i];
 		}
 		else
 			new[j++] = str[*i];
@@ -121,13 +122,13 @@ char				**bang_split(char *str)
 	int			k;
 	int			nb_w;
 
-	i = 0;
-	j = 0;
 	if (!str)
 		return (NULL);
 	nb_w = countword(str);
 	if (!(new = (char**)malloc(sizeof(char*) * (nb_w + 1))))
 		return (NULL);
+	i = 0;
+	j = 0;
 	while (nb_w--)
 	{
 		k = 0;
