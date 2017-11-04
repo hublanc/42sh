@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/02 19:28:52 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/04 13:57:53 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/04 14:20:42 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int				begin_bang(t_control *hist, char **final, int i)
 	bang->end = i;
 	if (!(tab = get_line_history(hist, bang, *final)))
 		return (del_bang(bang));
-	if (!(tab = designator_fnc(tab, bang)))
+	if (!(tab = designator_fnc(tab, bang)) && !(tab = do_modifiers(tab, bang)))
 	{
 		del_tabstr(&tab);
 		return (del_bang(bang));
