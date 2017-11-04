@@ -42,7 +42,7 @@ static int	check_smodif(char *cmd, t_bang2 *bang, int i)
 			j = -1;
 		j++;
 	}
-	if (bang->old && !bang->new)
+	if (bang->old && !bang->new && i - j > 0)
 		bang->new = ft_strndup(cmd + (i - j), j);
 	return (i);
 }
