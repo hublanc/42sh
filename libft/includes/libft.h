@@ -126,5 +126,6 @@ size_t				ft_strschr_len(char *s1, char *s2);
 int					ft_power(int nb, int pow);
 int					ft_strlen_chr(char *s, char c);
 char				*ft_strapphead(char *str1, char *str2);
+int					ft_strstr_len(const char *big, const char *little);
 
 #endif
