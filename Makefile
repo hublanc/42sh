@@ -6,13 +6,13 @@
 #    By: hublanc <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/07/24 15:04:09 by hublanc           #+#    #+#              #
-#    Updated: 2017/11/03 17:46:46 by hublanc          ###   ########.fr        #
+#    Updated: 2017/11/04 13:59:16 by amazurie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= shell
 CC		= gcc
-FLAGS	= -Wall -Wextra -Werror -g #-fsanitize=address
+FLAGS	= -Wall -Wextra -Werror -g -fsanitize=address
 DFLAGS	= -MMD
 LIB		= libft/libft.a
 HEADER	= includes/
@@ -49,6 +49,7 @@ SRC		=	main.c\
 			line_editor/bang/get_line_hist.c\
 			line_editor/bang/get_line_hist2.c\
 			line_editor/bang/get_splitted.c\
+			line_editor/bang/bang_split.c\
 			exec/exec.c\
 			exec/check_binary.c\
 			exec/ft_cmdsplit.c\

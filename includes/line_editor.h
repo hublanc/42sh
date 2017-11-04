@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 16:36:09 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/04 13:37:12 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/04 13:58:14 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,10 @@ typedef struct		s_bang2
 	int				m_p;
 	int				m_q;
 	int				m_x;
+	int				m_s;
+	int				m_g;
+	char			*old;
+	char			*new;
 	char			*str;
 }					t_bang2;
 
@@ -238,5 +242,9 @@ char				**dup_free_return(char **hist_line, int begin, int end);
 void				find_begin(t_bang2 *bang, int *begin, int *end, char **hist_line);
 void				find_end(t_bang2 *bang, int *begin, int *end, char **hist_line);
 
+/*
+**	bang_split.c
+*/
+char				**bang_split(char *str);
 
 #endif
