@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/02 19:28:52 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/03 22:33:12 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/04 11:49:00 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@ char			*replace_str(char **tab, char *final, t_bang2 *bang)
 	return (new);
 }
 
-int			del_bang(t_bang2 *bang)
+int				del_bang(t_bang2 *bang)
 {
 	if (!bang)
-		return ;
+		return (-1);
 	if (bang->cmd)
 		ft_strdel(&(bang->cmd));
 	if (bang->str)
@@ -85,7 +85,10 @@ char			*deal_bang(char *cmd, t_control *hist)
 		if (new[i] == '!' && new[i + 1] && new[i + 1] != ' ' && c != '\''
 			&& new[i + 1] != '\t' && new[i + 1] != '=' && new[i + 1] != '(')
 			if ((i = begin_bang(hist, &new, i)) == -1)
+			{
+				ft_strdel(&new);
 				return (NULL);
+			}
 		if (new[i] == '\'')
 			while (new[i] && new[i] != '\'')
 				i++;
