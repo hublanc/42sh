@@ -110,7 +110,9 @@ char	*quoteword(char *arg)
 	return (s);
 }
 
-char	*modif_substi(char *arg, char *old, char *new)
+//remplace dans la premiere chaine la premiere occcurence de old
+//par new, toute les occurence si rec est positif
+char	*modif_substi(char *arg, char *old, char *new, int rec)
 {
 	char	*s;
 	int		i;
@@ -121,12 +123,13 @@ char	*modif_substi(char *arg, char *old, char *new)
 		return (NULL);
 	i = -1;
 	j = 0;
-	while (new[++i])
+	while (new[++i] && (j == 0 || rec > 0))
 		if (new[i] == '&' && (i <= 0 || new[i - 1] != '\\'))
 			j++;
 	i = 0;
 	j *= ft_strlen(old);
-	while (i < ft_strlen(arg) && (i = ft_strstr_len(arg + i, old)))
+	while ((i == 0 || rec > 0) && i < ft_strlen(arg)
+			&& (i = ft_strstr_len(arg + i, old)))
 	{
 		i += ft_strlen(old);
 		j++;
@@ -136,7 +139,8 @@ char	*modif_substi(char *arg, char *old, char *new)
 		return (NULL);
 	i = 0;
 	j = 0;
-	while (i < ft_strlen(arg) && (i = ft_strstr_len(arg + i, old)))
+	while ((i == 0 || rec > 0) && i < ft_strlen(arg)
+			&& (i = ft_strstr_len(arg + i, old)))
 	{
 		ft_strncat(s, arg + j, i);
 		j = i + ft_strlen(old);
