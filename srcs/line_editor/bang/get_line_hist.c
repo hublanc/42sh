@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/03 17:11:12 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/03 20:42:11 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/04 13:10:55 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static char	**strsearch(t_control *hist, t_bang2 *bang)
 		ft_putstr_fd(": event not found\n", 2);
 		return (NULL);
 	}
-	return (ft_cmdsplit(tmp->name));
+	return (bang_split(tmp->name));
 }
 
 static char	**q_marksearch(t_control *hist, t_bang2 *bang)
@@ -44,7 +44,7 @@ static char	**q_marksearch(t_control *hist, t_bang2 *bang)
 		ft_putstr_fd(": event not found\n", 2);
 		return (NULL);
 	}
-	return (ft_cmdsplit(tmp->name));
+	return (bang_split(tmp->name));
 }
 
 static char	**d_bangsearch(t_control *hist)
@@ -57,7 +57,7 @@ static char	**d_bangsearch(t_control *hist)
 		ft_putstr_fd("42sh: !!: event not found\n", 2);
 		return (NULL);
 	}
-	return (ft_cmdsplit(tmp->name));
+	return (bang_split(tmp->name));
 }
 
 static char	**get_htagstr(char *cmd)
@@ -71,7 +71,7 @@ static char	**get_htagstr(char *cmd)
 		new = ft_str_chr_cat(new, *cmd);
 		cmd++;
 	}
-	tab = ft_cmdsplit(new);
+	tab = bang_split(new);
 	ft_strdel(&new);
 	return (tab);
 }
