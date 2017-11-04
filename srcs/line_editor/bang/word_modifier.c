@@ -91,7 +91,7 @@ int			word_modifier(char *cmd, t_bang2 *bang, int i)
 		if (fill_bang(cmd, i, bang) == -1)
 			return (-1);
 		if (bang->m_g == 1)
-			return (i);
+			return (i + 1);
 		if (cmd[i] && cmd[i] == 'g')
 			bang->m_g = 1;
 		cmd[i] && !bang->m_s && !bang->m_g ? i++ : 0;
