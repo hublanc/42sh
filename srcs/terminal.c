@@ -12,6 +12,20 @@
 
 #include "shell.h"
 
+static void	change_termenv(char *name)
+{
+	char	***env;
+	char	*tab[4];
+
+	if (!(env = save_env(NULL)))
+		return ;
+	tab[0] = "setenv";
+	tab[1] = "TERM";
+	tab[2] = name;
+	tab[3] = NULL;
+	ft_setenv(tab, env);
+}
+
 static int	read_terminfo(char *tmp)
 {
 	struct dirent	*dirc;
@@ -29,6 +43,7 @@ static int	read_terminfo(char *tmp)
 				&& tgetstr("ho", NULL) && tgetstr("le", NULL)
 				&& tgetstr("cl", NULL))
 		{
+			change_termenv(dirc->d_name);
 			closedir(dirp2);
 			return (1);
 		}
@@ -89,9 +104,4 @@ void		set_terminal(void)
 void		reset_term(void)
 {
 	tcsetattr(0, TCSADRAIN, &g_term);
-}
-
-void		reset_disp(void)
-{
-	tputs(tgetstr("cl", NULL), 1, tputchar);
 }
