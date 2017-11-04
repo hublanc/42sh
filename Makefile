@@ -6,7 +6,7 @@
 #    By: hublanc <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/07/24 15:04:09 by hublanc           #+#    #+#              #
-#    Updated: 2017/11/04 20:15:21 by hublanc          ###   ########.fr        #
+#    Updated: 2017/11/04 20:19:55 by hublanc          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,8 +39,6 @@ SRC		=	main.c\
 			line_editor/history_search.c\
 			line_editor/history_search_2.c\
 			line_editor/history_isatty.c\
-			line_editor/event_designators_4.c\
-			line_editor/event_designators_5.c\
 			line_editor/bang/bang_1.c\
 			line_editor/bang/event_designator.c\
 			line_editor/bang/word_designator.c\

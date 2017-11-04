@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 16:36:09 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/04 20:15:34 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/04 20:18:20 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,38 +74,6 @@ typedef struct		s_bang2
 	char			*new;
 	char			*str;
 }					t_bang2;
-
-/*
-**	Event_designators.c
-*/
-
-int					check_backslash(char *command);
-int					check_exceptions(char *command);
-int					check_brackets(char *command);
-char				*bang_events(char *command, t_control **history);
-int					bang_events_2(t_bang **bang, t_control **history);
-int					bang_events_3(t_bang **bang, t_control **history);
-
-int					get_elem_hist(t_bang **bang, t_control **history);
-int					get_elem_hist_2(t_bang **bang, t_control **history, int a);
-
-int					get_double_bang(t_bang **bang, t_control **history, int a);
-int					get_n_first(t_bang **bang, t_control **history, int a);
-int					get_n_last(t_bang **bang, t_control **history, int a);
-int					get_c_last(t_bang **bang, t_control **history, int a);
-
-int					get_elem_arg(t_bang **bang, int a);
-int					get_elem_arg_2(t_bang **bang, int a, int *digit);
-int					get_elem_arg_3(t_bang **bang, int a);
-int					word_designator(t_bang **bang, int a);
-void				dollar_designator(t_bang **bang, char **split, int digit);
-void				star_designator(t_bang **bang, char **splitted);
-int					chevron_designator(t_bang **bang, char **splitted);
-int					digit_star_designator(t_bang **bang, int a);
-int					get_first_digit(t_bang **bang);
-int					hyphen_designator(t_bang **bang, int a);
-int					digit_dollar_designator(t_bang **bang, int a, int digit);
-int					digit_hyphen_digit_designator(t_bang **bang, int digit);
 
 /*
 **	Keys.c
