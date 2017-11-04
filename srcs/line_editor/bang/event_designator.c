@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/03 13:32:42 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/04 14:35:20 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/04 16:51:42 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static int		n_event(char *cmd, t_bang2 *bang, int i)
 static void		dollar_event(t_bang2 *bang)
 {
 	bang->d_bang = 1;
-	bang->c_x = '$';
+	bang->c_y = '$';
 	bang->shortcut = 1;
 }
 

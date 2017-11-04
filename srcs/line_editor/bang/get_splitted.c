@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/03 15:52:19 by mameyer           #+#    #+#             */
-/*   Updated: 2017/11/04 16:11:27 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/04 16:56:57 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ void		find_begin(t_bang2 *bang, int *begin, int *end, char **hist_line)
 			*end = tablen(hist_line) - 1;
 		}
 	}
+	else if (bang->c_y == '$' && !bang->c_x && !bang->x_set)
+		*begin = tablen(hist_line) - 1;
 }
 
 void		find_end(t_bang2 *bang, int *begin, int *end, char **hist_line)
