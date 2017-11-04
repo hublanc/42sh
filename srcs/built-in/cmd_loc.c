@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/05 13:46:33 by amazurie          #+#    #+#             */
-/*   Updated: 2017/11/02 15:31:57 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/04 11:36:33 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static int	check_cmmd(char **cmmd)
 	if (i == 0 || (*cmmd)[i] != '=')
 		return (0);
 	if (!(i = check_afterequal(*cmmd, i)))
-	s = ((*cmmd)[i]) ? ft_strdup(*cmmd + i) : NULL;
+		s = ((*cmmd)[i]) ? ft_strdup(*cmmd + i) : NULL;
 	if ((*cmmd)[i] == 32)
 	{
 		free(*cmmd);
@@ -90,7 +90,7 @@ int			gest_loc(char **cmmd)
 	int		i;
 
 	if (!(check_cmmd(cmmd)))
-		return (0);;
+		return (0);
 	if (!(tab = ft_strsplit(*cmmd, '=')) || !tab || !tab[0])
 	{
 		tab ? free(tab) : 0;

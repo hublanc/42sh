@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/20 13:00:36 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/26 17:22:59 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/04 11:33:26 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ static int	check_keys(t_compl *compl, t_cmd *cmd, char **buf)
 {
 	if ((*buf)[0] == 27 && !(*buf)[1])
 		return (-1);
-	else if ((*buf)[0] == 27 && compl_arrow(compl, cmd, *buf))
+	else if (compl->curr != -1 && (*buf)[0] == 27
+			&& compl_arrow(compl, cmd, *buf))
 	{
 		compl->toskip = get_onscreen(compl, cmd);
 		display_args(compl, cmd);
