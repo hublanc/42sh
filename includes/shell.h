@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 11:50:54 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/04 17:35:31 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/04 20:41:38 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,9 +109,9 @@ int					tputchar(int c);
 */
 
 void				init_cd_flags(t_hist_flags *flags);
-int					get_cd_flags(t_hist_flags *flags, char **tab,
+void				get_cd_flags(t_hist_flags *flags, char **tab,
 					int *args_pos);
-int					get_cd_flags_2(t_hist_flags *flags, char c);
+void				get_cd_flags_2(t_hist_flags *flags, char c);
 void				set_usage(char c, int type);
 void				print_history(t_control **history);
 int					get_num(int size);
