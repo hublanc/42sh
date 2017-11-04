@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/02 19:28:52 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/03 22:30:47 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/04 13:55:09 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int				begin_bang(t_control *hist, char **final, int i)
 	i = word_designator_x(*final, bang, i);
 	i = word_designator_y(*final, bang, i);
 	i = word_modifier(*final, bang, i);
+	printf("%d\n", i);
 	bang->end = i;
 	if (!(tab = get_line_history(hist, bang, *final)))
 		return (-1);
