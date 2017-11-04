@@ -6,17 +6,15 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/03 13:40:21 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/04 17:36:04 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/04 17:53:10 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-static int	error_sub(char *cmd)
+static int	arr_bangsubs()
 {
-	ft_putstr("42sh: ");
-	ft_putstr(cmd);
-	ft_putendl(": no previous substitution");
+	ft_putendl("42sh: no previous substitution");
 	return (-1);
 }
 
@@ -30,18 +28,18 @@ static int	check_smodif(char *cmd, t_bang2 *bang, int i)
 	t = cmd[++i];
 	j = 0;
 	bang->m_s = 1;
-	while (cmd[i] && (cmd[i] != ' ' || cmd[i - 1] == '\\') && !bang->new)
+	while (cmd[++i] && (cmd[i] != ' ' || cmd[i - 1] == '\\') && !bang->new)
 	{
 		if (cmd[i] == t && cmd[i - 1] != '\\' && !bang->old)
 		{
 			if (j <= 0)
-				return (error_sub(cmd));
+				return (arr_bangsubs());
 			bang->old = ft_strndup(cmd + (i - j), j);
 		}
 		else if (cmd[i] == t && cmd[i - 1] != '\\' && bang->old)
 			bang->new = ft_strndup(cmd + (i - j), j);
-		(cmd[i] == t && cmd[i - 1] != '\\') ? j = -1 : 0;
-		i++;
+		if (cmd[i] == t && cmd[i - 1] != '\\')
+			j = -1;
 		j++;
 	}
 	if (bang->old && !bang->new)
@@ -71,7 +69,10 @@ int			word_modifier(char *cmd, t_bang2 *bang, int i)
 		else if (cmd[i] && cmd[i] == 'x')
 			bang->m_x = 1;
 		else if (cmd[i] && cmd[i] == 's')
-			i = check_smodif(cmd, bang, i);
+		{
+			if ((i = check_smodif(cmd, bang, i)) == -1)
+				return (-1);
+		}
 		else if (cmd[i] && cmd[i] != 'g')
 		{
 			ft_putstr("42sh: ");
@@ -79,7 +80,7 @@ int			word_modifier(char *cmd, t_bang2 *bang, int i)
 			ft_putendl(": unrecognized history modifier");
 			return (-1);
 		}
-		if (bang->m_g == 1 || i == -1)
+		if (bang->m_g == 1)
 			return (i);
 		if (cmd[i] && cmd[i] == 'g')
 			bang->m_g = 1;

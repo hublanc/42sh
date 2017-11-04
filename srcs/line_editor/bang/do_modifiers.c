@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/04 14:19:19 by amazurie          #+#    #+#             */
-/*   Updated: 2017/11/04 15:12:25 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/04 17:44:53 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ char		**do_modifiers(char **tab, t_bang2 *bang)
 		tmp = tab[i + 1] ? ft_strjoin(tmp2, " ") : ft_strdup(tmp2);
 		free(tmp2);
 	}
-	printf("\n%s\n", tmp);
 	if (bang->m_h)
 		rmpathname(&tmp);
 	else if (bang->m_t)
@@ -53,8 +52,15 @@ char		**do_modifiers(char **tab, t_bang2 *bang)
 	}
 	else if (bang->m_s)
 	{
+		if (!ft_strstr(tmp, bang->old))
+		{
+			ft_putendl("42sh: substitution failed");
+			return (NULL);
+		}
 		tmp2 = modif_substi(tmp, bang->old, bang->new, bang->m_g);
 		free(tmp);
+		if (!tmp2)
+			return (NULL);
 		tmp = tmp2;
 	}
 	printf("\n%s\n", tmp);
