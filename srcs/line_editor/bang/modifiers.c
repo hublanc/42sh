@@ -128,25 +128,26 @@ char	*modif_substi(char *arg, char *old, char *new, int rec)
 		if (new[i] == '&' && (i <= 0 || new[i - 1] != '\\'))
 			j++;
 	i = 0;
-	j *= ft_strlen(old);
+	k = j * ft_strlen(old);
+	j = 0;
 	l = ft_strlen(arg);
 	while ((i == 0 || rec > 0) && i < l
-			&& (i = ft_strstr_len(arg + i, old)))
+			&& (i += ft_strstr_len(arg + i, old)))
 	{
 		i += ft_strlen(old);
 		j++;
 	}
-	if (!(s = (char *)ft_memalloc(sizeof(char) + i - (j * ft_strlen(old))
-						 + (j * ft_strlen(new)) + 1)))
+	if (!(s = (char *)ft_memalloc(sizeof(char) + (l - j * ft_strlen(old) + k * j
+					+ j * ft_strlen(new) + 1))))
 		return (NULL);
 	i = 0;
 	j = 0;
 	l = ft_strlen(arg);
 	while ((i == 0 || rec > 0) && i < l
-			&& (i = ft_strstr_len(arg + i, old)))
+			&& (i = ft_strstr_len(arg + j, old)))
 	{
 		ft_strncat(s, arg + j, i);
-		j = i + ft_strlen(old);
+		j += i + ft_strlen(old);
 		if (!ft_strchr(new, '&'))
 			ft_strcat(s, new);
 		else
@@ -161,6 +162,6 @@ char	*modif_substi(char *arg, char *old, char *new, int rec)
 			}
 		}
 	}
-	ft_strncat(s, arg + j, i);
+	j < l ? ft_strcat(s, arg + j) : 0;
 	return (s);
 }
