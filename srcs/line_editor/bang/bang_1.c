@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/02 19:28:52 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/03 22:30:47 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/03 22:33:12 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char			*replace_str(char **tab, char *final, t_bang2 *bang)
 	return (new);
 }
 
-void			del_bang(t_bang2 *bang)
+int			del_bang(t_bang2 *bang)
 {
 	if (!bang)
 		return ;
@@ -43,6 +43,7 @@ void			del_bang(t_bang2 *bang)
 	if (bang->str)
 		ft_strdel(&(bang->str));
 	free(bang);
+	return (-1);
 }
 
 int				begin_bang(t_control *hist, char **final, int i)
@@ -58,9 +59,9 @@ int				begin_bang(t_control *hist, char **final, int i)
 	i = word_modifier(*final, bang, i);
 	bang->end = i;
 	if (!(tab = get_line_history(hist, bang, *final)))
-		return (-1);
+		return (del_bang(bang));
 	if (!(tab = designator_fnc(tab, bang)))
-		return (-1);
+		return (del_bang(bang));
 	*final = replace_str(tab, *final, bang);
 	i = bang->begin;
 	del_tabstr(&tab);
