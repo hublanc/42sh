@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/03 13:40:21 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/04 16:55:54 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/04 17:11:52 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static int	check_smodif(char *cmd, t_bang2 *bang, int i)
 	bang->new = NULL;
 	t = cmd[++i];
 	j = 0;
+	bang->m_s = 1;
 	while (cmd[i] && (cmd[i] != ' ' || cmd[i - 1] == '\\') && !bang->new)
 	{
 		if (cmd[i] == t && cmd[i - 1] != '\\' && !bang->old && j > 0)
@@ -60,7 +61,7 @@ int			word_modifier(char *cmd, t_bang2 *bang, int i)
 			bang->m_x = 1;
 		else if (cmd[i] && cmd[i] == 's')
 			i = check_smodif(cmd, bang, i);
-		else
+		else if (cmd[i] && cmd[i] != 'g')
 		{
 			ft_putstr("42sh: ");
 			ft_putchar(cmd[i]);
@@ -71,7 +72,7 @@ int			word_modifier(char *cmd, t_bang2 *bang, int i)
 			return (i);
 		if (cmd[i] && cmd[i] == 'g')
 			bang->m_g = 1;
-		cmd[i] && !bang->m_s ? i++ : 0;
+		cmd[i] && !bang->m_s && !bang->m_g ? i++ : 0;
 	}
 	return (i);
 }
