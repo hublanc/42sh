@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/03 17:15:28 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/03 17:23:59 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/04 13:38:26 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,14 @@ char		**get_nline(t_control *hist, t_bang2 *bang)
 		return (endsearch_nl(hist, bang));
 	else if (bang->cmd_l > 0)
 		return (beginsearch_nl(hist, bang));
-	else if (bang->cmd_l == 0 && bang->n_set)
+	else if (bang->cmd_l == 0 && bang->n_set && !bang->n_neg)
 	{
 		ft_putstr_fd("42sh: !0: event not found\n", 2);
+		return (NULL);
+	}
+	else if (bang->cmd_l == 0 && bang->n_neg && bang->n_set)
+	{
+		ft_putstr_fd("42sh: !-: event not found\n", 2);
 		return (NULL);
 	}
 	return (NULL);
