@@ -6,13 +6,13 @@
 #    By: hublanc <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/07/24 15:04:09 by hublanc           #+#    #+#              #
-#    Updated: 2017/11/02 14:18:59 by amazurie         ###   ########.fr        #
+#    Updated: 2017/11/04 20:15:21 by hublanc          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= shell
 CC		= gcc
-FLAGS	= -Wall -Wextra -Werror -g #-fsanitize=address
+FLAGS	= -Wall -Wextra -Werror -g -fsanitize=address
 DFLAGS	= -MMD
 LIB		= libft/libft.a
 HEADER	= includes/
@@ -39,11 +39,21 @@ SRC		=	main.c\
 			line_editor/history_search.c\
 			line_editor/history_search_2.c\
 			line_editor/history_isatty.c\
-			line_editor/event_designators.c\
-			line_editor/event_designators_2.c\
-			line_editor/event_designators_3.c\
 			line_editor/event_designators_4.c\
 			line_editor/event_designators_5.c\
+			line_editor/bang/bang_1.c\
+			line_editor/bang/event_designator.c\
+			line_editor/bang/word_designator.c\
+			line_editor/bang/word_modifier.c\
+			line_editor/bang/get_line_hist.c\
+			line_editor/bang/get_line_hist2.c\
+			line_editor/bang/get_splitted.c\
+			line_editor/bang/bang_split.c\
+			line_editor/bang/do_modifiers.c\
+			line_editor/bang/modifiers.c\
+			line_editor/bang/modif_substi.c\
+			line_editor/bang/extra_modif.c\
+			line_editor/bang/modifiers_quote.c\
 			exec/exec.c\
 			exec/check_binary.c\
 			exec/ft_cmdsplit.c\
@@ -161,7 +171,7 @@ $(NAME): $(LIB) $(OBJS)
 	@echo "${NC}"
 
 $(OBJDIR):
-	@mkdir -p objs objs/built-in objs/tools objs/exec objs/lexer objs/redirection objs/line_editor objs/completion objs/prompt_statement objs/built-in/read objs/built-in/cd
+	@mkdir -p objs objs/built-in objs/tools objs/exec objs/lexer objs/redirection objs/line_editor objs/completion objs/prompt_statement objs/built-in/read objs/built-in/cd objs/line_editor/bang
 
 $(LIB):
 	@echo "${CYN}Processing ${NC}./libft/objs ${CYN}[${NC}...${CYN}]${NC}"
