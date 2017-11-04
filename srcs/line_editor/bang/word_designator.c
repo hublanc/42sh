@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/03 13:29:08 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/04 13:08:28 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/04 14:01:26 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,16 @@ int			word_designator_x(char *cmd, t_bang2 *bang, int i)
 {
 	if (!cmd || !cmd[i] || cmd[i] != ':')
 		return (i);
-	if (cmd[i + 1] && cmd[i + 1] == '^' && i++)
+	if (cmd[i + 1] && (cmd[i + 1] == '^' || cmd[i + 1] == '$'
+		|| cmd[i + 1] == '*' || ft_isdigit(cmd[i + 1])))
+		i++;
+	if (cmd[i] && cmd[i] == '^' && i++)
 		bang->c_x = '^';
-	else if (cmd[i + 1] && cmd[i + 1] == '$' && i++)
+	else if (cmd[i] && cmd[i] == '$' && i++)
 		bang->c_x = '$';
-	else if (cmd[i + 1] && cmd[i + 1] == '*' && i++)
+	else if (cmd[i] && cmd[i] == '*' && i++)
 		bang->c_x = '*';
-	else if (cmd[i + 1] && ft_isdigit(cmd[i + 1]) && i++)
+	else if (cmd[i] && ft_isdigit(cmd[i]))
 		i = get_xdigit(cmd, bang, i);
 	else if (cmd[i + 1] == '-')
 		i++;
