@@ -52,8 +52,6 @@ static void	handle_key2(t_cmd *cmd, t_control **history, char ***env, char *buf)
 {
 	struct winsize		z;
 
-	if (ioctl(0, TIOCGWINSZ, &z) == -1)
-		return ;
 	if (buf[0] == 10)
 	{
 		(buf[1]) ? save_buf(buf + 1) : 0;
@@ -64,6 +62,8 @@ static void	handle_key2(t_cmd *cmd, t_control **history, char ***env, char *buf)
 		copy_cut_paste_handler(cmd, buf);
 	else if (buf[0] == 18)
 	{
+		if (ioctl(0, TIOCGWINSZ, &z) == -1)
+			return ;
 		go_begin((ft_strlen(cmd->str) + ft_strlen(cmd->prompt)), z.ws_col);
 		isatty(0) ? tputs(tgetstr("cd", NULL), 1, tputchar) : 0;
 		ft_strdel(&cmd->str);
