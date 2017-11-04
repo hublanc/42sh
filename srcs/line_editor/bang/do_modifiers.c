@@ -64,7 +64,7 @@ char			**do_modifiers(char **tab, t_bang2 *bang)
 			&& !bang->m_e && !bang->m_q && !bang->m_x && !bang->m_s))
 		return (tab);
 	i = 0;
-	tmp = ft_strjoin(tab[0], " ");
+	tmp = tab[1] ? ft_strjoin(tab[0], " ") : ft_strdup(tab[0]);
 	while (tab[++i])
 	{
 		tmp2 = ft_strjoin(tmp, tab[i]);
