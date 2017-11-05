@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/04 19:26:44 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/04 19:32:45 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/05 13:10:09 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,10 @@ void		loop_substi(int *i, int *j, char *old)
 {
 	*i += ft_strlen(old);
 	(*j)++;
+}
+
+char		*free_str_return_null(char **str)
+{
+	ft_strdel(str);
+	return (NULL);
 }
