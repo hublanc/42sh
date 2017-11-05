@@ -75,7 +75,7 @@ int			ft_history_3(char **tab, t_control **history, char *file,
 	{
 		if (tab[2] && str_isdigit(tab[2]) && (*history))
 			delete_elem_hist(ft_atoi(tab[2]), history);
-		else
+		else if (*history)
 			set_usage('d', 1);
 	}
 	if (flags.r == 1)
