@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/03 15:52:19 by mameyer           #+#    #+#             */
-/*   Updated: 2017/11/04 16:56:57 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/05 13:26:47 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,13 +104,13 @@ char		**return_error_bad_wspec(t_bang2 *bang, char **hist_line)
 	}
 	free(hist_line);
 	ft_putstr_fd("42sh: ", 2);
-	if (bang->x)
+	if (bang->x_set)
 		ft_putnbr_fd(bang->x, 2);
 	else if (bang->c_x)
-		ft_putchar_fd(bang->c_x, 1);
+		ft_putchar_fd(bang->c_x, 2);
 	if (bang->dash)
 		ft_putchar_fd('-', 2);
-	if (bang->y)
+	if (bang->y_set)
 		ft_putnbr_fd(bang->y, 2);
 	else if (bang->c_y)
 		ft_putchar_fd(bang->c_y, 2);
