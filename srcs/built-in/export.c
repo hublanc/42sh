@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/05 16:40:44 by amazurie          #+#    #+#             */
-/*   Updated: 2017/11/01 15:55:13 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/05 12:57:43 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	do_export_sub(char ***env, t_loc *loc, char ***tab, char *name)
 
 	if (!(tab2 = (char **)ft_memalloc(sizeof(char *) * 4)))
 	{
-		free(*tab);
+		del_tabstr(tab);
 		return (1);
 	}
 	tab2[0] = ft_strdup("setenv");
@@ -31,11 +31,8 @@ static int	do_export_sub(char ***env, t_loc *loc, char ***tab, char *name)
 	tab2[3] = NULL;
 	ft_setenv(tab2, env);
 	suppr_loc(tab2[1]);
-	(tab2[0]) ? free(tab2[0]) : 0;
-	(tab2[1]) ? free(tab2[1]) : 0;
-	(tab2[2]) ? free(tab2[2]) : 0;
-	free(tab2);
-	free(*tab);
+	del_tabstr(&tab2);
+	del_tabstr(tab);
 	return (0);
 }
 
@@ -59,9 +56,7 @@ static int	do_export(char *name, char ***env)
 	if (!(loc = (tab) ? get_loc(tab[0]) : get_loc(name))
 			&& (!tab || !tab[0]))
 	{
-		(tab && tab[0] && tab[1]) ? free(tab[2]) : 0;
-		(tab && tab[0]) ? free(tab[1]) : 0;
-		(tab) ? free(tab) : 0;
+		tab ? del_tabstr(&tab) : 0;
 		return (1);
 	}
 	do_export_sub(env, loc, &tab, name);

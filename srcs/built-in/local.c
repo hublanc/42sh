@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/05 14:47:20 by amazurie          #+#    #+#             */
-/*   Updated: 2017/11/02 14:55:24 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/05 13:02:52 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,8 @@ void			add_loc(char *name, char *val)
 	if ((loc = get_loc(name)))
 	{
 		loc->value ? free(loc->value) : 0;
-		loc->value = ft_strdup(val);
+		if (!(loc->value = ft_strdup(val)))
+			loc->value = NULL;
 		return ;
 	}
 	if (!(loc = saved_loc(0)))
