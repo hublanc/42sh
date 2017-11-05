@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/05 13:46:33 by amazurie          #+#    #+#             */
-/*   Updated: 2017/11/05 13:51:11 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/05 14:11:01 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,9 @@ static int	check_cmmd(char **cmmd)
 		s = ((*cmmd)[i]) ? ft_strdup(*cmmd + i) : NULL;
 	if ((*cmmd)[i] == 32)
 	{
-		ft_strdel(cmmd);
+		free(*cmmd);
 		*cmmd = s;
+		exit(0);
 		return (0);
 	}
 	return (1);
