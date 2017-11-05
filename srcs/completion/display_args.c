@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 15:35:33 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/31 11:47:41 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/05 13:40:22 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,6 @@ void		display_args(t_compl *compl, t_cmd *cmd)
 	print_complline(compl, cmd, size, &buff);
 	print_buff(&buff);
 	ft_putstr(tgetstr("ve", NULL));
-	free(buff);
+	ft_strdel(&buff);
 	free(size);
 }

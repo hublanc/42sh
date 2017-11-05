@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/31 12:52:57 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/04 13:43:31 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/05 13:47:32 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	check_sigint2(t_cmd *cmd, char **buf)
 		cmd->stop = 0;
 		is_sigint(0);
 	}
-	(*buf) ? free(*buf) : 0;
+	(*buf) ? ft_strdel(buf) : 0;
 	*buf = save_buf(NULL);
 	return (0);
 }
@@ -40,7 +40,7 @@ static int	check_sigint(t_cmd *cmd, char **buf)
 		return (check_sigint2(cmd, buf));
 	else if (i)
 	{
-		(*buf) ? free(*buf) : 0;
+		(*buf) ? ft_strdel(buf) : 0;
 		if (!(*buf = save_buf(NULL)))
 			return (1);
 		return (0);
@@ -118,9 +118,9 @@ void		key_handler(t_cmd *cmd, t_control **history, char ***env)
 		reset_cmdsiginted(cmd);
 		save_buf(buf);
 		can_sigint(1);
-		(buf) ? free(buf) : 0;
+		(buf) ? ft_strdel(&buf) : 0;
 		return ;
 	}
 	handle_key(cmd, history, env, buf);
-	(buf) ? free(buf) : 0;
+	(buf) ? ft_strdel(&buf) : 0;
 }

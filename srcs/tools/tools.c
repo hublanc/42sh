@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/26 11:28:19 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/02 13:23:28 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/05 13:49:05 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int			stop_shell(char ***env, char **tab, t_control **history)
 	if (hist_file)
 	{
 		rewrite_hist_file(history, hist_file);
-		free(hist_file);
+		ft_strdel(&hist_file);
 	}
 	if (*history)
 		*history = dll_clear_list(*history);

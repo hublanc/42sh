@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/04 14:19:19 by amazurie          #+#    #+#             */
-/*   Updated: 2017/11/04 23:47:09 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/05 13:46:04 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,9 @@ char			**do_modifiers(char **tab, t_bang2 *bang)
 	while (tab[++i])
 	{
 		tmp2 = ft_strjoin(tmp, tab[i]);
-		tmp ? free(tmp) : 0;
+		tmp ? ft_strdel(&tmp) : 0;
 		tmp = tab[i + 1] ? ft_strjoin(tmp2, " ") : ft_strdup(tmp2);
-		free(tmp2);
+		ft_strdel(&tmp2);
 	}
 	if (!treat_modifiers(&tmp, &tmp2, bang))
 	{
