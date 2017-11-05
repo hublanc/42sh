@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/04 19:15:27 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/05 11:41:26 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/05 12:15:12 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	quoteword2(char *arg, char **s, int *i, int k)
 	else if (arg[*i] != ' ')
 	{
 		if (!(j = ft_strlen_chr(arg + *i, ' ')))
-			j = ft_strlen(arg + *i) - 1;
+			j = ft_strlen(arg + *i);
 		ft_strcat(*s, "'");
 		ft_strncat(*s, arg + *i, j);
 		ft_strcat(*s, "'");
@@ -53,7 +53,7 @@ char		*quoteword(char *arg)
 	if (!(s = (char *)ft_memalloc(sizeof(char) + i[0] + i[1] + 1)))
 		return (NULL);
 	i[0] = -1;
-	i[2] = ft_strlen(arg) - 1;
+	i[2] = ft_strlen(arg);
 	while (++i[0] < i[2])
 		quoteword2(arg, &s, &(i[0]), i[2]);
 	return (s);
