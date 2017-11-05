@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 14:47:27 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/30 11:42:56 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/11/05 12:29:30 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,11 @@ void		go_left(t_cmd *cmd)
 {
 	int		col;
 
+	if (!isatty(0))
+	{
+		cmd->col--;
+		return ;
+	}
 	col = cmd->sc_col;
 	if (cmd->col % cmd->sc_col == 1)
 	{
