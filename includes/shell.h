@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 11:50:54 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/04 20:41:38 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/04 21:44:01 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,7 @@ int					rewrite_hist_file(t_control **history, char *file_name);
 void				nflag(t_control **history, char *file);
 void				print_last_elem(t_control **history, int last);
 void				delete_list_content(t_control **history);
+int					history_s(t_control **history, char **tab, char *file);
 
 /*
 **	Cd_builtin

@@ -58,16 +58,16 @@ static void	add_startenv(char ***env)
 		tab[2] = "1";
 		tab[3] = NULL;
 		ft_setenv(tab, env);
+		return ;
 	}
-	else
-	{
-		i = ft_atoi(tab[0]) + 1;
-		tab[0] = "setenv";
-		tab[1] = "SHLVL";
-		tab[2] = ft_itoa(i);
-		tab[3] = NULL;
-		ft_setenv(tab, env);
-	}
+	i = ft_atoi(tab[0]) + 1;
+	tab[0] = "setenv";
+	tab[1] = "SHLVL";
+	if (!(tab[2] = ft_itoa(i)))
+		return ;
+	tab[3] = NULL;
+	ft_setenv(tab, env);
+	tab[2] ? free(tab[2]) : 0;
 }
 
 static void	init_signal(void)
