@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 16:36:09 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/05 13:10:46 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/05 15:55:58 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,7 +181,7 @@ int					return_sigint(char **to_del, char *to_save);
 /*
 **	Bang_1.c
 */
-char				*deal_bang(char *cmd, t_control *hist);
+char				*deal_bang(char *cmd, t_control *hist, int *end);
 
 /*
 **	Word_designator.c
@@ -265,5 +265,10 @@ char				**do_modifiers(char **tab, t_bang2 *bang);
 **	split_extra.c
 */
 void				subspe(char *new, char *str, int *i, int *j);
+
+/*
+**	Loop_bang.c
+*/
+char				*loop_bang(t_control **history, char *cmd, char ***env);
 
 #endif
