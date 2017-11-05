@@ -6,15 +6,15 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/05 16:40:44 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/05 21:32:59 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/05 23:02:33 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-static int    do_export_sub(char ***env, t_loc *loc, char ***tab, char *name)
+static int	do_export_sub(char ***env, t_loc *loc, char ***tab, char *name)
 {
-	char    **tab2;
+	char	**tab2;
 
 	if (!(tab2 = (char **)ft_memalloc(sizeof(char *) * 4)))
 	{
