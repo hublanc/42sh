@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 11:40:20 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/01 17:32:47 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/05 13:48:32 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,17 +65,17 @@ static int	get_terminfo(void)
 		tmp = ft_strjoin("/usr/share/terminfo/", dirc->d_name);
 		if (!tmp)
 		{
-			(tmp) ? free(tmp) : 0;
+			(tmp) ? ft_strdel(&tmp) : 0;
 			closedir(dirp);
 			return (0);
 		}
 		if (read_terminfo(tmp) == 1)
 		{
 			closedir(dirp);
-			free(tmp);
+			ft_strdel(&tmp);
 			return (1);
 		}
-		free(tmp);
+		ft_strdel(&tmp);
 	}
 	closedir(dirp);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/27 16:56:43 by amazurie          #+#    #+#             */
-/*   Updated: 2017/11/02 12:35:42 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/05 13:52:12 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	print_linearg(t_compl *compl, char **buff, int *size, int *len)
 			buffcat(buff, tgetstr("cr", NULL));
 		if (*len % size[0] == 0)
 			buffcat(buff, tgetstr("do", NULL));
-		free(tmp);
+		ft_strdel(&tmp);
 	}
 }
 
@@ -48,7 +48,7 @@ void		print_complline(t_compl *compl, t_cmd *cmd, int *size, char **buff)
 		if (len % size[0] == 0)
 			buffcat(buff, tgetstr("do", NULL));
 		len = cmd->prlen + ft_strlen(tmp);
-		free(tmp);
+		ft_strdel(&tmp);
 	}
 	print_linearg(compl, buff, size, &len);
 	buffcat(buff, tgetstr("sc", NULL));
@@ -75,7 +75,7 @@ static void	reprint_line(t_compl *compl, t_cmd *cmd)
 			ft_putstr(tgetstr("cr", NULL));
 		if (len % w.ws_col == 0)
 			ft_putstr(tgetstr("do", NULL));
-		free(tmp);
+		ft_strdel(&tmp);
 	}
 }
 

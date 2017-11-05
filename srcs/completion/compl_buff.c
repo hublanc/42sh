@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/27 15:46:48 by amazurie          #+#    #+#             */
-/*   Updated: 2017/09/27 16:01:29 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/05 13:36:34 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ size_t	buffncat(char **buff, char *s, size_t n)
 		if (!(tmp = ft_strndup(s, n)))
 			return (0);
 		ft_putstr(tmp);
-		free(tmp);
+		ft_strdel(&tmp);
 	}
 	return (len);
 }
