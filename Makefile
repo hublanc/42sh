@@ -39,9 +39,6 @@ SRC		=	main.c\
 			line_editor/history_search.c\
 			line_editor/history_search_2.c\
 			line_editor/history_isatty.c\
-			line_editor/event_designators.c\
-			line_editor/event_designators_2.c\
-			line_editor/event_designators_3.c\
 			line_editor/bang/bang_1.c\
 			line_editor/bang/event_designator.c\
 			line_editor/bang/word_designator.c\
@@ -95,6 +92,7 @@ SRC		=	main.c\
 			tools/tools_env.c\
 			tools/tools_wd_designators.c\
 			tools/tools_wd_designators_2.c\
+			tools/tools_wd_designators_3.c\
 			built-in/echo.c\
 			built-in/env.c\
 			built-in/env2.c\
@@ -147,6 +145,7 @@ SRC		=	main.c\
 			completion/compl_color.c\
 			completion/print_complline.c\
 			completion/compl_buff.c\
+			completion/add_backchar.c\
 			completion/compl_free.c
 
 # colors

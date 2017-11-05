@@ -12,11 +12,11 @@
 
 #include "shell.h"
 
-static void	modif_substi3(int *i, int *j, char *new, int rec)
+static void	modif_substi3(int *i, int *j, char *new)
 {
 	*i = -1;
 	*j = 0;
-	while (new[++(*i)] && (*j == 0 || rec > 0))
+	while (new[++(*i)])
 		if (new[*i] == '&' && (*i <= 0 || new[*i - 1] != '\\'))
 			(*j)++;
 }
@@ -41,28 +41,27 @@ static void	modif_substi2(char *new, char **s, int k, char *old)
 char		*modif_substi(char *arg, char *old, char *new, int rec)
 {
 	char	*s;
-	int		i;
-	int		j;
-	int		k;
-	int		l;
+	int		i[4];
 
-	if (!arg || !old || !new)
+	if (!arg || !old)
 		return (NULL);
-	modif_substi3(&i, &j, new, rec);
-	init_substi1(&i, &k, old, j);
-	init_substi2(&j, &l, arg);
-	while ((i == 0 || rec > 0) && i < l && (i += ft_strstr_len(arg + i, old)))
-		loop_substi(&i, &j, old);
-	if (!(s = (char *)ft_memalloc(sizeof(char) + (l - j * ft_strlen(old) + k * j
-						+ j * ft_strlen(new) + 1))))
+	modif_substi3(&(i[0]), &(i[1]), new);
+	init_substi1(&(i[0]), &(i[2]), old, i[1]);
+	init_substi2(&(i[1]), &(i[3]), arg);
+	while ((i[1] == 0 || rec > 0) && i[0] < i[3] && (i[0] += ft_strstr_len(arg + i[0], old)) >= 0)
+		loop_substi(&(i[0]), &(i[1]), old);
+	if (!(s = (char *)ft_memalloc(sizeof(char) + (i[3] - i[1] * ft_strlen(old) + i[2] * i[1]
+						+ i[1] * ft_strlen(new) + 1))))
 		return (NULL);
-	init_substi3(&i, &j, &l, arg);
-	while ((i == 0 || rec > 0) && i < l && (i = ft_strstr_len(arg + j, old)))
+	init_substi3(&i[0], &i[1], &i[3], arg);
+	while ((i[1] == 0 || rec > 0) && i[0] < i[3] && ((i[0] = ft_strstr_len(arg + i[1], old)) || i[1] == 0))
 	{
-		ft_strncat(s, arg + j, i);
-		j += i + ft_strlen(old);
-		modif_substi2(new, &s, k, old);
+		i[0] ? ft_strncat(s, arg + i[1], i[0]) : 0;
+		i[1] += i[0] + ft_strlen(old);
+		modif_substi2(new, &s, i[2], old);
 	}
-	j < l ? ft_strcat(s, arg + j) : 0;
+	i[1] < i[3] ? ft_strcat(s, arg + i[1]) : 0;
+	old ? free(old) : 0;
+	new ? free(new) : 0;
 	return (s);
 }

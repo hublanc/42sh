@@ -30,12 +30,12 @@ void		add_hist_or_not(t_control **history, char *str)
 	if (*history && (*history)->begin && (*history)->begin->name
 			&& ft_strcmp((*history)->begin->name, cpy) == 0)
 	{
-		free(cpy);
+		ft_strdel(&cpy);
 		return ;
 	}
 	else
 		(*history) = dll_add_new_elem_frnt(*history, str);
-	free(cpy);
+	ft_strdel(&cpy);
 }
 
 void		change_cmd(char *new, t_cmd *cmd)

@@ -18,7 +18,7 @@ static void	new_coarg(t_compl *compl, t_coargs **args, char *name, int id)
 
 	if (!(tmp = ft_strjoin("$", name)))
 		return ;
-	(*args)->arg = add_handspace(tmp);
+	(*args)->arg = add_backchar(tmp);
 	compl->nbrargs++;
 	if (ft_strlen((*args)->arg) + 1 > compl->maxlen)
 		compl->maxlen = ft_strlen((*args)->arg) + 1;

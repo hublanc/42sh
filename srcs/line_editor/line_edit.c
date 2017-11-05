@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 17:36:47 by amazurie          #+#    #+#             */
-/*   Updated: 2017/11/04 13:52:51 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/04 20:13:50 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ void		print_line(t_cmd *cmd)
 	if (!isatty(0))
 		return ;
 	len = cmd->prlen + (int)ft_strlen(cmd->str);
+	if (!len)
+		return ;
 	len += len % cmd->sc_col == 0 ? 0 : 1;
 	go_begin(cmd->col, cmd->sc_col);
 	pass_prompt(cmd);
@@ -64,7 +66,6 @@ void		print_line(t_cmd *cmd)
 		while (len-- != cmd->col)
 			tputs(tgetstr("le", NULL), 1, tputchar);
 	else if (len < cmd->col)
-	{
 		while (len != cmd->col && len > 0)
 		{
 			if (len % cmd->sc_col == 0)
@@ -73,7 +74,6 @@ void		print_line(t_cmd *cmd)
 				tputs(tgetstr("nd", NULL), 1, tputchar);
 			len++;
 		}
-	}
 }
 
 void		add_line(t_cmd *cmd, char *buf)
