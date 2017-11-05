@@ -6,15 +6,15 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/05 16:40:44 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/05 17:17:29 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/05 21:32:59 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-static int	do_export_sub(char ***env, t_loc *loc, char ***tab, char *name)
+static int    do_export_sub(char ***env, t_loc *loc, char ***tab, char *name)
 {
-	char	**tab2;
+	char    **tab2;
 
 	if (!(tab2 = (char **)ft_memalloc(sizeof(char *) * 4)))
 	{
@@ -22,17 +22,17 @@ static int	do_export_sub(char ***env, t_loc *loc, char ***tab, char *name)
 		return (1);
 	}
 	tab2[0] = ft_strdup("setenv");
-	tab2[1] = (*tab && (*tab)[0]) ? (*tab)[0] : ft_strdup(name);
+	tab2[1] = (*tab && (*tab)[0]) ? ft_strdup((*tab)[0]) : ft_strdup(name);
 	if ((*tab && (*tab)[0] && !(*tab)[1]) && (!loc || !loc->value))
 		tab2[2] = NULL;
 	else
 		tab2[2] = (*tab && (*tab)[0] && (*tab)[1]) ?
-			(*tab)[1] : ft_strdup(loc->value);
+			ft_strdup((*tab)[1]) : ft_strdup(loc->value);
 	tab2[3] = NULL;
 	ft_setenv(tab2, env);
 	suppr_loc(tab2[1]);
-	del_tabstr(&tab2);
-	del_tabstr(tab);
+	tab2 ? del_tabstr(&tab2) : 0;
+	tab ? del_tabstr(tab) : 0;
 	return (0);
 }
 
