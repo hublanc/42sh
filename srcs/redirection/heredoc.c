@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/29 12:56:32 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/05 13:45:25 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/05 16:44:28 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void			manage_heredoc(t_node *tree, t_node *tmp)
 		ft_strdel(&(tmp->heredoc_str));
 	tmp->heredoc_str = ft_strsub(tree->token, i + 3,
 			ft_strlen(tree->token) - (i + 3));
-	ft_putstr_fd(tmp->heredoc_str, fd[1]);
+	isatty(0) ? ft_putstr_fd(tmp->heredoc_str, fd[1]) : 0;
 	close(fd[1]);
 	tmp->hd = fd[0];
 	tmp->hd_io = *io;
