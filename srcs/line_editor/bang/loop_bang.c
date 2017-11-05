@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/05 15:53:11 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/05 16:23:49 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/05 16:47:53 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,11 @@ char		*loop_bang(t_control **history, char *cmd, char ***env)
 	}
 	clear_cmd(&cmd2);
 	return (new);
+}
+
+void		init_var_bang(char *c, int *is_p, int *i)
+{
+	*c = 0;
+	*is_p = 0;
+	*i = 0;
 }

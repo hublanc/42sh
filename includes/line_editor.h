@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 16:36:09 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/05 16:15:57 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/05 16:49:39 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -270,5 +270,6 @@ void				subspe(char *new, char *str, int *i, int *j);
 **	Loop_bang.c
 */
 char				*loop_bang(t_control **history, char *cmd, char ***env);
+void				init_var_bang(char *c, int *is_p, int *i);
 
 #endif
