@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/05 13:46:33 by amazurie          #+#    #+#             */
-/*   Updated: 2017/11/05 14:11:01 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/05 14:13:49 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ static int	check_cmmd(char **cmmd)
 	{
 		free(*cmmd);
 		*cmmd = s;
-		exit(0);
 		return (0);
 	}
 	return (1);
