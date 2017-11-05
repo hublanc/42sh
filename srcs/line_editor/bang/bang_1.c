@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/02 19:28:52 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/05 13:13:33 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/05 15:39:58 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,14 +80,20 @@ int				begin_bang(t_control *hist, char **final, int i, int *is_p)
 
 char			*end_bang(t_control *hist, char *new, int is_p)
 {
+	int		i;
+
+	i = -1;
+	while (new && new[++i])
+		if (new[i] == '\n')
+			new[i] = ' ';
 	add_hist_or_not(&hist, new);
-	ft_putendl(new);
+	ft_putstr(new);
 	if (is_p)
 		ft_strdel(&new);
 	return (new);
 }
 
-char			*deal_bang(char *cmd, t_control *hist)
+char			*deal_bang(char *cmd, t_control *hist, int *is_end)
 {
 	char		c;
 	char		*new;
@@ -97,7 +103,7 @@ char			*deal_bang(char *cmd, t_control *hist)
 	c = 0;
 	i = 0;
 	is_p = 0;
-	if (!ft_strchr(cmd, '!'))
+	if (!ft_strchr(cmd, '!') && (*is_end = 1))
 		return (ft_strdup(cmd));
 	new = ft_strdup(cmd);
 	while (new && new[i])

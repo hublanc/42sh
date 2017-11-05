@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/17 11:10:52 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/05 12:32:25 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/05 15:56:16 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,12 +106,14 @@ void		routine(char *cmd, char ***env, t_control **history)
 {
 	t_token		*list;
 	t_node		*tree;
+	char		*new;
 
 	if (!cmd)
 		return ;
-	if (cmd == NULL)
+	if (!(new = loop_bang(history, cmd, env)))
 		return ;
-	list = tokenizer(cmd);
+	list = tokenizer(new);
+	ft_strdel(&new);
 	list = sort_token(list, history);
 	if (!list)
 		return ;
