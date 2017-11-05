@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 15:20:15 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/01 15:43:33 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/05 12:26:45 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ void			insert_token(t_node **leaf, t_token *tk, int depth, int pipe)
 			return ;
 		(*leaf)->value = tk->e_type;
 		if (tk->token)
-			(*leaf)->token = ft_strdup(tk->token);
+			if (!((*leaf)->token = ft_strdup(tk->token)))
+				(*leaf)->token = NULL;
 		(*leaf)->left = NULL;
 		(*leaf)->right = NULL;
 	}
@@ -80,7 +81,8 @@ void			insert_right(t_node **leaf, int value, char *token)
 			return ;
 		(*leaf)->value = value;
 		if (token)
-			(*leaf)->token = ft_strdup(token);
+			if (!((*leaf)->token = ft_strdup(token)))
+				(*leaf)->token = NULL;
 		(*leaf)->left = NULL;
 		(*leaf)->right = NULL;
 	}
@@ -96,7 +98,8 @@ void			insert_pipe(t_node **leaf, int value, char *token, int depth)
 			return ;
 		(*leaf)->value = value;
 		if (token)
-			(*leaf)->token = ft_strdup(token);
+			if (!((*leaf)->token = ft_strdup(token)))
+				(*leaf)->token = NULL;
 		(*leaf)->left = NULL;
 		(*leaf)->right = NULL;
 	}

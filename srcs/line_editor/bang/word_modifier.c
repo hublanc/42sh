@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/03 13:40:21 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/04 18:28:21 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/05 12:36:34 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ static int	check_smodif(char *cmd, t_bang2 *bang, int i)
 
 	bang->old = NULL;
 	bang->new = NULL;
-	t = cmd[++i];
+	if (!cmd[i] || !(t = cmd[++i]))
+		return (-1);
 	j = 0;
 	bang->m_s = 1;
 	while (cmd[++i] && (cmd[i] != ' ' || cmd[i - 1] == '\\') && !bang->new)
