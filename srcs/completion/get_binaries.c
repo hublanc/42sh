@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 12:18:48 by amazurie          #+#    #+#             */
-/*   Updated: 2017/11/02 11:57:22 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/05 13:41:01 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	add_arg(t_compl *compl, struct dirent *dirc, t_coargs **args)
 
 	t = add_backchar(dirc->d_name);
 	(*args)->arg = add_backback(t);
-	free(t);
+	ft_strdel(&t);
 	compl_addcolor(args, compl->path);
 	if ((*args)->color && !ft_strcmp("\e[1;36m", (*args)->color))
 	{
@@ -47,7 +47,7 @@ static void	add_arg(t_compl *compl, struct dirent *dirc, t_coargs **args)
 		{
 			((*args)->arg) ? free((*args)->arg) : 0;
 			(*args)->arg = ft_strdup(t);
-			free(t);
+			ft_strdel(&t);
 		}
 	}
 	compl->nbrargs++;

@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/28 11:34:44 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/30 13:39:46 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/05 13:38:33 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void		free_tabl(char **tabl)
 		return ;
 	i = 0;
 	while (tabl[i])
-		free(tabl[i++]);
+		ft_strdel(&tabl[i++]);
 	free(tabl);
 }
 
@@ -30,11 +30,11 @@ static void	compl_freeargs(t_coargs *args)
 
 	if (!args)
 		return ;
-	(args->arg) ? free(args->arg) : 0;
+	(args->arg) ? ft_strdel(&args->arg) : 0;
 	args = args->next;
 	while (args)
 	{
-		(args->arg) ? free(args->arg) : 0;
+		(args->arg) ? ft_strdel(&args->arg) : 0;
 		ar = args;
 		args = args->next;
 		free(ar);
@@ -43,8 +43,8 @@ static void	compl_freeargs(t_coargs *args)
 
 void		compl_free(t_compl *compl)
 {
-	(compl->path) ? free(compl->path) : 0;
-	(compl->arg) ? free(compl->arg) : 0;
+	(compl->path) ? ft_strdel(&compl->path) : 0;
+	(compl->arg) ? ft_strdel(&compl->arg) : 0;
 	compl_freeargs(&compl->args);
 	signal(SIGINT, &get_signal);
 }

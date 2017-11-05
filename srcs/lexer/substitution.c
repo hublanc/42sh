@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/10 15:49:56 by amazurie          #+#    #+#             */
-/*   Updated: 2017/11/01 10:42:10 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/05 13:27:34 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,17 @@ static int	do_substitue(char **cmmd, int i, int j, char **tmp2)
 		|| ((loc = get_loc(*tmp2))
 		&& (tmp = loc->value))))
 	{
-		free(*tmp2);
+		ft_strdel(tmp2);
 		*tmp2 = ft_strndup(*cmmd, i);
 		tmp3 = add_handspace(tmp);
 		if (tmp3 == NULL)
 			return (0);
 		tmp = ft_strjoin(*tmp2, tmp3);
 		ft_strdel(&tmp3);
-		(*tmp2) ? free(*tmp2) : 0;
+		(*tmp2) ? ft_strdel(tmp2) : 0;
 		*tmp2 = ft_strjoin(tmp, *cmmd + j);
-		(tmp) ? free(tmp) : 0;
-		(*tmp2) ? free(*cmmd) : 0;
+		(tmp) ? ft_strdel(&tmp) : 0;
+		(*tmp2) ? ft_strdel(cmmd) : 0;
 		(*tmp2) ? *cmmd = ft_strdup(*tmp2) : 0;
 		return (1);
 	}
@@ -53,14 +53,14 @@ static int	substitute(char **cmmd, int i, int j, int is_redir)
 		if (is_redir)
 		{
 			print_error(8, tmp2);
-			(tmp2) ? free(tmp2) : 0;
+			(tmp2) ? ft_strdel(&tmp2) : 0;
 			return (-1);
 		}
 		else
 			while (j-- > i)
 				ssupprchr(cmmd, i);
 	}
-	(tmp2) ? free(tmp2) : 0;
+	(tmp2) ? ft_strdel(&tmp2) : 0;
 	return (1);
 }
 
