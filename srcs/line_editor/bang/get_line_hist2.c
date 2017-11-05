@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/03 17:15:28 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/04 13:57:37 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/05 12:58:13 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static char	**beginsearch_nl(t_control *hist, t_bang2 *bang)
 
 	i = 1;
 	tmp = hist->end;
-	while (tmp && i++ < bang->cmd_l)
+	while (tmp && i++ <= bang->cmd_l)
 		tmp = tmp->prev;
 	if (!tmp)
 	{
