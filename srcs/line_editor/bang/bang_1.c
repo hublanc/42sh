@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/02 19:28:52 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/05 16:24:04 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/05 16:48:46 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,9 +102,8 @@ char			*deal_bang(char *cmd, t_control *hist, int *is_end, int *f)
 	int			i;
 	int			is_p;
 
-	c = 0;
-	is_p = 0;
-	if ((i = 0) == 0 && !ft_strchr(cmd, '!') && (*is_end = 1))
+	init_var_bang(&c, &is_p, &i);
+	if (!ft_strchr(cmd, '!') && (*is_end = 1))
 		return (ft_strdup(cmd));
 	new = ft_strdup(cmd);
 	while (new && new[i])
