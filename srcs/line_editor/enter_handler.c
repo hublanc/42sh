@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/11 14:30:26 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/02 10:33:14 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/05 12:31:08 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,15 @@
 void		enter_handler(t_cmd *cmd, t_control **history, char ***env)
 {
 	char	c;
+	char	*new_command;
 
 	set_selected_null(history);
 	isatty(0) ? ft_putchar('\n') : 0;
 	if (!cmd->str)
 		return (choose_prompt(cmd));
+	new_command = cmd->str;
+	cmd->str = deal_bang(cmd->str, *history);
+	ft_strdel(&new_command);
 	c = check_quote(cmd->str);
 	if (c == '\'' || c == '"')
 		prompt_quote(cmd, history, c, 0);
