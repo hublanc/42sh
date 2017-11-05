@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/04 19:19:00 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/05 11:38:21 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/05 12:20:34 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,20 @@ static void	modif_substi3(int *i, int *j, char *new)
 			(*j)++;
 }
 
-static void	modif_substi2(char *new, char **s, int k, char *old)
+static void	modif_substi2(char *new, char *s, int k, char *old)
 {
 	if (!ft_strchr(new, '&'))
-		ft_strcat(*s, new);
+		ft_strcat(s, new);
 	else
 	{
 		k = 0;
 		while (new[k])
 		{
-			if (new[k] == '&' && (k <= 0 || new[k - 1] == '\\'))
-				ft_strcat(*s, old);
+			if (new[k] == '&' && (k <= 0 || new[k - 1] != '\\'))
+				ft_strcat(s, old);
 			else
-				(*s)[ft_strlen(*s)] = new[k];
+				s[ft_strlen(s)] = new[k];
+			k++;
 		}
 	}
 }
@@ -60,7 +61,7 @@ char		*modif_substi(char *arg, char *old, char *new, int rec)
 	{
 		i[0] ? ft_strncat(s, arg + i[1], i[0]) : 0;
 		i[1] += i[0] + ft_strlen(old);
-		modif_substi2(new, &s, i[2], old);
+		modif_substi2(new, s, i[2], old);
 	}
 	i[1] < i[3] ? ft_strcat(s, arg + i[1]) : 0;
 	return (s);
