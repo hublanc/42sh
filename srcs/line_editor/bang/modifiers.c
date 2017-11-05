@@ -30,6 +30,8 @@ void	rmpathcomp(char **arg)
 {
 	if (!arg || !*arg)
 		return ;
+	if (!ft_strchr(*arg, '/'))
+		return ;
 	while (ft_strchr(*arg + 1, '/'))
 		ssupprchr(arg, 0);
 	ssupprchr(arg, 0);
@@ -52,6 +54,8 @@ void	rmsuffix(char **arg)
 void	rmallbutsuffix(char **arg)
 {
 	if (!arg || !*arg)
+		return ;
+	if (!ft_strchr(*arg, '.'))
 		return ;
 	while (ft_strchr(*arg + 1, '.'))
 		ssupprchr(arg, 0);

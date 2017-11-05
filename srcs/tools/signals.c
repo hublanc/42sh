@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/11 21:20:29 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/23 15:58:01 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/04 11:35:26 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void		get_signal(int n)
 		(cmd && cmd->str && cmd->str + cmd->col - 1 - cmd->prlen)
 			? ft_putstr(cmd->str + cmd->col - 1 - cmd->prlen) : 0;
 		ft_putchar('\n');
+		tputs(tgetstr("cd", NULL), 1, tputchar);
 		print_prompt();
 		read_singleton(0);
 		is_sigint(1);

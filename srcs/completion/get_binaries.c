@@ -21,14 +21,14 @@ char		*add_backback(char *name)
 	i = -1;
 	j = 0;
 	while (name[++i])
-		if (name[i] == '\\' && name[i + 1] != ' ')
+		if (name[i] == '\\' && name[i + 1] != ' ' && name[i + 1] != '!')
 			j++;
 	if (!(s = (char *)ft_memalloc(ft_strlen(name) + j + 1)))
 		return (NULL);
 	ft_strcat(s, name);
 	i = -1;
 	while (s[++i])
-		if (s[i] == '\\' && s[i + 1] != ' ')
+		if (s[i] == '\\' && s[i + 1] != ' ' && s[i + 1] != '!')
 			saddchr(&s, '\\', i++);
 	return (s);
 }
@@ -37,7 +37,7 @@ static void	add_arg(t_compl *compl, struct dirent *dirc, t_coargs **args)
 {
 	char	*t;
 
-	t = add_handspace(dirc->d_name);
+	t = add_backchar(dirc->d_name);
 	(*args)->arg = add_backback(t);
 	free(t);
 	compl_addcolor(args, compl->path);

@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 16:36:09 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/04 23:05:09 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/04 20:18:20 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,28 +74,6 @@ typedef struct		s_bang2
 	char			*new;
 	char			*str;
 }					t_bang2;
-
-/*
-**	Event_designators.c
-*/
-
-char				*bang_events(char *command, t_control **history);
-int					bang_events_2(t_bang **bang, t_control **history);
-int					bang_events_3(t_bang **bang, t_control **history);
-
-int					get_elem_hist(t_bang **bang, t_control **history);
-int					get_elem_hist_2(t_bang **bang, t_control **history, int a);
-
-int					get_double_bang(t_bang **bang, t_control **history, int a);
-int					get_n_first(t_bang **bang, t_control **history, int a);
-int					get_n_last(t_bang **bang, t_control **history, int a);
-int					get_c_last(t_bang **bang, t_control **history, int a);
-
-int					get_elem_arg(t_bang **bang, int a);
-int					get_elem_arg_2(t_bang **bang, int a, int *digit);
-int					word_designator(t_bang **bang, int a);
-void				dollar_designator(t_bang **bang, char **split, int digit);
-void				star_designator(t_bang **bang, char **splitted);
 
 /*
 **	Keys.c
