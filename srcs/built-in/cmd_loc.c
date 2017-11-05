@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/05 13:46:33 by amazurie          #+#    #+#             */
-/*   Updated: 2017/11/05 14:17:17 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/05 15:10:23 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,9 @@ int			gest_loc(char **cmmd)
 			ssupprchr(&tab[1], i--);
 	add_loc(tab[0], tab[1]);
 	reset_status();
-	ft_strdel(&tab[1]);
-	ft_strdel(&tab[0]);
+	i = 0;
+	while (tab[i])
+		ft_strdel(&tab[i++]);
 	free(tab);
 	return (1);
 }
