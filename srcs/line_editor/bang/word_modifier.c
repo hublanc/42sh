@@ -6,15 +6,19 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/03 13:40:21 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/05 17:21:06 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/05 22:41:35 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-static int	arr_bangsubs(void)
+static int	arr_bangsubs(char *cmd, int i)
 {
-	ft_putendl("shell: no previous substitution");
+	while (cmd[i] && cmd[i] != 's')
+		i--;
+	ft_putstr("shell: ");
+	ft_putstr(cmd + i);
+	ft_putendl(": no previous substitution");
 	return (-1);
 }
 
@@ -34,7 +38,7 @@ static int	check_smodif(char *cmd, t_bang2 *bang, int i)
 		if (cmd[i] == t && cmd[i - 1] != '\\' && !bang->old)
 		{
 			if (j <= 0)
-				return (arr_bangsubs());
+				return (arr_bangsubs(cmd, i));
 			bang->old = ft_strndup(cmd + (i - j), j);
 		}
 		else if (cmd[i] == t && cmd[i - 1] != '\\' && bang->old)
