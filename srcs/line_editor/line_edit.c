@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 17:36:47 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/04 20:13:50 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/05 23:14:25 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void		choose_prompt(t_cmd *cmd)
 			|| !ft_strcmp(cmd->prompt, "quote> ")
 	|| !ft_strcmp(cmd->prompt, "heredoc> ") || !ft_strcmp(cmd->prompt, "pipe> ")
 	|| !ft_strcmp(cmd->prompt, "> ") || !ft_strcmp(cmd->prompt, "cmdandor> "))
-		isatty(0) && isatty(2) ? ft_putstr_fd(cmd->prompt, 2) : 0;
+		isatty(0) ? ft_putstr_fd(cmd->prompt, 2) : 0;
 	else
 		print_prompt();
 }

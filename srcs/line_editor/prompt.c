@@ -6,7 +6,7 @@
 /*   By: nbouchin <nbouchin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 11:46:11 by nbouchin          #+#    #+#             */
-/*   Updated: 2017/11/05 17:23:31 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/05 23:13:12 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	print_prompt(void)
 	char	*tmp;
 	t_loc	*local;
 
-	if (!isatty(0) || !isatty(2))
+	if (!isatty(0))
 		return ;
 	tmp = NULL;
 	if (!(local = get_loc("PS1")))

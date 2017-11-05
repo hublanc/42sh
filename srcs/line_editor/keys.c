@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/31 12:52:57 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/05 23:12:12 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/05 23:18:04 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static void	handle_key2(t_cmd *cmd, t_control **history, char ***env, char *buf)
 	}
 	else if ((buf[0] == -30 || buf[0] == -61) && isatty(0))
 		copy_cut_paste_handler(cmd, buf);
-	else if (buf[0] == 18)
+	else if (buf[0] == 18 && isatty(0) && isatty(2))
 	{
 		if (ioctl(0, TIOCGWINSZ, &z) == -1)
 			return ;

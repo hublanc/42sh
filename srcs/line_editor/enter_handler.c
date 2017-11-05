@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/11 14:30:26 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/05 22:22:31 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/05 23:14:08 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ static void	enter_handler_heredoc(t_cmd *cmd)
 		return ;
 	}
 	cmd->str_quote = ft_strapp(cmd->str_quote, cmd->str);
-	isatty(0) && isatty(2) ? ft_putstr_fd(cmd->prompt, 2) : 0;
+	isatty(0) ? ft_putstr_fd(cmd->prompt, 2) : 0;
 	cmd->col = cmd->prlen + 1;
 	cmd->str_quote = ft_str_chr_cat(cmd->str_quote, '\n');
 	ft_strdel(&(cmd->str));
