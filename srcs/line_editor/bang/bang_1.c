@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/02 19:28:52 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/05 15:39:58 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/05 16:24:04 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,13 @@ int				begin_bang(t_control *hist, char **final, int i, int *is_p)
 	return (i);
 }
 
-char			*end_bang(t_control *hist, char *new, int is_p)
+static char		*end_bang(t_control *hist, char *new, int is_p, int *f)
 {
 	int		i;
 
 	i = -1;
+	if (!*f)
+		return (new);
 	while (new && new[++i])
 		if (new[i] == '\n')
 			new[i] = ' ';
@@ -93,7 +95,7 @@ char			*end_bang(t_control *hist, char *new, int is_p)
 	return (new);
 }
 
-char			*deal_bang(char *cmd, t_control *hist, int *is_end)
+char			*deal_bang(char *cmd, t_control *hist, int *is_end, int *f)
 {
 	char		c;
 	char		*new;
@@ -101,15 +103,15 @@ char			*deal_bang(char *cmd, t_control *hist, int *is_end)
 	int			is_p;
 
 	c = 0;
-	i = 0;
 	is_p = 0;
-	if (!ft_strchr(cmd, '!') && (*is_end = 1))
+	if ((i = 0) == 0 && !ft_strchr(cmd, '!') && (*is_end = 1))
 		return (ft_strdup(cmd));
 	new = ft_strdup(cmd);
 	while (new && new[i])
 	{
 		if (new[i] == '!' && new[i + 1] && new[i + 1] != ' ' && c != '\''
-			&& new[i + 1] != '\t' && new[i + 1] != '=' && new[i + 1] != '(')
+			&& new[i + 1] != '\t' && new[i + 1] != '=' && new[i + 1] != '('
+			&& (*f = 1))
 			if ((i = begin_bang(hist, &new, i, &is_p)) == -1)
 				return (free_str_return_null(&new));
 		if (new[i] == '\'')
@@ -118,6 +120,6 @@ char			*deal_bang(char *cmd, t_control *hist, int *is_end)
 		new[i] && new[i] == '\\' ? i++ : 0;
 		new[i] ? i++ : 0;
 	}
-	new = end_bang(hist, new, is_p);
+	new = end_bang(hist, new, is_p, f);
 	return (new);
 }
