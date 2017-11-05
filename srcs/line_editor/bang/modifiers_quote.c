@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/04 19:15:27 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/04 19:18:21 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/05 11:41:26 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,30 +33,28 @@ static void	quoteword2(char *arg, char **s, int *i, int k)
 char		*quoteword(char *arg)
 {
 	char		*s;
-	int			i;
-	int			j;
-	int			k;
+	int			i[3];
 
 	if (!arg)
 		return (NULL);
-	i = -1;
-	j = 0;
-	while (arg[++i])
+	i[0] = -1;
+	i[1] = 0;
+	while (arg[++i[0]])
 	{
-		if (arg[i] == ' ' && (i <= 0 || arg[i - 1] == ' '))
-			j += arg[i + 1] ? 3 : 2;
-		else if (arg[i] != ' ')
+		if (arg[i[0]] == ' ' && (i[0] <= 0 || arg[i[0] - 1] == ' '))
+			i[1] += arg[i[0] + 1] ? 3 : 2;
+		else if (arg[i[0]] != ' ')
 		{
-			while (arg[i + 1] && arg[i + 1] != ' ')
-				i++;
-			j += arg[i + 1] ? 3 : 2;
+			while (arg[i[0] + 1] && arg[i[0] + 1] != ' ')
+				i[0]++;
+			i[1] += arg[i[0] + 1] ? 3 : 2;
 		}
 	}
-	if (!(s = (char *)ft_memalloc(sizeof(char) + i + j + 1)))
+	if (!(s = (char *)ft_memalloc(sizeof(char) + i[0] + i[1] + 1)))
 		return (NULL);
-	i = -1;
-	k = ft_strlen(arg) - 1;
-	while (++i < k)
-		quoteword2(arg, &s, &i, k);
+	i[0] = -1;
+	i[2] = ft_strlen(arg) - 1;
+	while (++i[0] < i[2])
+		quoteword2(arg, &s, &(i[0]), i[2]);
 	return (s);
 }

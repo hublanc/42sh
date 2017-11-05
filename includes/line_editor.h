@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 16:36:09 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/04 20:18:20 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/05 11:48:40 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -260,5 +260,10 @@ void				loop_substi(int *i, int *j, char *arg);
 **	do_modifiers.c
 */
 char				**do_modifiers(char **tab, t_bang2 *bang);
+
+/*
+**	split_extra.c
+*/
+void				subspe(char *new, char *str, int *i, int *j);
 
 #endif
