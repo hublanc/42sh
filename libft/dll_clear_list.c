@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/30 06:25:47 by mameyer           #+#    #+#             */
-/*   Updated: 2017/10/23 10:59:03 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/11/05 13:31:30 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_control		*dll_clear_list(t_control *control)
 		return (control);
 	if (control->length == 1 && control->begin == control->end)
 	{
-		free(control->begin->name);
+		ft_strdel(&control->begin->name);
 		free(control);
 		control = NULL;
 	}
@@ -32,7 +32,7 @@ t_control		*dll_clear_list(t_control *control)
 		{
 			del = tmp;
 			tmp = tmp->next;
-			free(del->name);
+			ft_strdel(&del->name);
 			free(del);
 			del = NULL;
 		}

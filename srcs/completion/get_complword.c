@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/02 10:12:17 by amazurie          #+#    #+#             */
-/*   Updated: 2017/11/02 12:16:21 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/05 13:41:19 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void		compl_cmp(t_compl *compl, char **word)
 	((*word)[i] == '/') ? i++ : 0;
 	if (!(*word)[i] || (!compl->isdot && i <= 0))
 	{
-		free(*word);
+		ft_strdel(word);
 		*word = NULL;
 	}
 	else if (!compl->isdot && i > 0 && (compl->isslash = 1))

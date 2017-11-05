@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/31 10:49:23 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/31 17:05:44 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/05 13:41:46 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	new_coarg(t_compl *compl, t_coargs **args, char *name, int id)
 	compl->nbrargs++;
 	if (ft_strlen((*args)->arg) + 1 > compl->maxlen)
 		compl->maxlen = ft_strlen((*args)->arg) + 1;
-	free(tmp);
+	ft_strdel(&tmp);
 	(*args)->id = id;
 	(*args)->color = NULL;
 	if (!((*args)->next = (t_coargs *)ft_memalloc(sizeof(t_coargs))))
@@ -53,7 +53,7 @@ static void	get_complenv(t_compl *compl, t_coargs **args, char **env, int *id)
 			if (!(nametmp = ft_strndup(env[i], ft_strlen_chr(env[i], '='))))
 				return ;
 			new_coarg(compl, args, nametmp, (*id)++);
-			free(nametmp);
+			ft_strdel(&nametmp);
 		}
 	}
 }

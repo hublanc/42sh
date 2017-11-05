@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/24 16:37:30 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/03 21:04:25 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/05 13:48:01 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static void	add_startenv(char ***env)
 		return ;
 	tab[3] = NULL;
 	ft_setenv(tab, env);
-	tab[2] ? free(tab[2]) : 0;
+	tab[2] ? ft_strdel(&tab[2]) : 0;
 }
 
 static void	init_signal(void)

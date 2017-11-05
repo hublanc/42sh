@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/27 11:29:13 by amazurie          #+#    #+#             */
-/*   Updated: 2017/09/27 13:28:56 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/05 13:37:08 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,13 @@ void		compl_addcolor(t_coargs **ar, char *path)
 		}
 		if (!(tmp2 = ft_strjoin(tmp, (*ar)->arg)))
 		{
-			free(tmp);
+			ft_strdel(&tmp);
 			(*ar)->color = NULL;
 			return ;
 		}
 		(*ar)->color = compl_color(tmp2);
-		free(tmp);
-		free(tmp2);
+		ft_strdel(&tmp);
+		ft_strdel(&tmp2);
 	}
 	else
 		(*ar)->color = NULL;

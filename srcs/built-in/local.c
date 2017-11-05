@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/05 14:47:20 by amazurie          #+#    #+#             */
-/*   Updated: 2017/11/05 13:02:52 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/05 13:35:27 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ t_loc			*saved_loc(int i)
 		while (loc)
 		{
 			loctmp = loc->next;
-			loc->name ? free(loc->name) : 0;
-			loc->value ? free(loc->value) : 0;
+			loc->name ? ft_strdel(&loc->name) : 0;
+			loc->value ? ft_strdel(&loc->value) : 0;
 			free(loc);
 			loc = loctmp;
 		}
@@ -69,7 +69,7 @@ void			add_loc(char *name, char *val)
 		return ;
 	if ((loc = get_loc(name)))
 	{
-		loc->value ? free(loc->value) : 0;
+		loc->value ? ft_strdel(&loc->value) : 0;
 		if (!(loc->value = ft_strdup(val)))
 			loc->value = NULL;
 		return ;
@@ -104,15 +104,15 @@ void			suppr_loc(char *name)
 		return ;
 	if (!loctmp)
 	{
-		loc->name ? free(loc->name) : 0;
-		loc->value ? free(loc->value) : 0;
+		loc->name ? ft_strdel(&loc->name) : 0;
+		loc->value ? ft_strdel(&loc->value) : 0;
 		loc->name = NULL;
 		loc->value = NULL;
 		loc->next ? loc = loc->next : 0;
 		return ;
 	}
-	loc->name ? free(loc->name) : 0;
-	loc->value ? free(loc->value) : 0;
+	loc->name ? ft_strdel(&loc->name) : 0;
+	loc->value ? ft_strdel(&loc->value) : 0;
 	loctmp->next = loc->next;
 	free(loc);
 }

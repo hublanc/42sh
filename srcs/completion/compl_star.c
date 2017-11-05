@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/27 11:09:06 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/23 11:57:35 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/05 13:51:40 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,18 +63,18 @@ static int	compl_star2(t_compl *compl, t_cmd *cmd)
 	while (ar && (ar = ar->next) && ar->arg)
 	{
 		tmp2 = ft_strjoin(tmp, compl->path);
-		(tmp) ? free(tmp) : 0;
+		(tmp) ? ft_strdel(&tmp) : 0;
 		tmp = ft_strjoin(tmp2, "/");
-		(tmp2) ? free(tmp2) : 0;
+		(tmp2) ? ft_strdel(&tmp2) : 0;
 		tmp2 = ft_strjoin(tmp, ar->arg);
-		(tmp) ? free(tmp) : 0;
+		(tmp) ? ft_strdel(&tmp) : 0;
 		tmp = ft_strjoin(tmp2, " ");
-		(tmp2) ? free(tmp2) : 0;
+		(tmp2) ? ft_strdel(&tmp2) : 0;
 	}
 	if ((size_t)(cmd->col - 1 - cmd->prlen) > ft_strlen(cmd->str))
 		go_left(cmd);
 	add_line(cmd, tmp);
-	free(tmp);
+	ft_strdel(&tmp);
 	return (1);
 }
 
@@ -96,11 +96,11 @@ int			compl_star(t_compl *compl, t_cmd *cmd)
 	while (ar && (ar = ar->next) && ar->arg)
 	{
 		tmp2 = ft_strjoin(tmp, ar->arg);
-		(tmp) ? free(tmp) : 0;
+		(tmp) ? ft_strdel(&tmp) : 0;
 		tmp = ft_strjoin(tmp2, " ");
-		(tmp2) ? free(tmp2) : 0;
+		(tmp2) ? ft_strdel(&tmp2) : 0;
 	}
 	add_line(cmd, tmp);
-	(tmp) ? free(tmp) : 0;
+	(tmp) ? ft_strdel(&tmp) : 0;
 	return (1);
 }

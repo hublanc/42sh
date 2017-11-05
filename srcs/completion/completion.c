@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 09:54:57 by amazurie          #+#    #+#             */
-/*   Updated: 2017/11/04 11:37:37 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/05 13:40:04 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,8 @@ static void	reslash(t_compl *compl)
 		return ;
 	tmp2 = add_backchar(compl->arg);
 	tmp = add_backback(tmp2);
-	free(tmp2);
-	free(compl->arg);
+	ft_strdel(&tmp2);
+	ft_strdel(&compl->arg);
 	compl->arg = tmp;
 }
 

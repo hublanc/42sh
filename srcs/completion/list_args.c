@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 10:48:34 by amazurie          #+#    #+#             */
-/*   Updated: 2017/10/31 17:12:28 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/05 13:42:31 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ DIR			*check_open(t_compl *compl)
 		ft_bzero(compl->path + i, ft_strlen(compl->path + i));
 		if (!compl->path || !(dirp = opendir(compl->path)))
 		{
-			(compl->path) ? free(compl->path) : 0;
+			(compl->path) ? ft_strdel(&compl->path) : 0;
 			compl->path = NULL;
 			if ((dirp = opendir(".")))
 			{
@@ -52,14 +52,14 @@ void		list_content(t_compl *compl, t_cmd *cmd)
 	if (compl->path && compl->arg && compl->path[0] == '.'
 			&& compl->path[1] == '/' && !ft_strcmp(compl->path + 2, compl->arg))
 	{
-		free(compl->arg);
+		ft_strdel(&compl->arg);
 		compl->arg = NULL;
 		add_line(cmd, "/");
 	}
 	(compl->arg && compl->arg[0] == '.') ? compl->isdot = 1 : 0;
 	if (compl->arg && !ft_strcmp(compl->arg, "*"))
 	{
-		free(compl->arg);
+		ft_strdel(&compl->arg);
 		compl->arg = NULL;
 	}
 	args = &compl->args;
@@ -100,7 +100,7 @@ void		list_compl(t_compl *compl, t_cmd *cmd, char ***env, char *path)
 	if (compl->arg && compl->arg[0] && !ft_strcmp(compl->arg, "*"))
 	{
 		compl->isstar = 1;
-		free(compl->path);
+		ft_strdel(&compl->path);
 		compl->path = ft_strdup(".");
 	}
 	else if (compl->arg && compl->arg[0]
