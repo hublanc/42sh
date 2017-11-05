@@ -45,16 +45,16 @@ char		*modif_substi(char *arg, char *old, char *new, int rec)
 
 	if (!arg || !old)
 		return (NULL);
-	modif_substi3(&i[0], &i[1], new);
-	init_substi1(&i[0], &i[2], old, i[1]);
-	init_substi2(&i[1], &i[3], arg);
-	while ((i[0] == 0 || rec > 0) && i[0] < i[3] && (i[0] += ft_strstr_len(arg + i[0], old)) >= 0)
-		loop_substi(&i[0], &i[1], old);
+	modif_substi3(&(i[0]), &(i[1]), new);
+	init_substi1(&(i[0]), &(i[2]), old, i[1]);
+	init_substi2(&(i[1]), &(i[3]), arg);
+	while ((i[1] == 0 || rec > 0) && i[0] < i[3] && (i[0] += ft_strstr_len(arg + i[0], old)) >= 0)
+		loop_substi(&(i[0]), &(i[1]), old);
 	if (!(s = (char *)ft_memalloc(sizeof(char) + (i[3] - i[1] * ft_strlen(old) + i[2] * i[1]
 						+ i[1] * ft_strlen(new) + 1))))
 		return (NULL);
 	init_substi3(&i[0], &i[1], &i[3], arg);
-	while ((i[0] == 0 || rec > 0) && i[0] < i[3] && ((i[0] = ft_strstr_len(arg + i[1], old)) || i[1] == 0))
+	while ((i[1] == 0 || rec > 0) && i[0] < i[3] && ((i[0] = ft_strstr_len(arg + i[1], old)) || i[1] == 0))
 	{
 		i[0] ? ft_strncat(s, arg + i[1], i[0]) : 0;
 		i[1] += i[0] + ft_strlen(old);
