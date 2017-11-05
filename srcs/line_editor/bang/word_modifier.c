@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/03 13:40:21 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/05 22:41:35 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/05 22:48:37 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ static int	arr_bangsubs(char *cmd, int i)
 {
 	while (cmd[i] && cmd[i] != 's')
 		i--;
-	ft_putstr("shell: ");
-	ft_putstr(cmd + i);
-	ft_putendl(": no previous substitution");
+	ft_putstr_fd("shell: ", 2);
+	ft_putstr_fd(cmd + i, 2);
+	ft_putstr_fd(": no previous substitution\n", 2);
 	return (-1);
 }
 
@@ -53,9 +53,9 @@ static int	check_smodif(char *cmd, t_bang2 *bang, int i)
 
 static int	error_modifier(char c)
 {
-	ft_putstr("shell: ");
-	ft_putchar(c);
-	ft_putendl(": unrecognized history modifier");
+	ft_putstr_fd("shell: ", 2);
+	ft_putchar_fd(c, 2);
+	ft_putstr_fd(": unrecognized history modifier\n", 2);
 	return (-1);
 }
 
