@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/02 19:28:52 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/04 23:05:14 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/05 13:10:18 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int				del_bang(t_bang2 *bang)
 	return (-1);
 }
 
-int				begin_bang(t_control *hist, char **final, int i)
+int				begin_bang(t_control *hist, char **final, int i, int *is_p)
 {
 	t_bang2		*bang;
 	char		**tab;
@@ -73,14 +73,18 @@ int				begin_bang(t_control *hist, char **final, int i)
 	*final = replace_str(tab, *final, bang);
 	i = bang->begin;
 	del_tabstr(&tab);
+	*is_p = bang->m_p ? 1 : 0;
 	del_bang(bang);
 	return (i);
 }
 
-char			*free_str_return_null(char **str)
+char			*end_bang(t_control *hist, char *new, int is_p)
 {
-	ft_strdel(str);
-	return (NULL);
+	add_hist_or_not(&hist, new);
+	ft_putendl(new);
+	if (is_p)
+		ft_strdel(&new);
+	return (new);
 }
 
 char			*deal_bang(char *cmd, t_control *hist)
@@ -88,9 +92,11 @@ char			*deal_bang(char *cmd, t_control *hist)
 	char		c;
 	char		*new;
 	int			i;
+	int			is_p;
 
 	c = 0;
 	i = 0;
+	is_p = 0;
 	if (!ft_strchr(cmd, '!'))
 		return (ft_strdup(cmd));
 	new = ft_strdup(cmd);
@@ -98,16 +104,14 @@ char			*deal_bang(char *cmd, t_control *hist)
 	{
 		if (new[i] == '!' && new[i + 1] && new[i + 1] != ' ' && c != '\''
 			&& new[i + 1] != '\t' && new[i + 1] != '=' && new[i + 1] != '(')
-			if ((i = begin_bang(hist, &new, i)) == -1)
+			if ((i = begin_bang(hist, &new, i, &is_p)) == -1)
 				return (free_str_return_null(&new));
 		if (new[i] == '\'')
 			while (new[i] && new[i] != '\'')
 				i++;
-		if (new[i] == '\\')
-			i++;
+		new[i] && new[i] == '\\' ? i++ : 0;
 		new[i] ? i++ : 0;
 	}
-	add_hist_or_not(&hist, new);
-	ft_putendl(new);
+	new = end_bang(hist, new, is_p);
 	return (new);
 }

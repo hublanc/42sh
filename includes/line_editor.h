@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 16:36:09 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/05 11:48:40 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/05 13:10:46 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,7 +182,6 @@ int					return_sigint(char **to_del, char *to_save);
 **	Bang_1.c
 */
 char				*deal_bang(char *cmd, t_control *hist);
-char				*free_str_return_null(char **str);
 
 /*
 **	Word_designator.c
@@ -255,6 +254,7 @@ void				init_substi1(int *i, int *k, char *old, int j);
 void				init_substi2(int *j, int *l, char *arg);
 void				init_substi3(int *i, int *j, int *l, char *arg);
 void				loop_substi(int *i, int *j, char *arg);
+char				*free_str_return_null(char **str);
 
 /*
 **	do_modifiers.c
