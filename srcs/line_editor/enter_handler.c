@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/11 14:30:26 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/05 16:28:35 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/05 22:22:31 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,8 @@ static void	enter_handler_backslash(t_cmd *cmd, t_control **history)
 static void	enter_handler_heredoc(t_cmd *cmd)
 {
 	isatty(0) ? ft_putchar('\n') : 0;
-	if (cmd->str && !ft_strcmp(cmd->str, cmd->eof))
+	if (cmd->str && (!ft_strcmp(cmd->str, cmd->eof)
+				|| cmd->str[ft_strlen(cmd->str) - 1] == 4))
 	{
 		ft_strdel(&(cmd->str));
 		cmd->end_eof = 1;
