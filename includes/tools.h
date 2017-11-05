@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 18:24:56 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/02 10:25:12 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/05 22:32:37 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ t_lst		*seek_prev_select(t_control **list);
 void		seek_prev(t_control **list, t_cmd *cmd);
 void		set_selected_null(t_control **history);
 void		delete_elem(t_lst **tmp);
-char		which_char_after_digit(t_bang **bang);
 
 /*
 **	Tools_keys.c
