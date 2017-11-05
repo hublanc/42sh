@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/04 12:52:22 by amazurie          #+#    #+#             */
-/*   Updated: 2017/11/04 17:37:49 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/05 11:48:44 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ static int			getlen(char *str)
 static char			*cmdsub(char *str, int *i, int k, int len)
 {
 	char	*new;
-	char	c;
 	int		j;
 
 	j = 0;
@@ -95,17 +94,12 @@ static char			*cmdsub(char *str, int *i, int k, int len)
 					+ (*i - k != 0 ? 1 : 0) + 1)))
 		return (NULL);
 	ft_strncat(new, str + (*i - k), k);
-	k ? j = ft_strlen(new) - (*i - k != 0 ? 1 : 0) : 0;
+	if (k)
+		j = ft_strlen(new) - (*i - k != 0 ? 1 : 0);
 	while (str[*i] && str[*i] != ' ' && j < len + k)
 	{
 		if (str[*i] == '\'' || str[*i] == '"')
-		{
-			c = str[(*i)];
-			new[j++] = str[(*i)++];
-			while (str[*i] && str[*i] != c)
-				new[j++] = str[(*i)++];
-			new[j++] = str[*i];
-		}
+			subspe(new, str, i, &j);
 		else
 			new[j++] = str[*i];
 		str[*i] ? ++*i : 0;
