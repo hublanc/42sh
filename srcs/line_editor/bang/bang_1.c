@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/02 19:28:52 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/04 23:05:14 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/05 12:50:00 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,12 @@ int				begin_bang(t_control *hist, char **final, int i)
 	i = event_designator(*final, bang, i);
 	i = word_designator_x(*final, bang, i);
 	i = word_designator_y(*final, bang, i);
-	if ((i = word_modifier(*final, bang, i)) == -1)
-		return (del_bang(bang));
+	//if ((i = word_modifier(*final, bang, i)) == -1)
+	//	return (del_bang(bang));
 	bang->end = i;
 	if (!(tab = get_line_history(hist, bang, *final))
 			|| !(tab = designator_fnc(tab, bang))
-			|| !(tab = do_modifiers(tab, bang)))
+			/*|| !(tab = do_modifiers(tab, bang))*/)
 	{
 		del_tabstr(&tab);
 		return (del_bang(bang));
@@ -93,6 +93,10 @@ char			*deal_bang(char *cmd, t_control *hist)
 	i = 0;
 	if (!ft_strchr(cmd, '!'))
 		return (ft_strdup(cmd));
+	ft_putstr("\n\n\n\n\n\n\n");
+	ft_putstr("!!!!!!!!!!!!!!!cmd: ");
+	ft_putendl(cmd);
+	ft_putstr("\n\n\n\n\n\n\n");
 	new = ft_strdup(cmd);
 	while (new && new[i])
 	{
@@ -109,5 +113,7 @@ char			*deal_bang(char *cmd, t_control *hist)
 	}
 	add_hist_or_not(&hist, new);
 	ft_putendl(new);
+	ft_putstr("\n\n\n\n\n\n\n");
+	ft_putstr("!!!!!!!!!!!!!!!work");
 	return (new);
 }
