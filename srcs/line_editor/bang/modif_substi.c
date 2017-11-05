@@ -61,7 +61,5 @@ char		*modif_substi(char *arg, char *old, char *new, int rec)
 		modif_substi2(new, &s, i[2], old);
 	}
 	i[1] < i[3] ? ft_strcat(s, arg + i[1]) : 0;
-	old ? free(old) : 0;
-	new ? free(new) : 0;
 	return (s);
 }
