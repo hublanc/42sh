@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/17 11:10:52 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/05 16:37:21 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/05 17:04:34 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,6 @@ void		routine(char *cmd, char ***env, t_control **history)
 	t_node		*tree;
 	char		*new;
 
-	ft_putcolor(cmd);
-	ft_putchar('\n');
 	if (!cmd)
 		return ;
 	if (!(new = loop_bang(history, cmd, env)))
