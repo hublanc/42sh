@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/25 19:21:36 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/27 14:59:25 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/05 12:54:42 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static int	envexec(char **lstav, char ***envcpy, size_t *i, char **env)
 	k = check_envcmd(tmp, *envcpy, env);
 	j = -1;
 	while (tmp[++j])
-		free(tmp[j]);
+		ft_strdel(&tmp[j]);
 	free(tmp);
 	i[2] = 0;
 	i[0]--;
