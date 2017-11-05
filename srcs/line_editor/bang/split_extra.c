@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/05 11:43:41 by amazurie          #+#    #+#             */
-/*   Updated: 2017/11/05 11:48:47 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/05 14:45:05 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void		subspe(char *new, char *str, int *i, int *j)
 {
-	char	c;	
+	char	c;
 
 	c = str[(*i)];
 	new[(*j)++] = str[(*i)++];

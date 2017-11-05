@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/03 13:40:21 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/05 12:36:34 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/05 14:46:38 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,7 @@ static int	check_smodif(char *cmd, t_bang2 *bang, int i)
 		}
 		else if (cmd[i] == t && cmd[i - 1] != '\\' && bang->old)
 			bang->new = ft_strndup(cmd + (i - j), j);
-		if (cmd[i] == t && cmd[i - 1] != '\\')
-			j = -1;
+		(cmd[i] == t && cmd[i - 1] != '\\') ? j = -1 : 0;
 		j++;
 	}
 	if (bang->old && !bang->new && i - j > 0)
