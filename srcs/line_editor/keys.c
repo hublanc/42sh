@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/31 12:52:57 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/05 13:47:32 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/05 16:47:44 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static int	check_sigint2(t_cmd *cmd, char **buf)
 	{
 		reset_cmdsiginted(cmd);
 		can_sigint(1);
+		ft_strdel(buf);
 		return (-1);
 	}
 	else
