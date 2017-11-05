@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/03 19:10:40 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/01 17:09:13 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/05 17:22:39 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static int		authorization_file(char *path, t_node *tree)
 		return (0);
 	if (lstat(path, &buf) == -1)
 	{
-		ft_putstr_fd("42sh: permission denied: ", 2);
+		ft_putstr_fd("shell: permission denied: ", 2);
 		ft_putendl_fd(path, 2);
 		return (-2);
 	}
@@ -60,7 +60,7 @@ static int		authorization_file(char *path, t_node *tree)
 	{
 		if (S_ISDIR(buf.st_mode))
 		{
-			ft_putstr_fd("42sh: is a directory: ", 2);
+			ft_putstr_fd("shell: is a directory: ", 2);
 			ft_putendl_fd(path, 2);
 			return (-1);
 		}

@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/05 16:40:44 by amazurie          #+#    #+#             */
-/*   Updated: 2017/11/05 12:57:43 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/05 17:17:29 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ static int	export_parse(char **tab, char *opt)
 				*opt = 'p';
 			else if (tab[i][j] != 'p')
 			{
-				ft_putstr_fd("42sh: export: -", 2);
+				ft_putstr_fd("shell: export: -", 2);
 				ft_putchar_fd(tab[i][j], 2);
 				ft_putstr_fd("\nexport name[=word] or export -p\n", 2);
 				return (-1);

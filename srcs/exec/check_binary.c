@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/28 15:49:45 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/02 15:03:03 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/05 17:18:48 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int	check_isdir(char *str)
 	lstat(str, &buf);
 	if (S_ISDIR(buf.st_mode))
 	{
-		ft_putstr_fd("42sh: ", 2);
+		ft_putstr_fd("shell: ", 2);
 		ft_putstr_fd(str, 2);
 		ft_putstr_fd(": is a directory\n", 2);
 		return (-3);

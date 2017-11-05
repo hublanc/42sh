@@ -6,13 +6,13 @@
 #    By: hublanc <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/07/24 15:04:09 by hublanc           #+#    #+#              #
-#    Updated: 2017/11/05 15:55:16 by hublanc          ###   ########.fr        #
+#    Updated: 2017/11/05 18:03:30 by lbopp            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	= shell
+NAME	= 21sh
 CC		= gcc
-FLAGS	= -Wall -Wextra -Werror -g
+FLAGS	= -Wall -Wextra -Werror
 DFLAGS	= -MMD
 LIB		= libft/libft.a
 HEADER	= includes/
@@ -167,9 +167,6 @@ $(NAME): $(LIB) $(OBJS)
 	@tput cd
 	@echo "${GRN}$(NAME) created${NC}"
 	@echo "${CYN}PROCESSING DONE !${NC}"
-	@echo "${CYN}"
-	@cat starting/name
-	@echo "${NC}"
 
 $(OBJDIR):
 	@mkdir -p objs objs/built-in objs/tools objs/exec objs/lexer objs/redirection objs/line_editor objs/completion objs/prompt_statement objs/built-in/read objs/built-in/cd objs/line_editor/bang
@@ -179,7 +176,7 @@ $(LIB):
 	@make -C $(LIBSRC)
 	@echo "\n${CYN}Processing ${NC}./objs ${CYN}[${NC}...${CYN}]${NC}"
 
-$(OBJDIR)%.o: $(SRCDIR)%.c $(HEADER)$(NAME).h
+$(OBJDIR)%.o: $(SRCDIR)%.c $(HEADER)shell.h
 	@echo "\r\c"
 	@tput cd
 	@echo "${GRN}Compiling${NC} $@\c"

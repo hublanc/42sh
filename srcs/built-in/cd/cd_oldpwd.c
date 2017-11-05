@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/30 16:48:31 by lbopp             #+#    #+#             */
-/*   Updated: 2017/10/30 17:10:58 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/05 17:16:48 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int			cd_oldpwd(char ***env, char opt)
 	if (!(oldpwd = get_elem(env, "OLDPWD="))
 			&& !(loc = get_loc("OLDPWD")))
 	{
-		ft_putendl_fd("42sh: cd: OLDPWD not set", 2);
+		ft_putendl_fd("shell: cd: OLDPWD not set", 2);
 		return (1);
 	}
 	(!oldpwd && loc) ? oldpwd = loc->value : 0;

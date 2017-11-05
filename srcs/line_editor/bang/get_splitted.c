@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/03 15:52:19 by mameyer           #+#    #+#             */
-/*   Updated: 2017/11/05 13:26:47 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/05 17:20:24 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ char		**return_error_bad_wspec(t_bang2 *bang, char **hist_line)
 		i++;
 	}
 	free(hist_line);
-	ft_putstr_fd("42sh: ", 2);
+	ft_putstr_fd("shell: ", 2);
 	if (bang->x_set)
 		ft_putnbr_fd(bang->x, 2);
 	else if (bang->c_x)

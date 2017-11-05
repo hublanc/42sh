@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/04 14:19:19 by amazurie          #+#    #+#             */
-/*   Updated: 2017/11/05 13:46:04 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/05 17:19:09 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int		bang_s(char **tmp, char **tmp2, t_bang2 *bang)
 {
 	if (!bang->old || !*(bang->old) || !ft_strstr(*tmp, bang->old))
 	{
-		ft_putendl("42sh: substitution failed");
+		ft_putendl("shell: substitution failed");
 		return (0);
 	}
 	*tmp2 = modif_substi(*tmp, bang->old, bang->new, bang->m_g);

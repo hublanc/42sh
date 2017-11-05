@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/30 16:43:04 by lbopp             #+#    #+#             */
-/*   Updated: 2017/10/30 17:08:53 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/05 17:16:34 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int			cd_home(char ***env, char opt)
 	if (!(home = get_elem(env, "HOME="))
 			&& !(loc = get_loc("HOME")))
 	{
-		ft_putendl_fd("42sh: cd: HOME not set", 2);
+		ft_putendl_fd("shell: cd: HOME not set", 2);
 		return (1);
 	}
 	(!home && loc) ? home = loc->value : 0;

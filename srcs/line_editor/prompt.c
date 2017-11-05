@@ -6,7 +6,7 @@
 /*   By: nbouchin <nbouchin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 11:46:11 by nbouchin          #+#    #+#             */
-/*   Updated: 2017/11/02 13:58:19 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/05 17:23:31 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	print_prompt(void)
 		}
 	}
 	(!tmp && local && local->value) ? tmp = local->value : 0;
-	prompt = (tmp) ? ft_strdup(tmp) : ft_strdup("42sh> ");
+	prompt = (tmp) ? ft_strdup(tmp) : ft_strdup("shell> ");
 	prompt_management(&prompt);
 	ft_putstr_fd(prompt, 2);
 	ft_strdel(&prompt);
@@ -79,7 +79,7 @@ char	*return_prompt(void)
 		}
 	}
 	(!tmp && local && local->value) ? tmp = local->value : 0;
-	prompt = (tmp) ? ft_strdup(tmp) : ft_strdup("42sh> ");
+	prompt = (tmp) ? ft_strdup(tmp) : ft_strdup("shell> ");
 	prompt_management(&prompt);
 	return (prompt);
 }

@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/03 17:11:12 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/04 14:11:52 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/05 17:19:40 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static char	**strsearch(t_control *hist, t_bang2 *bang)
 		tmp = tmp->next;
 	if (!tmp)
 	{
-		ft_putstr_fd("42sh: !", 2);
+		ft_putstr_fd("shell: !", 2);
 		ft_putstr_fd(bang->str, 2);
 		ft_putstr_fd(": event not found\n", 2);
 		return (NULL);
@@ -39,7 +39,7 @@ static char	**q_marksearch(t_control *hist, t_bang2 *bang)
 		tmp = tmp->next;
 	if (!tmp)
 	{
-		ft_putstr_fd("42sh: !?", 2);
+		ft_putstr_fd("shell: !?", 2);
 		ft_putstr_fd(bang->str, 2);
 		ft_putstr_fd(": event not found\n", 2);
 		return (NULL);
@@ -54,7 +54,7 @@ static char	**d_bangsearch(t_control *hist)
 	tmp = hist->begin;
 	if (!tmp)
 	{
-		ft_putstr_fd("42sh: !!: event not found\n", 2);
+		ft_putstr_fd("shell: !!: event not found\n", 2);
 		return (NULL);
 	}
 	return (bang_split(tmp->name));

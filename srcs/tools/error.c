@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/01 11:03:53 by hublanc           #+#    #+#             */
-/*   Updated: 2017/10/17 11:29:47 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/05 17:23:02 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int			print_error(int err, char *cmd)
 	}
 	else if (err == 8)
 	{
-		ft_putstr_fd("42sh: ", 2);
+		ft_putstr_fd("shell: ", 2);
 		ft_putstr_fd(cmd, 2);
 		ft_putstr_fd(": ambiguous redirect", 2);
 	}

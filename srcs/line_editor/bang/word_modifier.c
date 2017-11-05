@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/03 13:40:21 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/05 14:46:38 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/05 17:21:06 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	arr_bangsubs(void)
 {
-	ft_putendl("42sh: no previous substitution");
+	ft_putendl("shell: no previous substitution");
 	return (-1);
 }
 
@@ -49,7 +49,7 @@ static int	check_smodif(char *cmd, t_bang2 *bang, int i)
 
 static int	error_modifier(char c)
 {
-	ft_putstr("42sh: ");
+	ft_putstr("shell: ");
 	ft_putchar(c);
 	ft_putendl(": unrecognized history modifier");
 	return (-1);
