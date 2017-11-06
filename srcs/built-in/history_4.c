@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/21 22:22:29 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/06 01:12:00 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/06 01:29:04 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,11 @@ int			get_cd_flags_2(t_hist_flags *flags, char c)
 	c == 'w' ? flags->w = 1 : 0;
 	c == 'p' ? flags->p = 1 : 0;
 	c == 's' ? flags->s = 1 : 0;
-	flags->t = c == '-' ? 1 : 0;
-	if (c != 'c' && c != 'd' && c != 'a' && c != 'n' && c != 'r' && c != 'w'
+	if ((flags->t += c == '-' ? 1 : 0) > 1)
+		return (set_usage(c, 0));
+	if (!(i = -1) && c != 'c' && c != 'd' && c != 'a' && c != 'n' && c != 'r' && c != 'w'
 			&& c != 'p' && c != 's' && c != '-')
 		return (set_usage(c, 0));
-	i = -1;
 	j = 0;
 	while (++i < 7)
 	{
@@ -99,4 +99,5 @@ void			init_cd_flags(t_hist_flags *flags)
 	flags->w = 0;
 	flags->p = 0;
 	flags->s = 0;
+	flags->t = 0;
 }
