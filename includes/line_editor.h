@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 16:36:09 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/05 22:52:23 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/06 02:59:06 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,6 @@ typedef struct		s_cmd
 	int				sc_row;
 	int				stop;
 }					t_cmd;
-
-typedef struct		s_bang
-{
-	char			*result;
-	char			*to_append;
-	char			*command;
-	int				index;
-	int				len;
-	int				quotes;
-}					t_bang;
 
 typedef struct		s_bang2
 {

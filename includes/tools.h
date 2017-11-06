@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 18:24:56 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/05 22:32:37 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/06 03:00:12 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,15 +123,8 @@ void		end_ft_env(size_t *i, char **env);
 **	tools_wd_designators.c
 */
 
-int			malloc_struct_bang(t_bang **bang, char *command);
-void		free_struct_bang(t_bang **bang);
-void		is_quote(t_bang **bang);
-int			hist_event_not_found(t_bang **bang, int a);
 int			error_bad_wspec(int digit, char ***splitted);
-int			error_unrecognized_hmod(t_bang **bang, char **test, int a);
 void		atoi_free(int *digit, char **test);
-int			return_cond(t_bang **bang, int a, t_lst *tmp);
-void		append_in_result(t_bang **bang, char *to_append);
 int			tablen(char **tab);
 
 #endif
