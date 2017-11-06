@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/18 18:08:42 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/06 01:23:03 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/06 02:24:30 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,43 +92,36 @@ int			ft_history_3(char **tab, t_control **history, char *file,
 
 char		*get_history_file(char ***env)
 {
-	char	*home_value;
+	char	*file;
 
-	home_value = NULL;
-	if (!env)
+	file = NULL;
+	get_hisfile(*env, &file);
+	if (file == NULL)
 		return (NULL);
-	get_home(*env, &home_value);
-	if (home_value == NULL)
-		return (NULL);
-	home_value = ft_strapp(home_value, "/");
-	home_value = ft_strapp(home_value, ".shell_history");
-	return (home_value);
+	return (file);
 }
 
-void		get_home(char **env, char **home)
+void		get_hisfile(char **env, char **file)
 {
+	t_loc	*loc;
 	char	*value;
 	int		a;
 
 	value = NULL;
 	a = 0;
-	while (env[a])
-	{
-		if (ft_strncmp(env[a], "HOME=", ft_strlen("HOME=")) == 0)
+	if ((!env || !(value = get_elem(&env, "HISTFILE=")))
+			&& !(loc = get_loc("HISTFILE")))
+		if (get_elem(&env, "HOME="))
 		{
-			value = ft_strdup(env[a]);
-			break ;
+			value = ft_strjoin(get_elem(&env, "HOME="), "/");
+			value = ft_strapp(value, ".shell_history");
+			add_loc("HISTFILE", value);
+			ft_strdel(&value);
 		}
-		a++;
-	}
-	if (value != NULL)
-	{
-		a = 5;
-		while (value[a])
-		{
-			*home = ft_str_chr_cat(*home, value[a]);
-			a++;
-		}
-	}
-	ft_strdel(&value);
+	if (!(loc = get_loc("HISTFILE")))
+		return ;
+	value = loc->value;
+	if (!value && (!loc || loc->value))
+		return ;
+	*file = ft_strdup(value);
 }

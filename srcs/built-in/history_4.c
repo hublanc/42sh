@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/21 22:22:29 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/06 01:29:04 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/06 02:25:50 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ int			get_cd_flags_2(t_hist_flags *flags, char c)
 	c == 's' ? flags->s = 1 : 0;
 	if ((flags->t += c == '-' ? 1 : 0) > 1)
 		return (set_usage(c, 0));
-	if (!(i = -1) && c != 'c' && c != 'd' && c != 'a' && c != 'n' && c != 'r' && c != 'w'
-			&& c != 'p' && c != 's' && c != '-')
+	if (!(i = -1) && c != 'c' && c != 'd' && c != 'a' && c != 'n' && c != 'r'
+			&& c != 'w' && c != 'p' && c != 's' && c != '-')
 		return (set_usage(c, 0));
 	j = 0;
 	while (++i < 7)
@@ -71,7 +71,7 @@ int			get_cd_flags_2(t_hist_flags *flags, char c)
 	return (0);
 }
 
-int				set_usage(char c, int type)
+int			set_usage(char c, int type)
 {
 	if (type == 2)
 	{
@@ -89,7 +89,7 @@ int				set_usage(char c, int type)
 	return (1);
 }
 
-void			init_cd_flags(t_hist_flags *flags)
+void		init_cd_flags(t_hist_flags *flags)
 {
 	flags->c = 0;
 	flags->d = 0;

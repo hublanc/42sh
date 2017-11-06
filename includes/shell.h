@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 11:50:54 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/06 01:09:46 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/06 02:06:51 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int					ft_history_2(char **tab, t_control **history, char *file,
 int					ft_history_3(char **tab, t_control **history, char *file,
 					t_hist_flags flags);
 char				*get_history_file(char ***env);
-void				get_home(char **env, char **home);
+void				get_hisfile(char **env, char **file);
 int					ft_cd(char **path, char ***env);
 int					hash_built(char **tab, char **env);
 int					ft_exit(char **tab);
