@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 11:50:54 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/04 21:44:01 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/06 00:58:56 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,10 +109,10 @@ int					tputchar(int c);
 */
 
 void				init_cd_flags(t_hist_flags *flags);
-void				get_cd_flags(t_hist_flags *flags, char **tab,
+int					get_cd_flags(t_hist_flags *flags, char **tab,
 					int *args_pos);
-void				get_cd_flags_2(t_hist_flags *flags, char c);
-void				set_usage(char c, int type);
+int					get_cd_flags_2(t_hist_flags *flags, char c);
+int					set_usage(char c, int type);
 void				print_history(t_control **history);
 int					get_num(int size);
 void				delete_elem_hist(int index, t_control **history);

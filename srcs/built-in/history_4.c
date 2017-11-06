@@ -6,13 +6,13 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/21 22:22:29 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/05 17:17:55 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/06 01:04:16 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-void		get_cd_flags(t_hist_flags *flags, char **tab, int *args_pos)
+int				get_cd_flags(t_hist_flags *flags, char **tab, int *args_pos)
 {
 	int		i;
 	int		j;
@@ -25,43 +25,57 @@ void		get_cd_flags(t_hist_flags *flags, char **tab, int *args_pos)
 		{
 			j++;
 			while (tab[i] && tab[i][j])
-				get_cd_flags_2(flags, tab[i][j++]);
+				if (get_cd_flags_2(flags, tab[i][j++]))
+					return (1);
 		}
 		else if (tab[i][j] && tab[i][j] == '-' && !(tab[i][j + 1]))
 			ft_putendl("shell: history: -: numeric argument required");
 		i++;
 	}
 	*args_pos = i;
+	return (0);
 }
 
-void		get_cd_flags_2(t_hist_flags *flags, char c)
+static int	error_muchflags(void)
 {
-	if (c == 'c')
-		flags->c = 1;
-	else if (c == 'd')
-		flags->d = 1;
-	else if (c == 'a')
-		flags->a = 1;
-	else if (c == 'n')
-		flags->n = 1;
-	else if (c == 'r')
-		flags->r = 1;
-	else if (c == 'w')
-		flags->w = 1;
-	else if (c == 'p')
-		flags->p = 1;
-	else if (c == 's')
-		flags->s = 1;
-	else
-		set_usage(c, 0);
+	ft_putendl("shell: history: cannot use more than one of -anrw");
+	return (1);
 }
 
-void		set_usage(char c, int type)
+int			get_cd_flags_2(t_hist_flags *flags, char c)
+{
+	int		i;
+	int		j;
+
+	c == 'c' ? flags->c = 1 : 0;
+	c == 'd' ? flags->d = 1 : 0;
+	c == 'a' ? flags->a = 1 : 0;
+	c == 'n' ? flags->n = 1 : 0;
+	c == 'r' ? flags->r = 1 : 0;
+	c == 'w' ? flags->w = 1 : 0;
+	c == 'p' ? flags->p = 1 : 0;
+	c == 's' ? flags->s = 1 : 0;
+	if (c != 'c' && c != 'd' && c != 'a' && c != 'n' && c != 'r' && c != 'w'
+			&& c != 'p' && c != 's')
+		return (set_usage(c, 0));
+	i = -1;
+	j = 0;
+	while (++i < 7)
+	{
+		if (c == 'a' || c == 'n' || c == 'r' || c == 'w')
+			j++;
+		if (j > 1)
+			return (error_muchflags());
+	}
+	return (0);
+}
+
+int				set_usage(char c, int type)
 {
 	if (type == 2)
 	{
 		ft_putendl("shell: history: too many arguments");
-		return ;
+		return (1);
 	}
 	ft_putstr("shell: history: -");
 	ft_putchar(c);
@@ -71,9 +85,10 @@ void		set_usage(char c, int type)
 		ft_putstr(": option requires an argument\n");
 	ft_putstr("history: usage: history [-c] [-d offset] [n] or history");
 	ft_putendl(" -awrn [filename] or history -ps arg [arg...]");
+	return (1);
 }
 
-void		init_cd_flags(t_hist_flags *flags)
+void			init_cd_flags(t_hist_flags *flags)
 {
 	flags->c = 0;
 	flags->d = 0;

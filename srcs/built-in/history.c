@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/18 18:08:42 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/05 13:34:03 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/06 00:52:21 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ int			ft_history(char **tab, char ***env, t_control **history)
 	status = 0;
 	args_pos = 0;
 	init_cd_flags(&flags);
-	get_cd_flags(&flags, tab, &args_pos);
+	if (get_cd_flags(&flags, tab, &args_pos))
+		return (1);
 	file = get_history_file(env);
 	if (!tab[1] && (*history) != NULL && (*history)->length > 0)
 		print_history(history);
