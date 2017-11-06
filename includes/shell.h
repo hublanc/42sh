@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 11:50:54 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/06 00:58:56 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/06 01:09:46 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct		s_hist_flags
 	int				w;
 	int				p;
 	int				s;
+	int				t;
 	int				more;
 }					t_hist_flags;
 

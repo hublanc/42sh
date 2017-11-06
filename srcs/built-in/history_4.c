@@ -6,13 +6,13 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/21 22:22:29 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/06 01:04:16 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/06 01:12:00 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-int				get_cd_flags(t_hist_flags *flags, char **tab, int *args_pos)
+int			get_cd_flags(t_hist_flags *flags, char **tab, int *args_pos)
 {
 	int		i;
 	int		j;
@@ -55,8 +55,9 @@ int			get_cd_flags_2(t_hist_flags *flags, char c)
 	c == 'w' ? flags->w = 1 : 0;
 	c == 'p' ? flags->p = 1 : 0;
 	c == 's' ? flags->s = 1 : 0;
+	flags->t = c == '-' ? 1 : 0;
 	if (c != 'c' && c != 'd' && c != 'a' && c != 'n' && c != 'r' && c != 'w'
-			&& c != 'p' && c != 's')
+			&& c != 'p' && c != 's' && c != '-')
 		return (set_usage(c, 0));
 	i = -1;
 	j = 0;
