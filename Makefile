@@ -6,13 +6,13 @@
 #    By: lbopp <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/05 18:23:34 by lbopp             #+#    #+#              #
-#    Updated: 2017/11/07 16:20:39 by amazurie         ###   ########.fr        #
+#    Updated: 2017/11/07 17:42:27 by hublanc          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= 21sh
 CC		= gcc
-FLAGS	= -Wall -Wextra -Werror #-fsanitize=address
+FLAGS	= -Wall -Wextra -Werror -g #-fsanitize=address
 DFLAGS	= -MMD
 LIB		= libft/libft.a
 HEADER	= includes/
