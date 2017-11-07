@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/11 14:30:26 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/07 11:05:50 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/07 13:03:05 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ void		enter_hub(t_cmd *cmd, t_control **history, char ***env)
 	{
 		clear_cmd(cmd);
 		*cmd = init_cmd(return_prompt());
+		ft_putchar('\n');
 		return (print_prompt());
 	}
 	ft_strdel(&tmp);
