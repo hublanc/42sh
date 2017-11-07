@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 14:47:27 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/05 23:37:54 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/07 11:51:59 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,7 @@ void		go_left(t_cmd *cmd)
 			tputs(tgetstr("nd", NULL), 1, tputchar);
 	}
 	else
-	{
 		tputs(tgetstr("le", NULL), 1, tputchar);
-	}
 	cmd->col--;
 }
 
