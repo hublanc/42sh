@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/11 14:30:26 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/07 18:07:14 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/07 18:11:39 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,12 +124,12 @@ void		enter_hub(t_cmd *cmd, t_control **history, char ***env)
 	ft_strdel(&cmd->str);
 	if (!(cmd->str = deal_bang(tmp, *history, &t)) && t == 1)
 		cmd->str = tmp;
-	else if (t == 2)
-	{
-		clear_cmd(cmd);
-		*cmd = init_cmd(return_prompt());
+	else
 		ft_strdel(&tmp);
-	}
+	if (t == 2)
+		clear_cmd(cmd);
+	if (t == 2)
+		*cmd = init_cmd(return_prompt());
 	if (!cmd->prompt)
 		enter_handler(cmd, history, env);
 	else if (!ft_strcmp(cmd->prompt, "dquote> ")
