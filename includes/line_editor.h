@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 16:36:09 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/07 18:03:38 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/07 18:29:07 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -255,5 +255,6 @@ char				**do_modifiers(char **tab, t_bang2 *bang);
 **	split_extra.c
 */
 void				subspe(char *new, char *str, int *i, int *j);
+void				init_var_bang(char *c, int *i, int *is_p);
 
 #endif

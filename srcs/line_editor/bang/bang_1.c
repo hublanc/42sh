@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/02 19:28:52 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/07 18:07:05 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/07 18:28:24 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,11 @@ int				begin_bang(t_control *hist, char **final, int i, int *is_p)
 	return (i);
 }
 
-static char		*end_bang(t_control *hist, char *new, int is_p)
+static char		*end_bang(t_control *hist, char *new, int is_p, int *t)
 {
 	int		i;
 
+	*t = 1;
 	i = -1;
 	while (new && new[++i])
 		if (new[i] == '\n')
@@ -105,15 +106,14 @@ char			*deal_bang(char *cmd, t_control *hist, int *t)
 
 	if (!ft_strchr(cmd, '!') && !(*t = 0))
 		return (ft_strdup(cmd));
-	c = 0;
-	i = 0;
-	is_p = 0;
+	init_var_bang(&c, &i, &is_p);
 	new = ft_strdup(cmd);
 	while (new && new[i])
 	{
 		if (new[i] == '!' && new[i + 1] && new[i + 1] != ' ' && c != '\''
 			&& new[i + 1] != '\t' && new[i + 1] != '=' && new[i + 1] != '(')
-			if ((i = begin_bang(hist, &new, i, &is_p)) == -1 && (*t = 2))
+			if ((i = begin_bang(hist, &new, i, &is_p)) == -1
+				&& (*t = 2))
 				return (free_str_return_null(&new));
 		if (new[i] == '\'' && i++)
 			while (new[i] && new[i] != '\'')
@@ -121,7 +121,6 @@ char			*deal_bang(char *cmd, t_control *hist, int *t)
 		new[i] && new[i] == '\\' ? i++ : 0;
 		new[i] ? i++ : 0;
 	}
-	new = end_bang(hist, new, is_p);
-	*t = 1;
+	new = end_bang(hist, new, is_p, t);
 	return (new);
 }
