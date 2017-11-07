@@ -48,3 +48,20 @@ void	init_cd_flags(t_hist_flags *flags)
 	flags->t = 0;
 	flags->more = 0;
 }
+
+int		get_other_flags(char **tab, int i, int j, t_hist_flags *flags)
+{
+	if (tab[i][j] && tab[i][j] == '-' && tab[i][j + 1]
+		&& tab[i][j + 1] != '-')
+	{
+		j++;
+		while (tab[i] && tab[i][j])
+			if (!(get_cd_flags_2(flags, tab[i][j++])))
+				return (0);
+	}
+	else if ((tab[i][j] && tab[i][j] == '-' && !(tab[i][j + 1]))
+		|| (tab[i][j] && tab[i][j] == '-' && tab[i][j + 1]
+			&& tab[i][j + 1] == '-'))
+		ft_putendl("shell: history: -: numeric argument required");
+	return (1);
+}

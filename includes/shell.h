@@ -126,6 +126,7 @@ void				nflag(t_control **history, char *file);
 void				print_last_elem(t_control **history, int last);
 void				delete_list_content(t_control **history);
 int					history_s(t_control **history, char **tab, char *file);
+int					get_other_flags(char **tab, int i, int j, t_hist_flags *flags);
 
 /*
 **	Cd_builtin

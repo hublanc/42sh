@@ -40,18 +40,8 @@ int			get_cd_flags(t_hist_flags *flags, char **tab, int *args_pos)
 			i++;
 			flags->d = 1;
 		}
-		else if (tab[i][j] && tab[i][j] == '-' && tab[i][j + 1]
-			&& tab[i][j + 1] != '-')
-		{
-			j++;
-			while (tab[i] && tab[i][j])
-				if (!(get_cd_flags_2(flags, tab[i][j++])))
-					return (0);
-		}
-		else if ((tab[i][j] && tab[i][j] == '-' && !(tab[i][j + 1]))
-			|| (tab[i][j] && tab[i][j] == '-' && tab[i][j + 1]
-				&& tab[i][j + 1] == '-'))
-			ft_putendl("shell: history: -: numeric argument required");
+		else if (!(get_other_flags(tab, i, j, flags)))
+			return (0);
 		i++;
 	}
 	return (check_flags(flags, args_pos, i));
