@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 19:28:26 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/06 04:27:19 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/07 12:44:53 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ void		arrow_handler(char *str, t_cmd *cmd, t_control **hist)
 		seek_next(hist, cmd);
 	else if (isatty(0) && isatty(2) && str[2] == 66)
 		seek_prev(hist, cmd);
-	else if (str[1] == 91 && str[2] == 51 && str[3] == 126 && cmd
-			&& (size_t)cmd->col - cmd->prlen - 1 < ft_strlen(cmd->str))
+	else if ((cmd && (size_t)cmd->col - cmd->prlen - 1 < ft_strlen(cmd->str))
+		&& ((str[1] == 91 && str[2] == 51 && str[3] == 126) || str[0] == 4))
 	{
 		cmd->str = ft_strdelone(cmd->str, cmd->col - cmd->prlen);
 		print_line(cmd);

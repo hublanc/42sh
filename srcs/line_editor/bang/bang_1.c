@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/02 19:28:52 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/07 10:44:59 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/07 10:57:08 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int				begin_bang(t_control *hist, char **final, int i, int *is_p)
 	t_bang2		*bang;
 	char		**tab;
 
+	ft_putchar('\n');
 	bang = (t_bang2*)ft_memalloc(sizeof(t_bang2));
 	bang->begin = i;
 	i = event_designator(*final, bang, i);

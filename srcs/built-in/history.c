@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/18 18:08:42 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/06 02:24:30 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/07 11:18:04 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,8 @@ char		*get_history_file(char ***env)
 {
 	char	*file;
 
+	if (!env || !*env)
+		return (NULL);
 	file = NULL;
 	get_hisfile(*env, &file);
 	if (file == NULL)

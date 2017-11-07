@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/31 12:52:57 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/06 04:45:15 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/07 12:45:44 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static void	handle_key2(t_cmd *cmd, t_control **history, char ***env, char *buf)
 
 static void	handle_key(t_cmd *cmd, t_control **history, char ***env, char *buf)
 {
-	if (buf[0] == 27)
+	if (buf[0] == 27 || (buf[0] == 4 && cmd->str && cmd->str[0]))
 		arrow_handler(buf, cmd, history);
 	else if (buf[0] == 127 && cmd->col > cmd->prlen + 1)
 	{
