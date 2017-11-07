@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/11 21:20:29 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/04 11:35:26 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/07 16:52:06 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void		get_signal(int n)
 			? ft_putstr(cmd->str + cmd->col - 1 - cmd->prlen) : 0;
 		ft_putchar('\n');
 		tputs(tgetstr("cd", NULL), 1, tputchar);
+		!ttyyyy(0) ? ft_putchar_fd('\n', 2) : 0;
 		print_prompt();
 		read_singleton(0);
 		is_sigint(1);

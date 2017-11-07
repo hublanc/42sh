@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 18:24:56 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/06 03:00:12 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/07 16:23:39 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,5 +126,10 @@ void		end_ft_env(size_t *i, char **env);
 int			error_bad_wspec(int digit, char ***splitted);
 void		atoi_free(int *digit, char **test);
 int			tablen(char **tab);
+
+/*
+**	tools_tty.c
+*/
+int			ttyyyy(int i);
 
 #endif

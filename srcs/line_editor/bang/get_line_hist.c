@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/03 17:11:12 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/06 00:10:58 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/07 16:40:26 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,10 @@ static char	**strsearch(t_control *hist, t_bang2 *bang)
 {
 	t_lst		*tmp;
 
-	tmp = hist->begin;
+	if (!hist)
+		tmp = NULL;
+	else
+		tmp = hist->begin;
 	while (tmp
 			&& ft_strncmp(tmp->name, bang->str, ft_strlen(bang->str)))
 		tmp = tmp->next;
@@ -24,7 +27,7 @@ static char	**strsearch(t_control *hist, t_bang2 *bang)
 	{
 		ft_putstr_fd("shell: !", 2);
 		ft_putstr_fd(bang->str, 2);
-		ft_putstr_fd(": event not found\n", 2);
+		ft_putstr_fd(": event not found", 2);
 		return (NULL);
 	}
 	return (bang_split(tmp->name));
@@ -34,14 +37,17 @@ static char	**q_marksearch(t_control *hist, t_bang2 *bang)
 {
 	t_lst	*tmp;
 
-	tmp = hist->begin;
+	if (!hist)
+		tmp = NULL;
+	else
+		tmp = hist->begin;
 	while (tmp && !ft_strstr(tmp->name, bang->str))
 		tmp = tmp->next;
 	if (!tmp)
 	{
 		ft_putstr_fd("shell: !?", 2);
 		ft_putstr_fd(bang->str, 2);
-		ft_putstr_fd(": event not found\n", 2);
+		ft_putstr_fd(": event not found", 2);
 		return (NULL);
 	}
 	return (bang_split(tmp->name));
@@ -51,10 +57,13 @@ static char	**d_bangsearch(t_control *hist)
 {
 	t_lst		*tmp;
 
-	tmp = hist->begin;
+	if (!hist)
+		tmp = NULL;
+	else
+		tmp = hist->begin;
 	if (!tmp)
 	{
-		ft_putstr_fd("shell: !!: event not found\n", 2);
+		ft_putstr_fd("shell: !!: event not found", 2);
 		return (NULL);
 	}
 	return (bang_split(tmp->name));

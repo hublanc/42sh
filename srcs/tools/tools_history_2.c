@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/09 15:57:56 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/05 23:39:59 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/07 17:33:11 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void		add_hist_or_not(t_control **history, char *str)
 		return ;
 	}
 	else
-		(*history) = dll_add_new_elem_frnt(*history, str);
+		(*history) = dll_add_new_elem_frnt(*history, cpy);
 	ft_strdel(&cpy);
 }
 

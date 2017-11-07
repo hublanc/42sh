@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/11 20:42:22 by lbopp             #+#    #+#             */
-/*   Updated: 2017/10/26 16:51:33 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/07 16:27:13 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void		print_charev(t_cmd *cmd)
 {
-	if (!isatty(0))
+	if (!ttyyyy(0))
 		return ;
 	tputs(tgetstr("mr", NULL), 1, tputchar);
 	ft_putchar((cmd->str)[(cmd->col - 1) - cmd->prlen]);
@@ -23,7 +23,7 @@ void		print_charev(t_cmd *cmd)
 
 void		print_up(int nb, int n)
 {
-	if (!isatty(0))
+	if (!ttyyyy(0))
 		return ;
 	tputs(tgetstr("sc", NULL), 1, tputchar);
 	tputs(tgetstr("ho", NULL), 1, tputchar);

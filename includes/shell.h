@@ -116,7 +116,7 @@ int					get_cd_flags_2(t_hist_flags *flags, char c);
 int					set_usage(char c, int type);
 void				print_history(t_control **history);
 int					get_num(int size);
-void				delete_elem_hist(int index, t_control **history);
+void				delete_elem_hist(int index, t_control **history, char *error);
 void				delete_elem_hist_2(t_lst *tmp, t_control **history);
 int					str_isdigit(char *str);
 void				print_pflag(char **tab);

@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 16:36:09 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/07 10:43:41 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/07 18:03:38 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,7 +171,7 @@ int					return_sigint(char **to_del, char *to_save);
 /*
 **	Bang_1.c
 */
-char				*deal_bang(char *cmd, t_control *hist);
+char				*deal_bang(char *cmd, t_control *hist, int *t);
 
 /*
 **	Word_designator.c

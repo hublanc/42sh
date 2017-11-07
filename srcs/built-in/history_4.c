@@ -12,6 +12,19 @@
 
 #include "shell.h"
 
+static int	check_flags(t_hist_flags *flags, int *args_pos, int i)
+{
+	if (flags->more > 1)
+	{
+		ft_putendl("shell: history: cannot use more than one of -anrw");
+		return (0);
+	}
+	if (flags->c == 1)
+		flags->d = 0;
+	*args_pos = i;
+	return (1);
+}
+
 int			get_cd_flags(t_hist_flags *flags, char **tab, int *args_pos)
 {
 	int		i;
@@ -33,7 +46,7 @@ int			get_cd_flags(t_hist_flags *flags, char **tab, int *args_pos)
 		i++;
 	}
 	*args_pos = i;
-	return (0);
+	return (check_flags(flags, args_pos, i));
 }
 
 static int	error_muchflags(void)

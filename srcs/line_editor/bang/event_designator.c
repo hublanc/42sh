@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/03 13:32:42 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/04 16:51:42 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/07 16:43:12 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,14 @@ static void		dollar_event(t_bang2 *bang)
 
 int				event_designator(char *cmd, t_bang2 *bang, int i)
 {
+	ft_putchar('\n');
 	i++;
 	if (!cmd || !cmd[i])
 		return (i);
 	if (cmd[i] && cmd[i] == '!' && i++)
 		bang->d_bang = 1;
-	else if (cmd[i] && (ft_isdigit(cmd[i]) || cmd[i] == '-'))
+	else if (cmd[i] && (ft_isdigit(cmd[i])
+		|| (cmd[i] == '-' && cmd[i + 1] && ft_isdigit(cmd[i + 1]))))
 		i = n_event(cmd, bang, i);
 	else if (cmd[i] && cmd[i] == '#' && i++)
 		bang->hash_t = 1;

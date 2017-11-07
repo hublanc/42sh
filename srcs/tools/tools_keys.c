@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 14:47:27 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/07 11:51:59 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/07 17:00:02 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void		go_begin(int pos, int col)
 {
-	if (!isatty(0))
+	if (!ttyyyy(0))
 		return ;
 	while (pos > col)
 	{
@@ -26,7 +26,7 @@ void		go_begin(int pos, int col)
 
 void		go_right(t_cmd *cmd)
 {
-	if (!isatty(0))
+	if (!ttyyyy(0))
 	{
 		cmd->col++;
 		return ;
@@ -45,7 +45,7 @@ void		go_left(t_cmd *cmd)
 {
 	int		col;
 
-	if (!isatty(0))
+	if (!ttyyyy(0))
 	{
 		cmd->col--;
 		return ;

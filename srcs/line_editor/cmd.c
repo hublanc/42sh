@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/07 16:07:25 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/01 15:59:01 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/07 16:30:15 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_cmd		init_cmd(char *prompt)
 		new.prompt = ft_strdup(prompt);
 	else
 		new.prompt = prompt;
-	new.prlen = isatty(2) ? strlen_prompt(prompt) : 0;
+	new.prlen = ttyyyy(2) ? strlen_prompt(prompt) : 0;
 	new.str = NULL;
 	new.str_quote = NULL;
 	new.buffer = NULL;

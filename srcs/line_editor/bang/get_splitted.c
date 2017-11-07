@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/03 15:52:19 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/05 17:20:24 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/07 17:15:51 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,6 @@ char		**return_error_bad_wspec(t_bang2 *bang, char **hist_line)
 		ft_putnbr_fd(bang->y, 2);
 	else if (bang->c_y)
 		ft_putchar_fd(bang->c_y, 2);
-	ft_putendl_fd(": bad word specifier", 2);
+	ft_putstr_fd(": bad word specifier", 2);
 	return (NULL);
 }

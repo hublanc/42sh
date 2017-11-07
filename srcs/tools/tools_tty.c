@@ -1,21 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   history_isatty.c                                   :+:      :+:    :+:   */
+/*   tools_tty.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/01 12:06:24 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/07 16:30:55 by amazurie         ###   ########.fr       */
+/*   Created: 2017/11/07 16:18:47 by amazurie          #+#    #+#             */
+/*   Updated: 2017/11/07 17:12:17 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-void	history_isatty(char *search)
+int		ttyyyy(int i)
 {
-	tputs(tgetstr("cd", NULL), 1, tputchar);
-	ft_putstr("(reverse-i-search)`");
-	ft_putstr(search);
-	ft_putstr("': ");
+	if (i == 0)
+		return (isatty(0) && isatty(1));
+	if (i == 2)
+		return (isatty(0));
+	return (1);
 }
