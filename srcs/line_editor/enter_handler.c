@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/11 14:30:26 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/07 13:03:05 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/07 17:06:21 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ void		enter_handler(t_cmd *cmd, t_control **history, char ***env)
 	char	c;
 
 	set_selected_null(history);
-	isatty(0) ? ft_putchar('\n') : 0;
+	!ttyyyy(0) ? ft_putchar_fd('\n', 2) : 0;
+	ft_putchar('\n');
 	if (!cmd->str)
 		return (choose_prompt(cmd));
 	c = check_quote(cmd->str);
@@ -43,7 +44,8 @@ static void	enter_handler_quote(t_cmd *cmd, t_control **history)
 
 	cmd->str_quote = ft_strapp(cmd->str_quote, cmd->str);
 	ft_strdel(&(cmd->str));
-	isatty(0) ? ft_putchar('\n') : 0;
+	!ttyyyy(0) ? ft_putchar_fd('\n', 2) : 0;
+	ft_putchar('\n');
 	if (!check_cmdandor(cmd->str_quote))
 		prompt_cmdandor(cmd, history, 1);
 	if (!checkstr_pipe(cmd->str_quote))
@@ -54,7 +56,7 @@ static void	enter_handler_quote(t_cmd *cmd, t_control **history)
 	else if ((c == '"' && !ft_strcmp("dquote> ", cmd->prompt))
 	|| (c == '\'' && !ft_strcmp("quote> ", cmd->prompt)))
 	{
-		isatty(0) && isatty(2) ? ft_putstr_fd(cmd->prompt, 2) : 0;
+		ttyyyy(2) ? ft_putstr_fd(cmd->prompt, 2) : 0;
 		cmd->col = cmd->prlen + 1;
 		cmd->str_quote = ft_strapp(cmd->str_quote, "\n");
 	}
@@ -71,7 +73,8 @@ static void	enter_handler_backslash(t_cmd *cmd, t_control **history)
 
 	cmd->str_quote = ft_strapp(cmd->str_quote, cmd->str);
 	ft_strdel(&(cmd->str));
-	isatty(0) ? ft_putchar('\n') : 0;
+	!ttyyyy(0) ? ft_putchar_fd('\n', 2) : 0;
+	ft_putchar('\n');
 	c = check_quote(cmd->str_quote);
 	if (!check_cmdandor(cmd->str_quote))
 		prompt_cmdandor(cmd, history, 1);
@@ -81,7 +84,7 @@ static void	enter_handler_backslash(t_cmd *cmd, t_control **history)
 		cmd->end_bs = 1;
 	else if (c == '\\')
 	{
-		isatty(0) && isatty(2) ? ft_putstr_fd(cmd->prompt, 2) : 0;
+		ttyyyy(2) ? ft_putstr_fd(cmd->prompt, 2) : 0;
 		cmd->col = cmd->prlen + 1;
 		cmd->str_quote = ft_strdelone(cmd->str_quote,
 		(int)ft_strlen(cmd->str_quote));
@@ -95,7 +98,8 @@ static void	enter_handler_backslash(t_cmd *cmd, t_control **history)
 
 static void	enter_handler_heredoc(t_cmd *cmd)
 {
-	isatty(0) ? ft_putchar('\n') : 0;
+	!ttyyyy(0) ? ft_putchar_fd('\n', 2) : 0;
+	ft_putchar('\n');
 	if (cmd->str && (!ft_strcmp(cmd->str, cmd->eof)
 				|| cmd->str[ft_strlen(cmd->str) - 1] == 4))
 	{
@@ -104,7 +108,7 @@ static void	enter_handler_heredoc(t_cmd *cmd)
 		return ;
 	}
 	cmd->str_quote = ft_strapp(cmd->str_quote, cmd->str);
-	isatty(0) ? ft_putstr_fd(cmd->prompt, 2) : 0;
+	ttyyyy(2) ? ft_putstr_fd(cmd->prompt, 2) : 0;
 	cmd->col = cmd->prlen + 1;
 	cmd->str_quote = ft_str_chr_cat(cmd->str_quote, '\n');
 	ft_strdel(&(cmd->str));
@@ -121,7 +125,7 @@ void		enter_hub(t_cmd *cmd, t_control **history, char ***env)
 		clear_cmd(cmd);
 		*cmd = init_cmd(return_prompt());
 		ft_putchar('\n');
-		return (print_prompt());
+		return (ttyyyy(0) ? print_prompt() : 0);
 	}
 	ft_strdel(&tmp);
 	if (!cmd->prompt)

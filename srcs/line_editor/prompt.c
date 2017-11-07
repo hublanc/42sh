@@ -6,7 +6,7 @@
 /*   By: nbouchin <nbouchin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 11:46:11 by nbouchin          #+#    #+#             */
-/*   Updated: 2017/11/05 23:13:12 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/07 16:38:17 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ size_t	strlen_prompt(char *prompt)
 	size_t	size;
 	int		in_escape;
 
-	if (!isatty(2))
+	if (!ttyyyy(2))
 		return (0);
 	i = 0;
 	in_escape = 0;
@@ -45,7 +45,7 @@ void	print_prompt(void)
 	char	*tmp;
 	t_loc	*local;
 
-	if (!isatty(0))
+	if (!ttyyyy(2))
 		return ;
 	tmp = NULL;
 	if (!(local = get_loc("PS1")))

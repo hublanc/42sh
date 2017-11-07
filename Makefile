@@ -6,7 +6,7 @@
 #    By: lbopp <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/05 18:23:34 by lbopp             #+#    #+#              #
-#    Updated: 2017/11/07 14:32:42 by hublanc          ###   ########.fr        #
+#    Updated: 2017/11/07 17:42:27 by hublanc          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -92,6 +92,7 @@ SRC		=	main.c\
 			tools/tools_cd.c\
 			tools/tools_env.c\
 			tools/tools_wd_designators.c\
+			tools/tools_tty.c\
 			built-in/echo.c\
 			built-in/env.c\
 			built-in/env2.c\

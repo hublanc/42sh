@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/18 15:09:47 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/01 12:06:48 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/07 16:31:32 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,18 +86,18 @@ void		set_search_prompt(char *search, t_lst *tmp, int type)
 	if (type == 0)
 	{
 		go_begin((ft_strlen(search) + 22), z.ws_col);
-		isatty(0) ? tputs(tgetstr("cd", NULL), 1, tputchar) : 0;
-		isatty(0) ? ft_putstr("(reverse-i-search)`': ") : 0;
+		ttyyyy(0) ? tputs(tgetstr("cd", NULL), 1, tputchar) : 0;
+		ttyyyy(0) ? ft_putstr("(reverse-i-search)`': ") : 0;
 		return ;
 	}
 	go_begin((ft_strlen(search) + 22), z.ws_col);
-	if (isatty(0))
+	if (ttyyyy(0))
 		history_isatty(search);
-	(tmp && isatty(0)) ? ft_putstr(tmp->name) : 0;
+	(tmp && ttyyyy(0)) ? ft_putstr(tmp->name) : 0;
 	if (tmp)
 		return ;
 	go_begin((ft_strlen(search) + 26), z.ws_col);
-	if (!isatty(0))
+	if (!ttyyyy(0))
 		return ;
 	tputs(tgetstr("cd", NULL), 1, tputchar);
 	ft_putstr("failing reverse-i-search: ");
