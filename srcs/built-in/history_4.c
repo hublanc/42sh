@@ -34,18 +34,23 @@ int			get_cd_flags(t_hist_flags *flags, char **tab, int *args_pos)
 	while (tab[i] && tab[i][0] == '-')
 	{
 		j = 0;
-		if (tab[i][j] && tab[i][j] == '-' && tab[i][j + 1])
+		if (tab[i][j] && tab[i][j] == '-' && tab[i][j + 1]
+			&& tab[i][j + 1] == 'd')
+			flags->d = 1;
+		else if (tab[i][j] && tab[i][j] == '-' && tab[i][j + 1]
+			&& tab[i][j + 1] != '-')
 		{
 			j++;
 			while (tab[i] && tab[i][j])
-				if (get_cd_flags_2(flags, tab[i][j++]))
-					return (1);
+				if (!(get_cd_flags_2(flags, tab[i][j++])))
+					return (0);
 		}
-		else if (tab[i][j] && tab[i][j] == '-' && !(tab[i][j + 1]))
+		else if ((tab[i][j] && tab[i][j] == '-' && !(tab[i][j + 1]))
+			|| (tab[i][j] && tab[i][j] == '-' && tab[i][j + 1]
+				&& tab[i][j + 1] == '-'))
 			ft_putendl("shell: history: -: numeric argument required");
 		i++;
 	}
-	*args_pos = i;
 	return (check_flags(flags, args_pos, i));
 }
 
@@ -61,7 +66,7 @@ int			get_cd_flags_2(t_hist_flags *flags, char c)
 	int		j;
 
 	c == 'c' ? flags->c = 1 : 0;
-	c == 'd' ? flags->d = 1 : 0;
+//	c == 'd' ? flags->d = 1 : 0;
 	c == 'a' ? flags->a = 1 : 0;
 	c == 'n' ? flags->n = 1 : 0;
 	c == 'r' ? flags->r = 1 : 0;
