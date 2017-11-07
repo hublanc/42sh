@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 16:36:09 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/06 02:59:06 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/07 10:43:41 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,7 +171,7 @@ int					return_sigint(char **to_del, char *to_save);
 /*
 **	Bang_1.c
 */
-char				*deal_bang(char *cmd, t_control *hist, int *end, int *f);
+char				*deal_bang(char *cmd, t_control *hist);
 
 /*
 **	Word_designator.c
@@ -255,11 +255,5 @@ char				**do_modifiers(char **tab, t_bang2 *bang);
 **	split_extra.c
 */
 void				subspe(char *new, char *str, int *i, int *j);
-
-/*
-**	Loop_bang.c
-*/
-char				*loop_bang(t_control **history, char *cmd, char ***env);
-void				init_var_bang(char *c, int *is_p, int *i);
 
 #endif

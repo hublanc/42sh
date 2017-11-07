@@ -6,7 +6,7 @@
 #    By: lbopp <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/05 18:23:34 by lbopp             #+#    #+#              #
-#    Updated: 2017/11/06 03:02:39 by amazurie         ###   ########.fr        #
+#    Updated: 2017/11/07 10:40:57 by amazurie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,6 @@ SRC		=	main.c\
 			line_editor/history_search_2.c\
 			line_editor/history_isatty.c\
 			line_editor/bang/bang_1.c\
-			line_editor/bang/loop_bang.c\
 			line_editor/bang/event_designator.c\
 			line_editor/bang/word_designator.c\
 			line_editor/bang/word_modifier.c\

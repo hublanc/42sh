@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/02 19:28:52 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/06 00:16:57 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/07 10:44:59 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,13 +78,11 @@ int				begin_bang(t_control *hist, char **final, int i, int *is_p)
 	return (i);
 }
 
-static char		*end_bang(t_control *hist, char *new, int is_p, int *f)
+static char		*end_bang(t_control *hist, char *new, int is_p)
 {
 	int		i;
 
 	i = -1;
-	if (!*f)
-		return (new);
 	while (new && new[++i])
 		if (new[i] == '\n')
 			new[i] = ' ';
@@ -98,22 +96,21 @@ static char		*end_bang(t_control *hist, char *new, int is_p, int *f)
 	return (new);
 }
 
-char			*deal_bang(char *cmd, t_control *hist, int *is_end, int *f)
+char			*deal_bang(char *cmd, t_control *hist)
 {
 	char		c;
 	char		*new;
 	int			i;
 	int			is_p;
 
-	init_var_bang(&c, &is_p, &i);
-	if (!ft_strchr(cmd, '!') && (*is_end = 1))
+	if (!ft_strchr(cmd, '!'))
 		return (ft_strdup(cmd));
+	c = 0;
 	new = ft_strdup(cmd);
 	while (new && new[i])
 	{
 		if (new[i] == '!' && new[i + 1] && new[i + 1] != ' ' && c != '\''
-			&& new[i + 1] != '\t' && new[i + 1] != '=' && new[i + 1] != '('
-			&& (*f = 1))
+			&& new[i + 1] != '\t' && new[i + 1] != '=' && new[i + 1] != '(')
 			if ((i = begin_bang(hist, &new, i, &is_p)) == -1)
 				return (free_str_return_null(&new));
 		if (new[i] == '\'')
@@ -122,6 +119,6 @@ char			*deal_bang(char *cmd, t_control *hist, int *is_end, int *f)
 		new[i] && new[i] == '\\' ? i++ : 0;
 		new[i] ? i++ : 0;
 	}
-	new = end_bang(hist, new, is_p, f);
+	new = end_bang(hist, new, is_p);
 	return (new);
 }
