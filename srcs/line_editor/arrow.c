@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 19:28:26 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/07 12:44:53 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/07 16:33:03 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	control_arrow(char *str, t_cmd *cmd)
 			while (cmd->col != cmd->prlen + 1)
 				go_right(cmd);
 		}
-		isatty(0) ? tputs(tgetstr("up", NULL), 1, tputchar) : 0;
+		ttyyyy(0) ? tputs(tgetstr("up", NULL), 1, tputchar) : 0;
 	}
 	if (str[3] == 66 && (int)ft_strlen(cmd->str) + cmd->prlen + 1 > cmd->sc_col)
 	{
@@ -67,9 +67,9 @@ void		arrow_handler(char *str, t_cmd *cmd, t_control **hist)
 	else if (str[2] == 67 && cmd
 			&& cmd->col < (int)ft_strlen(cmd->str) + cmd->prlen + 1)
 		go_right(cmd);
-	else if (isatty(0) && isatty(2) && str[2] == 65)
+	else if (ttyyyy(0) && str[2] == 65)
 		seek_next(hist, cmd);
-	else if (isatty(0) && isatty(2) && str[2] == 66)
+	else if (ttyyyy(0) && str[2] == 66)
 		seek_prev(hist, cmd);
 	else if ((cmd && (size_t)cmd->col - cmd->prlen - 1 < ft_strlen(cmd->str))
 		&& ((str[1] == 91 && str[2] == 51 && str[3] == 126) || str[0] == 4))

@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 17:36:47 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/05 23:14:25 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/07 17:13:13 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	go_down(void)
 {
-	if (!isatty(0))
+	if (!ttyyyy(0))
 		return ;
 	tputs(tgetstr("cr", NULL), 1, tputchar);
 	tputs(tgetstr("do", NULL), 1, tputchar);
@@ -26,16 +26,16 @@ void		choose_prompt(t_cmd *cmd)
 			|| !ft_strcmp(cmd->prompt, "quote> ")
 	|| !ft_strcmp(cmd->prompt, "heredoc> ") || !ft_strcmp(cmd->prompt, "pipe> ")
 	|| !ft_strcmp(cmd->prompt, "> ") || !ft_strcmp(cmd->prompt, "cmdandor> "))
-		isatty(0) ? ft_putstr_fd(cmd->prompt, 2) : 0;
+		ttyyyy(2) ? ft_putstr_fd(cmd->prompt, 2) : 0;
 	else
-		print_prompt();
+		ttyyyy(2) ? print_prompt() : 0;
 }
 
 static void	pass_prompt(t_cmd *cmd)
 {
 	int		i;
 
-	if (!isatty(0) || !isatty(2))
+	if (!isatty(2) || !ttyyyy(2))
 		return ;
 	i = 0;
 	while (i < cmd->prlen)
@@ -52,7 +52,7 @@ void		print_line(t_cmd *cmd)
 {
 	int		len;
 
-	if (!isatty(0))
+	if (!ttyyyy(0))
 		return ;
 	len = cmd->prlen + (int)ft_strlen(cmd->str);
 	if (!len)

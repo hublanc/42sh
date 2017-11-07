@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/02 19:28:52 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/07 10:57:08 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/07 16:48:45 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,10 +88,10 @@ static char		*end_bang(t_control *hist, char *new, int is_p)
 		if (new[i] == '\n')
 			new[i] = ' ';
 	add_hist_or_not(&hist, new);
-	ft_putstr(new);
+	ttyyyy(0) ? ft_putstr(new) : 0;
 	if (is_p)
 	{
-		ft_putchar('\n');
+		ttyyyy(0) ? ft_putchar('\n') : 0;
 		ft_strdel(&new);
 	}
 	return (new);

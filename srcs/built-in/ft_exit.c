@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/31 20:40:01 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/01 15:14:53 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/07 16:26:04 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int			ft_exit(char **tab)
 	int			status;
 
 	status = return_status();
-	isatty(0) ? ft_putstr_fd("exit\n", 2) : 0;
+	ttyyyy(0) ? ft_putstr_fd("exit\n", 2) : 0;
 	if (!tab || !*tab)
 		return (status);
 	if (len_array(tab) == 1)

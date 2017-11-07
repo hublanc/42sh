@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/29 12:56:32 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/05 23:18:48 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/07 16:29:31 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void			manage_heredoc(t_node *tree, t_node *tmp)
 		ft_strdel(&(tmp->heredoc_str));
 	tmp->heredoc_str = ft_strsub(tree->token, i + 3,
 			ft_strlen(tree->token) - (i + 3));
-	isatty(0) ? ft_putstr_fd(tmp->heredoc_str, fd[1]) : 0;
+	ttyyyy(0) ? ft_putstr_fd(tmp->heredoc_str, fd[1]) : 0;
 	close(fd[1]);
 	tmp->hd = fd[0];
 	tmp->hd_io = *io;
@@ -82,7 +82,7 @@ int				prompt_heredoc(char *eof, t_token *redir, t_control **history)
 	io = singleton_ioheredoc();
 	cmd_hd = init_cmd("heredoc> ");
 	save_cmd(&cmd_hd);
-	isatty(0) ? ft_putstr_fd("heredoc> ", 2) : 0;
+	ttyyyy(0) ? ft_putstr_fd("heredoc> ", 2) : 0;
 	eof = eof_quote(eof, i);
 	cmd_hd.eof = ft_strdup(eof);
 	ft_strdel(&eof);

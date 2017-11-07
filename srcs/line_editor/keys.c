@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/31 12:52:57 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/07 12:45:44 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/07 16:40:31 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,17 +57,17 @@ static void	handle_key2(t_cmd *cmd, t_control **history, char ***env, char *buf)
 	{
 		(buf[1]) ? save_buf(buf + 1) : 0;
 		(buf[1]) ? can_sigint(1) : 0;
-		isatty(0) ? ft_putstr(cmd->str + cmd->col - 1 - cmd->prlen) : 0;
+		ttyyyy(0) ? ft_putstr(cmd->str + cmd->col - 1 - cmd->prlen) : 0;
 		enter_hub(cmd, history, env);
 	}
-	else if ((buf[0] == -30 || buf[0] == -61) && isatty(0))
+	else if ((buf[0] == -30 || buf[0] == -61) && ttyyyy(0))
 		copy_cut_paste_handler(cmd, buf);
-	else if (buf[0] == 18 && isatty(0) && isatty(2))
+	else if (buf[0] == 18 && ttyyyy(0))
 	{
 		if (ioctl(0, TIOCGWINSZ, &z) == -1)
 			return ;
 		go_begin((ft_strlen(cmd->str) + ft_strlen(cmd->prompt)), z.ws_col);
-		isatty(0) ? tputs(tgetstr("cd", NULL), 1, tputchar) : 0;
+		ttyyyy(0) ? tputs(tgetstr("cd", NULL), 1, tputchar) : 0;
 		ft_strdel(&cmd->str);
 		cmd->col = cmd->prlen + 1;
 		if (return_void(cmd, history, env))
@@ -89,7 +89,7 @@ static void	handle_key(t_cmd *cmd, t_control **history, char ***env, char *buf)
 	}
 	else if (buf[0] == 12 && !buf[1])
 	{
-		isatty(0) ? tputs(tgetstr("cl", NULL), 1, tputchar) : 0;
+		ttyyyy(0) ? tputs(tgetstr("cl", NULL), 1, tputchar) : 0;
 		print_prompt();
 		print_line(cmd);
 	}
@@ -117,7 +117,7 @@ void		key_handler(t_cmd *cmd, t_control **history, char ***env)
 	else if (i == -1)
 		return ;
 	if (buf[0] == 9 && !buf[1] && is_sigint(0) == 0)
-		while (isatty(0) && buf[0] == 9 && !buf[1])
+		while (ttyyyy(0) && buf[0] == 9 && !buf[1])
 			completion(cmd, env, &buf);
 	else if (buf[0] == 9 && !buf[1])
 		is_sigint(1);
