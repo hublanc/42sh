@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/21 22:22:29 by mameyer           #+#    #+#             */
-/*   Updated: 2017/11/02 17:35:54 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/07 16:13:32 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,12 @@ int			get_cd_flags(t_hist_flags *flags, char **tab, int *args_pos)
 	{
 		j = 0;
 		if (tab[i][j] && tab[i][j] == '-' && tab[i][j + 1]
+			&& tab[i][j + 1] == 'd')
+		{
+			flags->d = 1;
+			i++;
+		}
+		else if (tab[i][j] && tab[i][j] == '-' && tab[i][j + 1]
 			&& tab[i][j + 1] != '-')
 		{
 			j++;
@@ -42,6 +48,8 @@ int			get_cd_flags(t_hist_flags *flags, char **tab, int *args_pos)
 		ft_putendl("shell: history: cannot use more than one of -anrw");
 		return (0);
 	}
+	if (flags->c == 1)
+		flags->d = 0;
 	*args_pos = i;
 	return (1);
 }

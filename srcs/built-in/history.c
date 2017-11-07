@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/18 18:08:42 by mameyer           #+#    #+#             */
-/*   Updated: 2017/10/31 15:21:29 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/11/07 16:11:57 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int			ft_history_3(char **tab, t_control **history, char *file,
 			return (-1);
 	if (flags.d == 1)
 	{
-		if (tab[2] && str_isdigit(tab[2]) && (*history))
+		if (tab[2])
 			delete_elem_hist(ft_atoi(tab[2]), history);
 		else if (tab[2] && str_isdigit(tab[2]) && (!(*history)))
 			return (0);
