@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/02 19:28:52 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/07 14:42:44 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/07 16:13:34 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ int				begin_bang(t_control *hist, char **final, int i, int *is_p)
 	t_bang2		*bang;
 	char		**tab;
 
-	*is_p = 1;
-	bang = (t_bang2*)ft_memalloc(sizeof(t_bang2));
+	if (!(bang = (t_bang2*)ft_memalloc(sizeof(t_bang2))))
+		return (-1);
 	bang->begin = i;
 	i = event_designator(*final, bang, i);
 	i = word_designator_x(*final, bang, i);
@@ -74,7 +74,7 @@ int				begin_bang(t_control *hist, char **final, int i, int *is_p)
 	*final = replace_str(tab, *final, bang);
 	i = bang->begin;
 	del_tabstr(&tab);
-	*is_p = bang->m_p ? 2 : *is_p;
+	*is_p = bang->m_p ? 2 : 1;
 	del_bang(bang);
 	return (i);
 }
@@ -115,7 +115,7 @@ char			*deal_bang(char *cmd, t_control *hist)
 			&& new[i + 1] != '\t' && new[i + 1] != '=' && new[i + 1] != '(')
 			if ((i = begin_bang(hist, &new, i, &is_p)) == -1)
 				return (free_str_return_null(&new));
-		if (new[i] == '\'')
+		if (new[i] == '\'' && i++)
 			while (new[i] && new[i] != '\'')
 				i++;
 		new[i] && new[i] == '\\' ? i++ : 0;
