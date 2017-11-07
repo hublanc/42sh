@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/02 19:28:52 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/07 10:57:08 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/07 14:42:44 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int				begin_bang(t_control *hist, char **final, int i, int *is_p)
 	t_bang2		*bang;
 	char		**tab;
 
-	ft_putchar('\n');
+	*is_p = 1;
 	bang = (t_bang2*)ft_memalloc(sizeof(t_bang2));
 	bang->begin = i;
 	i = event_designator(*final, bang, i);
@@ -74,7 +74,7 @@ int				begin_bang(t_control *hist, char **final, int i, int *is_p)
 	*final = replace_str(tab, *final, bang);
 	i = bang->begin;
 	del_tabstr(&tab);
-	*is_p = bang->m_p ? 1 : 0;
+	*is_p = bang->m_p ? 2 : *is_p;
 	del_bang(bang);
 	return (i);
 }
@@ -88,11 +88,10 @@ static char		*end_bang(t_control *hist, char *new, int is_p)
 		if (new[i] == '\n')
 			new[i] = ' ';
 	add_hist_or_not(&hist, new);
-	ft_putstr(new);
 	if (is_p)
 	{
-		ft_putchar('\n');
-		ft_strdel(&new);
+		ft_putstr(new);
+		is_p == 2 ? ft_strdel(&new) : 0;
 	}
 	return (new);
 }
@@ -107,6 +106,8 @@ char			*deal_bang(char *cmd, t_control *hist)
 	if (!ft_strchr(cmd, '!'))
 		return (ft_strdup(cmd));
 	c = 0;
+	i = 0;
+	is_p = 0;
 	new = ft_strdup(cmd);
 	while (new && new[i])
 	{

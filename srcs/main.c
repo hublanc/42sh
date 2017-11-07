@@ -6,11 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/24 16:37:30 by lbopp             #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2017/11/07 13:04:58 by amazurie         ###   ########.fr       */
-=======
-/*   Updated: 2017/11/07 11:03:05 by lbopp            ###   ########.fr       */
->>>>>>> 8bd0493b045a9d3a5e1e030b6658bbc2eeb2161e
+/*   Updated: 2017/11/07 14:31:53 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +86,7 @@ int			main(int ac, char **av, char **env)
 	char		**cp_env;
 
 	cp_env = NULL;
-	if (ac != 1 || !isatty(1))
+	if (ac != 1 || !isatty(0))
 		return (-1);
 	(void)ac;
 	(void)av;

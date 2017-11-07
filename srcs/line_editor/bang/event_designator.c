@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/03 13:32:42 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/04 16:51:42 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/07 14:40:20 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ static void		dollar_event(t_bang2 *bang)
 
 int				event_designator(char *cmd, t_bang2 *bang, int i)
 {
+	ft_putchar('\n');
 	i++;
 	if (!cmd || !cmd[i])
 		return (i);
