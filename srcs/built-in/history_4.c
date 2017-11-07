@@ -23,10 +23,7 @@ int			get_cd_flags(t_hist_flags *flags, char **tab, int *args_pos)
 		j = 0;
 		if (tab[i][j] && tab[i][j] == '-' && tab[i][j + 1]
 			&& tab[i][j + 1] == 'd')
-		{
 			flags->d = 1;
-			i++;
-		}
 		else if (tab[i][j] && tab[i][j] == '-' && tab[i][j + 1]
 			&& tab[i][j + 1] != '-')
 		{
