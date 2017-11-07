@@ -66,7 +66,6 @@ int			get_cd_flags_2(t_hist_flags *flags, char c)
 	int		j;
 
 	c == 'c' ? flags->c = 1 : 0;
-//	c == 'd' ? flags->d = 1 : 0;
 	c == 'a' ? flags->a = 1 : 0;
 	c == 'n' ? flags->n = 1 : 0;
 	c == 'r' ? flags->r = 1 : 0;
