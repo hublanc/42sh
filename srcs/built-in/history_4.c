@@ -60,7 +60,7 @@ int			get_cd_flags(t_hist_flags *flags, char **tab, int *args_pos)
 static int	error_muchflags(void)
 {
 	ft_putendl("shell: history: cannot use more than one of -anrw");
-	return (1);
+	return (0);
 }
 
 int			get_cd_flags_2(t_hist_flags *flags, char c)

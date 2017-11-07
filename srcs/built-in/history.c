@@ -22,7 +22,7 @@ int			ft_history(char **tab, char ***env, t_control **history)
 	status = 0;
 	args_pos = 0;
 	init_cd_flags(&flags);
-	if (!get_cd_flags(&flags, tab, &args_pos) || flags.t > 1)
+	if (!(get_cd_flags(&flags, tab, &args_pos)) || flags.t > 1)
 		return (status);
 	file = get_history_file(env);
 	if ((!tab[1] || flags.t) && (*history) != NULL

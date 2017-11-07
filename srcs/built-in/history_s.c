@@ -46,4 +46,5 @@ void	init_cd_flags(t_hist_flags *flags)
 	flags->p = 0;
 	flags->s = 0;
 	flags->t = 0;
+	flags->more = 0;
 }
