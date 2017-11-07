@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/03 19:10:40 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/07 18:20:55 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/07 18:26:48 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,9 @@ static char		*check_file(char *file, t_node *tree)
 				&& access(file, R_OK) == -1)
 			error = print_error(4, file);
 	}
-	else
-		if ((tree->token)[i] == '<' && (tree->token)[i + 1] != '<'
+	else if ((tree->token)[i] == '<' && (tree->token)[i + 1] != '<'
 				&& access(file, R_OK) == -1)
-			error = print_error(1, file);
+		error = print_error(1, file);
 	if (error || authorization_file(file, tree) < 0)
 	{
 		abort_redir(tree);
