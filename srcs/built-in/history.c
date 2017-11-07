@@ -78,7 +78,7 @@ int			ft_history_3(char **tab, t_control **history, char *file,
 		if (tab[1] && tab[1][2])
 			delete_elem_hist(ft_atoi(&tab[1][2]), history, &tab[1][2]);
 		else if (tab[2] && (*history))
-			delete_elem_hist(ft_atoi(tab[2]), history, &tab[2][1]);
+			delete_elem_hist(ft_atoi(tab[2]), history, tab[2]);
 		else if (tab[2] && (!(*history)))
 			return (0);
 		else
