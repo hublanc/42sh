@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/11 14:30:26 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/07 17:06:21 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/07 17:45:08 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,10 +122,15 @@ void		enter_hub(t_cmd *cmd, t_control **history, char ***env)
 	ft_strdel(&cmd->str);
 	if (!(cmd->str = deal_bang(tmp, *history)))
 	{
+		tmp = cmd->prompt ? ft_strdup(cmd->prompt) : 0;
 		clear_cmd(cmd);
-		*cmd = init_cmd(return_prompt());
+		if (tmp)
+			*cmd = init_cmd(ft_strdup(tmp));
+		else
+			*cmd = init_cmd(return_prompt());
+		ft_strdel(&tmp);
 		ft_putchar('\n');
-		return (ttyyyy(0) ? print_prompt() : 0);
+		return (ttyyyy(0) ? choose_prompt(cmd) : 0);
 	}
 	ft_strdel(&tmp);
 	if (!cmd->prompt)
