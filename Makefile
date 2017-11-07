@@ -101,6 +101,7 @@ SRC		=	main.c\
 			built-in/history_2.c\
 			built-in/history_3.c\
 			built-in/history_4.c\
+			built-in/history_5.c\
 			built-in/read/ft_read.c\
 			built-in/read/ft_read2.c\
 			built-in/read/read_r_opt.c\

@@ -112,6 +112,7 @@ void				init_cd_flags(t_hist_flags *flags);
 int					get_cd_flags(t_hist_flags *flags, char **tab,
 					int *args_pos);
 int					get_cd_flags_2(t_hist_flags *flags, char c);
+int					get_cd_flags_3(t_hist_flags *flags, char c);
 void				set_usage(char c, int type);
 void				print_history(t_control **history);
 int					get_num(int size);
@@ -124,6 +125,7 @@ int					rewrite_hist_file(t_control **history, char *file_name);
 void				nflag(t_control **history, char *file);
 void				print_last_elem(t_control **history, int last);
 void				delete_list_content(t_control **history);
+int					check_flags(t_hist_flags *flags, int *args_pos, int i);
 
 /*
 **	Cd_builtin
