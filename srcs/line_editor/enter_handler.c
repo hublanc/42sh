@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/11 14:30:26 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/07 17:45:08 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/07 18:07:14 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,22 +117,19 @@ static void	enter_handler_heredoc(t_cmd *cmd)
 void		enter_hub(t_cmd *cmd, t_control **history, char ***env)
 {
 	char	*tmp;
+	int		t;
 
+	t = 0;
 	tmp = ft_strdup(cmd->str);
 	ft_strdel(&cmd->str);
-	if (!(cmd->str = deal_bang(tmp, *history)))
+	if (!(cmd->str = deal_bang(tmp, *history, &t)) && t == 1)
+		cmd->str = tmp;
+	else if (t == 2)
 	{
-		tmp = cmd->prompt ? ft_strdup(cmd->prompt) : 0;
 		clear_cmd(cmd);
-		if (tmp)
-			*cmd = init_cmd(ft_strdup(tmp));
-		else
-			*cmd = init_cmd(return_prompt());
+		*cmd = init_cmd(return_prompt());
 		ft_strdel(&tmp);
-		ft_putchar('\n');
-		return (ttyyyy(0) ? choose_prompt(cmd) : 0);
 	}
-	ft_strdel(&tmp);
 	if (!cmd->prompt)
 		enter_handler(cmd, history, env);
 	else if (!ft_strcmp(cmd->prompt, "dquote> ")
