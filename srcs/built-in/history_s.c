@@ -34,3 +34,16 @@ int		history_s(t_control **history, char **tab, char *file)
 	ft_strdel(&string);
 	return (1);
 }
+
+void	init_cd_flags(t_hist_flags *flags)
+{
+	flags->c = 0;
+	flags->d = 0;
+	flags->a = 0;
+	flags->n = 0;
+	flags->r = 0;
+	flags->w = 0;
+	flags->p = 0;
+	flags->s = 0;
+	flags->t = 0;
+}

@@ -105,16 +105,3 @@ int			set_usage(char c, int type)
 	ft_putendl(" -awrn [filename] or history -ps arg [arg...]");
 	return (1);
 }
-
-void		init_cd_flags(t_hist_flags *flags)
-{
-	flags->c = 0;
-	flags->d = 0;
-	flags->a = 0;
-	flags->n = 0;
-	flags->r = 0;
-	flags->w = 0;
-	flags->p = 0;
-	flags->s = 0;
-	flags->t = 0;
-}
