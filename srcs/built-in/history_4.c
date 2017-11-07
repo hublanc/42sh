@@ -31,12 +31,15 @@ int			get_cd_flags(t_hist_flags *flags, char **tab, int *args_pos)
 	int		j;
 
 	i = 1;
-	while (tab[i] && tab[i][0] == '-')
+	while (i < tablen(tab) && tab[i] && tab[i][0] == '-')
 	{
 		j = 0;
 		if (tab[i][j] && tab[i][j] == '-' && tab[i][j + 1]
 			&& tab[i][j + 1] == 'd')
+		{
+			i++;
 			flags->d = 1;
+		}
 		else if (tab[i][j] && tab[i][j] == '-' && tab[i][j + 1]
 			&& tab[i][j + 1] != '-')
 		{
@@ -85,7 +88,7 @@ int			get_cd_flags_2(t_hist_flags *flags, char c)
 		if (j > 1)
 			return (error_muchflags());
 	}
-	return (0);
+	return (1);
 }
 
 int			set_usage(char c, int type)
