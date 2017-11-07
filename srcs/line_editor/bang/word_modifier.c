@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/03 13:40:21 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/05 22:48:37 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/07 18:12:36 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	arr_bangsubs(char *cmd, int i)
 		i--;
 	ft_putstr_fd("shell: ", 2);
 	ft_putstr_fd(cmd + i, 2);
-	ft_putstr_fd(": no previous substitution\n", 2);
+	ft_putstr_fd(": no previous substitution", 2);
 	return (-1);
 }
 
@@ -55,7 +55,7 @@ static int	error_modifier(char c)
 {
 	ft_putstr_fd("shell: ", 2);
 	ft_putchar_fd(c, 2);
-	ft_putstr_fd(": unrecognized history modifier\n", 2);
+	ft_putstr_fd(": unrecognized history modifier", 2);
 	return (-1);
 }
 
