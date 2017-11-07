@@ -34,7 +34,7 @@ void		add_hist_or_not(t_control **history, char *str)
 		return ;
 	}
 	else
-		(*history) = dll_add_new_elem_frnt(*history, str);
+		(*history) = dll_add_new_elem_frnt(*history, cpy);
 	ft_strdel(&cpy);
 }
 
