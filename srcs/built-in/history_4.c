@@ -12,6 +12,19 @@
 
 #include "shell.h"
 
+static int	check_flags(t_hist_flags *flags, int *args_pos, int i)
+{
+	if (flags->more > 1)
+	{
+		ft_putendl("shell: history: cannot use more than one of -anrw");
+		return (0);
+	}
+	if (flags->c == 1)
+		flags->d = 0;
+	*args_pos = i;
+	return (1);
+}
+
 int			get_cd_flags(t_hist_flags *flags, char **tab, int *args_pos)
 {
 	int		i;
@@ -21,19 +34,24 @@ int			get_cd_flags(t_hist_flags *flags, char **tab, int *args_pos)
 	while (tab[i] && tab[i][0] == '-')
 	{
 		j = 0;
-		if (tab[i][j] && tab[i][j] == '-' && tab[i][j + 1])
+		if (tab[i][j] && tab[i][j] == '-' && tab[i][j + 1]
+			&& tab[i][j + 1] == 'd')
+			flags->d = 1;
+		else if (tab[i][j] && tab[i][j] == '-' && tab[i][j + 1]
+			&& tab[i][j + 1] != '-')
 		{
 			j++;
 			while (tab[i] && tab[i][j])
-				if (get_cd_flags_2(flags, tab[i][j++]))
-					return (1);
+				if (!(get_cd_flags_2(flags, tab[i][j++])))
+					return (0);
 		}
-		else if (tab[i][j] && tab[i][j] == '-' && !(tab[i][j + 1]))
+		else if ((tab[i][j] && tab[i][j] == '-' && !(tab[i][j + 1]))
+			|| (tab[i][j] && tab[i][j] == '-' && tab[i][j + 1]
+				&& tab[i][j + 1] == '-'))
 			ft_putendl("shell: history: -: numeric argument required");
 		i++;
 	}
-	*args_pos = i;
-	return (0);
+	return (check_flags(flags, args_pos, i));
 }
 
 static int	error_muchflags(void)
@@ -48,7 +66,6 @@ int			get_cd_flags_2(t_hist_flags *flags, char c)
 	int		j;
 
 	c == 'c' ? flags->c = 1 : 0;
-	c == 'd' ? flags->d = 1 : 0;
 	c == 'a' ? flags->a = 1 : 0;
 	c == 'n' ? flags->n = 1 : 0;
 	c == 'r' ? flags->r = 1 : 0;
@@ -87,17 +104,4 @@ int			set_usage(char c, int type)
 	ft_putstr("history: usage: history [-c] [-d offset] [n] or history");
 	ft_putendl(" -awrn [filename] or history -ps arg [arg...]");
 	return (1);
-}
-
-void		init_cd_flags(t_hist_flags *flags)
-{
-	flags->c = 0;
-	flags->d = 0;
-	flags->a = 0;
-	flags->n = 0;
-	flags->r = 0;
-	flags->w = 0;
-	flags->p = 0;
-	flags->s = 0;
-	flags->t = 0;
 }

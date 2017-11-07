@@ -6,7 +6,7 @@
 #    By: hublanc <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/04 12:07:21 by hublanc           #+#    #+#              #
-#    Updated: 2017/11/06 03:04:47 by amazurie         ###   ########.fr        #
+#    Updated: 2017/11/07 17:29:21 by lbopp            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ SRC = ft_memset.c ft_bzero.c ft_memcpy.c ft_strlen.c ft_strdup.c ft_strcmp.c ft_
 	  ft_putcharbuf.c ft_swaptr.c get_next_line.c ft_strdelone.c ft_strappone.c ft_putnbrel.c\
 	  ft_strndup.c ft_strfullnb.c dll_add_new_elem_end.c dll_add_new_elem_front.c dll_clear_list.c dll_del_elem_end.c\
 	  dll_del_elem_front.c dll_isempty.c dll_print_list.c ft_strschr.c ft_strschr_len.c\
-	  ft_power.c ft_strlen_chr.c ft_getopt.c ft_strapphead.c ft_strstr_len.c
+	  ft_power.c ft_strlen_chr.c ft_getopt.c ft_strapphead.c ft_strstr_len.c ft_strtrimlast.c
 
 OBJ = $(SRC:.c=.o)	
 

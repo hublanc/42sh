@@ -12,7 +12,7 @@
 
 #include "shell.h"
 
-void		delete_elem_hist(int index, t_control **history)
+void		delete_elem_hist(int index, t_control **history, char *error)
 {
 	t_lst		*tmp;
 	int			a;
@@ -20,7 +20,7 @@ void		delete_elem_hist(int index, t_control **history)
 	if (index > (*history)->length || index <= 0)
 	{
 		ft_putstr("shell: history: ");
-		ft_putnbr(index);
+		ft_putstr(error);
 		ft_putendl(": history position out of range");
 		return ;
 	}
