@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/07 14:59:17 by lbopp             #+#    #+#             */
-/*   Updated: 2017/10/26 17:45:10 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/07 18:02:58 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,5 +127,6 @@ int					ft_power(int nb, int pow);
 int					ft_strlen_chr(char *s, char c);
 char				*ft_strapphead(char *str1, char *str2);
 int					ft_strstr_len(const char *big, const char *little);
+void				ft_strtrimlast(char **s, char c);
 
 #endif

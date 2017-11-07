@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/03 19:10:40 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/05 17:22:39 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/07 18:20:55 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ static int		authorization_file(char *path, t_node *tree)
 	struct stat		buf;
 
 	if (type_redir(tree->token) == 1 && path && access(path, F_OK) == -1)
-		return (0);
+		if (!ft_strrchr(path, '/') || lstat(ft_strrchr(path, '/'), &buf) != -1)
+			return (0);
 	if (lstat(path, &buf) == -1)
 	{
 		ft_putstr_fd("shell: permission denied: ", 2);
@@ -75,6 +76,8 @@ static char		*check_file(char *file, t_node *tree)
 
 	i = len_io(tree->token);
 	error = 0;
+	if (ft_strcmp(file, "/"))
+		ft_strtrimlast(&file, '/');
 	if (file && access(file, F_OK) != -1)
 	{
 		if (((tree->token)[i] == '>') && access(file, W_OK) == -1)
@@ -84,11 +87,9 @@ static char		*check_file(char *file, t_node *tree)
 			error = print_error(4, file);
 	}
 	else
-	{
 		if ((tree->token)[i] == '<' && (tree->token)[i + 1] != '<'
 				&& access(file, R_OK) == -1)
 			error = print_error(1, file);
-	}
 	if (error || authorization_file(file, tree) < 0)
 	{
 		abort_redir(tree);
