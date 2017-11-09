@@ -18,6 +18,9 @@ int			history_search(t_control **history, char **str)
 	char		*search;
 	t_lst		*tmp;
 
+	ft_putstr("LENGTH OF STR == ");
+	ft_putnbr(ft_strlen(*str));
+	ft_putchar('\n');
 	if (!(*history) || (*history && (*history)->length < 1))
 		return (0);
 	init_hist_search(&search, &tmp);
@@ -45,7 +48,11 @@ int			return_handler(t_lst *tmp, char *buf, char **search, char **str)
 	if (tmp && buf[0] == 10)
 	{
 		ft_strdel(search);
+		ft_putendl("AAAAA");
+		ft_putstr("tmp->name == ");
+		ft_putendl(tmp->name);
 		*str = ft_strdup(tmp->name);
+		ft_putendl("BBBBB");
 		return (1);
 	}
 	else if (!ft_isprint(buf[0]) && !ft_isprint(buf[1]) && !ft_isprint(buf[2])

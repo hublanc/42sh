@@ -12,6 +12,20 @@
 
 #include "shell.h"
 
+int			check_space(char *str)
+{
+	int		i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] != ' ' && str[i] != '\t' && str[i] != '\n')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 t_lst		*seek_next_select(t_control **list)
 {
 	t_lst		*tmp;

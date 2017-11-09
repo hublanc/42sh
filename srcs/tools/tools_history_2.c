@@ -19,7 +19,7 @@ void		add_hist_or_not(t_control **history, char *str)
 
 	i = 0;
 	cpy = NULL;
-	if (!str)
+	if (!str || (str && !(check_space(str))))
 		return ;
 	cpy = ft_strdup(str);
 	while (ft_strchr(cpy, '\n'))
