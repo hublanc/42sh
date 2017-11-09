@@ -17,8 +17,8 @@ void		enter_handler(t_cmd *cmd, t_control **history, char ***env)
 	char	c;
 
 	set_selected_null(history);
-	!ttyyyy(0) ? ft_putchar_fd('\n', 2) : 0;
-	ft_putchar('\n');
+	if (ttyyyy(2))
+		!ttyyyy(0) ? ft_putchar_fd('\n', 2) : ft_putchar('\n');
 	if (!cmd->str)
 		return (choose_prompt(cmd));
 	c = check_quote(cmd->str);
@@ -44,8 +44,8 @@ static void	enter_handler_quote(t_cmd *cmd, t_control **history)
 
 	cmd->str_quote = ft_strapp(cmd->str_quote, cmd->str);
 	ft_strdel(&(cmd->str));
-	!ttyyyy(0) ? ft_putchar_fd('\n', 2) : 0;
-	ft_putchar('\n');
+	if (ttyyyy(2))
+		!ttyyyy(0) ? ft_putchar_fd('\n', 2) : ft_putchar('\n');
 	if (!check_cmdandor(cmd->str_quote))
 		prompt_cmdandor(cmd, history, 1);
 	if (!checkstr_pipe(cmd->str_quote))
@@ -73,8 +73,8 @@ static void	enter_handler_backslash(t_cmd *cmd, t_control **history)
 
 	cmd->str_quote = ft_strapp(cmd->str_quote, cmd->str);
 	ft_strdel(&(cmd->str));
-	!ttyyyy(0) ? ft_putchar_fd('\n', 2) : 0;
-	ft_putchar('\n');
+	if (ttyyyy(2))
+		!ttyyyy(0) ? ft_putchar_fd('\n', 2) : ft_putchar('\n');
 	c = check_quote(cmd->str_quote);
 	if (!check_cmdandor(cmd->str_quote))
 		prompt_cmdandor(cmd, history, 1);
@@ -98,8 +98,8 @@ static void	enter_handler_backslash(t_cmd *cmd, t_control **history)
 
 static void	enter_handler_heredoc(t_cmd *cmd)
 {
-	!ttyyyy(0) ? ft_putchar_fd('\n', 2) : 0;
-	ft_putchar('\n');
+	if (ttyyyy(2))
+		!ttyyyy(0) ? ft_putchar_fd('\n', 2) : ft_putchar('\n');
 	if (cmd->str && (!ft_strcmp(cmd->str, cmd->eof)
 				|| cmd->str[ft_strlen(cmd->str) - 1] == 4))
 	{

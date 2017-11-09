@@ -55,8 +55,8 @@ void			enter_handler_pipe(t_cmd *cmd, t_control **history)
 
 	cmd->str_quote = ft_strapp(cmd->str_quote, cmd->str);
 	ft_strdel(&(cmd->str));
-	ttyyyy(2) ? ft_putchar_fd('\n', 2) : 0;
-	ft_putchar('\n');
+	if (ttyyyy(2))
+		!ttyyyy(0) ? ft_putchar_fd('\n', 2) :  ft_putchar('\n');
 	c = check_quote(cmd->str_quote);
 	if (c == '\\')
 		prompt_backslash(cmd, history, 1);
