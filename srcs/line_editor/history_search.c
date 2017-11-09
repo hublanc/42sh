@@ -65,15 +65,25 @@ t_lst		*while_handler(char *buf, char **search, t_control **history,
 	{
 		*search = ft_str_chr_cat(*search, buf[0]);
 		tmp = history_search_2(history, *search);
+		set_search_prompt(*search, tmp, 1);
 	}
-	else if (buf[0] == 127 && *search && ft_strlen(*search) > 0)
+	else if (buf[0] == 127 && *search && ft_strlen(*search) <= 1)
+	{
+		if (ft_strlen(*search) == 1)
+			*search = ft_strdelone(*search, ft_strlen(*search));
+		set_search_prompt(*search, tmp, 0);
+	}
+	else if (buf[0] == 127 && *search && ft_strlen(*search) > 1)
 	{
 		*search = ft_strdelone(*search, ft_strlen(*search));
 		tmp = history_search_2(history, *search);
+		set_search_prompt(*search, tmp, 1);
 	}
 	else if (buf[0] == 27 && tmp)
+	{
 		tmp = move_in_hist(tmp, buf, history);
-	set_search_prompt(*search, tmp, 1);
+		set_search_prompt(*search, tmp, 1);
+	}
 	return (tmp);
 }
 
