@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/23 16:04:51 by lbopp             #+#    #+#             */
-/*   Updated: 2017/10/24 15:19:38 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/09 13:13:41 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,5 +87,14 @@ int			do_redir(t_node *tree)
 	}
 	else if (!exec_dup(tree->in, 0))
 		return (-1);
+	return (1);
+}
+
+int			error_redir(char *file, char *reason)
+{
+	ft_putstr_fd("shell: ", 2);
+	ft_putstr_fd(reason, 2);
+	ft_putstr_fd(": ", 2);
+	ft_putendl_fd(file, 2);
 	return (1);
 }
