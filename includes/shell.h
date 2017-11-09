@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 11:50:54 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/06 02:06:51 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/09 13:13:59 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,11 @@ int					print_alloc_error(char *str);
 int					error_env(size_t *i);
 void				end_ft_env(size_t *i, char **env);
 int					check_envcmd(char **tab, char **env, char **originenv);
+
+/*
+**	Bonus env
+*/
+char				*get_path_str(void);
 
 /*
 **	terminal

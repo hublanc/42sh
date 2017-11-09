@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/26 11:28:19 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/05 13:49:05 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/09 15:48:01 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int			stop_shell(char ***env, char **tab, t_control **history)
 		return (1);
 	hash_table = singleton_hash();
 	del_hash(hash_table);
+	del_spath();
 	hist_file = get_history_file(env);
 	if (tab)
 		del_tabstr(&tab);

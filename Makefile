@@ -6,7 +6,7 @@
 #    By: lbopp <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/05 18:23:34 by lbopp             #+#    #+#              #
-#    Updated: 2017/11/07 17:42:27 by hublanc          ###   ########.fr        #
+#    Updated: 2017/11/09 15:42:42 by hublanc          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,6 +63,7 @@ SRC		=	main.c\
 			exec/pid_pipe.c\
 			exec/hash.c\
 			exec/extra_hash.c\
+			exec/is_modif.c\
 			lexer/token.c\
 			lexer/lexer.c\
 			lexer/sort_token.c\

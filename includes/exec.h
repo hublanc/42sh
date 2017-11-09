@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 17:27:30 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/02 15:05:18 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/09 15:42:11 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,5 +148,13 @@ t_hash				*seek_value(char *value);
 void				add_hash_table(char *path, char *value);
 int					get_key(char *value);
 t_hash				**singleton_hash(void);
+
+/*
+**	Is_modif.c
+*/
+char				**singleton_path(char *path);
+void				load_path(char **env);
+void				is_modif(char **env);
+void				del_spath(void);
 
 #endif

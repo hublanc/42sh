@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/24 16:37:30 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/07 17:39:31 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/09 13:28:29 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ static char	**init_env(void)
 	new[0] = ft_strdup(pwd);
 	new[1] = ft_strdup("SHLVL=1");
 	new[2] = ft_strdup("_=/usr/bin/env");
+	new[3] = get_path_str();
 	new[4] = NULL;
 	ft_strdel(&tmp);
 	ft_strdel(&pwd);

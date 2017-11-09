@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/28 15:49:45 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/07 12:51:26 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/09 13:15:43 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,29 +24,13 @@ int			reset_status(void)
 char		**get_bin(char **env, int pos)
 {
 	char		**dup;
-	char		*s[2];
-	int			fd;
+	char		*str;
 
 	if (pos == -1)
-	{
-		if ((fd = open("/etc/paths", O_RDONLY)) == -1)
-			return (NULL);
-		s[1] = NULL;
-		if (!(s[0] = ft_strnew(0)))
-			return (NULL);
-		while (get_next_line(fd, &s[1]))
-		{
-			s[1] && s[0][ft_strlen(s[1]) - 1] &&
-			s[0][ft_strlen(s[1]) - 1] != ':' ? s[0] = ft_strapp(s[0], ":") : 0;
-			s[0] = ft_strapp(s[0], s[1]);
-			ft_strdel(&s[1]);
-		}
-		ft_strdel(&s[1]);
-	}
-	else
-		s[0] = ft_strdup(env[pos] + 5);
-	dup = ft_strsplit(s[0], ':');
-	ft_strdel(&s[0]);
+		return (NULL);
+	str = ft_strdup(env[pos] + 5);
+	dup = ft_strsplit(str, ':');
+	ft_strdel(&str);
 	return (dup);
 }
 
