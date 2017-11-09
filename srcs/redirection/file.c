@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/03 19:10:40 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/07 18:26:48 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/09 13:43:17 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,56 +44,47 @@ static void		abort_redir(t_node *tree)
 	close_fd(tmp);
 }
 
-static int		authorization_file(char *path, t_node *tree)
+static int		authorization_file(char *path, t_node *tree, char *dir, char *link)
 {
-	struct stat		buf;
+	struct stat	s;
 
-	if (type_redir(tree->token) == 1 && path && access(path, F_OK) == -1)
-		if (!ft_strrchr(path, '/') || lstat(ft_strrchr(path, '/'), &buf) != -1)
-			return (0);
-	if (lstat(path, &buf) == -1)
-	{
-		ft_putstr_fd("shell: permission denied: ", 2);
-		ft_putendl_fd(path, 2);
-		return (-2);
-	}
-	if (type_redir(tree->token) == 1)
-	{
-		if (S_ISDIR(buf.st_mode))
-		{
-			ft_putstr_fd("shell: is a directory: ", 2);
-			ft_putendl_fd(path, 2);
-			return (-1);
-		}
-	}
-	return (0);
+	if (ft_strchr(link, '/') && dir && access(dir, F_OK) == -1)
+		return (error_redir(path, "No such file or directory"));
+	else if (ft_strchr(link, '/') && dir && access(dir, X_OK) == -1)
+		return (error_redir(path, "Permission denied"));
+	else if (access(link, F_OK) == -1 && type_redir(tree->token) == 1)
+		return (0);
+	else if (access(link, F_OK) == -1)
+		return (error_redir(path, "No such file or directory"));
+	else if (lstat(link, &s) != -1 && S_ISDIR(s.st_mode) && type_redir(tree->token) == 1)
+		return (error_redir(path, "Is a directory"));
+	else if (access(link, F_OK) != -1
+			&& ((access(link, W_OK) == -1 && type_redir(tree->token) == 1)
+			|| (access(link, R_OK) == -1 && type_redir(tree->token) == 2)))
+		return (error_redir(path, "Permission denied"));
+	else if (access(link, F_OK) != -1
+			&& ((!access(link, W_OK) && type_redir(tree->token) == 1)
+			|| (!access(link, R_OK) && type_redir(tree->token) == 2)))
+		return (0);
+	return (1);
 }
 
 static char		*check_file(char *file, t_node *tree)
 {
-	int		error;
-	int		i;
+	char		*dir;
+	char		link[256];
 
-	i = len_io(tree->token);
-	error = 0;
 	if (ft_strcmp(file, "/"))
 		ft_strtrimlast(&file, '/');
-	if (file && access(file, F_OK) != -1)
-	{
-		if (((tree->token)[i] == '>') && access(file, W_OK) == -1)
-			error = print_error(4, file);
-		else if ((tree->token)[i] == '<' && (tree->token)[i + 1] != '<'
-				&& access(file, R_OK) == -1)
-			error = print_error(4, file);
-	}
-	else if ((tree->token)[i] == '<' && (tree->token)[i + 1] != '<'
-				&& access(file, R_OK) == -1)
-		error = print_error(1, file);
-	if (error || authorization_file(file, tree) < 0)
+	dir = ft_strsub(file, 0, ft_strlen(file) - ft_strlen(ft_strrchr(file, '/')));
+	if (readlink(file, link, 256) == -1)
+		ft_strcpy(link, file);
+	if (authorization_file(file, tree, dir, link))
 	{
 		abort_redir(tree);
 		ft_strdel(&file);
 	}
+	ft_strdel(&dir);
 	return (file);
 }
 
