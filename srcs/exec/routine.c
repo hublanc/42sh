@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/17 11:10:52 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/09 15:44:12 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/09 16:42:47 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,8 @@ static int	hub(t_node *tree, char ***env, t_control **hist)
 	return (1);
 }
 
-static int	exec_tree(t_node *tree, char ***env, t_control **hist)
+static int	exec_tree(t_node *tree, char ***env, t_control **hist, int stop)
 {
-	static int		stop = 0;
-
 	if (!tree)
 		return (0);
 	if (tree->value < 5 && hub(tree, env, hist) == -1)
@@ -90,7 +88,7 @@ static int	exec_tree(t_node *tree, char ***env, t_control **hist)
 		return (-1);
 	}
 	if (tree->left && tree->left->do_it == 0 && !stop)
-		exec_tree(tree->left, env, hist);
+		exec_tree(tree->left, env, hist, stop);
 	if (tree->value == 7)
 		operator_and(tree);
 	else if (tree->value == 8)
@@ -98,7 +96,7 @@ static int	exec_tree(t_node *tree, char ***env, t_control **hist)
 	if (tree->value >= 5 && stop == 1)
 		stop = 0;
 	if (tree->right && tree->right->do_it == 0 && !stop)
-		exec_tree(tree->right, env, hist);
+		exec_tree(tree->right, env, hist, stop);
 	return (1);
 }
 
@@ -106,7 +104,9 @@ void		routine(char *cmd, char ***env, t_control **history)
 {
 	t_token		*list;
 	t_node		*tree;
+	int			stop;
 
+	stop = 0;
 	if (!cmd)
 		return ;
 	list = tokenizer(cmd);
@@ -118,7 +118,7 @@ void		routine(char *cmd, char ***env, t_control **history)
 		return ;
 	load_path(*env);
 	reset_term();
-	exec_tree(tree, env, history);
+	exec_tree(tree, env, history, stop);
 	set_terminal();
 	is_modif(*env);
 	del_token(&list);
