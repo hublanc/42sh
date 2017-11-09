@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 11:50:54 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/09 13:13:59 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/09 16:48:47 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,8 @@ int					get_cd_flags_2(t_hist_flags *flags, char c);
 int					set_usage(char c, int type);
 void				print_history(t_control **history);
 int					get_num(int size);
-void				delete_elem_hist(int index, t_control **history, char *error);
+void				delete_elem_hist(int index, t_control **history,
+					char *error);
 void				delete_elem_hist_2(t_lst *tmp, t_control **history);
 int					str_isdigit(char *str);
 void				print_pflag(char **tab);
@@ -131,7 +132,8 @@ void				nflag(t_control **history, char *file);
 void				print_last_elem(t_control **history, int last);
 void				delete_list_content(t_control **history);
 int					history_s(t_control **history, char **tab, char *file);
-int					get_other_flags(char **tab, int i, int j, t_hist_flags *flags);
+int					get_other_flags(char **tab, int i, int j,
+					t_hist_flags *flags);
 
 /*
 **	Cd_builtin

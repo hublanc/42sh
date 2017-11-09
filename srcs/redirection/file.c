@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/03 19:10:40 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/09 13:43:17 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/09 16:50:31 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ static void		abort_redir(t_node *tree)
 	close_fd(tmp);
 }
 
-static int		authorization_file(char *path, t_node *tree, char *dir, char *link)
+static int		authorization_file(char *path, t_node *tree, char *dir,
+				char *link)
 {
 	struct stat	s;
 
@@ -56,7 +57,8 @@ static int		authorization_file(char *path, t_node *tree, char *dir, char *link)
 		return (0);
 	else if (access(link, F_OK) == -1)
 		return (error_redir(path, "No such file or directory"));
-	else if (lstat(link, &s) != -1 && S_ISDIR(s.st_mode) && type_redir(tree->token) == 1)
+	else if (lstat(link, &s) != -1 && S_ISDIR(s.st_mode)
+			&& type_redir(tree->token) == 1)
 		return (error_redir(path, "Is a directory"));
 	else if (access(link, F_OK) != -1
 			&& ((access(link, W_OK) == -1 && type_redir(tree->token) == 1)
@@ -76,7 +78,8 @@ static char		*check_file(char *file, t_node *tree)
 
 	if (ft_strcmp(file, "/"))
 		ft_strtrimlast(&file, '/');
-	dir = ft_strsub(file, 0, ft_strlen(file) - ft_strlen(ft_strrchr(file, '/')));
+	dir = ft_strsub(file, 0,
+		ft_strlen(file) - ft_strlen(ft_strrchr(file, '/')));
 	if (readlink(file, link, 256) == -1)
 		ft_strcpy(link, file);
 	if (authorization_file(file, tree, dir, link))
