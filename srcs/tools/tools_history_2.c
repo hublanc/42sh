@@ -77,7 +77,9 @@ void		set_selected_null(t_control **history)
 
 int			return_void(t_cmd *cmd, t_control **history, char ***env)
 {
-	if (history_search(history, &cmd->str) == 1)
+	cmd->str = NULL;
+	cmd->str = history_search(history);
+	if (cmd->str)
 		enter_hub(cmd, history, env);
 	else
 		print_prompt();

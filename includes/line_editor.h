@@ -154,7 +154,7 @@ void				enter_hub(t_cmd *cmd, t_control **history, char ***env);
 **	History search
 */
 
-int					history_search(t_control **history, char **str);
+char				*history_search(t_control **history);
 void				history_isatty(char *search);
 t_lst				*history_search_2(t_control **history, char *search);
 t_lst				*while_handler(char *buf, char **search,
@@ -163,10 +163,9 @@ t_lst				*move_in_hist(t_lst *pos, char *buf, t_control **history);
 void				set_search_prompt(char *search, t_lst *tmp, int type);
 t_lst				*while_handler(char *buf, char **search,
 					t_control **history, t_lst *tmp);
-int					return_handler(t_lst *tmp, char *buf, char **search,
-					char **str);
+char				*return_handler(t_lst *tmp, char *buf, char **search);
 void				init_hist_search(char **search, t_lst **tmp);
-int					return_sigint(char **to_del, char *to_save);
+char				*return_sigint(char **to_del, char *to_save);
 
 /*
 **	Bang_1.c
