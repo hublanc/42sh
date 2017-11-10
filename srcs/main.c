@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/24 16:37:30 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/09 13:28:29 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/10 18:09:13 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ static void	add_startenv(char ***env)
 	tab[2] = "true";
 	tab[3] = NULL;
 	ft_setenv(tab, env);
-	if ((tab[0] = get_elem(env, "SHLVL=")) && (i = ft_atoi(tab[0]) + 1)
+	if ((tab[0] = get_elem(env, "SHLVL="))
+			&& (i = ft_atoi(tab[0]) + 1)
 			&& (tab[2] = ft_itoa(i)))
 	{
 		tab[0] = "setenv";

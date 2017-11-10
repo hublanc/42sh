@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 13:49:51 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/07 17:03:33 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/10 17:25:25 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,9 @@ void		prompt_cmdandor(t_cmd *cmd, t_control **history, int mod)
 {
 	t_cmd		cmd_ao;
 
-	cmd_ao = init_cmd("cmdandor> ");
+	cmd_ao = init_cmd(ft_strdup("cmdandor> "));
 	ttyyyy(2) ? ft_putstr_fd(cmd_ao.prompt, 2) : 0;
+	cmd_ao.pr_andor = 1;
 	if (!mod)
 		cmd_ao.str_quote = ft_strapp(cmd_ao.str_quote, cmd->str);
 	else if (mod)

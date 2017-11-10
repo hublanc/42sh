@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/11 14:30:26 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/07 18:11:39 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/10 17:06:16 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,16 +132,15 @@ void		enter_hub(t_cmd *cmd, t_control **history, char ***env)
 		*cmd = init_cmd(return_prompt());
 	if (!cmd->prompt)
 		enter_handler(cmd, history, env);
-	else if (!ft_strcmp(cmd->prompt, "dquote> ")
-	|| !ft_strcmp(cmd->prompt, "quote> "))
+	else if (cmd->pr_quote)
 		enter_handler_quote(cmd, history);
-	else if (!ft_strcmp(cmd->prompt, "> "))
+	else if (cmd->pr_bs)
 		enter_handler_backslash(cmd, history);
-	else if (!ft_strcmp(cmd->prompt, "cmdandor> "))
+	else if (cmd->pr_andor)
 		enter_handler_cmdandor(cmd, history);
-	else if (!ft_strcmp(cmd->prompt, "pipe> "))
+	else if (cmd->pr_pipe)
 		enter_handler_pipe(cmd, history);
-	else if (!ft_strcmp(cmd->prompt, "heredoc> "))
+	else if (cmd->pr_here)
 		enter_handler_heredoc(cmd);
 	else
 		enter_handler(cmd, history, env);

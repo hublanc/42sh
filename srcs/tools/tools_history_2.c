@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/09 15:57:56 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/07 17:33:11 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/10 17:43:20 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,7 @@ void		change_cmd(char *new, t_cmd *cmd)
 {
 	go_begin(cmd->col, cmd->sc_col);
 	tputs(tgetstr("cd", NULL), 1, tputchar);
-	if (!ft_strcmp(cmd->prompt, "dquote> ")
-		|| !ft_strcmp(cmd->prompt, "quote> ")
-		|| !ft_strcmp(cmd->prompt, "heredoc> ")
-		|| !ft_strcmp(cmd->prompt, "pipe> "))
-		ft_putstr_fd(cmd->prompt, 2);
-	else
-		print_prompt();
+	choose_prompt(cmd);
 	ft_putstr_fd(new, 2);
 	cmd->col = ft_strlen(new) + cmd->prlen + (cmd->prlen ? 1 : 0);
 	ft_strdel(&(cmd->str));

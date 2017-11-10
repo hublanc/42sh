@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/02 17:55:21 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/09 16:49:44 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/10 17:25:14 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,9 @@ void			prompt_pipe(t_cmd *cmd, t_control **history, int mod)
 {
 	t_cmd		cmd_p;
 
-	cmd_p = init_cmd("pipe> ");
+	cmd_p = init_cmd(ft_strdup("pipe> "));
 	ttyyyy(0) ? ft_putstr("pipe> ") : 0;
+	cmd_p.pr_pipe = 1;
 	if (!mod)
 		cmd_p.str_quote = ft_strapp(cmd_p.str_quote, cmd->str);
 	else if (mod)
