@@ -20,7 +20,7 @@ char		*history_search(t_control **history)
 
 	if (!(*history) || (*history && (*history)->length < 1))
 		return (0);
-	tputs(tgetstr("sc", NULL), 1, tputchar);
+	ttyyyy(0) ? tputs(tgetstr("sc", NULL), 1, tputchar) : 0;
 	init_hist_search(&search, &tmp);
 	ft_strclr(buf);
 	while (read(0, &buf, 3))
