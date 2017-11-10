@@ -70,6 +70,7 @@ t_lst		*while_handler(char *buf, char **search, t_control **history,
 	}
 	else if (buf[0] == 127 && *search && ft_strlen(*search) <= 1)
 	{
+		tmp = NULL;
 		if (ft_strlen(*search) == 1)
 			*search = ft_strdelone(*search, ft_strlen(*search));
 		set_search_prompt(*search, tmp, 0);
