@@ -19,3 +19,16 @@ void	history_isatty(char *search)
 	ft_putstr(search);
 	ft_putstr("': ");
 }
+
+void		set_failing(char *search, struct winsize z)
+{
+	ttyyyy(0) ? tputs(tgetstr("rc", NULL), 1, tputchar) : 0;
+	ttyyyy(0) ? tputs(tgetstr("cd", NULL), 1, tputchar) : 0;
+	ttyyyy(0) ? ft_putstr("failing reverse-i-search: ") : 0;
+	ft_putstr(search);
+	if ((26 + ft_strlen(search)) % z.ws_col == 0)
+	{
+		ttyyyy(0) ? tputs(tgetstr("cr", NULL), 1, tputchar) : 0;
+		ttyyyy(0) ? tputs(tgetstr("do", NULL), 1, tputchar) : 0;
+	}	
+}

@@ -171,6 +171,7 @@ t_lst				*while_handler(char *buf, char **search,
 char				*return_handler(t_lst *tmp, char *buf, char **search);
 void				init_hist_search(char **search, t_lst **tmp);
 char				*return_sigint(char **to_del, char *to_save);
+void				set_failing(char *search, struct winsize z);
 
 /*
 **	Bang_1.c

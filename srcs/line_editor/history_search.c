@@ -92,7 +92,7 @@ void		set_search_prompt(char *search, t_lst *tmp, int type)
 {
 	struct winsize		z;
 
-	tputs(tgetstr("rc", NULL), 1, tputchar);
+	ttyyyy(0) ? tputs(tgetstr("rc", NULL), 1, tputchar) : 0;
 	ttyyyy(0) ? tputs(tgetstr("cd", NULL), 1, tputchar) : 0;
 	if (ioctl(0, TIOCGWINSZ, &z) == -1)
 		return ;
@@ -107,22 +107,14 @@ void		set_search_prompt(char *search, t_lst *tmp, int type)
 	(tmp && ttyyyy(0)) ? ft_putstr(tmp->name) : 0;
 	if (tmp && (22 + ft_strlen(tmp->name) + ft_strlen(search)) % z.ws_col == 0)
 	{
-		tputs(tgetstr("cr", NULL), 1, tputchar);
-		tputs(tgetstr("do", NULL), 1, tputchar);
+		ttyyyy(0) ? tputs(tgetstr("cr", NULL), 1, tputchar) : 0;
+		ttyyyy(0) ? tputs(tgetstr("do", NULL), 1, tputchar) : 0;
 	}
 	if (tmp)
 		return ;
 	if (!ttyyyy(0))
 		return ;
-	tputs(tgetstr("rc", NULL), 1, tputchar);
-	tputs(tgetstr("cd", NULL), 1, tputchar);
-	ft_putstr("failing reverse-i-search: ");
-	ft_putstr(search);
-	if ((26 + ft_strlen(search)) % z.ws_col == 0)
-	{
-		tputs(tgetstr("cr", NULL), 1, tputchar);
-		tputs(tgetstr("do", NULL), 1, tputchar);
-	}
+	set_failing(search, z);
 }
 
 t_lst		*history_search_2(t_control **history, char *search)
