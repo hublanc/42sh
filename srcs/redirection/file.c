@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/03 19:10:40 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/10 13:19:51 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/10 14:00:41 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,6 @@ static int		authorization_file(char *path, t_node *tree, char *link)
 {
 	struct stat	s;
 
-	ft_putcolor("FILE : ");
-	ft_putendl(link);
 	if (link[ft_strlen(link) - 1] == '/')
 	{
 		if (lstat(link, &s) != -1 && S_ISDIR(s.st_mode) && type_redir(tree->token) == 1)
@@ -77,13 +75,19 @@ static int		authorization_file(char *path, t_node *tree, char *link)
 
 int				check_dir(char *path, char *dir)
 {
-	ft_putcolor("DIR : ");
-	ft_putendl(dir);
 	if (dir && dir[0] && access(dir, F_OK) == -1)
 		return (error_redir(path, "No such file or directory"));
-	else if (dir && dir[0] && access(dir, X_OK) == -1)
+	else if (dir && dir[0] && access(dir, X_OK | W_OK) == -1)
 		return (error_redir(path, "Permission denied"));
 	return (0);
+}
+
+int				prep_check_dir(char **dir, char *split, char *link, char *file)
+{
+	*dir = ft_strapp(*dir, split);
+	if (link[ft_strlen(*dir)] == '/')
+		*dir = ft_strapp(*dir, "/");
+	return (check_dir(file, *dir));
 }
 
 static char		*check_file(char *file, t_node *tree)
@@ -98,19 +102,14 @@ static char		*check_file(char *file, t_node *tree)
 		ft_strcpy(link, file);
 	split = ft_strsplit(link, '/');
 	i = 0;
-	if (link[0] == '/')
-		dir = ft_strdup("/");
-	else
-		dir = ft_strnew(0);
-	error = check_dir(file, dir);
-	while (split && split[i] && split[i + 1] && !error)
-	{
-		dir = ft_strapp(dir, split[i]);
-		if (link[ft_strlen(dir)] == '/')
-			dir = ft_strapp(dir, "/");
+	error = 0;
+	dir = (link[0] == '/') ? ft_strdup("/") : ft_strnew(0);
+	if (link[0] == '/' && !ft_strcmp(link, ft_strrchr(link, '/'))
+			&& ft_strcmp(link, "/"))
 		error = check_dir(file, dir);
-		i++;
-	}
+	while (split && split[i] && split[i + 1] && !error)
+		error = prep_check_dir(&dir, split[i++], link, file);
+	del_tabstr(&split);
 	if (error || authorization_file(file, tree, link))
 	{
 		abort_redir(tree);
