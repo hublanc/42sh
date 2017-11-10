@@ -33,10 +33,9 @@ static char	**init_env(void)
 	tmp = getcwd(NULL, PATH_MAX + 1);
 	pwd = ft_strapp(pwd, tmp);
 	new[0] = ft_strdup(pwd);
-	new[1] = ft_strdup("SHLVL=1");
-	new[2] = ft_strdup("_=/usr/bin/env");
-	new[3] = get_path_str();
-	new[4] = NULL;
+	new[1] = ft_strdup("_=/usr/bin/env");
+	new[2] = get_path_str();
+	new[3] = NULL;
 	ft_strdel(&tmp);
 	ft_strdel(&pwd);
 	return (new);
@@ -52,23 +51,21 @@ static void	add_startenv(char ***env)
 	tab[2] = "true";
 	tab[3] = NULL;
 	ft_setenv(tab, env);
-	if (!(tab[0] = get_elem(env, "SHLVL=")))
+	if ((tab[0] = get_elem(env, "SHLVL=")) && (i = ft_atoi(tab[0]) + 1)
+			&& (tab[2] = ft_itoa(i)))
 	{
 		tab[0] = "setenv";
 		tab[1] = "SHLVL";
-		tab[2] = "1";
 		tab[3] = NULL;
 		ft_setenv(tab, env);
+		ft_strdel(&tab[2]);
 		return ;
 	}
-	i = ft_atoi(tab[0]) + 1;
 	tab[0] = "setenv";
 	tab[1] = "SHLVL";
-	if (!(tab[2] = ft_itoa(i)))
-		return ;
+	tab[2] = "1";
 	tab[3] = NULL;
 	ft_setenv(tab, env);
-	tab[2] ? ft_strdel(&tab[2]) : 0;
 }
 
 static void	init_signal(void)
