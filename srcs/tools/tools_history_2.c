@@ -75,7 +75,7 @@ int			return_void(t_cmd *cmd, t_control **history, char ***env)
 	cmd->str = history_search(history);
 	if (cmd->str)
 		enter_hub(cmd, history, env);
-	else
+	else if (!(is_sigint(0)))
 		print_prompt();
 	return (1);
 }
