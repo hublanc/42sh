@@ -95,11 +95,13 @@ static void	handle_key(t_cmd *cmd, t_control **history, char ***env, char *buf)
 	}
 	else if (buf[0] == 4 && !buf[1] && (!cmd->str || !cmd->str[0]))
 	{
-		if (!cmd || ft_strcmp(cmd->prompt, "heredoc> "))
+		if (!cmd || (ft_strcmp(cmd->prompt, "heredoc> ") && ft_strcmp(cmd->prompt, "quote> ")
+				&& ft_strcmp(cmd->prompt, "dquote> ") && ft_strcmp(cmd->prompt, "> ")
+				&& ft_strcmp(cmd->prompt, "cmdandor> ") && ft_strcmp(cmd->prompt, "pipe> ")))
 			stop_shell(env, NULL, history);
-		cmd->str = ft_strappone(cmd->str, buf[0],
-				(cmd->col - 1) - cmd->prlen);
-		enter_hub(cmd, history, env);
+		cmd->str ||!ft_strcmp(cmd->prompt, "heredoc> ") ? cmd->str = ft_strappone(cmd->str, buf[0],
+				(cmd->col - 1) - cmd->prlen) : 0;
+		!ft_strcmp(cmd->prompt, "heredoc> ") ? enter_hub(cmd, history, env) : 0;
 	}
 	else
 		handle_key2(cmd, history, env, buf);
