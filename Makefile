@@ -6,7 +6,7 @@
 #    By: lbopp <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/05 18:23:34 by lbopp             #+#    #+#              #
-#    Updated: 2017/11/09 15:42:42 by hublanc          ###   ########.fr        #
+#    Updated: 2017/11/10 14:43:45 by lbopp            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,6 +74,7 @@ SRC		=	main.c\
 			lexer/add_handspace.c\
 			redirection/filedescriptor.c\
 			redirection/file.c\
+			redirection/check_file.c\
 			redirection/pipe.c\
 			redirection/heredoc.c\
 			redirection/aggre.c\

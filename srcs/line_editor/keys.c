@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/31 12:52:57 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/10 18:00:54 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/10 18:29:42 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,11 +95,12 @@ static void	handle_key(t_cmd *cmd, t_control **history, char ***env, char *buf)
 	}
 	else if (buf[0] == 4 && !buf[1] && (!cmd->str || !cmd->str[0]))
 	{
-		if (!cmd || !cmd->pr_here)
+		if (!cmd || (!cmd->pr_here && !cmd->pr_quote && !cmd->pr_bs
+				&& !cmd->pr_andor && !cmd->pr_pipe))
 			stop_shell(env, NULL, history);
-		cmd->str = ft_strappone(cmd->str, buf[0],
-				(cmd->col - 1) - cmd->prlen);
-		enter_hub(cmd, history, env);
+		cmd->str || cmd->pr_here ? cmd->str = ft_strappone(cmd->str, buf[0],
+				(cmd->col - 1) - cmd->prlen) : 0;
+		cmd->pr_here ? enter_hub(cmd, history, env) : 0;
 	}
 	else
 		handle_key2(cmd, history, env, buf);

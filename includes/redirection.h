@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/31 09:56:58 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/09 13:13:28 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/10 14:44:07 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,12 @@ int			prep_fd(t_node *tree);
 **	File.c
 */
 int			open_file(t_node *tree);
+void		abort_redir(t_node *tree);
+
+/*
+**	Check_file.c
+*/
+char		*check_file(char *file, t_node *tree);
 
 /*
 **	Aggre.c
