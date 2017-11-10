@@ -97,24 +97,7 @@ static void	go_down(void)
 	tputs(tgetstr("cr", NULL), 1, tputchar);
 	tputs(tgetstr("do", NULL), 1, tputchar);
 }
-/*
-static void	pass_prompt(t_cmd *cmd)
-{
-	int		i;
 
-	if (!isatty(2) || !ttyyyy(2))
-		return ;
-	i = 0;
-	while (i < cmd->prlen)
-	{
-		if (i == cmd->sc_col)
-			go_down();
-		else
-			tputs(tgetstr("nd", NULL), 1, tputchar);
-		i++;
-	}
-}
-*/
 void		print_line2(t_cmd *cmd)
 {
 	int		len;
@@ -127,7 +110,6 @@ void		print_line2(t_cmd *cmd)
 	len += len % cmd->sc_col == 0 ? 0 : 1;
 	go_begin(cmd->col, cmd->sc_col);
 	ft_putstr(cmd->prompt);
-//	pass_prompt(cmd);
 	tputs(tgetstr("cd", NULL), 1, tputchar);
 	ft_putstr(cmd->str);
 	if (len > cmd->col)
@@ -153,6 +135,8 @@ void		set_search_prompt(char *search, t_lst *tmp, int type)
 
 	(void)type;
 	if (ioctl(0, TIOCGWINSZ, &z) == -1)
+		return ;
+	if (search && tmp && ft_strlen(tmp->name) + ft_strlen(search) + 22 > z.ws_col)
 		return ;
 	if (!tmp && ft_strlen(search) != 0)
 		prompt = ft_strdup("failing reverse-i-search:` ");
