@@ -38,6 +38,7 @@ SRC		=	main.c\
 			line_editor/cut_copy_paste3.c\
 			line_editor/history_search.c\
 			line_editor/history_search_2.c\
+			line_editor/history_search_3.c\
 			line_editor/history_isatty.c\
 			line_editor/bang/bang_1.c\
 			line_editor/bang/event_designator.c\

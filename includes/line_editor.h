@@ -173,6 +173,10 @@ void				init_hist_search(char **search, t_lst **tmp);
 char				*return_sigint(char **to_del, char *to_save);
 void				set_failing(char *search, struct winsize z);
 
+int					*singleton_len_prev(void);
+void				set_lenprev(int val);
+int					return_lenprev(void);
+
 /*
 **	Bang_1.c
 */
