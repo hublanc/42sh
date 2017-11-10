@@ -105,6 +105,11 @@ void		set_search_prompt(char *search, t_lst *tmp, int type)
 	if (ttyyyy(0))
 		history_isatty(search);
 	(tmp && ttyyyy(0)) ? ft_putstr(tmp->name) : 0;
+	if (tmp && (22 + ft_strlen(tmp->name) + ft_strlen(search)) % z.ws_col == 0)
+	{
+		tputs(tgetstr("cr", NULL), 1, tputchar);
+		tputs(tgetstr("do", NULL), 1, tputchar);
+	}
 	if (tmp)
 		return ;
 	if (!ttyyyy(0))
@@ -113,7 +118,11 @@ void		set_search_prompt(char *search, t_lst *tmp, int type)
 	tputs(tgetstr("cd", NULL), 1, tputchar);
 	ft_putstr("failing reverse-i-search: ");
 	ft_putstr(search);
-	ft_putchar('_');
+	if ((26 + ft_strlen(search)) % z.ws_col == 0)
+	{
+		tputs(tgetstr("cr", NULL), 1, tputchar);
+		tputs(tgetstr("do", NULL), 1, tputchar);
+	}
 }
 
 t_lst		*history_search_2(t_control **history, char *search)
