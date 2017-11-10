@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/30 16:43:04 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/05 17:16:34 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/10 16:36:22 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ static void	change_home_env_l(char ***env)
 			add_slash(&pwd);
 		pwd = ft_strapp(pwd, home);
 	}
+	check_dotdot(&pwd);
 	change_env(env, pwd);
 	ft_strdel(&pwd);
 }

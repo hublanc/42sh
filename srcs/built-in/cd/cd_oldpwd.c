@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/30 16:48:31 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/05 17:16:48 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/10 16:40:39 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,9 @@ static void	change_oldpwd_env_l(char ***env)
 			add_slash(&pwd);
 		pwd = ft_strapp(pwd, oldpwd);
 	}
+	check_dotdot(&pwd);
 	change_env(env, pwd);
+	ft_putendl(pwd);
 	ft_strdel(&pwd);
 }
 
@@ -51,11 +53,11 @@ int			cd_oldpwd(char ***env, char opt)
 	if ((opt == 'P' && chdir(oldpwd) == -1)
 			|| (oldpwd[0] && chdir(oldpwd) == -1))
 		return (error_chdir(&oldpwd, oldpwd, 0));
-	ft_putendl(oldpwd);
 	if (opt == 'P')
 	{
 		getcwd(pwd, 256);
 		change_env(env, pwd);
+		ft_putendl(oldpwd);
 	}
 	else
 		change_oldpwd_env_l(env);
