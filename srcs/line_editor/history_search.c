@@ -17,21 +17,24 @@ char		*history_search(t_control **history)
 	char		buf[3];
 	char		*search;
 	t_lst		*tmp;
+	int			type;
 
+	type = 0;
 	if (!(*history) || (*history && (*history)->length < 1))
 		return (0);
 	init_hist_search(&search, &tmp);
 	ft_strclr(buf);
 	while (read(0, &buf, 3))
 	{
+		type++;
 		if (is_sigint(0))
 		{
 			can_sigint(1);
 			is_sigint(1);
 			return (return_sigint(&search, buf));
 		}
-		if (ft_isprint(buf[0]) || (buf[0] == 127)
-			|| (buf[0] == 27 && tmp))
+		if ((tmp || type == 1) && (ft_isprint(buf[0]) || (buf[0] == 127)
+			|| (buf[0] == 27 && tmp)))
 			tmp = while_handler(buf, &search, history, tmp);
 		else if (buf[0] != 18)
 			break ;
@@ -52,6 +55,7 @@ char		*return_handler(t_lst *tmp, char *buf, char **search)
 		exit(0);
 	else
 	{
+		ft_putchar('\n');
 		ft_strdel(search);
 		return (NULL);
 	}
@@ -86,10 +90,95 @@ t_lst		*while_handler(char *buf, char **search, t_control **history,
 	return (tmp);
 }
 
+static void	go_down(void)
+{
+	if (!ttyyyy(0))
+		return ;
+	tputs(tgetstr("cr", NULL), 1, tputchar);
+	tputs(tgetstr("do", NULL), 1, tputchar);
+}
+/*
+static void	pass_prompt(t_cmd *cmd)
+{
+	int		i;
+
+	if (!isatty(2) || !ttyyyy(2))
+		return ;
+	i = 0;
+	while (i < cmd->prlen)
+	{
+		if (i == cmd->sc_col)
+			go_down();
+		else
+			tputs(tgetstr("nd", NULL), 1, tputchar);
+		i++;
+	}
+}
+*/
+void		print_line2(t_cmd *cmd)
+{
+	int		len;
+
+	if (!ttyyyy(0))
+		return ;
+	len = cmd->prlen + (int)ft_strlen(cmd->str);
+	if (!len)
+		return ;
+	len += len % cmd->sc_col == 0 ? 0 : 1;
+	go_begin(cmd->col, cmd->sc_col);
+	ft_putstr(cmd->prompt);
+//	pass_prompt(cmd);
+	tputs(tgetstr("cd", NULL), 1, tputchar);
+	ft_putstr(cmd->str);
+	if (len > cmd->col)
+		while (len-- != cmd->col)
+			tputs(tgetstr("le", NULL), 1, tputchar);
+	else if (len < cmd->col)
+		while (len != cmd->col && len > 0)
+		{
+			if (len % cmd->sc_col == 0)
+				go_down();
+			else
+				tputs(tgetstr("nd", NULL), 1, tputchar);
+			len++;
+		}
+}
+
 void		set_search_prompt(char *search, t_lst *tmp, int type)
 {
 	struct winsize		z;
+	char				*prompt;
+	t_cmd				cmd;
+	int					foundlen;
 
+	(void)type;
+	if (ioctl(0, TIOCGWINSZ, &z) == -1)
+		return ;
+	if (!tmp && ft_strlen(search) != 0)
+		prompt = ft_strdup("failing reverse-i-search:` ");
+	else
+		prompt = ft_strdup("(reverse-i-search)`");	
+	foundlen = 0;
+	if (tmp)
+		foundlen = ft_strlen(tmp->name);
+	prompt = ft_strapp(prompt, search);
+	prompt = ft_strapp(prompt, "': ");
+	cmd = init_cmd(prompt);
+	cmd.prlen = ft_strlen(prompt);
+	cmd.sc_col = z.ws_col;
+	cmd.col = ft_strlen(prompt) + foundlen;
+	ft_strdel(&prompt);
+	if (tmp)
+		cmd.str = ft_strdup(tmp->name);
+	else
+		cmd.str = NULL;
+	print_line2(&cmd);
+}
+
+/*
+//	ft_putendl("TEST");
+	print_line(&cmd);
+//	ft_putendl("VICTORY");
 	if (ioctl(0, TIOCGWINSZ, &z) == -1)
 		return ;
 	if (type == 0)
@@ -108,11 +197,17 @@ void		set_search_prompt(char *search, t_lst *tmp, int type)
 	go_begin((ft_strlen(search) + 26), z.ws_col);
 	if (!ttyyyy(0))
 		return ;
+	if (ft_strlen(search) + 26 > z.ws_col)
+	{
+		tputs(tgetstr("up", NULL), 1, tputchar);
+	}
+//	ft_putendl("GO_BEGIN()");
+//	go_begin((ft_strlen(search) + 26), z.ws_col);
 	tputs(tgetstr("cd", NULL), 1, tputchar);
 	ft_putstr("failing reverse-i-search: ");
 	ft_putstr(search);
 	ft_putchar('_');
-}
+}*/
 
 t_lst		*history_search_2(t_control **history, char *search)
 {
