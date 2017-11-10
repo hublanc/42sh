@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 17:36:47 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/07 17:13:13 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/10 17:40:03 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,8 @@ static void	go_down(void)
 
 void		choose_prompt(t_cmd *cmd)
 {
-	if (!ft_strcmp(cmd->prompt, "dquote> ")
-			|| !ft_strcmp(cmd->prompt, "quote> ")
-	|| !ft_strcmp(cmd->prompt, "heredoc> ") || !ft_strcmp(cmd->prompt, "pipe> ")
-	|| !ft_strcmp(cmd->prompt, "> ") || !ft_strcmp(cmd->prompt, "cmdandor> "))
+	if (cmd->pr_quote || cmd->pr_here || cmd->pr_pipe || cmd->pr_bs
+		|| cmd->pr_andor)
 		ttyyyy(2) ? ft_putstr_fd(cmd->prompt, 2) : 0;
 	else
 		ttyyyy(2) ? print_prompt() : 0;

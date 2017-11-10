@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/22 15:21:04 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/07 17:02:51 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/10 18:15:06 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,20 @@ char		check_quote(char *str)
 	return (in_quote);
 }
 
+static void	init_quotepr(t_cmd *cmd)
+{
+	ttyyyy(2) ? ft_putstr_fd(cmd->prompt, 2) : 0;
+	cmd->pr_quote = 1;
+}
+
 void		prompt_quote(t_cmd *cmd, t_control **history, char c, int mod)
 {
 	t_cmd		cmd_q;
 
-	cmd_q = (c == '"') ? init_cmd("dquote> ") : init_cmd("quote> ");
+	cmd_q = (c == '"') ? init_cmd(ft_strdup("dquote> "))
+		: init_cmd(ft_strdup("quote> "));
 	save_cmd(&cmd_q);
-	ttyyyy(2) ? ft_putstr_fd(cmd_q.prompt, 2) : 0;
+	init_quotepr(&cmd_q);
 	if (!mod)
 		cmd_q.str_quote = ft_strapp(cmd_q.str_quote, cmd->str);
 	else if (mod)
@@ -69,13 +76,19 @@ void		prompt_quote(t_cmd *cmd, t_control **history, char c, int mod)
 	save_cmd(cmd);
 }
 
+static void	init_bs(t_cmd *cmd)
+{
+	ttyyyy(2) ? ft_putstr_fd(cmd->prompt, 2) : 0;
+	cmd->pr_bs = 1;
+}
+
 void		prompt_backslash(t_cmd *cmd, t_control **history, int mod)
 {
 	t_cmd		cmd_b;
 
-	cmd_b = init_cmd("> ");
+	cmd_b = init_cmd(ft_strdup("> "));
 	save_cmd(&cmd_b);
-	ttyyyy(2) ? ft_putstr_fd(cmd_b.prompt, 2) : 0;
+	init_bs(&cmd_b);
 	if (!mod)
 		cmd_b.str_quote = ft_strapp(cmd_b.str_quote, cmd->str);
 	else if (mod)

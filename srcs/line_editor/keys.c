@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/31 12:52:57 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/07 16:40:31 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/10 18:00:54 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ static void	handle_key(t_cmd *cmd, t_control **history, char ***env, char *buf)
 	}
 	else if (buf[0] == 4 && !buf[1] && (!cmd->str || !cmd->str[0]))
 	{
-		if (!cmd || ft_strcmp(cmd->prompt, "heredoc> "))
+		if (!cmd || !cmd->pr_here)
 			stop_shell(env, NULL, history);
 		cmd->str = ft_strappone(cmd->str, buf[0],
 				(cmd->col - 1) - cmd->prlen);

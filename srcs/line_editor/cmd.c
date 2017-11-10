@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/07 16:07:25 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/07 16:30:15 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/10 17:28:07 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,23 @@ t_cmd		*save_cmd(t_cmd *cmd)
 	return (s_cmd);
 }
 
+static void	init_pr(t_cmd *cmd)
+{
+	cmd->pr_quote = 0;
+	cmd->pr_bs = 0;
+	cmd->pr_andor = 0;
+	cmd->pr_pipe = 0;
+	cmd->pr_here = 0;
+	cmd->stop = 0;
+}
+
 t_cmd		init_cmd(char *prompt)
 {
 	t_cmd	new;
 
 	if (!prompt)
 		new.prompt = NULL;
-	else if (!ft_strcmp(prompt, "dquote> ") || !ft_strcmp(prompt, "quote> ")
-	|| !ft_strcmp(prompt, "heredoc> ") || !ft_strcmp(prompt, "pipe> ")
-	|| !ft_strcmp(prompt, "> ") || !ft_strcmp(prompt, "cmdandor> "))
-		new.prompt = ft_strdup(prompt);
-	else
-		new.prompt = prompt;
+	new.prompt = prompt;
 	new.prlen = ttyyyy(2) ? strlen_prompt(prompt) : 0;
 	new.str = NULL;
 	new.str_quote = NULL;
@@ -53,7 +58,7 @@ t_cmd		init_cmd(char *prompt)
 	new.col = new.prlen + 1;
 	new.sc_col = 0;
 	new.sc_row = 0;
-	new.stop = 0;
+	init_pr(&new);
 	return (new);
 }
 

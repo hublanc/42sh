@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 16:36:09 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/07 18:29:07 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/10 18:02:41 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,11 @@ typedef struct		s_cmd
 	int				sc_col;
 	int				sc_row;
 	int				stop;
+	int				pr_quote;
+	int				pr_bs;
+	int				pr_andor;
+	int				pr_pipe;
+	int				pr_here;
 }					t_cmd;
 
 typedef struct		s_bang2
