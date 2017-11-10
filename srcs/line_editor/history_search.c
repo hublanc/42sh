@@ -12,15 +12,12 @@
 
 #include "shell.h"
 
-int			history_search(t_control **history, char **str)
+char		*history_search(t_control **history)
 {
 	char		buf[3];
 	char		*search;
 	t_lst		*tmp;
 
-	ft_putstr("LENGTH OF STR == ");
-	ft_putnbr(ft_strlen(*str));
-	ft_putchar('\n');
 	if (!(*history) || (*history && (*history)->length < 1))
 		return (0);
 	init_hist_search(&search, &tmp);
@@ -40,20 +37,15 @@ int			history_search(t_control **history, char **str)
 			break ;
 		ft_strclr(buf);
 	}
-	return (return_handler(tmp, buf, &search, str));
+	return (return_handler(tmp, buf, &search));
 }
 
-int			return_handler(t_lst *tmp, char *buf, char **search, char **str)
+char		*return_handler(t_lst *tmp, char *buf, char **search)
 {
 	if (tmp && buf[0] == 10)
 	{
 		ft_strdel(search);
-		ft_putendl("AAAAA");
-		ft_putstr("tmp->name == ");
-		ft_putendl(tmp->name);
-		*str = ft_strdup(tmp->name);
-		ft_putendl("BBBBB");
-		return (1);
+		return (ft_strdup(tmp->name));
 	}
 	else if (!ft_isprint(buf[0]) && !ft_isprint(buf[1]) && !ft_isprint(buf[2])
 			&& ft_strlen(*search) == 0 && buf[0] != 10)
@@ -61,7 +53,7 @@ int			return_handler(t_lst *tmp, char *buf, char **search, char **str)
 	else
 	{
 		ft_strdel(search);
-		return (1);
+		return (NULL);
 	}
 }
 
