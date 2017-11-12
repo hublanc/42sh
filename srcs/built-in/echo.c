@@ -6,13 +6,110 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:12:29 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/07 14:45:37 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/12 16:43:43 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-int		ft_echo(char **tab)
+static void	treat_octal(char **tab, int i, int *j)
+{
+	int		int_octal;
+	char	tmp[2];
+	int		power;
+
+	*j += 1;
+	tmp[1] = '\0';
+	power = -1;
+	int_octal = 0;
+	while (power < 2 && tab[i][*j + power + 1] && tab[i][*j + power + 2]
+			&& ft_isdigit(tab[i][*j + power + 2]))
+		power++;
+	while (power >= 0 && tab[i][*j + 1])
+	{
+		tmp[0] = tab[i][*j + 1];
+		int_octal += ft_atoi(tmp) * ft_power(8, power);
+		power--;
+		*j += 1;
+	}
+	ft_putchar(int_octal);
+}
+
+static void	treat_str3(char **tab, int i, int *j)
+{
+	if (tab[i][*j] == '\\' && tab[i][*j + 1] && tab[i][*j + 1] == 'v')
+	{
+		ft_putchar('\v');
+		*j += 1;
+	}
+	else if (tab[i][*j] == '\\' && tab[i][*j + 1] && tab[i][*j + 1] == '\\')
+	{
+		ft_putchar('\\');
+		*j += 1;
+	}
+	else if (tab[i][*j] == '\\' && tab[i][*j + 1] && tab[i][*j + 1] == '0')
+		treat_octal(tab, i, j);
+	else
+		ft_putchar(tab[i][*j]);
+}
+
+static int	treat_str2(char **tab, int i, int *j)
+{
+	if (tab[i][*j] == '\\' && tab[i][*j + 1] && tab[i][*j + 1] == 'c')
+	{
+		return (1);
+		*j += 1;
+	}
+	else if (tab[i][*j] == '\\' && tab[i][*j + 1] && tab[i][*j + 1] == 'f')
+	{
+		ft_putchar('\f');
+		*j += 1;
+	}
+	else if (tab[i][*j] == '\\' && tab[i][*j + 1] && tab[i][*j + 1] == 'r')
+	{
+		ft_putchar('\r');
+		*j += 1;
+	}
+	else if (tab[i][*j] == '\\' && tab[i][*j + 1] && tab[i][*j + 1] == 't')
+	{
+		ft_putchar('\t');
+		*j += 1;
+	}
+	else
+		treat_str3(tab, i, j);
+	return (0);
+}
+
+static int	treat_str(char **tab, int i)
+{
+	int	j;
+
+	j = 0;
+	while (tab[i][j])
+	{
+		if (tab[i][j] == '\\' && tab[i][j + 1] && tab[i][j + 1] == 'n')
+		{
+			ft_putchar('\n');
+			j += 1;
+		}
+		else if (tab[i][j] == '\\' && tab[i][j + 1] && tab[i][j + 1] == 'a')
+		{
+			ft_putchar('\a');
+			j += 1;
+		}
+		else if (tab[i][j] == '\\' && tab[i][j + 1] && tab[i][j + 1] == 'b')
+		{
+			ft_putchar('\b');
+			j += 1;
+		}
+		else if (treat_str2(tab, i, &j))
+			return (1);
+		j++;
+	}
+	return (0);
+}
+
+int			ft_echo(char **tab)
 {
 	int		i;
 	int		nl;
@@ -30,13 +127,12 @@ int		ft_echo(char **tab)
 		i += !ft_strcmp("-n", tab[1]) ? 1 : 0;
 		while (tab[i])
 		{
-			ft_putstr(tab[i]);
-			if (tab[i + 1])
-				ft_putchar(' ');
+			if (treat_str(tab, i))
+				return (0);
+			(tab[i + 1]) ? ft_putchar(' ') : 0;
 			i++;
 		}
 	}
-	if (nl)
-		ft_putchar('\n');
+	nl ? ft_putchar('\n') : 0;
 	return (0);
 }
