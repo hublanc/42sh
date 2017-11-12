@@ -6,13 +6,13 @@
 /*   By: nbouchin <nbouchin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 11:46:11 by nbouchin          #+#    #+#             */
-/*   Updated: 2017/11/12 16:59:35 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/12 17:06:29 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-void	treat_size(char c, int *in_escape, size_t *size)
+static int	treat_size(char c, int *in_escape, size_t *size)
 {
 	if (c == 27)
 		*in_escape = 1;
@@ -25,11 +25,14 @@ void	treat_size(char c, int *in_escape, size_t *size)
 		*size += 4;
 	else if (c == 10)
 		*size = 0;
-	else if (!(*in_escape))
+	else if (c == 13)
+		return (1);
+	else if (!(*in_escape) && c != 11)
 		(*size)++;
+	return (0);
 }
 
-size_t	strlen_prompt(char *prompt)
+size_t		strlen_prompt(char *prompt)
 {
 	int		i;
 	size_t	size;
@@ -42,7 +45,8 @@ size_t	strlen_prompt(char *prompt)
 	size = 0;
 	while (prompt[i])
 	{
-		treat_size(prompt[i], &in_escape, &size);
+		if (treat_size(prompt[i], &in_escape, &size))
+			return (size);
 		i++;
 	}
 	return (size);
