@@ -22,7 +22,7 @@ char		*jump_quote(char *cmd, char **new, int *i)
 	(*i)++;
 	while (*cmd && *cmd != c)
 	{
-		if (*cmd == '\\' && *(cmd + 1) && *(cmd + 1) == '"' && c == '"')
+		if (*cmd == '\\' && *(cmd + 1) && c == '"')
 			cmd = jump_bs(cmd, new, i);
 		else
 		{

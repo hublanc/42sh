@@ -21,8 +21,7 @@ static int			spend_quote(char *str, int j)
 	i = 1;
 	while (str[j + i] && str[j + i] != c)
 	{
-		if (str[j + i] == '\\' && str[j + i + 1] && c == '"'
-			&& (str[j + i + 1] == '"' || str[j + i + 1] == '$'))
+		if (str[j + i] == '\\' && str[j + i + 1] && c == '"')
 			i++;
 		i++;
 	}
@@ -71,8 +70,7 @@ static int			getlen(char *str)
 			str++;
 			while (*str && *str != c)
 			{
-				if (*str == '\\' && *(str + 1) && c == '"'
-					&& (*(str + 1) == '"' || *(str + 1) == '$'))
+				if (*str == '\\' && *(str + 1) && c == '"')
 					str++;
 				len++;
 				str++;
@@ -99,7 +97,7 @@ static char			*cmdsub(char *str, int *i, int len)
 		if (str[*i] == '\'' || str[*i] == '"')
 			add_quote_content(str, new, i, &j);
 		else if (str[*i] == '\\')
-			new[j++] = str[((*i)++) + 1];
+			new[j++] = str[++(*i)];
 		else
 			new[j++] = str[*i];
 		str[*i] ? ++*i : 0;
