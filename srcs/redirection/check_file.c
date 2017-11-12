@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 14:39:50 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/10 14:44:10 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/12 14:03:40 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int		authorization_file(char *path, t_node *tree, char *link)
 		return (1);
 	if (access(link, F_OK) == -1 && type_redir(tree->token) == 1)
 		return (0);
-	else if (access(link, F_OK) == -1)
+	if (access(link, F_OK) == -1)
 		return (error_redir(path, "No such file or directory"));
 	else if (lstat(link, &s) != -1 && S_ISDIR(s.st_mode)
 			&& type_redir(tree->token) == 1)
@@ -67,34 +67,48 @@ static int		check_dir(char *path, char *dir)
 	return (0);
 }
 
-static int		prep_check_dir(char **dir, char *split, char *link, char *file)
+static int		prep_check_dir(char **dir, char *link, char *file)
 {
-	*dir = ft_strapp(*dir, split);
-	if (link[ft_strlen(*dir)] == '/')
-		*dir = ft_strapp(*dir, "/");
-	return (check_dir(file, *dir));
+	int		i;
+	char	**split;
+	int		error;
+
+	error = 0;
+	i = 0;
+	split = ft_strsplit(link, '/');
+	*dir = (link[0] == '/') ? ft_strdup("/") : ft_strnew(0);
+	if (link[0] == '/' && !ft_strcmp(link, ft_strrchr(link, '/'))
+			&& ft_strcmp(link, "/"))
+		error = check_dir(link, *dir);
+	while (split && split[i] && split[i + 1] && !error)
+	{
+		*dir = ft_strapp(*dir, split[i]);
+		if (link[ft_strlen(*dir)] == '/')
+			*dir = ft_strapp(*dir, "/");
+		error = check_dir(file, *dir);
+		i++;
+	}
+	del_tabstr(&split);
+	return (error);
 }
 
 char			*check_file(char *file, t_node *tree)
 {
 	char	*dir;
 	char	link[256];
-	int		i;
 	int		error;
-	char	**split;
 
-	if (readlink(file, link, 256) == -1)
+	if (ft_strlen(file) > 255)
+	{
+		abort_redir(tree);
+		error_redir(file, "File name too long");
+		ft_strdel(&file);
+		return (file);
+	}
+	if (readlink(file, link, 255) == -1)
 		ft_strcpy(link, file);
-	split = ft_strsplit(link, '/');
-	i = 0;
 	error = 0;
-	dir = (link[0] == '/') ? ft_strdup("/") : ft_strnew(0);
-	if (link[0] == '/' && !ft_strcmp(link, ft_strrchr(link, '/'))
-			&& ft_strcmp(link, "/"))
-		error = check_dir(file, dir);
-	while (split && split[i] && split[i + 1] && !error)
-		error = prep_check_dir(&dir, split[i++], link, file);
-	del_tabstr(&split);
+	error = prep_check_dir(&dir, link, file);
 	if (error || authorization_file(file, tree, link))
 	{
 		abort_redir(tree);

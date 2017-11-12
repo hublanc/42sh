@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/30 16:48:31 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/10 16:40:39 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/12 14:11:08 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int			cd_oldpwd(char ***env, char opt)
 {
 	t_loc	*loc;
 	char	*oldpwd;
-	char	pwd[256];
+	char	pwd[PATH_MAX + 1];
 
 	loc = NULL;
 	if (!(oldpwd = get_elem(env, "OLDPWD="))
@@ -50,12 +50,12 @@ int			cd_oldpwd(char ***env, char opt)
 		return (1);
 	}
 	(!oldpwd && loc) ? oldpwd = loc->value : 0;
-	if ((opt == 'P' && chdir(oldpwd) == -1)
+	if (ft_strlen(oldpwd) > 255 || (opt == 'P' && chdir(oldpwd) == -1)
 			|| (oldpwd[0] && chdir(oldpwd) == -1))
 		return (error_chdir(&oldpwd, oldpwd, 0));
 	if (opt == 'P')
 	{
-		getcwd(pwd, 256);
+		getcwd(pwd, PATH_MAX);
 		change_env(env, pwd);
 		ft_putendl(oldpwd);
 	}

@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/30 16:43:04 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/10 16:36:22 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/12 14:09:06 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int			cd_home(char ***env, char opt)
 {
 	t_loc	*loc;
 	char	*home;
-	char	pwd[256];
+	char	pwd[PATH_MAX + 1];
 
 	loc = NULL;
 	if (!(home = get_elem(env, "HOME="))
@@ -49,12 +49,12 @@ int			cd_home(char ***env, char opt)
 		return (1);
 	}
 	(!home && loc) ? home = loc->value : 0;
-	if ((opt == 'P' && chdir(home) == -1)
+	if (ft_strlen(home) > 255 || (opt == 'P' && chdir(home) == -1)
 			|| (home[0] && chdir(home) == -1))
 		return (error_chdir(&home, home, 0));
 	if (opt == 'P')
 	{
-		getcwd(pwd, 256);
+		getcwd(pwd, PATH_MAX);
 		change_env(env, pwd);
 	}
 	else

@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/30 16:56:50 by lbopp             #+#    #+#             */
-/*   Updated: 2017/10/30 17:15:12 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/12 14:07:55 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int	exec_cd_default(char *curpath, char ***env, char *arg)
 	}
 	else
 		pwd = ft_strdup(curpath);
-	if (chdir(pwd) == -1)
+	if (ft_strlen(arg) > 255 || chdir(pwd) == -1)
 		return (error_chdir(&pwd, arg, 1));
 	change_env(env, pwd);
 	ft_strdel(&pwd);
@@ -51,11 +51,11 @@ static int	exec_cd_default(char *curpath, char ***env, char *arg)
 
 static int	exec_cd_p(char *curpath, char ***env, char *arg)
 {
-	char	pwd[256];
+	char	pwd[PATH_MAX + 1];
 
-	if (chdir(curpath) == -1)
+	if (ft_strlen(arg) > 255 || chdir(curpath) == -1)
 		return (error_chdir(&curpath, arg, 0));
-	getcwd(pwd, 256);
+	getcwd(pwd, PATH_MAX);
 	change_env(env, pwd);
 	return (0);
 }
