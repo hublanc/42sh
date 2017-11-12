@@ -6,11 +6,28 @@
 /*   By: nbouchin <nbouchin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 11:46:11 by nbouchin          #+#    #+#             */
-/*   Updated: 2017/11/07 16:38:17 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/12 16:59:35 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
+
+void	treat_size(char c, int *in_escape, size_t *size)
+{
+	if (c == 27)
+		*in_escape = 1;
+	else if ((*in_escape == 1 && c != '[')
+			|| (*in_escape == 2 && ft_isalpha(c)))
+		*in_escape = 0;
+	else if (*in_escape && c == '[')
+		*in_escape = 2;
+	else if (c == 9)
+		*size += 4;
+	else if (c == 10)
+		*size = 0;
+	else if (!(*in_escape))
+		(*size)++;
+}
 
 size_t	strlen_prompt(char *prompt)
 {
@@ -25,15 +42,7 @@ size_t	strlen_prompt(char *prompt)
 	size = 0;
 	while (prompt[i])
 	{
-		if (prompt[i] == 27)
-			in_escape = 1;
-		else if ((in_escape == 1 && prompt[i] != '[')
-				|| (in_escape == 2 && ft_isalpha(prompt[i])))
-			in_escape = 0;
-		else if (in_escape && prompt[i] == '[')
-			in_escape = 2;
-		else if (!in_escape)
-			size++;
+		treat_size(prompt[i], &in_escape, &size);
 		i++;
 	}
 	return (size);
