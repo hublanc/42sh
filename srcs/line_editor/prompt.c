@@ -6,7 +6,7 @@
 /*   By: nbouchin <nbouchin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 11:46:11 by nbouchin          #+#    #+#             */
-/*   Updated: 2017/11/12 17:06:29 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/12 17:09:55 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ size_t		strlen_prompt(char *prompt)
 	return (size);
 }
 
-void	print_prompt(void)
+void		print_prompt(void)
 {
 	char	*prompt;
 	char	*tmp;
@@ -76,7 +76,7 @@ void	print_prompt(void)
 	ft_strdel(&prompt);
 }
 
-char	*return_prompt(void)
+char		*return_prompt(void)
 {
 	char	*prompt;
 	char	*tmp;
