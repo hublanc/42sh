@@ -26,8 +26,7 @@ void		add_quote_content(char *str, char *new, int *i, int *j)
 	c = str[(*i)++];
 	while (str[*i] && str[*i] != c)
 	{
-		if (str[*i] == '\\' && str[*i + 1] && c == '"'
-			&& (str[*i + 1] == '"' || str[*i + 1] == '$'))
+		if (str[*i] == '\\' && str[*i + 1] && c == '"')
 			(*i)++;
 		new[(*j)++] = str[(*i)++];
 	}

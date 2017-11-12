@@ -21,8 +21,7 @@ char		check_quote(char *str)
 	in_quote = 0;
 	while (str && *str)
 	{
-		if (*str == '\\' && (!in_quote || (in_quote == '"'
-			&& *(str + 1) && *(str + 1) == '"')))
+		if (*str == '\\' && (!in_quote || in_quote == '"'))
 		{
 			if (*(str + 1))
 				str += 1;
