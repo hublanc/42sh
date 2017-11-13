@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/09 15:57:56 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/10 17:43:20 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/13 20:33:31 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,7 @@ int			return_void(t_cmd *cmd, t_control **history, char ***env)
 	if (cmd->str)
 		enter_hub(cmd, history, env);
 	else if (!(is_sigint(0)))
-	{
-		ft_putstr("TEST");
 		print_prompt();
-	}
 	return (1);
 }
 
