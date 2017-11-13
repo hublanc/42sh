@@ -43,7 +43,7 @@ void		change_cmd(char *new, t_cmd *cmd)
 	go_begin(cmd->col, cmd->sc_col);
 	tputs(tgetstr("cd", NULL), 1, tputchar);
 	choose_prompt(cmd);
-	ft_putstr_fd(new, 2);
+	ft_putstr(new);
 	cmd->col = ft_strlen(new) + cmd->prlen + (cmd->prlen ? 1 : 0);
 	ft_strdel(&(cmd->str));
 	cmd->str = ft_strdup(new);
