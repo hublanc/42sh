@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 17:36:47 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/13 13:14:07 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/13 16:55:42 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ static void	pass_prompt(t_cmd *cmd)
 
 	if (!isatty(2) || !ttyyyy(2))
 		return ;
-	i = 0;
-	while (i < cmd->prlen)
+	i = 1;
+	while (i <= cmd->prlen)
 	{
-		if (i == cmd->sc_col)
+		if (i % cmd->sc_col == 0)
 			go_down();
 		else
 			tputs(tgetstr("nd", NULL), 1, tputchar);
