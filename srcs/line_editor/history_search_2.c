@@ -39,3 +39,11 @@ char		*return_sigint(char **to_del, char *to_save)
 	save_buf(to_save);
 	return (NULL);
 }
+
+char		*return_sigint_2(char **to_del, char *to_save)
+{
+	set_lenprev(0);
+	can_sigint(1);
+	is_sigint(1);
+	return (return_sigint(to_del, to_save));
+}

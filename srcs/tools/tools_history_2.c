@@ -76,7 +76,10 @@ int			return_void(t_cmd *cmd, t_control **history, char ***env)
 	if (cmd->str)
 		enter_hub(cmd, history, env);
 	else if (!(is_sigint(0)))
+	{
+		ft_putstr("TEST");
 		print_prompt();
+	}
 	return (1);
 }
 

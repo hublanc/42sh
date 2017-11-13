@@ -37,7 +37,7 @@ int			return_lenprev(void)
 
 char		*history_search(t_control **history)
 {
-	char		buf[3];
+	char		buf[4];
 	char		*search;
 	t_lst		*tmp;
 
@@ -45,16 +45,13 @@ char		*history_search(t_control **history)
 		return (0);
 	init_hist_search(&search, &tmp);
 	ft_strclr(buf);
-	while (read(0, &buf, 3))
+	while (read(0, &buf, 4))
 	{
 		if (is_sigint(0))
-		{
-			set_lenprev(0);
-			can_sigint(1);
-			is_sigint(1);
-			return (return_sigint(&search, buf));
-		}
-		if (ft_isprint(buf[0]) || (buf[0] == 127)
+			return (return_sigint_2(&search, buf));
+		if (buf[0] == 27 && buf[1] == 91 && buf[2] == 51 && buf[3] == 126)
+			;
+		else if (ft_isprint(buf[0]) || (buf[0] == 127)
 			|| (buf[0] == 27 && tmp))
 			tmp = while_handler(buf, &search, history, tmp);
 		else if (buf[0] != 18)
@@ -77,6 +74,7 @@ char		*return_handler(t_lst *tmp, char *buf, char **search)
 		exit(0);
 	else
 	{
+		ft_strclr(buf);
 		set_lenprev(0);
 		ft_strdel(search);
 		ft_putchar('\n');
