@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/05 16:40:44 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/13 14:54:11 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/13 15:37:22 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ static int	do_export(char *name, char ***env)
 	int		i;
 
 	i = -1;
-	while (name && (name[++i] == ' ' || name[i] == '='))
-		if (name[i] == '=')
+	while (name && (name[++i] != '=' || i == 0))
+		if (!name[0] || name[0] == '=' || name[i] == ' ')
 			return (error_export(name));
 	if (!(tab = NULL) && ft_strchr(name, '='))
 	{
