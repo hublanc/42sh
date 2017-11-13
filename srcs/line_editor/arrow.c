@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 19:28:26 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/07 16:33:03 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/13 15:24:58 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,10 @@ void		control_homend(char *str, t_cmd *cmd)
 
 void		arrow_handler(char *str, t_cmd *cmd, t_control **hist)
 {
-	if (str[2] == 68 && cmd && cmd->col > cmd->prlen + 1)
+	if (str[2] == 68 && cmd && cmd->col > cmd->prlen + (cmd->prlen ? 1 : 0))
 		go_left(cmd);
-	else if (str[2] == 67 && cmd
-			&& cmd->col < (int)ft_strlen(cmd->str) + cmd->prlen + 1)
+	else if (str[2] == 67 && cmd && cmd->col
+			< (int)ft_strlen(cmd->str) + cmd->prlen + (cmd->prlen ? 1 : 0))
 		go_right(cmd);
 	else if (ttyyyy(0) && str[2] == 65)
 		seek_next(hist, cmd);

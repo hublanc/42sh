@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 14:47:27 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/10 12:59:07 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/13 15:23:38 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void		go_right(t_cmd *cmd)
 		cmd->col++;
 		return ;
 	}
-	if (cmd->col % cmd->sc_col == 0)
+	if (cmd->col > 1 && cmd->col % cmd->sc_col == 0)
 	{
 		tputs(tgetstr("cr", NULL), 1, tputchar);
 		tputs(tgetstr("do", NULL), 1, tputchar);
@@ -51,7 +51,7 @@ void		go_left(t_cmd *cmd)
 		return ;
 	}
 	col = cmd->sc_col;
-	if (cmd->col % cmd->sc_col == 1)
+	if (cmd->col > 1 && cmd->col % cmd->sc_col == 1)
 	{
 		tputs(tgetstr("up", NULL), 1, tputchar);
 		while (col-- > 0)
