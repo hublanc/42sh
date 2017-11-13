@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/31 18:48:25 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/13 10:59:08 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/13 13:42:41 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,10 @@ int			hash_built(char **tab, char **env)
 	if (opt == 'r')
 		del_hash(list);
 	while (tab && tab[i])
-		status = try_addht(tab[i++], env);
+	{
+		if (!builtin_tab(tab[i]))
+			status = try_addht(tab[i], env);
+		i++;
+	}
 	return (status);
 }

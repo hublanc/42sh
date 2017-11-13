@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 17:27:30 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/13 10:48:01 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/13 13:41:27 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ int					get_fail(void);
 */
 int					built_in(t_node *tree, char **tab, char ***env,
 					t_control **his);
-int					builtin_tab(char **tab);
+int					builtin_tab(char *str);
 
 /*
 **	Manage_pid.c

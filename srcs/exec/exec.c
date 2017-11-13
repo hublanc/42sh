@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/26 16:13:08 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/01 15:23:23 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/13 13:41:05 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void		get_cmd(t_node *tree, char ***env, int *status, t_control **his)
 	tab = ft_cmdsplit(tree->token);
 	if (!tree->token || *(tree->token) == '\0' || !tab || !*tab)
 		return (del_tabstr(&tab));
-	if (builtin_tab(tab))
+	if (builtin_tab(tab[0]))
 		*status = built_in(tree, tab, env, his);
 	else
 	{

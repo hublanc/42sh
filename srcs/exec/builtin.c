@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/25 18:26:10 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/07 14:45:20 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/13 13:40:23 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,14 +93,14 @@ int			built_in(t_node *tree, char **tab, char ***env, t_control **his)
 	return (status);
 }
 
-int			builtin_tab(char **tab)
+int			builtin_tab(char *str)
 {
-	if (!ft_strcmp(tab[0], "exit") || !ft_strcmp(tab[0], "echo")
-	|| !ft_strcmp(tab[0], "setenv") || !ft_strcmp(tab[0], "unsetenv")
-	|| !ft_strcmp(tab[0], "env") || !ft_strcmp(tab[0], "cd")
-	|| !ft_strcmp(tab[0], "history") || !ft_strcmp(tab[0], "unset")
-	|| !ft_strcmp(tab[0], "export") || !ft_strcmp(tab[0], "read")
-	|| !ft_strcmp(tab[0], "hash"))
+	if (!ft_strcmp(str, "exit") || !ft_strcmp(str, "echo")
+	|| !ft_strcmp(str, "setenv") || !ft_strcmp(str, "unsetenv")
+	|| !ft_strcmp(str, "env") || !ft_strcmp(str, "cd")
+	|| !ft_strcmp(str, "history") || !ft_strcmp(str, "unset")
+	|| !ft_strcmp(str, "export") || !ft_strcmp(str, "read")
+	|| !ft_strcmp(str, "hash"))
 		return (1);
 	else
 		return (0);
