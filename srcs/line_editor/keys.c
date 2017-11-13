@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/31 12:52:57 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/13 15:45:17 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/13 15:46:43 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,14 @@ static void	handle_key2(t_cmd *cmd, t_control **history, char ***env, char *buf)
 	{
 		buf[1] ? save_buf(buf + 1) : 0;
 		buf[1] ? can_sigint(1) : 0;
+<<<<<<< HEAD
 		ttyyyy(0) ? ft_putstr(cmd->str + cmd->col -
 				(cmd->prlen ? 1 : 0) - cmd->prlen) : 0;
 		buf = save_buf(NULL);
+=======
+		ttyyyy(0) ? ft_putstr(cmd->str + cmd->col - 1 - cmd->prlen) : 0;
+>>>>>>> 412fec0810a7576b0ed61c77fa1794d8b8c2dc49
 		enter_hub(cmd, history, env);
-		buf = save_buf(NULL);
 	}
 	else if ((buf[0] == -30 || buf[0] == -61) && ttyyyy(0))
 		copy_cut_paste_handler(cmd, buf);
