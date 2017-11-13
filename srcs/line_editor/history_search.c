@@ -50,7 +50,7 @@ char		*history_search(t_control **history)
 		if (is_sigint(0))
 			return (return_sigint_2(&search, buf));
 		if (buf[0] == 27 && buf[1] == 91 && buf[2] == 51 && buf[3] == 126)
-			;
+			break ;
 		else if (ft_isprint(buf[0]) || (buf[0] == 127)
 			|| (buf[0] == 27 && tmp))
 			tmp = while_handler(buf, &search, history, tmp);
