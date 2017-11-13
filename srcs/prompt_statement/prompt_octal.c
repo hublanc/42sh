@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/10 11:50:36 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/12 16:42:14 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/13 12:47:43 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,13 @@ static void	get_octal_value2(char **line, int *i, int int_octal, int size)
 	ft_strdel(line);
 	tmp[1] = '\0';
 	tmp[0] = int_octal;
-	*i += size;
-	*line = before_curr_after(&before, tmp, &after);
+	if (int_octal >= 32 && int_octal <= 126)
+		*line = before_curr_after(&before, tmp, &after);
+	else
+	{
+		*line = before_curr_after(&before, NULL, &after);
+		*i -= size;
+	}
 }
 
 void		get_octal_value(char **line, int *i, char *code)
