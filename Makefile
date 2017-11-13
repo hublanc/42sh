@@ -6,7 +6,7 @@
 #    By: lbopp <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/05 18:23:34 by lbopp             #+#    #+#              #
-#    Updated: 2017/11/13 10:07:11 by amazurie         ###   ########.fr        #
+#    Updated: 2017/11/13 13:55:25 by hublanc          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ SRC		=	main.c\
 			line_editor/line_edit.c\
 			line_editor/load_history.c\
 			line_editor/enter_handler.c\
+			line_editor/extra_enter.c\
 			line_editor/cut_copy_paste.c\
 			line_editor/cut_copy_paste2.c\
 			line_editor/cut_copy_paste3.c\

@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/11 14:30:26 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/10 17:06:16 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/13 13:55:52 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,10 +126,7 @@ void		enter_hub(t_cmd *cmd, t_control **history, char ***env)
 		cmd->str = tmp;
 	else
 		ft_strdel(&tmp);
-	if (t == 2)
-		clear_cmd(cmd);
-	if (t == 2)
-		*cmd = init_cmd(return_prompt());
+	t_istwo(t, cmd);
 	if (!cmd->prompt)
 		enter_handler(cmd, history, env);
 	else if (cmd->pr_quote)
