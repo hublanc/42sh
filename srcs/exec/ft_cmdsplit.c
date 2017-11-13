@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/06 15:56:19 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/02 10:40:22 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/13 13:07:52 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int			spend_quote(char *str, int j)
 	i = 1;
 	while (str[j + i] && str[j + i] != c)
 	{
-		if (str[j + i] == '\\' && str[j + i + 1] && c == '"')
+		if (str[j + i] == '\\' && str[j + i + 1] == '\\' && c == '"')
 			i++;
 		i++;
 	}
@@ -70,7 +70,7 @@ static int			getlen(char *str)
 			str++;
 			while (*str && *str != c)
 			{
-				if (*str == '\\' && *(str + 1) && c == '"')
+				if (*str == '\\' && *(str + 1) == '\\' && c == '"')
 					str++;
 				len++;
 				str++;
