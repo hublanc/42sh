@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/11 20:35:41 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/07 16:27:17 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/13 20:28:04 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void		stock_buffer(t_cmd *cmd, int start)
 	}
 	else if (start > cmd->col)
 	{
-		len = start - cmd->col;
+		len = start - cmd->col + 1;
 		start = cmd->col - 1 - cmd->prlen;
 		cmd->buffer = ft_strsub(cmd->str, start, len);
 	}
@@ -44,9 +44,16 @@ void		cut_str(t_cmd *cmd, int start)
 	}
 	else if (start > cmd->col)
 	{
-		i = start - cmd->col - 1;
+		i = start - cmd->col;
 		while (i >= 0)
-			cmd->str = ft_strdelone(cmd->str, (cmd->col + i--) - cmd->prlen);
+		{
+			if (cmd->col + i - cmd->prlen - 1 >= 0
+				&& cmd->str[cmd->col + i - cmd->prlen - 1])
+				cmd->str = ft_strdelone(cmd->str,
+						(cmd->col + i--) - cmd->prlen);
+			else
+				i--;
+		}
 	}
 }
 

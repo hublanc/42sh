@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/11 20:42:22 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/07 16:27:13 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/13 18:42:41 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,12 @@ void		print_up(int nb, int n)
 	tputs(tgetstr("do", NULL), 1, tputchar);
 	ft_putnbr(n);
 	tputs(tgetstr("rc", NULL), 1, tputchar);
+}
+
+void		sigint_ccp(char *buf)
+{
+	save_buf(buf);
+	can_sigint(1);
+	is_sigint(1);
+	return ;
 }

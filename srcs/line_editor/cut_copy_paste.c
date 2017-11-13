@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/01 15:46:37 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/05 23:01:18 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/13 18:44:27 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ static void		cut_handler(t_cmd *cmd)
 	{
 		bzero(buf, 6);
 		read(0, buf, 5);
+		if (is_sigint(0))
+			return (sigint_ccp(buf));
 		core_handler(cmd, buf, &swap, start);
 	}
 	stock_buffer(cmd, start);
@@ -81,12 +83,7 @@ static void		copy_handler(t_cmd *cmd)
 		bzero(buf, 6);
 		read(0, buf, 5);
 		if (is_sigint(0))
-		{
-			save_buf(buf);
-			can_sigint(1);
-			is_sigint(1);
-			return ;
-		}
+			return (sigint_ccp(buf));
 		core_handler(cmd, buf, &swap, start);
 	}
 	stock_buffer(cmd, start);

@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 16:36:09 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/13 16:21:33 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/13 18:42:57 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,7 @@ void				stock_buffer(t_cmd *cmd, int start);
 */
 void				print_charev(t_cmd *cmd);
 void				print_up(int nb, int n);
+void				sigint_ccp(char *buf);
 
 /*
 **	Load_history.c
