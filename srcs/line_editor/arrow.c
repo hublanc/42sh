@@ -71,8 +71,9 @@ void		arrow_handler(char *str, t_cmd *cmd, t_control **hist)
 		seek_next(hist, cmd);
 	else if (ttyyyy(0) && str[2] == 66)
 		seek_prev(hist, cmd);
-	else if ((cmd && (size_t)cmd->col - cmd->prlen - 1 < ft_strlen(cmd->str))
-		&& ((str[1] == 91 && str[2] == 51 && str[3] == 126) || str[0] == 4))
+	else if ((cmd && (size_t)cmd->col - cmd->prlen - (cmd->prlen ? 1 : 0)
+		< ft_strlen(cmd->str)) && ((str[1] == 91 && str[2] == 51
+			&& str[3] == 126) || str[0] == 4))
 	{
 		cmd->str = ft_strdelone(cmd->str, cmd->col - cmd->prlen);
 		print_line(cmd);

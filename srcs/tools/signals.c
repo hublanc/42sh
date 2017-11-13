@@ -70,7 +70,8 @@ void		get_signal(int n)
 	{
 		cmd = save_cmd(NULL);
 		(cmd && cmd->str && cmd->str + cmd->col - 1 - cmd->prlen)
-			? ft_putstr(cmd->str + cmd->col - 1 - cmd->prlen) : 0;
+			? ft_putstr(cmd->str + cmd->col - (cmd->prlen ? 1 : 0)
+					- cmd->prlen) : 0;
 		ft_putchar('\n');
 		tputs(tgetstr("cd", NULL), 1, tputchar);
 		!ttyyyy(0) ? ft_putchar_fd('\n', 2) : 0;
