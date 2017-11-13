@@ -6,14 +6,15 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/31 12:52:57 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/13 15:48:42 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/13 16:22:00 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-static int	check_sigint2(t_cmd *cmd, char **buf)
+static int	check_sigint2(t_cmd *cmd, char **buf, t_control **history)
 {
+	set_selected_null(history);
 	*buf = return_prompt();
 	if (ft_strcmp(cmd->prompt, *buf))
 	{
@@ -33,12 +34,12 @@ static int	check_sigint2(t_cmd *cmd, char **buf)
 	return (0);
 }
 
-static int	check_sigint(t_cmd *cmd, char **buf)
+static int	check_sigint(t_cmd *cmd, char **buf, t_control **history)
 {
 	int	i;
 
 	if ((i = can_sigint(0)) && is_sigint(0))
-		return (check_sigint2(cmd, buf));
+		return (check_sigint2(cmd, buf, history));
 	else if (i)
 	{
 		ft_strdel(buf);
@@ -114,7 +115,7 @@ void		key_handler(t_cmd *cmd, t_control **history, char ***env)
 
 	init_screen(cmd);
 	buf = NULL;
-	if ((i = check_sigint(cmd, &buf)) == 1)
+	if ((i = check_sigint(cmd, &buf, history)) == 1)
 		key_handler_sigint(cmd, history, env, &buf);
 	else if (i == -1)
 		return ;

@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 11:50:54 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/09 16:48:47 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/13 16:13:08 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ int					get_other_flags(char **tab, int i, int j,
 					t_hist_flags *flags);
 
 /*
-**	Cd_builtin
+**	cd_builtin
 */
 
 void				add_slash(char **content);
