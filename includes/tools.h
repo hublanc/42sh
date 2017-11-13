@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 18:24:56 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/07 16:23:39 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/13 14:10:53 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,5 +132,6 @@ int			tablen(char **tab);
 **	tools_tty.c
 */
 int			ttyyyy(int i);
+int			check_in(struct termios term);
 
 #endif
