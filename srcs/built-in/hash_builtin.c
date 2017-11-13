@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/31 18:48:25 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/01 15:00:14 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/13 10:59:08 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static int	check_opt_hash(char **tab, char *opt)
 {
+	char	*tmp;
 	int		i;
 
 	i = 1;
@@ -25,17 +26,26 @@ static int	check_opt_hash(char **tab, char *opt)
 			i++;
 			break ;
 		}
-		if (!ft_strcmp(tab[i], "-r"))
+		tmp = tab[i];
+		while (*(++tmp) == 'r' && *tmp && (tmp = ft_strchr(tmp, 'r')))
 			*opt = 'r';
-		else
+		if (tab[i][1] && (tmp && *tmp && *tmp != 'r'))
 		{
-			ft_putstr_fd("hash: bad option : ", 2);
-			ft_putendl_fd(tab[i], 2);
+			ft_putstr_fd("shell: hash: bad option : -", 2);
+			ft_putchar_fd(*tmp, 2);
+			ft_putchar_fd('\n', 2);
 			return (0);
 		}
 		i++;
 	}
 	return (i);
+}
+
+static void	try_addht_notfound(char *value)
+{
+	ft_putstr_fd("shell: hash: ", 2);
+	ft_putstr_fd(value, 2);
+	ft_putstr_fd(": not found \n", 2);
 }
 
 static int	try_addht(char *value, char **env)
@@ -61,6 +71,8 @@ static int	try_addht(char *value, char **env)
 		del_tabstr(&bin);
 		return (0);
 	}
+	else
+		try_addht_notfound(value);
 	del_tabstr(&bin);
 	return (1);
 }
@@ -73,7 +85,7 @@ static int	disp_hash(void)
 	hash = singleton_hash();
 	tmp = *hash;
 	if (!tmp)
-		ft_putstr_fd("hash: hash table empty\n", 2);
+		ft_putstr_fd("shell: hash: hash table empty\n", 2);
 	while (tmp)
 	{
 		ft_putstr(tmp->value);

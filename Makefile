@@ -6,7 +6,7 @@
 #    By: lbopp <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/05 18:23:34 by lbopp             #+#    #+#              #
-#    Updated: 2017/11/10 14:43:45 by lbopp            ###   ########.fr        #
+#    Updated: 2017/11/13 10:07:11 by amazurie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -168,6 +168,9 @@ $(NAME): $(LIB) $(OBJS)
 	@tput cd
 	@echo "${GRN}$(NAME) created${NC}"
 	@echo "${CYN}PROCESSING DONE !${NC}"
+	@echo "${CYN}"
+	@cat starting/name
+	@echo "${NC}"
 
 $(OBJDIR):
 	@mkdir -p objs objs/built-in objs/tools objs/exec objs/lexer objs/redirection objs/line_editor objs/completion objs/prompt_statement objs/built-in/read objs/built-in/cd objs/line_editor/bang
