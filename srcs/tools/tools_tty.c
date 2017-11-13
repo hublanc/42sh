@@ -58,5 +58,7 @@ int			ttyyyy(int i)
 		return (isatty(0) && isatty(1));
 	if (i == 2)
 		return (isatty(0));
+	if (i == 3)
+		return (isatty(0) && isatty(2));
 	return (1);
 }
