@@ -6,16 +6,18 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/07 16:18:47 by amazurie          #+#    #+#             */
-/*   Updated: 2017/11/13 13:49:00 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/13 14:29:24 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-static void	test_tty(struct termios term)
+static int	test_tty(struct termios term, int i)
 {
 	char	tmp[6];
+	int		ret;
 
+	ret = 0;
 	term.c_cc[VMIN] = 0;
 	term.c_cc[VTIME] = 1;
 	tcsetattr(0, TCSADRAIN, &term);
@@ -24,26 +26,30 @@ static void	test_tty(struct termios term)
 	{
 		tmp[0] = 0;
 		if (read(0, tmp, 5) == -1)
-			exit(EXIT_FAILURE);
+			ret = 1;
 		if (!tmp[0])
-			exit(EXIT_FAILURE);
-		save_buf(tmp);
-		can_sigint(1);
+			ret = 1;
+		i == 0 ? save_buf(tmp) : 0;
+		i == 0 ? can_sigint(1) : 0;
 	}
 	if (!isatty(1))
 		if (read(1, tmp, 0) == -1)
-			exit(EXIT_FAILURE);
+			ret += 2;
+	return (ret);
 }
 
-void		check_in(struct termios term)
+int			check_in(struct termios term, int i)
 {
-	g_term = term;
+	int		ret;
+
+	ret = 0;
 	term.c_lflag &= ~(ECHO | ICANON);
 	if (!save_buf(NULL))
-		test_tty(term);
+		ret = test_tty(term, i);
 	term.c_cc[VMIN] = 1;
 	term.c_cc[VTIME] = 0;
 	tcsetattr(0, TCSADRAIN, &term);
+	return (ret);
 }
 
 int			ttyyyy(int i)

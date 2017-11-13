@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 12:58:47 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/13 12:59:55 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/13 14:30:03 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ int			ft_echo(char **tab)
 
 	i = 1;
 	nl = 1;
-	if (fcntl(STDOUT_FILENO, F_GETFD) < 0)
+	if (check_in(g_term, 1) > 1)
 	{
 		ft_putstr_fd("echo: write error: Bad file descriptor\n", 2);
 		return (1);

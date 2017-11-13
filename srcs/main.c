@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/24 16:37:30 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/13 11:56:34 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/13 14:23:01 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,6 @@ int			main(int ac, char **av, char **env)
 	history = load_history(env);
 	while (1)
 		key_handler(&cmd, &history, save_env(NULL));
-	saved_loc(1);
+	saved_loc(NULL, 1);
 	del_tabstr(&cp_env);
 }

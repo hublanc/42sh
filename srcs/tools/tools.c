@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/26 11:28:19 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/09 15:48:01 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/13 14:23:14 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int			stop_shell(char ***env, char **tab, t_control **history)
 	}
 	if (*history)
 		*history = dll_clear_list(*history);
-	saved_loc(1);
+	saved_loc(NULL, 1);
 	reset_term();
 	exit(status > 255 ? status - 255 : status);
 }
