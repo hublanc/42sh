@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 16:36:09 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/13 13:55:00 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/13 16:21:33 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,17 +170,19 @@ t_lst				*history_search_2(t_control **history, char *search);
 t_lst				*while_handler(char *buf, char **search,
 					t_control **history, t_lst *tmp);
 t_lst				*move_in_hist(t_lst *pos, char *buf, t_control **history);
-void				set_search_prompt(char *search, t_lst *tmp, int type);
+void				set_search_prompt(char *search, t_lst *tmp, int type, int mode);
 t_lst				*while_handler(char *buf, char **search,
 					t_control **history, t_lst *tmp);
 char				*return_handler(t_lst *tmp, char *buf, char **search);
 void				init_hist_search(char **search, t_lst **tmp);
 char				*return_sigint(char **to_del, char *to_save);
-void				set_failing(char *search, struct winsize z);
+void				set_failing(char *search, struct winsize z, int mode);
 
 int					*singleton_len_prev(void);
 void				set_lenprev(int val);
 int					return_lenprev(void);
+void				go_up_ctrlr(struct winsize z);
+void				go_down_ctrlr(void);
 
 /*
 **	Bang_1.c

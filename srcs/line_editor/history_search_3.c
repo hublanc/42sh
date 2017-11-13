@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 21:11:19 by mameyer           #+#    #+#             */
-/*   Updated: 2017/11/10 21:11:20 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/11/13 16:26:03 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,51 +19,52 @@ t_lst		*while_handler(char *buf, char **search, t_control **history,
 	{
 		*search = ft_str_chr_cat(*search, buf[0]);
 		tmp = history_search_2(history, *search);
-		set_search_prompt(*search, tmp, 1);
+		set_search_prompt(*search, tmp, 1, 1);
 	}
 	else if (buf[0] == 127 && *search && ft_strlen(*search) <= 1)
 	{
 		tmp = NULL;
 		if (ft_strlen(*search) == 1)
 			*search = ft_strdelone(*search, ft_strlen(*search));
-		set_search_prompt(*search, tmp, 0);
+		set_search_prompt(*search, tmp, 0, 0);
 	}
 	else if (buf[0] == 127 && *search && ft_strlen(*search) > 1)
 	{
 		*search = ft_strdelone(*search, ft_strlen(*search));
 		tmp = history_search_2(history, *search);
-		set_search_prompt(*search, tmp, 1);
+		set_search_prompt(*search, tmp, 1, 0);
 	}
 	else if (buf[0] == 27 && tmp)
 	{
 		tmp = move_in_hist(tmp, buf, history);
-		set_search_prompt(*search, tmp, 1);
+		set_search_prompt(*search, tmp, 1, 1);
 	}
 	return (tmp);
 }
 
-void		set_search_prompt_2(char *search, t_lst *tmp, struct winsize z)
+void		set_search_prompt_2(char *search, t_lst *tmp, struct winsize z,
+			int mode)
 {
-	if (ttyyyy(0))
+	if (ttyyyy(0) && tmp)
 	{
+		if (tmp
+		&& (22 + ft_strlen(tmp->name) + ft_strlen(search)) % z.ws_col == 0
+		&& !mode)
+			go_up_ctrlr(z);
 		go_begin((ft_strlen(search) + 22 + return_lenprev()), z.ws_col);
 		history_isatty(search);
+		(tmp && ttyyyy(0)) ? ft_putstr(tmp->name) : 0;
+		tmp ? set_lenprev(ft_strlen(tmp->name)) : 0;
 	}
-	(tmp && ttyyyy(0)) ? ft_putstr(tmp->name) : 0;
-	tmp ? set_lenprev(ft_strlen(tmp->name)) : 0;
-	if (tmp && (22 + ft_strlen(tmp->name) + ft_strlen(search)) % z.ws_col == 0)
-	{
-		ttyyyy(0) ? tputs(tgetstr("cr", NULL), 1, tputchar) : 0;
-		ttyyyy(0) ? tputs(tgetstr("do", NULL), 1, tputchar) : 0;
-	}
-	if (tmp)
+	if (tmp && (22 + ft_strlen(tmp->name) + ft_strlen(search)) % z.ws_col == 0
+		&& mode)
+		go_down_ctrlr();
+	if (tmp || !ttyyyy(0))
 		return ;
-	if (!ttyyyy(0))
-		return ;
-	set_failing(search, z);
+	set_failing(search, z, mode);
 }
 
-void		set_search_prompt(char *search, t_lst *tmp, int type)
+void		set_search_prompt(char *search, t_lst *tmp, int type, int mode)
 {
 	struct winsize		z;
 	int					len;
@@ -81,7 +82,7 @@ void		set_search_prompt(char *search, t_lst *tmp, int type)
 		ttyyyy(0) ? ft_putstr("(reverse-i-search)`': ") : 0;
 		return ;
 	}
-	set_search_prompt_2(search, tmp, z);
+	set_search_prompt_2(search, tmp, z, mode);
 }
 
 t_lst		*history_search_2(t_control **history, char *search)

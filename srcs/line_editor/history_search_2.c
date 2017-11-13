@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/05 18:36:43 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/04 19:34:02 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/13 16:09:29 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void		init_hist_search(char **search, t_lst **tmp)
 	if (!((*search) = (char *)malloc(sizeof(char) * 1)))
 		exit(EXIT_FAILURE);
 	ft_strclr(*search);
-	set_search_prompt(NULL, NULL, 0);
+	set_search_prompt(NULL, NULL, 0, 1);
 }
 
 char		*return_sigint(char **to_del, char *to_save)
