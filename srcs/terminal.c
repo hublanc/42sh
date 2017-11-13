@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 11:40:20 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/13 13:47:06 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/13 14:15:44 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ void		set_terminal(void)
 {
 	struct termios	term;
 	char			*name_term;
+	int				ret;
 
 	name_term = getenv("TERM");
 	if (((!name_term || !*name_term) || tgetent(NULL, name_term) == -1)
@@ -94,7 +95,9 @@ void		set_terminal(void)
 		exit(EXIT_FAILURE);
 	}
 	tcgetattr(0, &term);
-	check_in(term);
+	ret = check_in(term);
+	if (ret > 0)
+		exit(EXIT_FAILURE);
 }
 
 void		reset_term(void)

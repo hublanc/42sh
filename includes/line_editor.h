@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 16:36:09 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/10 18:02:41 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/13 13:55:00 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,11 @@ int					save_history_in_file(t_control **history, char *file_name);
 **	Enter_handler.c
 */
 void				enter_hub(t_cmd *cmd, t_control **history, char ***env);
+
+/*
+**	Extra_enter.c
+*/
+void				t_istwo(int t, t_cmd *cmd);
 
 /*
 **	History search
