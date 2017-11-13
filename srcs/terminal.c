@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 11:40:20 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/13 14:15:44 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/13 14:29:20 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,8 @@ void		set_terminal(void)
 		exit(EXIT_FAILURE);
 	}
 	tcgetattr(0, &term);
-	ret = check_in(term);
+	g_term = term;
+	ret = check_in(term, 0);
 	if (ret > 0)
 		exit(EXIT_FAILURE);
 }

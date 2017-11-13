@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/25 18:26:10 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/13 14:18:01 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/13 14:29:15 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static int	exec_builtin(t_node *tree, char **tab, char ***env, t_control **his)
 	int		status;
 	int		ret;
 
-	ret = check_in(g_term);
+	ret = check_in(g_term, 1);
 	inholder = ret == 1 || ret == 3 ? -1 : dup(0);
 	outholder = ret == 2 || ret == 3 ? -1 : dup(1);
 	prep_fd(tree);

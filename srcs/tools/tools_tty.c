@@ -6,13 +6,13 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/07 16:18:47 by amazurie          #+#    #+#             */
-/*   Updated: 2017/11/13 14:17:19 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/13 14:29:24 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-static int	test_tty(struct termios term)
+static int	test_tty(struct termios term, int i)
 {
 	char	tmp[6];
 	int		ret;
@@ -29,8 +29,8 @@ static int	test_tty(struct termios term)
 			ret = 1;
 		if (!tmp[0])
 			ret = 1;
-		save_buf(tmp);
-		can_sigint(1);
+		i == 0 ? save_buf(tmp) : 0;
+		i == 0 ? can_sigint(1) : 0;
 	}
 	if (!isatty(1))
 		if (read(1, tmp, 0) == -1)
@@ -38,15 +38,14 @@ static int	test_tty(struct termios term)
 	return (ret);
 }
 
-int			check_in(struct termios term)
+int			check_in(struct termios term, int i)
 {
 	int		ret;
 
 	ret = 0;
-	g_term = term;
 	term.c_lflag &= ~(ECHO | ICANON);
 	if (!save_buf(NULL))
-		ret = test_tty(term);
+		ret = test_tty(term, i);
 	term.c_cc[VMIN] = 1;
 	term.c_cc[VTIME] = 0;
 	tcsetattr(0, TCSADRAIN, &term);
