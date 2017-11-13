@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/05 13:48:15 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/02 13:22:43 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/13 14:56:00 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,6 @@ int					unset(char **tab, char ***env);
 **	export.c
 */
 int					export(char **tab, char ***env);
+int					error_export(char *name);
 
 #endif

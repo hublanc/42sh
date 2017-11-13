@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/05 16:40:44 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/05 23:02:33 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/13 14:54:11 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,15 @@ static int	do_export(char *name, char ***env)
 	i = -1;
 	while (name && (name[++i] == ' ' || name[i] == '='))
 		if (name[i] == '=')
-		{
-			ft_putstr_fd(name, 2);
-			ft_putstr_fd(" not a valid identifier\n", 2);
-			return (0);
-		}
-	if (!(tab = NULL) && ft_strchr(name, '=') &&
-			!(tab = ft_strsplit(name, '=')))
-		return (1);
+			return (error_export(name));
+	if (!(tab = NULL) && ft_strchr(name, '='))
+	{
+		if (!(tab = (char **)ft_memalloc(sizeof(char *) * 3)))
+			return (1);
+		tab[0] = ft_strndup(name, ft_strlen_chr(name, '='));
+		tab[1] = ft_strdup(name + ft_strlen_chr(name, '=') + 1);
+		tab[2] = NULL;
+	}
 	if (!(loc = (tab) ? get_loc(tab[0]) : get_loc(name))
 			&& (!tab || !tab[0]))
 	{
