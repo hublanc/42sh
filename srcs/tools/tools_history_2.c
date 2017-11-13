@@ -43,7 +43,7 @@ void		change_cmd(char *new, t_cmd *cmd)
 	go_begin(cmd->col, cmd->sc_col);
 	tputs(tgetstr("cd", NULL), 1, tputchar);
 	choose_prompt(cmd);
-	ft_putstr_fd(new, 2);
+	ft_putstr(new);
 	cmd->col = ft_strlen(new) + cmd->prlen + (cmd->prlen ? 1 : 0);
 	ft_strdel(&(cmd->str));
 	cmd->str = ft_strdup(new);
@@ -76,7 +76,10 @@ int			return_void(t_cmd *cmd, t_control **history, char ***env)
 	if (cmd->str)
 		enter_hub(cmd, history, env);
 	else if (!(is_sigint(0)))
+	{
+		ft_putstr("TEST");
 		print_prompt();
+	}
 	return (1);
 }
 

@@ -177,6 +177,7 @@ t_lst				*while_handler(char *buf, char **search,
 char				*return_handler(t_lst *tmp, char *buf, char **search);
 void				init_hist_search(char **search, t_lst **tmp);
 char				*return_sigint(char **to_del, char *to_save);
+char				*return_sigint_2(char **to_del, char *to_save);
 void				set_failing(char *search, struct winsize z, int mode);
 
 int					*singleton_len_prev(void);

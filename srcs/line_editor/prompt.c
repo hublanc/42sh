@@ -38,7 +38,7 @@ size_t		strlen_prompt(char *prompt)
 	size_t	size;
 	int		in_escape;
 
-	if (!ttyyyy(2))
+	if (!ttyyyy(3))
 		return (0);
 	i = 0;
 	in_escape = 0;
