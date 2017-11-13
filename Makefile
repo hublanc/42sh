@@ -6,7 +6,7 @@
 #    By: lbopp <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/05 18:23:34 by lbopp             #+#    #+#              #
-#    Updated: 2017/11/13 13:55:25 by hublanc          ###   ########.fr        #
+#    Updated: 2017/11/13 14:58:43 by lbopp            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -122,6 +122,7 @@ SRC		=	main.c\
 			built-in/cmd_loc.c\
 			built-in/unset.c\
 			built-in/export.c\
+			built-in/extra_export.c\
 			built-in/hash_builtin.c\
 			built-in/ft_exit.c\
 			prompt_statement/before_curr_after.c\
