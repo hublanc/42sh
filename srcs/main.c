@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/24 16:37:30 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/10 18:09:13 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/13 11:56:34 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int			main(int ac, char **av, char **env)
 	char		**cp_env;
 
 	cp_env = NULL;
-	if (ac != 1 || fcntl(0, F_GETFD) < 0 || fcntl(1, F_GETFD) < 0)
+	if (ac != 1)
 		return (-1);
 	(void)ac;
 	(void)av;

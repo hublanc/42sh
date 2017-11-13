@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/25 18:26:10 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/07 14:45:20 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/13 12:45:47 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static int	exec_builtin(t_node *tree, char **tab, char ***env, t_control **his)
 	int		inholder;
 	int		status;
 
-	inholder = fcntl(0, F_GETFD) < 0 ? -1 : dup(0);
+	inholder = dup(0);
 	outholder = fcntl(1, F_GETFD) < 0 ? -1 : dup(1);
 	prep_fd(tree);
 	status = do_built_in(tab, env, his);

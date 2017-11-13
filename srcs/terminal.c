@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 11:40:20 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/05 13:48:32 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/13 13:47:06 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,11 +94,7 @@ void		set_terminal(void)
 		exit(EXIT_FAILURE);
 	}
 	tcgetattr(0, &term);
-	g_term = term;
-	term.c_lflag &= ~(ECHO | ICANON);
-	term.c_cc[VMIN] = 1;
-	term.c_cc[VTIME] = 0;
-	tcsetattr(0, TCSADRAIN, &term);
+	check_in(term);
 }
 
 void		reset_term(void)
