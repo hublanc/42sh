@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/31 12:52:57 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/14 11:49:12 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/14 12:51:35 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,9 @@ static void	handle_key2(t_cmd *cmd, t_control **history, char ***env, char *buf)
 	{
 		buf[1] ? save_buf(buf + 1) : 0;
 		buf[1] ? can_sigint(1) : 0;
-		ttyyyy(0) && cmd->col - (cmd->prlen ? 1 : 0) - cmd->prlen < cmd->col
-			? ft_putstr(cmd->str + cmd->col -
-				(cmd->prlen ? 1 : 0) - cmd->prlen) : 0;
+		if (ttyyyy(0) && cmd->col - (cmd->prlen ? 1 : 0)
+				- cmd->prlen < cmd->col)
+			ft_putstr(cmd->str + cmd->col - (cmd->prlen ? 1 : 0) - cmd->prlen);
 		enter_hub(cmd, history, env);
 	}
 	else if ((buf[0] == -30 || buf[0] == -61) && ttyyyy(0))
@@ -73,8 +73,7 @@ static void	handle_key2(t_cmd *cmd, t_control **history, char ***env, char *buf)
 		ttyyyy(0) ? tputs(tgetstr("cd", NULL), 1, tputchar) : 0;
 		ft_strdel(&cmd->str);
 		cmd->col = cmd->prlen + 1;
-		if (return_void(cmd, history, env))
-			return ;
+		return_void(cmd, history, env);
 	}
 	else
 		add_line(cmd, buf);

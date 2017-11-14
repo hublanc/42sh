@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/07 16:18:47 by amazurie          #+#    #+#             */
-/*   Updated: 2017/11/14 12:37:39 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/14 12:57:26 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ static int	test_tty(struct termios term, int i)
 
 int			check_in(struct termios term, int i)
 {
-	struct termios term2;
-	int		ret;
+	struct termios	term2;
+	int				ret;
 
 	term2 = term;
 	ret = 0;
