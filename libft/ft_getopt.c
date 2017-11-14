@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 09:59:44 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/14 13:14:04 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/14 13:23:43 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int		treatment_opt(const char *av[], int *i, const char *optstring, int *end)
 			write(1, av[0], ft_strlen(av[0]));
 			write(1, ": illegal option -- ", 20);
 			write(1, &(av[g_optind][*i]), 1);
+			write(1, "\n", 1);
 		}
 		*i += 1;
 		g_optopt = av[g_optind][*i - 1];
