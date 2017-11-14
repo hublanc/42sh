@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/16 14:42:39 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/05 17:18:19 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/14 13:12:57 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,17 @@ int		get_read_opt(char **cmd)
 	int	ret;
 	int	opt;
 
-	opt = 0;
+	opt = -1;
 	size = 0;
 	while (cmd[size])
 		size++;
 	size++;
 	while ((ret = ft_getopt(size, (const char**)cmd, "r")) != -1)
+	{
 		opt = ret;
+		if (opt == '?')
+			return (0);
+	}
 	return (opt);
 }
 

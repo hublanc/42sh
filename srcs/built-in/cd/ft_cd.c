@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 12:02:15 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/01 15:11:54 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/14 13:07:12 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	check_cdopt(char **path, char *opt)
 	{
 		*opt = ret;
 		if (*opt == '?')
-			g_optind = -1;
+			return ;
 	}
 }
 
@@ -89,7 +89,7 @@ int			ft_cd(char **tab, char ***env)
 
 	opt = 'L';
 	check_cdopt(tab, &opt);
-	if (g_optind == -1)
+	if (g_optind == -1 || (opt != 'L' && opt != 'P'))
 		return (1);
 	if (!tab[g_optind])
 		return (cd_home(env, opt));
