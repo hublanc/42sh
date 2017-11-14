@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/11 21:20:29 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/07 16:52:06 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/14 12:58:48 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,9 @@ void		get_signal(int n)
 	if (n == SIGINT)
 	{
 		cmd = save_cmd(NULL);
-		(cmd && cmd->str && cmd->str + cmd->col - 1 - cmd->prlen)
-			? ft_putstr(cmd->str + cmd->col - (cmd->prlen ? 1 : 0)
-					- cmd->prlen) : 0;
+		if (cmd && cmd->str && cmd->str + cmd->col - 1 - cmd->prlen)
+			ft_putstr(cmd->str + cmd->col - (cmd->prlen ? 1 : 0)
+					- cmd->prlen);
 		ft_putchar('\n');
 		tputs(tgetstr("cd", NULL), 1, tputchar);
 		!ttyyyy(0) ? ft_putchar_fd('\n', 2) : 0;
