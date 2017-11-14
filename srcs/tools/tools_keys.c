@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 14:47:27 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/13 15:23:38 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/14 11:47:52 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void		go_left(t_cmd *cmd)
 
 	if (!ttyyyy(0))
 	{
-		cmd->col--;
+		cmd->col > 1 ? cmd->col-- : 0;
 		return ;
 	}
 	col = cmd->sc_col;
@@ -59,7 +59,7 @@ void		go_left(t_cmd *cmd)
 	}
 	else
 		tputs(tgetstr("le", NULL), 1, tputchar);
-	cmd->col--;
+	cmd->col > 1 ? cmd->col-- : 0;
 }
 
 void		seek_lword(t_cmd *cmd)

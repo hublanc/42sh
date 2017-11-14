@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 17:36:47 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/13 16:55:42 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/14 11:22:20 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,13 @@ void		print_line(t_cmd *cmd)
 	if (!ttyyyy(0))
 		return ;
 	len = cmd->prlen + (int)ft_strlen(cmd->str);
-	if (!len)
-		return ;
-	len += len % cmd->sc_col == 0 ? 0 : 1;
+	if (cmd->sc_col)
+		len += len % cmd->sc_col == 0 ? 0 : 1;
 	go_begin(cmd->col, cmd->sc_col);
 	pass_prompt(cmd);
 	tputs(tgetstr("cd", NULL), 1, tputchar);
+	if (!len)
+		return ;
 	ft_putstr(cmd->str);
 	if (len > cmd->col)
 		while (len-- != cmd->col)

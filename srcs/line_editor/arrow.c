@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 19:28:26 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/13 15:24:58 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/14 11:45:32 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,12 @@ void		arrow_handler(char *str, t_cmd *cmd, t_control **hist)
 	else if (str[2] == 67 && cmd && cmd->col
 			< (int)ft_strlen(cmd->str) + cmd->prlen + (cmd->prlen ? 1 : 0))
 		go_right(cmd);
-	else if (ttyyyy(0) && str[2] == 65)
+	else if (ttyyyy(0) && ttyyyy(3) && str[2] == 65)
 		seek_next(hist, cmd);
-	else if (ttyyyy(0) && str[2] == 66)
+	else if (ttyyyy(0) && ttyyyy(3) && str[2] == 66)
 		seek_prev(hist, cmd);
-	else if ((cmd && (size_t)cmd->col - cmd->prlen - (cmd->prlen ? 1 : 0)
-		< ft_strlen(cmd->str)) && ((str[1] == 91 && str[2] == 51
-			&& str[3] == 126) || str[0] == 4))
+	else if (((str[1] == 91 && str[2] == 51 && str[3] == 126) || str[0] == 4)
+		&& cmd && (size_t)cmd->col - cmd->prlen <= ft_strlen(cmd->str))
 	{
 		cmd->str = ft_strdelone(cmd->str, cmd->col - cmd->prlen);
 		print_line(cmd);

@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/31 12:52:57 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/14 10:24:05 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/14 11:49:12 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,9 @@ static void	handle_key(t_cmd *cmd, t_control **history, char ***env, char *buf)
 {
 	if (buf[0] == 27 || (buf[0] == 4 && cmd->str && cmd->str[0]))
 		arrow_handler(buf, cmd, history);
-	else if (buf[0] == 127 && cmd->col > cmd->prlen + 1)
+	else if (buf[0] == 127 && cmd->col > cmd->prlen + (cmd->prlen ? 1 : 0))
 	{
-		cmd->str = ft_strdelone(cmd->str, (cmd->col - 1) - cmd->prlen);
+		cmd->str = ft_strdelone(cmd->str, cmd->col - 1 - cmd->prlen);
 		print_line(cmd);
 		go_left(cmd);
 	}
