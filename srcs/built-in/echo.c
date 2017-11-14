@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 12:58:47 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/13 14:30:03 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/14 13:04:20 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,11 +116,6 @@ int			ft_echo(char **tab)
 
 	i = 1;
 	nl = 1;
-	if (check_in(g_term, 1) > 1)
-	{
-		ft_putstr_fd("echo: write error: Bad file descriptor\n", 2);
-		return (1);
-	}
 	if (len_array(tab) > 1)
 	{
 		nl = !ft_strcmp("-n", tab[1]) ? 0 : 1;
