@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 11:20:13 by lbopp             #+#    #+#             */
-/*   Updated: 2016/11/14 12:26:44 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/14 16:18:20 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ char	*ft_strsub(char const *s, unsigned int start, size_t len)
 	char	*str1;
 	size_t	i;
 
+	if (!s || !*s || !*(s + start))
+		return (NULL);
 	str1 = (char*)s;
 	i = 0;
 	if (!s)
