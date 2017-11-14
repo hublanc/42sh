@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/02 14:08:53 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/02 14:03:52 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/14 10:58:11 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	put_in_var(char **cmd, char **split, int *i)
 	}
 }
 
-static int	read_put_in_var(char **cmd, char *readding)
+static int	read_put_in_var(char **cmd, char *readding, int default_mod)
 {
 	char	**split;
 	char	*tmp;
@@ -53,14 +53,14 @@ static int	read_put_in_var(char **cmd, char *readding)
 		return (0);
 	tmp = ft_strnew(0);
 	ft_putchar('\n');
-	put_in_var(cmd, split, &i);
+	cmd[g_optind] ? put_in_var(cmd, split, &i) : 0;
 	while (split[i])
 	{
 		tmp = ft_strapp(tmp, split[i]);
 		tmp = (split[i + 1]) ? ft_strapp(tmp, " ") : tmp;
 		i++;
 	}
-	add_loc(cmd[g_optind], tmp);
+	!default_mod ? add_loc(cmd[g_optind], tmp) : add_loc(cmd[0], tmp);
 	ft_strdel(&tmp);
 	del_tabstr(&split);
 	return (0);
@@ -88,6 +88,7 @@ int			ft_read(char **cmd)
 	default_read = 0;
 	readding = NULL;
 	g_optind = 0;
+	error = 0;
 	opt = get_read_opt(cmd);
 	if (cmd && !cmd[g_optind])
 	{
@@ -97,11 +98,9 @@ int			ft_read(char **cmd)
 	if (opt != 0 && opt != 'r')
 		return (2);
 	readding = (opt == 'r') ? read_r_opt() : read_without_opt();
-	error = read_put_in_var(cmd, readding);
+	error = read_put_in_var(cmd, readding, default_read);
 	if (default_read)
 		del_tabstr(&cmd);
 	ft_strdel(&readding);
-	if (error)
-		return (error);
-	return (0);
+	return (error);
 }
