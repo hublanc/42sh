@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/02 14:08:53 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/14 10:58:11 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/14 13:13:47 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,13 +90,13 @@ int			ft_read(char **cmd)
 	g_optind = 0;
 	error = 0;
 	opt = get_read_opt(cmd);
+	if (opt != -1 && opt != 'r')
+		return (2);
 	if (cmd && !cmd[g_optind])
 	{
 		default_read = 1;
 		cmd = default_mod();
 	}
-	if (opt != 0 && opt != 'r')
-		return (2);
 	readding = (opt == 'r') ? read_r_opt() : read_without_opt();
 	error = read_put_in_var(cmd, readding, default_read);
 	if (default_read)
