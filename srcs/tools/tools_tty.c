@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/07 16:18:47 by amazurie          #+#    #+#             */
-/*   Updated: 2017/11/13 14:29:24 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/14 12:37:39 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,14 @@ static int	test_tty(struct termios term, int i)
 
 int			check_in(struct termios term, int i)
 {
+	struct termios term2;
 	int		ret;
 
+	term2 = term;
 	ret = 0;
-	term.c_lflag &= ~(ECHO | ICANON);
+	i == 0 ? term.c_lflag &= ~(ECHO | ICANON) : 0;
 	if (!save_buf(NULL))
-		ret = test_tty(term, i);
-	term.c_cc[VMIN] = 1;
-	term.c_cc[VTIME] = 0;
+		ret = test_tty(term2, i);
 	tcsetattr(0, TCSADRAIN, &term);
 	return (ret);
 }
