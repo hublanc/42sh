@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/17 11:10:52 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/14 13:25:39 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/14 14:58:16 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,11 +114,11 @@ void		routine(char *cmd, char ***env, t_control **history)
 	tree = create_tree(list);
 	if (tree == NULL)
 		return ;
-	load_path(*env);
+	load_path(env);
 	reset_term();
 	exec_tree(tree, env, history, stop);
 	set_terminal();
-	is_modif(*env);
+	is_modif(env);
 	del_token(&list);
 	destroy_tree(tree);
 }

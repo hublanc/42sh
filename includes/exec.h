@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 17:27:30 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/13 13:41:27 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/14 14:48:38 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,8 +153,8 @@ t_hash				**singleton_hash(void);
 **	Is_modif.c
 */
 char				**singleton_path(char *path);
-void				load_path(char **env);
-void				is_modif(char **env);
+void				load_path(char ***env);
+void				is_modif(char ***env);
 void				del_spath(void);
 
 #endif

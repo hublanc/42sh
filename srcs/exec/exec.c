@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/26 16:13:08 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/13 13:41:05 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/14 14:53:56 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,10 @@ void		get_cmd(t_node *tree, char ***env, int *status, t_control **his)
 	else
 	{
 		g_is_child = 1;
-		*status = check_cmd(tab, *env, tree);
+		if (!env)
+			*status = check_cmd(tab, NULL, tree);
+		else
+			*status = check_cmd(tab, *env, tree);
 		g_is_child = 0;
 	}
 	del_tabstr(&tab);

@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/09 09:59:44 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/14 13:23:43 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/14 14:38:28 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,6 @@ void	reset(int *i)
 	g_optind++;
 	*i = 1;
 }
-
-#include <stdio.h>
 
 int		ft_getopt(int ac, const char *av[], const char *optstring)
 {

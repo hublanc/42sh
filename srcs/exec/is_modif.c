@@ -6,7 +6,7 @@
 /*   By: hublanc <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 15:27:58 by hublanc           #+#    #+#             */
-/*   Updated: 2017/11/09 15:46:52 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/14 14:49:11 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,17 @@ char		**singleton_path(char *path)
 	}
 }
 
-void		load_path(char **env)
+void		load_path(char ***env)
 {
 	int		pos;
 
 	if (!env || !*env)
 		return ;
-	if ((pos = in_env("PATH", env)) != -1)
-		singleton_path(env[pos]);
+	if ((pos = in_env("PATH", *env)) != -1)
+		singleton_path((*env)[pos]);
 }
 
-void		is_modif(char **env)
+void		is_modif(char ***env)
 {
 	t_hash	**hash;
 	char	**path;
@@ -47,9 +47,9 @@ void		is_modif(char **env)
 		return ;
 	path = singleton_path(NULL);
 	hash = singleton_hash();
-	if (path && *path && (pos = in_env("PATH", env)) != -1)
+	if (path && *path && (pos = in_env("PATH", *env)) != -1)
 	{
-		if (ft_strcmp(env[pos], *path))
+		if (ft_strcmp((*env)[pos], *path))
 			del_hash(hash);
 	}
 	else

@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 16:36:09 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/13 18:42:57 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/14 14:38:04 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,7 +171,8 @@ t_lst				*history_search_2(t_control **history, char *search);
 t_lst				*while_handler(char *buf, char **search,
 					t_control **history, t_lst *tmp);
 t_lst				*move_in_hist(t_lst *pos, char *buf, t_control **history);
-void				set_search_prompt(char *search, t_lst *tmp, int type, int mode);
+void				set_search_prompt(char *search, t_lst *tmp,
+					int type, int mode);
 t_lst				*while_handler(char *buf, char **search,
 					t_control **history, t_lst *tmp);
 char				*return_handler(t_lst *tmp, char *buf, char **search);
