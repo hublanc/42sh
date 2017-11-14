@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/04 12:52:22 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/05 12:51:31 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/14 15:59:16 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,8 @@ static char			*cmdsub(char *str, int *i, int k, int len)
 		return (NULL);
 	ft_strncat(new, str + (*i - k), k);
 	if (k)
-		j = ft_strlen(new) - (*i - k != 0 ? 1 : 0);
+		if ((j = ft_strlen(new) - (*i - k != 0 ? 1 : 0)) < 0)
+			return (0);
 	while (str[*i] && str[*i] != ' ' && j < len + k)
 	{
 		if (str[*i] == '\'' || str[*i] == '"')
@@ -104,7 +105,10 @@ static char			*cmdsub(char *str, int *i, int k, int len)
 			new[j++] = str[*i];
 		str[*i] ? ++*i : 0;
 	}
-	new[j] = '\0';
+	if (j > len + k)
+		new[ft_strlen(new) - 1] = 0;
+	else
+		new[j] = 0;
 	return (new);
 }
 
