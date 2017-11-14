@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 21:11:19 by mameyer           #+#    #+#             */
-/*   Updated: 2017/11/13 16:26:03 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/14 13:28:58 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void		set_search_prompt(char *search, t_lst *tmp, int type, int mode)
 		go_begin((ft_strlen(search) + 22 + return_lenprev()), z.ws_col);
 		ttyyyy(0) ? tputs(tgetstr("cd", NULL), 1, tputchar) : 0;
 		ttyyyy(0) ? ft_putstr("(reverse-i-search)`': ") : 0;
+		set_lenprev(0);
 		return ;
 	}
 	set_search_prompt_2(search, tmp, z, mode);
