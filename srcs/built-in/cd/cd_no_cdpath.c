@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/30 16:56:50 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/12 14:07:55 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/15 16:18:58 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,13 @@ char		*treat_without_cdpath(char *arg, char ***env)
 	if (!(pwd = get_elem(env, "PWD=")))
 		if (get_loc("PWD"))
 			pwd = get_loc("PWD")->value;
-	curpath = ft_strdup(pwd);
+	if (!pwd)
+	{
+		curpath = ft_strnew(PATH_MAX);
+		getcwd(curpath, PATH_MAX + 1);
+	}
+	else
+		curpath = ft_strdup(pwd);
 	add_slash(&curpath);
 	curpath = ft_strapp(curpath, arg);
 	return (curpath);
@@ -35,7 +41,13 @@ static int	exec_cd_default(char *curpath, char ***env, char *arg)
 		if (!(pwd = get_elem(env, "PWD=")))
 			if (get_loc("PWD"))
 				pwd = get_loc("PWD")->value;
-		pwd = ft_strdup(pwd);
+		if (!pwd)
+		{
+			pwd = ft_strnew(PATH_MAX + 1);
+			getcwd(pwd, PATH_MAX);
+		}
+		else
+			pwd = ft_strdup(pwd);
 		add_slash(&pwd);
 		pwd = ft_strapp(pwd, curpath);
 		check_dotdot(&pwd);
