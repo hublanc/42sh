@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/04 21:16:26 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/09 16:49:21 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/15 16:35:25 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,23 @@ int		get_other_flags(char **tab, int i, int j, t_hist_flags *flags)
 		|| (tab[i][j] && tab[i][j] == '-' && tab[i][j + 1]
 			&& tab[i][j + 1] == '-'))
 		ft_putendl("shell: history: -: numeric argument required");
+	return (1);
+}
+
+int		check_too_much(t_hist_flags *flags)
+{
+	int		i;
+
+	i = 0;
+	if (flags->a == 1)
+		i++;
+	if (flags->n == 1)
+		i++;
+	if (flags->r == 1)
+		i++;
+	if (flags->w == 1)
+		i++;
+	if (i > 1)
+		return (0);
 	return (1);
 }

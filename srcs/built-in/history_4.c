@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/21 22:22:29 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/06 02:25:50 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/15 16:37:53 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,13 +71,8 @@ int			get_cd_flags_2(t_hist_flags *flags, char c)
 			&& c != 'w' && c != 'p' && c != 's' && c != '-')
 		return (set_usage(c, 0));
 	j = 0;
-	while (++i < 7)
-	{
-		if (c == 'a' || c == 'n' || c == 'r' || c == 'w')
-			j++;
-		if (j > 1)
-			return (error_muchflags());
-	}
+	if (!(check_too_much(flags)))
+		return (error_muchflags());
 	return (1);
 }
 

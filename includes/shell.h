@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 11:50:54 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/13 16:13:08 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/15 16:36:48 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ int					ft_history_2(char **tab, t_control **history, char *file,
 					t_hist_flags flags);
 int					ft_history_3(char **tab, t_control **history, char *file,
 					t_hist_flags flags);
+int					check_too_much(t_hist_flags *flags);
 char				*get_history_file(char ***env);
 void				get_hisfile(char **env, char **file);
 int					ft_cd(char **path, char ***env);
