@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 12:02:15 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/15 16:00:43 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/11/15 16:40:21 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 void		add_slash(char **content)
 {
-	if ((*content)[ft_strlen(*content) - 1] != '/')
+	if (content && *content
+			&& (*content)[ft_strlen(*content) - 1] != '/')
 		*content = ft_strapp(*content, "/");
 }
 
