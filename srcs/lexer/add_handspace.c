@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 12:18:48 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/16 10:29:32 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/16 13:24:36 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char		*add_handspace(const char *name)
 	return (s);
 }
 
-char	*test_cansubsti(char **name)
+char		*test_cansubsti(char **name)
 {
 	t_loc	*loc;
 	char	***env;
