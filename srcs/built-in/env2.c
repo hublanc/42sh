@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/19 21:47:59 by lbopp             #+#    #+#             */
-/*   Updated: 2017/10/25 12:26:10 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/16 13:01:13 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,14 +73,37 @@ static void	ft_envexec(char *cmd, char **args, char **env)
 	exit(EXIT_SUCCESS);
 }
 
+static char	**path_isnull(char **env)
+{
+	char	**tab;
+
+	tab = NULL;
+	if (in_env("PATH", env) != -1)
+		return (NULL);
+	if (!(tab = (char**)ft_memalloc(sizeof(char*) * 2)))
+		return (NULL);
+	tab[0] = get_path_str();
+	tab[1] = NULL;
+	return (tab);
+}
+
 int			check_envcmd(char **tab, char **env, char **originenv)
 {
 	pid_t		son;
 	int			status;
 	char		*cmd;
+	char		**envcpy;
+	t_hash		**s_hash;
 
 	cmd = NULL;
-	status = check_binary(tab, originenv, &cmd);
+	(void)originenv;
+	s_hash = singleton_hash();
+	del_hash(s_hash);
+	if (!(envcpy = path_isnull(env)))
+		status = check_binary(tab, env, &cmd);
+	else
+		status = check_binary(tab, envcpy, &cmd);
+	del_tabstr(&envcpy);
 	if (status == 126 || status == 127)
 		return (status);
 	son = fork();
