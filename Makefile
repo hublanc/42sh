@@ -6,11 +6,11 @@
 #    By: lbopp <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/05 18:23:34 by lbopp             #+#    #+#              #
-#    Updated: 2017/11/13 14:58:43 by lbopp            ###   ########.fr        #
+#    Updated: 2017/11/16 10:28:10 by hublanc          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	= 21sh
+NAME	= 42sh
 CC		= gcc
 FLAGS	= -Wall -Wextra -Werror -g #-fsanitize=address
 DFLAGS	= -MMD
