@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 14:39:50 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/12 14:03:40 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/16 13:08:12 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ char			*check_file(char *file, t_node *tree)
 	char	link[256];
 	int		error;
 
-	if (ft_strlen(file) > 255)
+	if (file && ft_strlen(file) > 255)
 	{
 		abort_redir(tree);
 		error_redir(file, "File name too long");
