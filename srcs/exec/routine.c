@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/17 11:10:52 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/14 14:58:16 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/16 13:22:42 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ static void	check_status(int status)
 		ft_putstr_fd("Program has encounter a problem: ", 2);
 		get_signal(status);
 	}
+	else if (status == 2)
+		ft_putchar('\n');
 }
 
 static void	exec_cmd(t_node *tree, char ***env, t_control **hist, int ghost)

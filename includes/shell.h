@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 11:50:54 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/16 10:15:12 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/16 13:12:52 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ struct termios		g_term;
 /*
 **	Built-in
 */
-int					ft_echo(char **tab);
+int					ft_echo(char **tab, t_node *tree);
 int					in_env(char *str, char **env);
 int					ft_setenv(char **tab, char ***env);
 int					ft_unsetenv(char **tab, char ***env);

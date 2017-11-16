@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 12:58:47 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/16 10:53:15 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/16 13:15:34 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,13 +106,18 @@ static int	treat_str(char **tab, int i)
 	return (0);
 }
 
-int			ft_echo(char **tab)
+int			ft_echo(char **tab, t_node *tree)
 {
 	int		i;
 	int		nl;
 
 	i = 1;
 	nl = 1;
+	if (fcntl(tree->out, F_GETFD) < 0)
+	{
+		ft_putstr_fd("echo: write error: Bad file descriptor\n", 2);
+		return (1);
+	}
 	if (len_array(tab) > 1)
 	{
 		nl = !ft_strcmp("-n", tab[1]) ? 0 : 1;

@@ -6,13 +6,13 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/25 18:26:10 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/13 14:29:15 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/16 13:13:06 by hublanc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-static int	do_built_in(char **tab, char ***env, t_control **his)
+static int	do_built_in(char **tab, char ***env, t_control **his, t_node *tree)
 {
 	int		status;
 
@@ -20,7 +20,7 @@ static int	do_built_in(char **tab, char ***env, t_control **his)
 	if (ft_strcmp(tab[0], "exit") == 0)
 		status = stop_shell(env, tab, his);
 	else if (ft_strcmp(tab[0], "echo") == 0)
-		status = ft_echo(tab);
+		status = ft_echo(tab, tree);
 	else if (ft_strcmp(tab[0], "setenv") == 0)
 		status = ft_setenv(tab, env);
 	else if (ft_strcmp(tab[0], "unsetenv") == 0)
@@ -52,7 +52,7 @@ static int	exec_builtin_pipe(t_node *tree, char **tab,
 		prep_fd(tree);
 		if (!ft_strcmp(tab[0], "exit"))
 			exit(0);
-		do_built_in(tab, env, his);
+		do_built_in(tab, env, his, tree);
 		exit(0);
 	}
 	fetch_pid(son);
@@ -70,7 +70,7 @@ static int	exec_builtin(t_node *tree, char **tab, char ***env, t_control **his)
 	inholder = ret == 1 || ret == 3 ? -1 : dup(0);
 	outholder = ret == 2 || ret == 3 ? -1 : dup(1);
 	prep_fd(tree);
-	status = do_built_in(tab, env, his);
+	status = do_built_in(tab, env, his, tree);
 	if (outholder != -1)
 		dup2(outholder, 1);
 	if (inholder != -1)
