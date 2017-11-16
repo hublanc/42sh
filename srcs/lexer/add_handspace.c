@@ -32,3 +32,23 @@ char		*add_handspace(const char *name)
 			saddchr(&s, '\\', i++);
 	return (s);
 }
+
+char	*test_cansubsti(char **name)
+{
+	t_loc	*loc;
+	char	***env;
+	char	*tmp;
+	char	*tmp3;
+
+	tmp3 = ft_strjoin(*name, "=");
+	env = save_env(NULL);
+	if (*name && (*name)[0] && (((tmp = get_elem(env, tmp3))
+			&& *(++tmp)) || ((loc = get_loc(*name))
+			&& (tmp = loc->value))))
+	{	
+		free(tmp3);
+		return (tmp);
+	}
+	free(tmp3);
+	return (NULL);
+}

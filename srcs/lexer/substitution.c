@@ -14,15 +14,10 @@
 
 static int	do_substitue(char **cmmd, int i, int j, char **tmp2)
 {
-	t_loc	*loc;
-	char	***env;
 	char	*tmp;
 	char	*tmp3;
 
-	env = save_env(NULL);
-	if (*tmp2 && (*tmp2)[0] && (((tmp = get_elem(env, *tmp2)) && *(++tmp))
-		|| ((loc = get_loc(*tmp2))
-		&& (tmp = loc->value))))
+	if ((tmp = test_cansubsti(tmp2)))
 	{
 		ft_strdel(tmp2);
 		*tmp2 = ft_strndup(*cmmd, i);

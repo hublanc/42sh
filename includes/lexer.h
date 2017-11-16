@@ -60,5 +60,6 @@ t_token		*abort_lexer(t_token *list, char **cmd, char *error);
 */
 int			substitution(char **cmmd, int is_redir);
 char		*add_handspace(const char *name);
+char		*test_cansubsti(char **name);
 
 #endif
