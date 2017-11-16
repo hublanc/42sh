@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/30 16:52:05 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/15 16:23:22 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/16 10:21:23 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,7 @@ static int	exec_cd_default_cdpath(char **curpath, char ***env, char *arg)
 		if (!(pwd = get_elem(env, "PWD=")))
 			if (get_loc("PWD"))
 				pwd = get_loc("PWD")->value;
-		pwd = ft_strdup(pwd);
-		add_slash(&pwd);
-		pwd = ft_strapp(pwd, *curpath);
-		check_dotdot(&pwd);
+		check_pwd(&pwd, *curpath);
 	}
 	else
 		pwd = ft_strdup(*curpath);
