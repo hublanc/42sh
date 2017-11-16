@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lbopp <marvin@42.fr>                       +#+  +:+       +#+         #
+#    By: amazurie <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/05 18:23:34 by lbopp             #+#    #+#              #
-#    Updated: 2017/11/16 10:14:29 by lbopp            ###   ########.fr        #
+#    Updated: 2017/11/16 10:37:21 by lbopp            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	= 21sh
+NAME	= 42sh
 CC		= gcc
-FLAGS	= -Wall -Wextra -Werror -g #-fsanitize=address
+FLAGS	= -Wall -Wextra -Werror
 DFLAGS	= -MMD
 LIB		= libft/libft.a
 HEADER	= includes/

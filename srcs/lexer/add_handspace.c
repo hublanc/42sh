@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 12:18:48 by lbopp             #+#    #+#             */
-/*   Updated: 2017/10/31 17:06:07 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/16 10:29:32 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,10 @@ char	*test_cansubsti(char **name)
 
 	tmp3 = ft_strjoin(*name, "=");
 	env = save_env(NULL);
-	if (*name && (*name)[0] && (((tmp = get_elem(env, tmp3))
-			&& *(++tmp)) || ((loc = get_loc(*name))
+	if (*name && (*name)[0] && ((tmp = get_elem(env, tmp3))
+			|| ((loc = get_loc(*name))
 			&& (tmp = loc->value))))
-	{	
+	{
 		free(tmp3);
 		return (tmp);
 	}
