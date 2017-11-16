@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/10 11:55:10 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/01 10:03:23 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/16 10:19:31 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void		prompt_path(char **line, int *i, int mode)
 
 	path = get_pwd_prompt();
 	clear_last_slash(&path);
-	if (mode == 2)
+	if (mode == 2 && path)
 		final_path = ft_strrchr(path, '/');
 	else
 		final_path = ft_strdup(path);
