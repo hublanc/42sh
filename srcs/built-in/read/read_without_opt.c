@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/16 14:38:52 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/01 15:15:55 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/16 10:44:50 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int	treatment_read_key(char buf[6], int *backslash, char **readding)
 	}
 	else if (buf[0] == 127 && !buf[1])
 	{
-		if (*readding)
+		if (readding && *readding)
 		{
 			tputs(tgetstr("le", NULL), 1, &tputchar);
 			tputs(tgetstr("cd", NULL), 1, &tputchar);
