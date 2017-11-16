@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/30 16:43:04 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/15 16:17:25 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/16 10:21:32 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,7 @@ static void	change_home_env_l(char ***env)
 	{
 		if (!(pwd = get_elem(env, "PWD=")) && get_loc("PWD"))
 			pwd = get_loc("PWD")->value;
-		if (!pwd)
-		{
-			pwd = ft_strnew(PATH_MAX + 1);
-			getcwd(pwd, PATH_MAX);
-		}
-		else
-			pwd = ft_strdup(pwd);
-		if (pwd && pwd[0])
-			add_slash(&pwd);
-		pwd = ft_strapp(pwd, home);
+		check_pwd(&pwd, home);
 	}
 	check_dotdot(&pwd);
 	change_env(env, pwd);

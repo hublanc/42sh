@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 12:58:47 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/14 13:04:20 by hublanc          ###   ########.fr       */
+/*   Updated: 2017/11/16 10:53:15 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,7 @@ static void	treat_str3(char **tab, int i, int *j)
 		*j += 1;
 	}
 	else if (tab[i][*j] == '\\' && tab[i][*j + 1] && tab[i][*j + 1] == '\\')
-	{
 		ft_putchar('\\');
-		*j += 1;
-	}
 	else if (tab[i][*j] == '\\' && tab[i][*j + 1] && tab[i][*j + 1] == '0')
 		treat_octal(tab, i, j);
 	else

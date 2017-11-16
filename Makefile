@@ -6,7 +6,7 @@
 #    By: amazurie <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/05 18:23:34 by lbopp             #+#    #+#              #
-#    Updated: 2017/11/16 10:31:25 by hublanc          ###   ########.fr        #
+#    Updated: 2017/11/16 10:37:21 by lbopp            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -107,6 +107,7 @@ SRC		=	main.c\
 			built-in/cd/check_dotdot.c\
 			built-in/cd/error_chdir.c\
 			built-in/cd/ft_cd.c\
+			built-in/cd/check_pwd.c\
 			built-in/set_env.c\
 			built-in/unsetenv.c\
 			built-in/history.c\

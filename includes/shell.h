@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 11:50:54 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/15 16:36:48 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/11/16 10:15:12 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,5 +152,6 @@ int					error_chdir(char **pwd, char *arg, int free_pwd);
 int					ft_cd(char **path, char ***env);
 char				*treat_cd_path(char *cdpath, char *arg);
 char				*treat_without_cdpath(char *arg, char ***env);
+void				check_pwd(char **pwd, char *to_append);
 
 #endif

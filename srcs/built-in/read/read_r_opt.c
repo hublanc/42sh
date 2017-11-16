@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/16 14:34:59 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/01 15:15:15 by lbopp            ###   ########.fr       */
+/*   Updated: 2017/11/16 10:44:19 by lbopp            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char		*read_r_opt(void)
 		}
 		else if (buf[0] == 10 || buf[0] == 4)
 			break ;
-		else
+		else if (readding)
 			read_r_opt2(&readding, buf);
 	}
 	reset_term();
