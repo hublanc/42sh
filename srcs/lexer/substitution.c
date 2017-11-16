@@ -6,7 +6,7 @@
 /*   By: lbopp <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/10 15:49:56 by lbopp             #+#    #+#             */
-/*   Updated: 2017/11/16 10:28:31 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/11/16 10:45:13 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static int	quote_substitution(char **cmmd, int *i, int *j, int is_redir)
 		if ((*cmmd)[*i] == '$')
 			while ((*cmmd)[*j] && (*cmmd)[*j] != 32 && (*cmmd)[*j] != 9
 			&& (*cmmd)[*j] != '\n' && (*cmmd)[*j] != '"'
-			&& (*cmmd)[*j] != '$' && (*cmmd)[*j] != '\\')
+			&& (*cmmd)[*j] != '$' && (*cmmd)[*j] != '\\' && (*cmmd)[*j] != '.')
 				(*j)++;
 		if (*j > *i + 1)
 			if (substitute(cmmd, *i, *j, is_redir) == -1)
@@ -83,7 +83,7 @@ static void	substitution2(char *cmmd, int i, int *j)
 		while (cmmd[*j] && cmmd[*j] != 32 && cmmd[*j] != 9
 			&& cmmd[*j] != '\n' && cmmd[*j] != '"'
 			&& cmmd[*j] != '$' && cmmd[*j] != '\\' && cmmd[*j] != '/'
-			&& cmmd[*j] != ':' && cmmd[*j] != '@')
+			&& cmmd[*j] != ':' && cmmd[*j] != '@' && cmmd[*j] != '.')
 			*j += 1;
 }
 
